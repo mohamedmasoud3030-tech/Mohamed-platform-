@@ -88,3 +88,7 @@ export async function createSignedProjectMediaUpload(mimeType: string, size: num
     token: payload.token,
   };
 }
+
+export async function storeProjectMedia(_file: Express.Multer.File): Promise<never> {
+  throw new ProjectMediaStorageError("Proxied media uploads are disabled. Use direct upload authorization.", 410);
+}
