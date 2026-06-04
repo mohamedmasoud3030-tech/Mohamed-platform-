@@ -1,17 +1,8 @@
-import { createHash, randomUUID } from "crypto";
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
-
-export type StoredProjectMedia = {
-  objectPath: string;
-  filename: string;
-  storage: "supabase" | "local";
-};
+import { randomUUID } from "crypto";
 
 export const PROJECT_MEDIA_MAX_BYTES = 100 * 1024 * 1024;
-export const PROJECT_MEDIA_BUCKET = process.env.LENA_PROJECT_MEDIA_BUCKET || "lena-project-media";
+export const PROJECT_MEDIA_BUCKET = "lena-project-media";
 const PROJECT_MEDIA_PREFIX = "projects/";
-const LOCAL_UPLOADS_DIR = path.join(process.cwd(), "uploads");
 
 export const PROJECT_MEDIA_MIME_EXTENSIONS = new Map([
   ["image/jpeg", ".jpg"],
@@ -24,100 +15,76 @@ export const PROJECT_MEDIA_MIME_EXTENSIONS = new Map([
   ["video/ogg", ".ogv"],
 ]);
 
+export type SignedProjectMediaUpload = {
+  objectPath: string;
+  publicUrl: string;
+  signedUrl: string;
+  token: string;
+};
+
 export class ProjectMediaStorageError extends Error {
   constructor(message: string, public readonly statusCode = 500) {
     super(message);
   }
 }
 
-function isProductionRuntime() {
-  return process.env.NODE_ENV === "production" || process.env.VERCEL === "1";
-}
-
 function getSupabaseStorageConfig() {
   const url = process.env.SUPABASE_URL || process.env.SUPABASE_PROJECT_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceRoleKey) return undefined;
+  if (!url || !serviceRoleKey) {
+    throw new ProjectMediaStorageError("Project media storage is not configured for production.", 503);
+  }
   return { url: url.replace(/\/$/, ""), serviceRoleKey };
 }
 
-function extensionFor(file: Express.Multer.File) {
-  const ext = PROJECT_MEDIA_MIME_EXTENSIONS.get(file.mimetype);
-  if (!ext) {
-    throw new ProjectMediaStorageError("Unsupported file type.", 415);
-  }
+function extensionFor(mimeType: string) {
+  const ext = PROJECT_MEDIA_MIME_EXTENSIONS.get(mimeType);
+  if (!ext) throw new ProjectMediaStorageError("Unsupported file type.", 415);
   return ext;
 }
 
-function assertUploadable(file: Express.Multer.File) {
-  extensionFor(file);
-  if (file.size > PROJECT_MEDIA_MAX_BYTES) {
-    throw new ProjectMediaStorageError("File exceeds the 100MB upload limit.", 413);
-  }
-  if (!file.buffer?.byteLength) {
-    throw new ProjectMediaStorageError("No file uploaded.", 400);
-  }
+function assertUploadable(mimeType: string, size: number) {
+  extensionFor(mimeType);
+  if (!Number.isInteger(size) || size <= 0) throw new ProjectMediaStorageError("No file uploaded.", 400);
+  if (size > PROJECT_MEDIA_MAX_BYTES) throw new ProjectMediaStorageError("File exceeds the 100MB upload limit.", 413);
 }
 
-function publicObjectUrl(baseUrl: string, bucket: string, objectPath: string) {
+function publicObjectUrl(baseUrl: string, objectPath: string) {
   const encodedPath = objectPath.split("/").map(encodeURIComponent).join("/");
-  return `${baseUrl}/storage/v1/object/public/${encodeURIComponent(bucket)}/${encodedPath}`;
+  return `${baseUrl}/storage/v1/object/public/${PROJECT_MEDIA_BUCKET}/${encodedPath}`;
 }
 
-async function storeInSupabase(file: Express.Multer.File, config: { url: string; serviceRoleKey: string }) {
-  const ext = extensionFor(file);
-  const filename = `${randomUUID()}${ext}`;
-  const objectPath = `${PROJECT_MEDIA_PREFIX}${filename}`;
-  const response = await fetch(
-    `${config.url}/storage/v1/object/${encodeURIComponent(PROJECT_MEDIA_BUCKET)}/${objectPath}`,
-    {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${config.serviceRoleKey}`,
-        apikey: config.serviceRoleKey,
-        "cache-control": "public, max-age=31536000, immutable",
-        "content-type": file.mimetype,
-        "x-upsert": "false",
-      },
-      body: file.buffer,
+export async function createSignedProjectMediaUpload(mimeType: string, size: number): Promise<SignedProjectMediaUpload> {
+  assertUploadable(mimeType, size);
+  const { url, serviceRoleKey } = getSupabaseStorageConfig();
+  const objectPath = `${PROJECT_MEDIA_PREFIX}${randomUUID()}${extensionFor(mimeType)}`;
+  const response = await fetch(`${url}/storage/v1/object/upload/sign/${PROJECT_MEDIA_BUCKET}/${objectPath}`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${serviceRoleKey}`,
+      apikey: serviceRoleKey,
+      "content-type": "application/json",
     },
-  );
+    body: JSON.stringify({ upsert: false }),
+  });
 
   if (!response.ok) {
     const details = await response.text().catch(() => "");
     throw new ProjectMediaStorageError(
       details.includes("Bucket not found")
         ? "Project media storage bucket is not configured."
-        : "Upload failed. Please verify the media storage integration.",
+        : "Upload authorization failed. Please verify the media storage integration.",
       response.status,
     );
   }
 
+  const payload = await response.json() as { url?: string; token?: string };
+  if (!payload.url || !payload.token) throw new ProjectMediaStorageError("Upload authorization failed.", 502);
+
   return {
-    objectPath: publicObjectUrl(config.url, PROJECT_MEDIA_BUCKET, objectPath),
-    filename,
-    storage: "supabase" as const,
+    objectPath,
+    publicUrl: publicObjectUrl(url, objectPath),
+    signedUrl: payload.url.startsWith("http") ? payload.url : `${url}${payload.url}`,
+    token: payload.token,
   };
-}
-
-async function storeLocally(file: Express.Multer.File) {
-  const ext = extensionFor(file);
-  const digest = createHash("sha256").update(file.buffer).digest("hex").slice(0, 12);
-  const filename = `${randomUUID()}-${digest}${ext}`;
-  await mkdir(LOCAL_UPLOADS_DIR, { recursive: true });
-  await writeFile(path.join(LOCAL_UPLOADS_DIR, filename), file.buffer, { flag: "wx" });
-  return { objectPath: `/api/uploads/${filename}`, filename, storage: "local" as const };
-}
-
-export async function storeProjectMedia(file: Express.Multer.File): Promise<StoredProjectMedia> {
-  assertUploadable(file);
-
-  const supabaseConfig = getSupabaseStorageConfig();
-  if (supabaseConfig) return storeInSupabase(file, supabaseConfig);
-
-  if (isProductionRuntime()) {
-    throw new ProjectMediaStorageError("Project media storage is not configured for production.", 503);
-  }
-
-  return storeLocally(file);
 }
