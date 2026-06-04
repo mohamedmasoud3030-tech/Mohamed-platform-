@@ -1,16 +1,59 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { count, desc, eq } from "drizzle-orm";
-import { inquiries, INQUIRY_STATUS_VALUES } from "@workspace/db";
+import { createHash, createHmac } from "crypto";
+import { count, desc, eq, sql } from "drizzle-orm";
+import { inquiries, inquiryRateLimits, INQUIRY_STATUS_VALUES } from "@workspace/db";
 import { createRouter, publicQuery, adminQuery } from "../middleware";
 import { sendNewInquiryNotification } from "../../lib/mailer";
+import type { TrpcContext } from "../context";
 
 const inquiryStatusEnum = z.enum(INQUIRY_STATUS_VALUES);
 const INQUIRY_MINIMUM_COMPLETION_MS = 1500;
+const INQUIRY_RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
+const INQUIRY_RATE_LIMIT_MAX_ATTEMPTS = 5;
 
 function rejectAutomatedInquiry(website: string | undefined, submittedAt: number) {
   if (website || Date.now() - submittedAt < INQUIRY_MINIMUM_COMPLETION_MS) {
     throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid inquiry." });
+  }
+}
+
+function getClientNetworkHint(ctx: TrpcContext) {
+  const forwardedFor = ctx.req.headers["x-forwarded-for"];
+  const firstForwardedFor = Array.isArray(forwardedFor) ? forwardedFor[0] : forwardedFor;
+  const ip = firstForwardedFor?.split(",")[0]?.trim() || ctx.req.ip || ctx.req.socket.remoteAddress || "unknown";
+  const userAgent = ctx.req.headers["user-agent"] || "unknown";
+  return `${ip}|${Array.isArray(userAgent) ? userAgent.join(" ") : userAgent}`;
+}
+
+function hashNetworkIdentifier(ctx: TrpcContext) {
+  const secret = process.env.INQUIRY_RATE_LIMIT_SECRET || process.env.APP_SECRET;
+  const networkHint = getClientNetworkHint(ctx);
+  if (secret) return createHmac("sha256", secret).update(networkHint).digest("hex");
+  return createHash("sha256").update(networkHint).digest("hex");
+}
+
+async function enforceInquiryRateLimit(ctx: TrpcContext) {
+  const now = new Date();
+  const windowStart = new Date(now.getTime() - INQUIRY_RATE_LIMIT_WINDOW_MS);
+  const identifierHash = hashNetworkIdentifier(ctx);
+
+  const result = await ctx.db
+    .insert(inquiryRateLimits)
+    .values({ identifierHash, source: "contact", attempts: 1, windowStart: now, updatedAt: now })
+    .onConflictDoUpdate({
+      target: inquiryRateLimits.identifierHash,
+      set: {
+        attempts: sql<number>`case when ${inquiryRateLimits.windowStart} < ${windowStart} then 1 else ${inquiryRateLimits.attempts} + 1 end`,
+        windowStart: sql<Date>`case when ${inquiryRateLimits.windowStart} < ${windowStart} then ${now} else ${inquiryRateLimits.windowStart} end`,
+        updatedAt: now,
+      },
+    })
+    .returning({ attempts: inquiryRateLimits.attempts, windowStart: inquiryRateLimits.windowStart });
+
+  const current = result[0];
+  if (current && current.windowStart > windowStart && current.attempts > INQUIRY_RATE_LIMIT_MAX_ATTEMPTS) {
+    throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: "Too many inquiry submissions. Please try again later." });
   }
 }
 
@@ -42,6 +85,7 @@ export const inquiriesRouter = createRouter({
     )
     .mutation(async ({ ctx, input }) => {
       rejectAutomatedInquiry(input.website, input.submittedAt);
+      await enforceInquiryRateLimit(ctx);
 
       const result = await ctx.db
         .insert(inquiries)

@@ -4,7 +4,6 @@ import pinoHttp from "pino-http";
 import cookieParser from "cookie-parser";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import path from "path";
-import fs from "fs";
 import router from "./routes";
 import { logger } from "./lib/logger";
 import { appRouter } from "./trpc/router";
@@ -51,7 +50,6 @@ app.use(
 app.use("/api", router);
 
 const UPLOADS_DIR = path.join(process.cwd(), "uploads");
-if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 app.use("/api/uploads", express.static(UPLOADS_DIR));
 
 export default app;

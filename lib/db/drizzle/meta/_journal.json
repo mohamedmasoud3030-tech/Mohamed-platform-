@@ -1,1 +1,1 @@
-{"version":"7","dialect":"postgresql","entries":[{"idx":6,"version":"7","when":1780514400000,"tag":"0006_lena_v2_baseline","breakpoints":true},{"idx":7,"version":"7","when":1780514401000,"tag":"0007_lena_public_rls","breakpoints":true}]}
+{"version":"7","dialect":"postgresql","entries":[{"idx":6,"version":"7","when":1780514400000,"tag":"0006_lena_v2_baseline","breakpoints":true},{"idx":7,"version":"7","when":1780514401000,"tag":"0007_lena_public_rls","breakpoints":true},{"idx":8,"version":"7","when":1780514402000,"tag":"0008_lena_project_media_bucket","breakpoints":true}]}
