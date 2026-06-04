@@ -1,10 +1,30 @@
-type UploadResponse = { objectPath: string; filename: string };
+type SignedUploadResponse = {
+  objectPath: string;
+  publicUrl: string;
+  signedUrl: string;
+  token: string;
+};
 
 export async function uploadProjectMedia(file: File) {
-  const body = new FormData();
-  body.append("file", file);
-  const response = await fetch("/api/upload", { method: "POST", body, credentials: "include" });
-  const payload = await response.json() as UploadResponse | { error?: string };
-  if (!response.ok || !("objectPath" in payload)) throw new Error("error" in payload ? payload.error || "Upload failed" : "Upload failed");
-  return new URL(payload.objectPath, window.location.origin).toString();
+  const authorize = await fetch("/api/upload/sign", {
+    method: "POST",
+    credentials: "include",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ mimeType: file.type, size: file.size }),
+  });
+  const authorization = await authorize.json() as SignedUploadResponse | { error?: string };
+  if (!authorize.ok || !("signedUrl" in authorization)) {
+    throw new Error("error" in authorization ? authorization.error || "Upload authorization failed" : "Upload authorization failed");
+  }
+
+  const upload = await fetch(authorization.signedUrl, {
+    method: "PUT",
+    headers: {
+      "content-type": file.type,
+      "x-upsert": "false",
+    },
+    body: file,
+  });
+  if (!upload.ok) throw new Error("Upload failed. Please try again.");
+  return authorization.publicUrl;
 }
