@@ -1,10 +1,10 @@
 import { Router, type IRouter } from "express";
 import healthRouter from "./health";
-import uploadRouter from "./upload";
+import directUploadRouter from "./direct-upload";
 
 const router: IRouter = Router();
 
 router.use(healthRouter);
-router.use(uploadRouter);
+router.use(directUploadRouter);
 
 export default router;
