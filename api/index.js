@@ -1,13 +1,10 @@
-// Vercel routes all API requests through this stable bridge after the workspace build.
-import app from "../artifacts/api-server/dist/vercel.mjs";
+const loadApp = () => import("../artifacts/api-server/dist/vercel.mjs").then((module) => module.default);
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
+  const app = await loadApp();
   const url = new URL(req.url ?? "/", "http://localhost");
   const forwardedPath = url.searchParams.get("__path") ?? "";
   url.searchParams.delete("__path");
-
-  const pathname = forwardedPath ? `/api/${forwardedPath}` : "/api";
-  req.url = `${pathname}${url.search}`;
-
+  req.url = `${forwardedPath ? `/api/${forwardedPath}` : "/api"}${url.search}`;
   return app(req, res);
 }
