@@ -33,7 +33,8 @@ function getRateLimitSecret() {
 }
 
 function normalizeClientIp(ctx: TrpcContext) {
-  return (ctx.req.ip || ctx.req.socket.remoteAddress || "unknown").trim().toLowerCase();
+  const address = (ctx.req.ip || ctx.req.socket.remoteAddress || "unknown").trim().toLowerCase();
+  return address.startsWith("::ffff:") ? address.slice(7) : address;
 }
 
 function hashNetworkIdentifier(ctx: TrpcContext) {
