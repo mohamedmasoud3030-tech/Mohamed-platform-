@@ -17,13 +17,13 @@ export async function uploadProjectMedia(file: File) {
     throw new Error("error" in authorization ? authorization.error || "Upload authorization failed" : "Upload authorization failed");
   }
 
+  const body = new FormData();
+  body.append("cacheControl", "3600");
+  body.append("", file);
   const upload = await fetch(authorization.signedUrl, {
     method: "PUT",
-    headers: {
-      "content-type": file.type,
-      "x-upsert": "false",
-    },
-    body: file,
+    headers: { "x-upsert": "false" },
+    body,
   });
   if (!upload.ok) throw new Error("Upload failed. Please try again.");
   return authorization.publicUrl;
