@@ -1,12 +1,12 @@
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router";
-import { LENA_SERVICES } from "@/content/services";
+import { publicServices } from "@/content/services";
 import type { StudioProject } from "@/content/projects";
 import { usePreferences } from "@/providers/preferences";
 
 export default function RelatedServices({ project }: { project: StudioProject }) {
   const { locale } = usePreferences();
-  const services = LENA_SERVICES.filter((service) => project.services.includes(service.id));
+  const services = publicServices().filter((service) => project.services.includes(service.id));
   return <section className="lena-section"><div className="lena-container">
     <p className="lena-kicker">{locale === "ar" ? "الخدمات المرتبطة" : "Related services"}</p>
     <h2 className="lena-section-title">{locale === "ar" ? "المسارات التي تكوّن هذا المشروع" : "The tracks shaping this project"}</h2>

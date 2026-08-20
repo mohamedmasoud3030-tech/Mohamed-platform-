@@ -33,7 +33,7 @@ table are untouched ✅; typecheck and build pass ✅.
 
 ## Next — specified, safe, awaiting D1 approval
 
-### R3. Reposition the homepage and services around operations software — **BLOCKED on D1**
+### R3. Reposition the homepage and services around operations software — **DONE**
 **Acceptance criteria**
 1. The H1 names the outcome for an operating business, not "digital presence".
 2. Every service track maps to a capability used in a real system.
@@ -41,7 +41,18 @@ table are untouched ✅; typecheck and build pass ✅.
 4. No claim appears that the founder cannot substantiate.
 5. Arabic and English carry identical meaning.
 
-### R4. Industry entry points — **READY after R3**
+### R4. Industry entry points — **DONE**
+Home and the services page are organised by industry: property, wellness, rental showrooms,
+investment, hospitality, recycling. Each links straight to the form carrying its own context.
+
+**Verified:** `/ar/services` and `/en/services` return 200; the new promise and all six industries are
+present in the shipped bundle; the sitemap dropped from 48 to 16 URLs because hidden pages are no
+longer advertised.
+
+### R4b. Hidden-not-deleted mechanism — **DONE**
+Owner constraint honoured: a `visibility` field on services and projects. Eight creative tracks and
+eight concept projects remain in the repository and are excluded from every listing, the contact
+picker, related-service lookups, and the sitemap. Restoring any one of them is a single word.
 **Acceptance criteria:** a visitor can reach the relevant system in one click from the homepage; each
 industry page opens with a recognisable operational problem; each links to at least one application or
 states plainly that a demonstration is in progress.

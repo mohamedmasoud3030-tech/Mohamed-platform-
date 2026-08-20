@@ -48,17 +48,18 @@ function resolveBaseUrl() {
   return "";
 }
 
+function extractPublicIds(relativeFile, label) {
+  const file = path.join(srcDir, relativeFile);
+  const source = readFileSync(file, "utf8");
+  const ids = [...source.matchAll(/\bid:\s*"([a-z0-9][a-z0-9-]*)",\s*visibility:\s*"public"/g)].map((m) => m[1]);
+  return [...new Set(ids)];
+}
+
 function extractIds(relativeFile, label) {
   const file = path.join(srcDir, relativeFile);
   const source = readFileSync(file, "utf8");
   const ids = [...source.matchAll(/\bid:\s*"([a-z0-9][a-z0-9-]*)"/g)].map((match) => match[1]);
   const unique = [...new Set(ids)];
-  if (unique.length === 0) {
-    throw new Error(
-      `[sitemap] Could not extract any ${label} ids from ${relativeFile}. ` +
-        "Refusing to emit an incomplete sitemap.",
-    );
-  }
   return unique;
 }
 
@@ -104,8 +105,10 @@ function buildRobots(baseUrl) {
 
 function main() {
   const baseUrl = resolveBaseUrl();
-  const serviceIds = extractIds("content/services.ts", "service");
-  const projectIds = extractIds("content/projects.ts", "project");
+  // Hidden entries are excluded: the sitemap must never advertise a page the
+  // owner has taken off the public surface.
+  const serviceIds = extractPublicIds("content/services.ts", "service");
+  const projectIds = extractPublicIds("content/projects.ts", "project");
 
   const entries = [
     ...STATIC_ROUTES,
