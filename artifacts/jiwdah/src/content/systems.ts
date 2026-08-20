@@ -103,8 +103,8 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["The centre owner or manager", "The receptionist", "Therapists and service providers"],
     },
     usage: {
-      ar: "تُدار الحجوزات من الاستقبال بدل الدفتر: يُختار الوقت والخدمة والمُقدِّمة، فيُحجز الموعد ويُحجز وقتها معه. الطاقم يرى جدوله، والمالكة ترى في نهاية اليوم ما تم فعلًا وما دخل.",
-      en: "Bookings are handled at the front desk instead of in a notebook: pick the time, the service and the provider, and the slot and her time are reserved together. Staff see their own schedule; the owner sees at close what actually happened and what came in.",
+      ar: "نظام التشغيل اليومي لمركز واحد: المواعيد ونقطة البيع والعملاء والمخزون والموظفون في مكان واحد. مخصص لفريق المركز — ليس موقع حجز للعميلات. الحسابات يُنشئها مسؤول المركز، ولا يوجد تسجيل ذاتي، وبيانات كل مركز تبقى في قاعدة بياناته ولا يراها إلا فريقه.",
+      en: "The daily operating system for a single centre: appointments, point of sale, clients, inventory and staff in one place. Built for the centre's team — it is not a customer booking site. Accounts are created by the centre's administrator, there is no self-registration, and each centre's data stays in its own database, visible only to its team.",
     },
     industry: { ar: "المراكز الصحية والسبا", en: "Health centres and spa" },
     problem: {
@@ -112,8 +112,8 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: "Bookings in a notebook, a staff schedule that changes daily, and no clear picture of what actually came in by close.",
     },
     does: {
-      ar: ["الحجوزات والمواعيد", "جدولة الطاقم", "الخدمات والأسعار", "متابعة العملاء", "ملخص يومي"],
-      en: ["Bookings and appointments", "Staff scheduling", "Services and pricing", "Client follow-up", "Daily summary"],
+      ar: ["المواعيد والحجوزات", "نقطة البيع", "ملفات العملاء", "المخزون", "الموظفون وجدولتهم", "ملخص يومي للمالك"],
+      en: ["Appointments and bookings", "Point of sale", "Client records", "Inventory", "Staff and scheduling", "Daily summary for the owner"],
     },
     documented: false,
   },
@@ -121,7 +121,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     id: "rental",
     visibility: "public",
     order: 2,
-    name: { ar: "لينا دِرِسروم", en: "LENA Dressroom" },
+    name: { ar: "لينا — إدارة المعرض", en: "LENA Showroom" },
     stage: "trial",
     beneficiaries: {
       ar: ["صاحب المعرض", "موظف المعرض الذي يسلّم ويستلم", "العميلة التي تحجز موعدًا"],
@@ -146,7 +146,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     id: "investment",
     visibility: "public",
     order: 5,
-    name: { ar: "تيرانكس", en: "Terranix" },
+    name: { ar: "تيرانكس", en: "TERRANEX" },
     stage: "trial",
     beneficiaries: {
       ar: ["إدارة الشركة الاستثمارية", "مسؤول كل قسم: حيواني، زراعي، عقاري", "المحاسب"],
@@ -156,7 +156,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       ar: "كل قسم يعمل داخل النظام نفسه بأصوله وعملياته ومصروفاته، فتظهر صورة موحّدة للشركة بدل ملفات منفصلة لكل قسم.",
       en: "Each division works inside the same system with its own assets, operations and costs, producing one view of the company instead of separate files per division.",
     },
-    industry: { ar: "شركات الاستثمار", en: "Investment companies" },
+    industry: { ar: "الاستثمار الحيواني والتنمية الزراعية", en: "Livestock investment and agricultural development" },
     problem: {
       ar: "أقسام مختلفة — حيواني وزراعي وعقاري — كل قسم بملفاته، ولا لوحة واحدة تجمع الصورة.",
       en: "Different divisions — livestock, agricultural, real estate — each with its own files, and no single view of the whole.",
@@ -178,8 +178,8 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["The hospitality services office", "The event coordinator", "The on-site crew"],
     },
     usage: {
-      ar: "كل مناسبة تُسجَّل كطلب واحد يجمع الموعد والطاقم والتجهيزات، فيُعرف قبل التنفيذ ما هو محجوز ومع من، وتُحسب تكلفة كل مناسبة بدل تقديرها بعد انتهائها.",
-      en: "Each occasion is recorded as one order holding its date, crew and equipment, so what is committed and to whom is known before execution, and the cost per occasion is calculated rather than estimated afterwards.",
+      ar: "يبدأ المكتب بإنشاء منشأته داخل النظام، ثم تُدار المناسبات منها: كل مناسبة طلب واحد يجمع الموعد والطاقم والتجهيزات، فيُعرف قبل التنفيذ ما هو محجوز ومع من، وتُحسب تكلفة كل مناسبة بدل تقديرها بعد انتهائها.",
+      en: "The office first creates its facility inside the system, then runs occasions from it: each occasion is one order holding its date, crew and equipment, so what is committed and to whom is known before execution, and the cost per occasion is calculated rather than estimated afterwards.",
     },
     industry: { ar: "خدمات الضيافة والفعاليات", en: "Hospitality and events" },
     problem: {

@@ -91,3 +91,40 @@ Egypt and Saudi Arabia — so a client dials a familiar country code rather than
 Each is published as its own `ContactPoint` with its own `areaServed`. "Location undetermined" would
 read as evasive; "reachable locally in three markets" is a verifiable fact that supports the
 bilingual, cross-market positioning in `PRODUCT_DEFINITION.md`.
+
+
+---
+
+## Product facts read from the products' own sign-in screens (2026-08-20)
+
+The owner sent five screenshots. They could not be saved into the workspace, but the following was
+read from them and applied to `src/content/systems.ts`:
+
+| Product | Corrected fact |
+|---|---|
+| **TERRANEX** | Spelled **TERRANEX**, not "Terranix". Its own strapline is "للاستثمار الحيواني والتنمية الزراعية" — livestock investment and agricultural development |
+| **LenaBeauty** | Its sign-in screen states the scope precisely: "نظام التشغيل اليومي لمركز تجميل واحد — المواعيد ونقطة البيع والعملاء والمخزون والموظفون في مكان واحد", plus three facts worth publishing: it is for the centre's team and **not a customer booking site**, accounts are created by the centre's administrator with **no self-registration**, and each centre's data stays in its own database. Point of sale and inventory were previously unknown and are now listed |
+| **LENA (showroom)** | Its screen reads "تسجيل الدخول لإدارة المعرض" — showroom management, confirming the reading of the owner's note |
+| **Hospitality** | Sign-up flow is "أنشئ حسابك ثم منشأتك لبدء إدارة مناسباتك" — a facility is created first, then occasions are run from it |
+| **MALEK** | "سجّل الدخول إلى مساحة عملك في MALEK" — confirmed |
+
+### Two things the screenshots raise, unresolved
+
+1. **Name conflict.** The owner wrote "Bio Beauty / بيو بيوتي" as the product name; the product's own
+   screen says **LenaBeauty**. The site currently shows "بيو بيوتي / Bio Beauty" as instructed. One
+   word from the owner settles which is correct.
+2. **The hospitality screenshot shows a live configuration error** — "النظام غير مهيأ بعد. يرجى ضبط
+   إعدادات الاتصال في ملف البيئة (.env)". The site currently marks hospitality as **in real use** on
+   the owner's word. If that screenshot is the live instance rather than a fresh deployment, the badge
+   is wrong and must be corrected.
+
+### Why the screenshots are not yet on the site
+
+They are **sign-in screens**. They prove the products exist and are branded, which is worth something,
+but a login form shows nothing about what the system does. Interior screens — the appointment day, the
+weighbridge entry, the owner's daily summary — are what convince a buyer. Both are welcome; interiors
+matter more.
+
+**To get them into the repository:** commit them exactly as the founder photograph was committed. The
+image pipeline (`tools/prepare-founder-photo.sh`) already strips metadata and resizes, and the same
+approach will be extended to product screens once the files land.

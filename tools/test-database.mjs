@@ -5,6 +5,13 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
 // Ephemeral Postgres (PGlite over the real wire protocol) for end-to-end journey testing.
 // Lives outside the repository; nothing here is committed.
+// REQUIRES: @electric-sql/pglite and @electric-sql/pglite-socket, installed
+// OUTSIDE this repository on purpose — they are a local test convenience, not a
+// project dependency, and must never enter the production lockfile.
+//   mkdir -p ../lena-testdb && cd ../lena-testdb
+//   npm install @electric-sql/pglite @electric-sql/pglite-socket
+//   node <path-to-repo>/tools/test-database.mjs
+// Without them, tools/verify-admin.sh reports SKIPPED rather than failing.
 import { PGlite } from "@electric-sql/pglite";
 import { PGLiteSocketServer } from "@electric-sql/pglite-socket";
 import { readFileSync, readdirSync } from "node:fs";

@@ -1,2 +1,2 @@
-import React from "/home/user/e2e/shim/react.js";
+import React from "./react.js";
 export { React };
