@@ -35,8 +35,16 @@ const HELP: Record<AdminHelpTab, Record<"ar" | "en", Note[]>> = {
         a: "الصفحة التي انطلق منها الزائر: «نموذج التواصل» أو «صفحة خدمة: …» أو «دراسة حالة: …». يخبرك أي صفحة تجلب العملاء فعلًا.",
       },
       {
-        q: "الحذف نهائي — ما البديل؟",
-        a: "استخدم حالة «مؤرشف» بدل الحذف. الحذف يزيل السجل من قاعدة البيانات بلا تراجع.",
+        q: "لماذا بيانات التواصل مخفية؟",
+        a: "تظهر مخفية افتراضيًا حتى لا تكون القائمة قابلة للحصاد. اضغط «إظهار بيانات التواصل» واكتب سببًا — يُسجَّل أن الكشف حدث، لا ما الذي كُشف.",
+      },
+      {
+        q: "ما الفرق بين «أرشفة» و«حذف نهائي»؟",
+        a: "الأرشفة تخرج الاستفسار من قائمة العمل ويمكن التراجع عنها. الحذف النهائي يزيل السجل بلا رجعة، ولذلك يطلب منك كتابة رقم الاستفسار نفسه وسببًا مكتوبًا. استخدم الأرشفة إلا إذا طلب صاحب البيانات الحذف.",
+      },
+      {
+        q: "أين أرى ما جرى من إجراءات؟",
+        a: "في «سجل المراجعة» أعلى الصفحة: كل إجراء إداري مع سببه ونتيجته، بما فيها المحاولات المرفوضة. السجل للقراءة فقط ولا يحتوي أي بيانات شخصية.",
       },
     ],
     en: [
@@ -57,8 +65,16 @@ const HELP: Record<AdminHelpTab, Record<"ar" | "en", Note[]>> = {
         a: "The page the visitor started from: “Contact form”, “Service page: …” or “Case study: …”. It tells you which page actually produces clients.",
       },
       {
-        q: "Deleting is permanent — what should I use instead?",
-        a: "Use the “Archived” status instead of deleting. Deleting removes the record from the database with no undo.",
+        q: "Why are contact details hidden?",
+        a: "They are masked by default so the list cannot double as a contact-harvesting surface. Press “Reveal contact details” and write a reason — the audit records that a reveal happened, never what was revealed.",
+      },
+      {
+        q: "What is the difference between Archive and Delete permanently?",
+        a: "Archiving removes the inquiry from your working list and can be undone. Permanent deletion removes the record for good, which is why it asks you to type the inquiry number back and write a reason. Use archiving unless the person asked to be deleted.",
+      },
+      {
+        q: "Where can I see what was done?",
+        a: "In the “Audit trail” at the top of the page: every administrative action with its reason and outcome, including refused attempts. It is read only and contains no personal data.",
       },
     ],
   },

@@ -2,6 +2,12 @@
 
 **Baseline:** commit `e8acd9b` on `arena/01a01ef6-platform`
 **Date:** 2026-08-20
+**Update (2026-08-20):** since this plan was written, each language received its own address
+(`/ar/...`, `/en/...`). The journeys below are unchanged in shape, but a first-time visitor is now
+routed by device language to a real, shareable URL, and a shared link always opens in the language it
+was shared in. Activation measurement described in §5 is now implemented as a provider-neutral,
+collection-disabled event layer — see `PRODUCT_MEASUREMENT_PLAN.md`.
+
 **Method:** entered the running application as a stranger, then as the owner; every claim below is
 backed by repository evidence or by a command executed against a real running stack
 (PGlite Postgres + the real API server + the real frontend).

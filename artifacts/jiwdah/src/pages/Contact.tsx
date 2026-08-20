@@ -10,6 +10,7 @@ import { useSiteCopy } from "@/hooks/useSiteCopy";
 import { usePreferences } from "@/providers/preferences";
 import { trpc } from "@/providers/trpc";
 import { clearDraft, emptyDraft, readDraft, writeDraft, type InquiryDraft } from "@/lib/inquiryDraft";
+import { track, trackOnce } from "@/lib/analytics";
 
 type Inquiry = InquiryDraft & {
   website: string;
@@ -114,6 +115,7 @@ export default function Contact() {
 
   const mutation = trpc.inquiries.create.useMutation({
     onSuccess: (inquiry) => {
+      track("inquiry_submitted", { locale, context: entrySource.split(":")[0] });
       setReference(inquiry?.id ?? null);
       setDraftRestored(false);
       setForm(createEmptyInquiry());
@@ -130,7 +132,10 @@ export default function Contact() {
       service: draft?.service || requestedService?.id || current.service,
       submittedAt: Date.now(),
     }));
-    if (draft) setDraftRestored(true);
+    if (draft) {
+      setDraftRestored(true);
+      trackOnce("draft-restored", "inquiry_draft_restored", { locale });
+    }
   }, [requestedService?.id]);
 
   useEffect(() => {
@@ -138,6 +143,8 @@ export default function Contact() {
   }, [reference]);
 
   function update(patch: Partial<Inquiry>) {
+    // First keystroke is intent, which is what the funnel needs — not arrival.
+    trackOnce("inquiry-started", "inquiry_started", { locale, context: entrySource.split(":")[0] });
     setForm((current) => {
       const next = { ...current, ...patch };
       writeDraft(next);
@@ -168,6 +175,7 @@ export default function Contact() {
   }
 
   const errorKind = mutation.error ? classifyError(mutation.error) : null;
+  if (errorKind) trackOnce(`inquiry-failed:${errorKind}`, "inquiry_failed", { locale, reason: errorKind });
 
   return (
     <PublicShell>

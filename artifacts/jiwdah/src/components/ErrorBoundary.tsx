@@ -1,6 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { SITE_CONFIG } from "@/config/site";
 import { APP_BUILD, createErrorReference } from "@/lib/support";
+import { normaliseRoute, track } from "@/lib/analytics";
 
 type Props = { children: ReactNode };
 type State = { hasError: boolean; reference: string; route: string };
@@ -46,6 +47,8 @@ export default class ErrorBoundary extends Component<Props, State> {
     this.setState({ reference, route });
     // Kept in the browser console only — never transmitted anywhere automatically.
     console.error(`[LENA ${reference}] ${route} @ ${APP_BUILD}`, error, info.componentStack);
+    // Records only that a crash happened, and where by route shape. Never the error.
+    track("app_error_shown", { route: normaliseRoute(route) });
   }
 
   render() {
