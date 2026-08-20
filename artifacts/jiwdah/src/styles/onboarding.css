@@ -204,3 +204,42 @@
 .dashboard-support-report textarea { width: 100%; border: 1px solid var(--platform-border, rgba(140, 160, 200, 0.35)); border-radius: 10px; background: transparent; padding: 10px 12px; color: inherit; font: inherit; resize: vertical; }
 .dashboard-support-preview-label { font-weight: 700; }
 .dashboard-support-preview { overflow-x: auto; border: 1px solid var(--platform-border, rgba(140, 160, 200, 0.35)); border-radius: 10px; background: rgba(5, 12, 30, 0.35); padding: 12px 14px; font-size: 12px; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+
+/* Admin operations: masked data, reasoned actions, audit trail. */
+.inquiry-ops { display: grid; gap: 10px; }
+.inquiry-ops-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.inquiry-ops-buttons button, .inquiry-ops-actions button { display: inline-flex; min-height: 40px; align-items: center; gap: 6px; border: 1px solid var(--platform-border, rgba(140,160,200,.35)); border-radius: 10px; background: transparent; padding: 0 12px; color: inherit; font: inherit; font-size: 13px; font-weight: 700; }
+.inquiry-ops-danger { border-color: rgba(220,38,38,.5) !important; color: #dc2626 !important; }
+.inquiry-ops-primary { border-color: var(--platform-accent, #5b7cff) !important; color: var(--platform-accent, #5b7cff) !important; }
+.inquiry-ops-revealed { display: grid; gap: 4px; border: 1px solid rgba(22,163,74,.4); border-radius: 10px; background: rgba(22,163,74,.08); padding: 10px 12px; font-size: 13px; }
+.inquiry-ops-revealed dt { font-weight: 700; }
+.inquiry-ops-revealed dd { margin: 0; }
+.inquiry-ops-panel { display: grid; gap: 10px; border: 1px solid var(--platform-border, rgba(140,160,200,.35)); border-radius: 12px; padding: 13px; }
+.inquiry-ops-panel.is-danger { border-color: rgba(220,38,38,.45); background: rgba(220,38,38,.05); }
+.inquiry-ops-panel-head { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.inquiry-ops-panel-head button { margin-inline-start: auto; min-width: 36px; min-height: 36px; border: 0; background: transparent; color: inherit; }
+.inquiry-ops-panel p { color: var(--platform-text-muted, #8a97b4); font-size: 13px; line-height: 1.8; }
+.inquiry-ops-panel label { display: grid; gap: 5px; font-size: 12px; font-weight: 700; }
+.inquiry-ops-panel textarea, .inquiry-ops-panel input { width: 100%; border: 1px solid var(--platform-border, rgba(140,160,200,.35)); border-radius: 9px; background: transparent; padding: 9px 11px; color: inherit; font: inherit; }
+.inquiry-ops-error { color: #dc2626 !important; font-weight: 700; }
+.inquiry-ops-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.audit-count { margin-inline-start: auto; color: var(--platform-text-muted, #8a97b4); font-size: 12px; font-weight: 500; }
+.audit-body { display: grid; gap: 12px; padding: 0 16px 18px; }
+.audit-body p { color: var(--platform-text-muted, #8a97b4); font-size: 13px; line-height: 1.8; }
+.audit-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.audit-list li { border: 1px solid var(--platform-border, rgba(140,160,200,.35)); border-radius: 10px; padding: 10px 12px; }
+.audit-list li.is-flagged { border-color: rgba(220,38,38,.45); background: rgba(220,38,38,.05); }
+.audit-line { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; font-size: 13px; }
+.audit-line code { color: var(--platform-text-muted, #8a97b4); font-size: 12px; }
+.audit-outcome { border-radius: 99px; background: rgba(91,124,255,.14); padding: 2px 9px; font-size: 11px; font-weight: 700; }
+.audit-line time { margin-inline-start: auto; color: var(--platform-text-muted, #8a97b4); font-size: 12px; }
+.audit-reason { margin-top: 6px; font-size: 12px; }
+
+/* Data practices page. */
+.lena-privacy { display: grid; gap: 14px; }
+.lena-privacy-card { padding: 22px; }
+.lena-privacy-card h2 { margin: 0; font-size: 18px; line-height: 1.7; }
+.lena-privacy-card svg { color: var(--lena-accent); }
+.lena-privacy-card ul { display: grid; gap: 11px; margin: 14px 0 0; padding: 0; list-style: none; }
+.lena-privacy-card li { position: relative; padding-inline-start: 18px; color: var(--lena-muted); font-size: 14px; line-height: 1.95; }
+.lena-privacy-card li::before { content: ""; position: absolute; inset-inline-start: 0; top: 11px; width: 6px; height: 6px; border-radius: 50%; background: var(--lena-accent); }

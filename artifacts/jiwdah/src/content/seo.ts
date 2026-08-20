@@ -13,6 +13,7 @@ export type PageSeoKey =
   | "ai"
   | "contact"
   | "help"
+  | "privacy"
   | "login"
   | "dashboard"
   | "notFound";
@@ -100,6 +101,18 @@ export const PAGE_SEO: Record<PageSeoKey, Record<AppLocale, LocalizedSeo>> = {
       title: "Help and frequently asked questions",
       description:
         "Direct answers about starting a project, reply times, pricing, form problems and your data — plus the direct contact channels.",
+    },
+  },
+  privacy: {
+    ar: {
+      title: "بياناتك وخصوصيتك",
+      description:
+        "ما الذي يُجمع عند إرسال استفسار، ولماذا، وأين يُحفظ، ومن يصل إليه، وكيف تطلب نسخة أو تصحيحًا أو حذفًا.",
+    },
+    en: {
+      title: "Your data and privacy",
+      description:
+        "What is collected when you send an inquiry, why, where it is stored, who can reach it, and how to request a copy, a correction or deletion.",
     },
   },
   login: {

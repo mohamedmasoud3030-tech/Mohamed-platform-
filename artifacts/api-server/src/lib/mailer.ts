@@ -42,6 +42,23 @@ function renderSubjectValue(value: string): string {
   return value.replace(/[\r\n]+/g, " ").trim();
 }
 
+/**
+ * Mail transport errors routinely carry the recipient address and parts of the
+ * envelope. Only the shape of the failure is logged, never its contents.
+ */
+export function summariseTransportError(error: unknown): { name: string; code?: string; message: string } {
+  if (error && typeof error === "object") {
+    const candidate = error as { name?: string; code?: string; message?: string };
+    return {
+      name: candidate.name ?? "Error",
+      code: typeof candidate.code === "string" ? candidate.code : undefined,
+      // Anything resembling an address is removed before the line reaches the log.
+      message: (candidate.message ?? "unknown").replace(/[^\s@]+@[^\s@]+/g, "[redacted]").slice(0, 200),
+    };
+  }
+  return { name: "Error", message: "unknown" };
+}
+
 export async function sendNewInquiryNotification(inquiry: InquiryData): Promise<void> {
   if (!SMTP_USER || !SMTP_PASS) {
     console.warn("[mailer] SMTP credentials not configured — skipping notification");
@@ -89,8 +106,8 @@ export async function sendNewInquiryNotification(inquiry: InquiryData): Promise<
       subject: `استفسار جديد إلى LENA — ${renderSubjectValue(inquiry.name)}`,
       html,
     });
-    console.log(`[mailer] Notification sent for inquiry #${inquiry.id} to ${NOTIFY_EMAIL}`);
+    console.log(`[mailer] Notification sent for inquiry #${inquiry.id}`);
   } catch (error) {
-    console.error("[mailer] Failed to send notification:", error);
+    console.error("[mailer] Failed to send notification:", summariseTransportError(error));
   }
 }
