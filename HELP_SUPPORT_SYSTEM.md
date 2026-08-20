@@ -35,10 +35,11 @@ error boundary that hands out a reference, and a runbook in the repository. Noth
 | **Inline guidance** | Contact form: "only name and details are required"; optional labels; entry-context chip; restored-draft notice | Visitor | Micro-copy at the field | Whoever changes the form | Any field/validation change |
 | **Contextual help** | `/dashboard` → collapsible "Quick questions about this screen", per tab | Owner | 2–5 verified answers per tab | Whoever changes that tab | Any behaviour/limit/status change |
 | **Troubleshooting (self-service)** | Form error states; dashboard failure cards with retry; error boundary | Both | Cause-specific message + a way out | Feature owner | Any new error path |
-| **FAQ / searchable answers** | `/help` — 14 articles, 6 topics, client-side search, `FAQPage` JSON-LD | Visitor | Task-based Q&A | Whoever changes the described behaviour | See freshness tests |
+| **FAQ / searchable answers** | `/help` — 16 articles, 6 topics, client-side search, `FAQPage` JSON-LD | Visitor | Task-based Q&A | Whoever changes the described behaviour | See freshness tests |
 | **Contact support** | WhatsApp (fixed on every page), email, the inquiry form, and `/help` sidebar | Visitor | Three channels, no ticket system | — | Channel change |
 | **Status information** | Dashboard "Connection status": live `ping`, healthy/unreachable, app version, re-check | Owner | Real state from the running app | — | — |
 | **Support intake** | Dashboard "Report a problem" → structured, previewed, manually sent report | Owner | Safe diagnostic context | — | New context field |
+| **Data practices** | `/privacy`, linked from every footer | Visitor | What is collected, why, where, who reaches it, how to request a copy/correction/deletion | Whoever changes data handling | Any change to collection, storage, sharing or retention |
 | **Runbook** | `docs/RUNBOOK.md` | Operator | Severity, 8 procedures, escalation, freshness tests | Whoever changes the system | Same PR as the change |
 
 ### Deliberately not built

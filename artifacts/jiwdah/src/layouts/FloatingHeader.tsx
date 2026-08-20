@@ -3,6 +3,7 @@ import { Languages, Menu, Moon, Sun, X } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import LenaLogo from "@/design-system/brand/LenaLogo";
 import { PUBLIC_NAVIGATION } from "@/content/navigation";
+import { track } from "@/lib/analytics";
 import { usePreferences } from "@/providers/preferences";
 
 export default function FloatingHeader() {
@@ -36,13 +37,13 @@ export default function FloatingHeader() {
           {PUBLIC_NAVIGATION.map((item) => <Link key={item.to} className={`lena-nav-link${active(item.to) ? " active" : ""}`} to={item.to}>{locale === "ar" ? item.ar : item.en}</Link>)}
         </div>
         <div className="lena-nav-actions">
-          <button type="button" className="lena-icon-button" onClick={toggleLocale} aria-label={locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}><Languages size={17} /></button>
+          <button type="button" className="lena-icon-button" onClick={() => { track("language_switched", { locale, surface: "header" }); toggleLocale(); }} aria-label={locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}><Languages size={17} /></button>
           <button type="button" className="lena-icon-button" onClick={toggleTheme} aria-label={locale === "ar" ? "تبديل المظهر" : "Toggle theme"}>{theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}</button>
-          <Link className="lena-primary lena-nav-cta" to="/contact">{locale === "ar" ? "لنتحدث" : "Let's talk"}</Link>
+          <Link className="lena-primary lena-nav-cta" onClick={() => track("primary_action_clicked", { surface: "header", locale })} to="/contact">{locale === "ar" ? "لنتحدث" : "Let's talk"}</Link>
           <button type="button" className="lena-icon-button lena-menu-toggle" aria-expanded={open} aria-label={locale === "ar" ? "فتح القائمة" : "Open menu"} onClick={() => setOpen((value) => !value)}>{open ? <X size={18} /> : <Menu size={18} />}</button>
         </div>
       </nav>
-      {open && <div className="lena-glass lena-mobile-menu">{PUBLIC_NAVIGATION.map((item) => <Link key={item.to} className={`lena-mobile-link${active(item.to) ? " active" : ""}`} to={item.to}>{locale === "ar" ? item.ar : item.en}</Link>)}<Link className="lena-primary lena-mobile-cta" to="/contact">{locale === "ar" ? "لنتحدث" : "Let's talk"}</Link></div>}
+      {open && <div className="lena-glass lena-mobile-menu">{PUBLIC_NAVIGATION.map((item) => <Link key={item.to} className={`lena-mobile-link${active(item.to) ? " active" : ""}`} to={item.to}>{locale === "ar" ? item.ar : item.en}</Link>)}<Link className="lena-primary lena-mobile-cta" onClick={() => track("primary_action_clicked", { surface: "mobile_menu", locale })} to="/contact">{locale === "ar" ? "لنتحدث" : "Let's talk"}</Link></div>}
     </header>
   );
 }

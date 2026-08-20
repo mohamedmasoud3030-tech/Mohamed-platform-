@@ -191,6 +191,31 @@ export const HELP_ARTICLES: HelpArticle[] = [
     link: { to: "/contact", label: { ar: "عرض كل القنوات", en: "See all channels" } },
   },
   {
+    id: "language-link",
+    topic: "channels",
+    question: {
+      ar: "لماذا يظهر /ar أو /en في الرابط؟ وكيف أشارك النسخة الإنجليزية؟",
+      en: "Why does the link contain /ar or /en, and how do I share the English version?",
+    },
+    answer: {
+      ar: "لكل لغة عنوان مستقل، حتى تستطيع مشاركة النسخة التي تريدها بالضبط. الرابط الذي ترسله يفتح باللغة نفسها عند من يستقبله، مهما كانت لغة جهازه. زر اللغة في أعلى الصفحة يبدّل النسخة ويبقيك في الصفحة نفسها.",
+      en: "Each language has its own address, so you can share exactly the version you mean. A link you send opens in the same language for whoever receives it, whatever their device language. The language button at the top switches versions and keeps you on the same page.",
+    },
+  },
+  {
+    id: "privacy-page",
+    topic: "privacy",
+    question: {
+      ar: "أين أقرأ تفاصيل ما تفعلونه ببياناتي؟",
+      en: "Where can I read the detail of what you do with my data?",
+    },
+    answer: {
+      ar: "في صفحة «بياناتك وخصوصيتك»: ما الذي يُجمع بالضبط، ولماذا، وأين يُحفظ، ومن يصل إليه، وكيف تطلب نسخة أو تصحيحًا أو حذفًا. مكتوبة كوصف دقيق لما يفعله النظام فعلًا.",
+      en: "On the “Your data and privacy” page: exactly what is collected, why, where it is stored, who can reach it, and how to request a copy, a correction or deletion. It is written as a precise description of what the system actually does.",
+    },
+    link: { to: "/privacy", label: { ar: "فتح صفحة بياناتك", en: "Open the data page" } },
+  },
+  {
     id: "languages",
     topic: "channels",
     question: {

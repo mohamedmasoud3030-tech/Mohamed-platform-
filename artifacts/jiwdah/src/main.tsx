@@ -6,6 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { TRPCProvider } from "./providers/trpc";
 import { PreferencesProvider, usePreferences } from "./providers/preferences";
 import { bootstrapLocale } from "./lib/locale";
+import { configureAnalytics } from "./lib/analytics";
 import "./index.css";
 import "./App.css";
 
@@ -14,6 +15,14 @@ import "./App.css";
  * (including every URL shared before languages had their own address) onto a
  * prefixed one without losing the query string or hash.
  */
+/**
+ * Measurement is instrumented but collects nothing: no sink is installed, so
+ * every track() call is a validated no-op. Turning collection on is a single
+ * configureAnalytics({ sink, enabled: true }) call, and needs owner approval
+ * (PRODUCT_MEASUREMENT_PLAN.md §8).
+ */
+configureAnalytics({ sink: null, enabled: false });
+
 const { locale, redirectTo } = bootstrapLocale(window.location);
 if (redirectTo) window.history.replaceState(null, "", redirectTo);
 

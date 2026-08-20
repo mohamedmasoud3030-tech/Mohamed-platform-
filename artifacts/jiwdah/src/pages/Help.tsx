@@ -7,6 +7,7 @@ import { SITE_CONFIG } from "@/config/site";
 import { HELP_TOPICS, faqJsonLd, searchArticles } from "@/content/help";
 import { pageSeo } from "@/content/seo";
 import PublicShell from "@/layouts/PublicShell";
+import { track } from "@/lib/analytics";
 import { usePreferences } from "@/providers/preferences";
 
 const COPY = {
@@ -69,7 +70,17 @@ export default function Help() {
             type="search"
             value={query}
             placeholder={text.searchPlaceholder}
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => {
+              const next = event.target.value;
+              setQuery(next);
+              if (next.trim().length >= 3) {
+                track("help_searched", {
+                  locale,
+                  query_length: next.trim().length,
+                  has_results: searchArticles(next, locale).length > 0,
+                });
+              }
+            }}
           />
           <p className="lena-help-count" role="status" aria-live="polite">
             {text.resultCount(results.length)}
