@@ -19,7 +19,7 @@ assets for other owners before building the tool.
 **Provenance:** built and owned by the founder.
 **Still needed:** the business problem in two sentences, intended user, 3–6 capabilities, ≥3 screens.
 
-## 2. LENA Beauty — health centres and spa management
+## 2. LenaBeauty — health centres and spa management
 **Industry:** wellness / personal care.
 **What it does:** manages health centres and spas.
 **Provenance:** built and owned by the founder.
@@ -40,12 +40,14 @@ assets for other owners before building the tool.
 ## 5. Hospitality app — for "مشاريع جودة الانطلاقة"
 **Industry:** events and hospitality services.
 **What it does:** runs an office that provides hospitality services for events and occasions.
-**Provenance:** **built for a named client.** This is the strongest item in the portfolio precisely
-because it is not self-initiated — but the client's name, and any result, may only be published with
+**Provenance:** **built for a named client.** The client's name, and any result, may only be published with
 **written permission** (`FEATURE_GAP_STRATEGY.md` §D1, `PRIVACY_DATA_GOVERNANCE.md` §9.5).
 **Note:** this explains the stale `replit.md` that described "Jiwdah Hospitality" — it was a real
 client project, not a leftover from an unrelated product.
-**Still needed:** permission decision, then problem, user, capabilities, screens.
+**Current deployment evidence:** the repository does not establish a live Hospitality production
+instance. Until a current production deployment is independently evidenced, the public site must not
+label this product as "in real use".
+**Still needed:** permission decision, production evidence if available, then problem, user, capabilities, screens.
 
 ## 6. Kayyal (كيّال) — "the weigher" · recycling warehouse management, Egypt
 **Industry:** recycling / scrap trading.
@@ -108,15 +110,16 @@ read from them and applied to `src/content/systems.ts`:
 | **Hospitality** | Sign-up flow is "أنشئ حسابك ثم منشأتك لبدء إدارة مناسباتك" — a facility is created first, then occasions are run from it |
 | **MALEK** | "سجّل الدخول إلى مساحة عملك في MALEK" — confirmed |
 
-### Two things the screenshots raise, unresolved
+### Corrections resolved from repository evidence
 
-1. **Name conflict.** The owner wrote "Bio Beauty / بيو بيوتي" as the product name; the product's own
-   screen says **LenaBeauty**. The site currently shows "بيو بيوتي / Bio Beauty" as instructed. One
-   word from the owner settles which is correct.
-2. **The hospitality screenshot shows a live configuration error** — "النظام غير مهيأ بعد. يرجى ضبط
-   إعدادات الاتصال في ملف البيئة (.env)". The site currently marks hospitality as **in real use** on
-   the owner's word. If that screenshot is the live instance rather than a fresh deployment, the badge
-   is wrong and must be corrected.
+1. **Official product name:** **LenaBeauty**. The earlier "Bio Beauty / بيو بيوتي" interpretation is
+   superseded; the public site now uses the product's actual name.
+2. **Hospitality stage:** a live production deployment is **not established by the repository**. The
+   screenshot with the environment-configuration error is not evidence of a live production instance,
+   so the public site keeps Hospitality at **trial** until current production use is evidenced.
+3. **Interior screenshots:** no interior product screenshots are currently committed in the inspected
+   product repositories. Login/configuration screens must not be used as substitutes or represented as
+   evidence of operational use.
 
 ### Why the screenshots are not yet on the site
 
