@@ -25,9 +25,35 @@ The creative-agency positioning is the commoditised half. The operations-softwar
 
 ---
 
+## 1b. Correction to the diagnosis — the business model (owner, 2026-08-20)
+
+An earlier version of this review recorded the business as "project services sold off-platform".
+**That was wrong**, and the correction matters more than the original finding.
+
+The owner's actual model: **each application is a product he owns and keeps developing.** It reaches a
+business that genuinely needs it **as a web application they use and benefit from — ownership is not
+transferred.** Monetisation is **per product: outright sale or subscription, depending on the
+product.**
+
+This is not an agency and not bespoke contracting. It is **a portfolio of vertical software products
+with a single builder-operator.** Consequences that follow directly:
+
+| Because the model is products, not projects | Implication |
+|---|---|
+| The buyer licenses access, he does not commission a build | The page must sell a *working product*, not a service engagement |
+| The founder keeps developing after delivery | "What happens after handover" becomes a selling point, not a risk |
+| Subscription is on the table for some products | Recurring billing, plan management and customer accounts become real future needs — **none of which exist today** |
+| The same product serves many businesses in one trade | Multi-tenancy, per-customer data isolation and onboarding become real future needs |
+| Provenance is uniform | All six are "built and owned by us" — the strongest label available, and honest |
+
+**None of that is built now, and none of it should be built before a paying customer exists.** It is
+recorded so that the first subscription sale does not arrive as a surprise requiring an emergency
+rebuild.
+
 ## 2. What the product should be
 
-> **A specialist who builds the operating system for a specific kind of business — and who ran that kind of business before he automated it.**
+> **A small portfolio of working software products, each one the operating system for a specific
+> trade, built and kept running by someone who ran that trade before he automated it.**
 
 Not "a digital house for creative solutions". The founder's own biography already says this: he managed an office operating real-estate assets before writing his first line of code, and every application since started from an operational problem he lived. **The biography and the homepage currently contradict each other.**
 
