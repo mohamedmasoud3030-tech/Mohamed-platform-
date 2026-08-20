@@ -7,7 +7,8 @@
     "build": "pnpm run verify:egress && pnpm run typecheck && pnpm -r --if-present run build",
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --if-present run typecheck",
-    "verify:egress": "node ./tools/check-egress.mjs"
+    "verify:egress": "node ./tools/check-egress.mjs",
+    "verify": "node ./tools/verify-all.mjs"
   },
   "private": true,
   "devDependencies": {

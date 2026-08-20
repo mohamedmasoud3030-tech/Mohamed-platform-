@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 import * as jose from "jose";
 import { SESSION_COOKIE, SESSION_MAX_AGE_SECONDS, signSessionToken, createAuthContext } from "../middleware/auth";
 import { logger } from "../lib/logger";
+import { isOwnerIdentity } from "./owner-identity";
 
 const OAUTH_STATE_COOKIE = "kimi_oauth_state";
 const OAUTH_NEXT_COOKIE = "kimi_oauth_next";
@@ -223,8 +224,8 @@ export function createOAuthCallbackHandler() {
       const { userId } = await verifyProviderToken(tokenResp.access_token);
       const profile = await getUserProfile(tokenResp.access_token);
 
-      const ownerUnionId = getEnv("OWNER_UNION_ID");
-      const role = (ownerUnionId && userId === ownerUnionId) ? "admin" : "user";
+      const isOwner = isOwnerIdentity(userId);
+      const role = isOwner ? "admin" : "user";
 
       // Data minimisation: only the identifier, a display name and the sign-in time
       // are stored. The provider also returns an avatar URL, which this product has
@@ -239,7 +240,7 @@ export function createOAuthCallbackHandler() {
         set: {
           name: profile?.name,
           lastSignInAt: new Date(),
-          ...(ownerUnionId && userId === ownerUnionId ? { role: "admin" } : {}),
+          ...(isOwner ? { role: "admin" } : {}),
         },
       });
 

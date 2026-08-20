@@ -1,6 +1,17 @@
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
+/** Repository root, so these suites run from any checkout. */
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+
+import { createRequire } from "node:module";
+/** Resolves a workspace dependency from the package that declares it. */
+function resolveFrom(pkgPath, name) {
+  return createRequire(resolve(ROOT, pkgPath)).resolve(name);
+}
+
 // Measurement layer verification: fires once, carries nothing sensitive, and
 // never pollutes production numbers with test or bot traffic.
-import { build } from "/home/user/platform/node_modules/.pnpm/esbuild@0.27.3/node_modules/esbuild/lib/main.js";
+const { build } = await import(resolveFrom("artifacts/api-server/package.json", "esbuild"));
 import assert from "node:assert/strict";
 
 const captured = [];
@@ -8,9 +19,9 @@ globalThis.window = { location: { hostname: "lena.example", pathname: "/ar/conta
 // navigator is replaced per-scenario via defineProperty in setup()
 
 const out = await build({
-  entryPoints: ["/home/user/platform/artifacts/jiwdah/src/lib/analytics/index.ts"],
+  entryPoints: [`${ROOT}/artifacts/jiwdah/src/lib/analytics/index.ts`],
   bundle: true, write: false, format: "esm", platform: "neutral",
-  alias: { "@": "/home/user/platform/artifacts/jiwdah/src" },
+  alias: { "@": `${ROOT}/artifacts/jiwdah/src` },
 });
 const A = await import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));
 
