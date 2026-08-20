@@ -1,4 +1,4 @@
-import{pgTable,pgEnum,serial,varchar,text,timestamp,integer,jsonb}from"drizzle-orm/pg-core";
+import{pgTable,pgEnum,serial,varchar,text,timestamp,integer,jsonb,date,primaryKey}from"drizzle-orm/pg-core";
 import{INQUIRY_STATUS_VALUES,PROJECT_STATUS_VALUES,CONTENT_STATUS_VALUES,ROLE_VALUES}from"./enums";
 import type{ProjectContentBlocks,ProjectGalleryItem}from"./project-content";
 export*from"./enums";export*from"./project-content";
@@ -15,3 +15,5 @@ export const contentEntries=pgTable("content_entries",{id:serial("id").primaryKe
 export type ContentEntry=typeof contentEntries.$inferSelect;export type InsertContentEntry=typeof contentEntries.$inferInsert;
 export const adminAuditEvents=pgTable("admin_audit_events",{id:serial("id").primaryKey(),actorUserId:integer("actor_user_id"),actorUnionId:varchar("actor_union_id",{length:255}),actorRole:varchar("actor_role",{length:50}).default("admin").notNull(),action:varchar("action",{length:64}).notNull(),subjectType:varchar("subject_type",{length:32}).notNull(),subjectId:varchar("subject_id",{length:64}),reason:text("reason"),details:jsonb("details").$type<Record<string,unknown>>().default({}).notNull(),outcome:varchar("outcome",{length:16}).default("success").notNull(),createdAt:timestamp("created_at").defaultNow().notNull()}).enableRLS();
 export type AdminAuditEvent=typeof adminAuditEvents.$inferSelect;export type InsertAdminAuditEvent=typeof adminAuditEvents.$inferInsert;
+export const analyticsDaily=pgTable("analytics_daily",{day:date("day").notNull(),event:varchar("event",{length:48}).notNull(),route:varchar("route",{length:64}).default("/").notNull(),locale:varchar("locale",{length:8}).default("ar").notNull(),dimension:varchar("dimension",{length:32}).default("").notNull(),count:integer("count").default(0).notNull(),updatedAt:timestamp("updated_at").defaultNow().notNull()},(table)=>[primaryKey({columns:[table.day,table.event,table.route,table.locale,table.dimension]})]).enableRLS();
+export type AnalyticsDaily=typeof analyticsDaily.$inferSelect;

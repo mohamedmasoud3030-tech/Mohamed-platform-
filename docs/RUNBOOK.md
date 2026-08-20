@@ -131,3 +131,24 @@ Every public page lives under a language segment: `/ar/...` and `/en/...`.
 
 Freshness test: `sitemap.xml` must contain exactly twice the number of public routes, and every
 `<loc>` must begin with a supported language segment.
+
+---
+
+## 5. Measurement and retention (added with the counters)
+
+**Aggregate counters.** `analytics_daily` holds `(day, event, route shape, locale, dimension, count)`.
+There is no identifier, no address and no session, so no row describes a person. Reading is admin-only
+(`analytics.summary` for the three dashboards, `analytics.raw` for the underlying counters). Writing is
+public because visitors are anonymous; the server validates every field against closed vocabularies and
+silently ignores anything else. Counters are directional, not forensic — never use them adversarially.
+
+**Retention.** Nothing runs on a schedule. To apply the policy:
+
+1. `operations.retentionPreview` — reports the window, cutoff and how many records would be affected.
+   It changes nothing.
+2. `operations.applyRetention` — requires the exact word `ANONYMISE` and a written reason. It clears
+   name, email, phone and message on records older than `INQUIRY_RETENTION_MONTHS` (default 24) and
+   leaves the row, its status, its dates and its entry context intact. The run is audited.
+
+**Audit immutability.** `admin_audit_events` rejects `UPDATE` and `DELETE` at the database level. If a
+legitimate correction is ever needed, append a new corrective event — never rewrite an old one.

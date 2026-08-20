@@ -1,6 +1,6 @@
 # LENA — Admin & Support Operations Spec
 
-**Version:** 1.0 · **Date:** 2026-08-20 · **Baseline:** `aa7534e`
+**Version:** 1.1 · **Date:** 2026-08-20 (audit immutability and retention implemented) · **Baseline:** `aa7534e`
 **Companion:** `docs/RUNBOOK.md` (procedures), `PRIVACY_DATA_GOVERNANCE.md` (data rules)
 
 ---
@@ -155,10 +155,13 @@ editing · refunds and financial actions (no payment surface) · scheduled delet
 policy decision — see `PRIVACY_DATA_GOVERNANCE.md`) · notification of the operator on privileged
 actions (one operator; the audit trail is sufficient).
 
-## 8. Owner decision required
+## 8. Implemented since v1.0
 
-Database-level enforcement of audit immutability: revoking `UPDATE` and `DELETE` on
-`admin_audit_events` from the application's database role. The application already exposes no such
-path, so this closes the gap where a future code change, or direct database access, could rewrite
-history. It is a one-statement change with no downtime and is fully reversible, but it is a production
-database operation and therefore needs owner authorisation.
+**Audit immutability is enforced by the database.** A trigger rejects any `UPDATE` or `DELETE` on
+`admin_audit_events`. A trigger was chosen over a role `GRANT` because the application's database role
+name differs between hosts, while a trigger behaves identically everywhere. Verified by attempting both
+operations directly against the database: both were refused and the row survived.
+
+**Retention** is available as an operator action, not a schedule: `retentionPreview` changes nothing,
+and `applyRetention` requires the word `ANONYMISE` plus a written reason, anonymises rather than
+deletes, and is audited. See `PRIVACY_DATA_GOVERNANCE.md` §6.

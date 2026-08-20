@@ -1,6 +1,6 @@
 # LENA — Privacy & Data Governance
 
-**Version:** 1.0 · **Date:** 2026-08-20 · **Baseline:** `aa7534e`
+**Version:** 1.1 · **Date:** 2026-08-20 (measurement, retention and audit immutability implemented) · **Baseline:** `aa7534e`
 **Companion:** `ADMIN_SUPPORT_OPERATIONS_SPEC.md`, `AI_FEATURE_SYSTEM.md`, `docs/RUNBOOK.md`
 
 > **Scope boundary, stated plainly.** This document is engineering and product practice. It is **not
@@ -30,6 +30,7 @@
 | Language / theme preference | The visitor's choice | Serve the right version | Visitor's `localStorage` | The visitor only | Non-personal |
 | Inquiry draft | Typed, before sending | Do not lose text on refresh | Visitor's `localStorage` | The visitor only | Personal, **never transmitted** |
 | Project content and media | Authored by the founder | Public portfolio | Database + object storage | Public once published | Non-personal |
+| Aggregate counters | Derived from page views and actions | Measure the funnel | `analytics_daily` | Admin, read-only | **Non-personal by construction** — day, event, route shape, locale, count. No identifier, no address, no session |
 
 **Not collected anywhere:** IP addresses in raw form, user agents, referrers, device or advertising
 identifiers, page-view logs, location, payment data, or any special-category data.
@@ -105,8 +106,13 @@ invalid the moment any analytics or third-party embed is added — which is exac
 | Project media | Kept indefinitely | Keep — published business content |
 | Server logs | Host-dependent | Confirm the host's rotation window and record it |
 
-**Retention is a policy commitment, not an engineering preference — it needs owner approval before any
-automated deletion runs.** See §10.
+**Implemented as a deliberate, manual action — never a schedule.** `INQUIRY_RETENTION_MONTHS`
+(default 24) drives a preview that changes nothing, and an apply step that requires the operator to
+type `ANONYMISE` plus a written reason. Records are **anonymised, not deleted**: name, email, phone and
+message are cleared while the row, its status, its dates and its entry context survive, so history and
+measurement stay truthful. Every run is audited. **There is no cron and nothing runs on its own.**
+Verified against a 38-month-old record: personal fields cleared, history intact, recent records
+untouched.
 
 ## 7. User rights — implemented workflow
 
@@ -172,5 +178,10 @@ to.** Nothing above should be read as a determination.
 | Form drafts never leave the device and survive hostile storage | `e2e/verify-draft.mjs` | pass |
 | No AI SDK, model endpoint or undeclared outbound host exists | `tools/check-egress.mjs` (runs in every build) | pass |
 
-**Still to be built when retention is approved:** an automated retention job, plus a test proving it
-deletes exactly the intended rows and nothing else.
+| Retention anonymises only records past the window, keeps history, and is audited | live server + real database | pass (38-month-old record) |
+| Audit events cannot be updated or deleted, even directly in the database | live database | pass — both blocked by a trigger |
+| Aggregate counters contain nothing that describes a person | live database | pass |
+| Hostile counter payloads (unknown event, secret in route, email in dimension) | live server | pass — all rejected |
+
+**Deliberately not built:** an automated retention schedule. A cron that destroys client data without a
+human present is a worse risk than a slightly stale database.

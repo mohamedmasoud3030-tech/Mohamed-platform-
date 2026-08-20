@@ -53,11 +53,15 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
     body: {
       ar: [
         "هذا الموقع لا يحمّل أي أداة تحليلات أو تتبّع أو إعلانات، ولا أي محتوى من طرف ثالث.",
+        "نحسب عدّادات مجمّعة على خادمنا نحن فقط: كم مرة فُتحت صفحة، وبأي لغة، وكم استفسارًا أُرسل في اليوم. لا تحتوي هذه العدّادات على أي معرّف ولا كوكي ولا عنوان شبكة، ولا يمكن ربط أي رقم فيها بشخص. ولا تُرسل إلى أي جهة خارجية.",
+        "إن فعّلت خيار «عدم التتبّع» في متصفحك، لا نحسبك في هذه العدّادات إطلاقًا.",
         "الكوكي الوحيد الذي نضعه هو كوكي جلسة لفريق LENA عند تسجيل الدخول. الزائر العادي لا يستقبل أي كوكي منّا.",
         "نحفظ على جهازك أنت — لا على خوادمنا — تفضيل اللغة والمظهر، وما تكتبه في نموذج التواصل قبل إرساله حتى لا يضيع عند تحديث الصفحة. يمكنك مسحه من زر «مسح المسودة» أو بمسح بيانات المتصفح.",
       ],
       en: [
         "This site loads no analytics, tracking or advertising tool, and no third-party content.",
+        "We keep aggregate counters on our own server only: how many times a page was opened, in which language, and how many inquiries were sent per day. These counters contain no identifier, no cookie and no network address, and no number in them can be tied to a person. They are never sent to anyone else.",
+        "If you have enabled “Do Not Track” in your browser, you are not counted at all.",
         "The only cookie we set is a session cookie for the LENA team when signing in. An ordinary visitor receives no cookie from us.",
         "Stored on your own device — not on our servers — are your language and theme preference, and whatever you type into the contact form before sending it, so a page refresh does not lose it. You can clear it with the “Clear draft” button or by clearing your browser data.",
       ],

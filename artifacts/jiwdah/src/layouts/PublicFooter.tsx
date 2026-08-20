@@ -14,7 +14,7 @@ export default function PublicFooter() {
         <div><h2>{locale === "ar" ? "روابط سريعة" : "Quick links"}</h2><div className="lena-footer-links">{PUBLIC_NAVIGATION.map((item) => <Link key={item.to} to={item.to}>{locale === "ar" ? item.ar : item.en}</Link>)}<Link to="/help">{locale === "ar" ? "المساعدة" : "Help"}</Link><Link to="/privacy">{locale === "ar" ? "بياناتك وخصوصيتك" : "Your data and privacy"}</Link></div></div>
         <div><h2>{locale === "ar" ? "ابدأ المحادثة" : "Start the conversation"}</h2><div className="lena-footer-links"><a href={SITE_CONFIG.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={15} /><span dir="ltr">{SITE_CONFIG.phone.display}</span></a><a href={SITE_CONFIG.emailUrl}><Mail size={15} />{SITE_CONFIG.email}</a></div></div>
       </div>
-      <small>© {new Date().getFullYear()} LENA Digital House</small>
+      <small>© {new Date().getFullYear()} LENA Digital House — {SITE_CONFIG.servesLabel[locale]}</small>
     </footer>
   );
 }

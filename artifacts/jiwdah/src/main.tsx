@@ -7,6 +7,7 @@ import { TRPCProvider } from "./providers/trpc";
 import { PreferencesProvider, usePreferences } from "./providers/preferences";
 import { bootstrapLocale } from "./lib/locale";
 import { configureAnalytics } from "./lib/analytics";
+import { firstPartySink } from "./lib/analytics/sink";
 import "./index.css";
 import "./App.css";
 
@@ -16,12 +17,12 @@ import "./App.css";
  * prefixed one without losing the query string or hash.
  */
 /**
- * Measurement is instrumented but collects nothing: no sink is installed, so
- * every track() call is a validated no-op. Turning collection on is a single
- * configureAnalytics({ sink, enabled: true }) call, and needs owner approval
- * (PRODUCT_MEASUREMENT_PLAN.md §8).
+ * Measurement: aggregate counters on this site's own API. No third party, no
+ * cookie, no identifier. The layer still filters development and preview hosts,
+ * automated browsers and Do Not Track before anything is sent
+ * (PRODUCT_MEASUREMENT_PLAN.md §5).
  */
-configureAnalytics({ sink: null, enabled: false });
+configureAnalytics({ sink: firstPartySink, enabled: true });
 
 const { locale, redirectTo } = bootstrapLocale(window.location);
 if (redirectTo) window.history.replaceState(null, "", redirectTo);

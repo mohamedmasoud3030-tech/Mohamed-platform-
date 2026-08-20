@@ -1,6 +1,6 @@
 # LENA — Product Measurement Plan
 
-**Version:** 1.0 · **Date:** 2026-08-20 · **Baseline:** `ddf16ba`
+**Version:** 1.1 · **Date:** 2026-08-20 (collection enabled) · **Baseline:** `ddf16ba`
 **Companions:** `PRODUCT_DEFINITION.md` (goals), `PRIVACY_DATA_GOVERNANCE.md` (data rules),
 `ONBOARDING_ACTIVATION_PLAN.md` (activation)
 
@@ -142,7 +142,7 @@ no property value may ever appear that is not in the vocabulary.
 | Plausible / Fathom (hosted) | Good privacy, but a recurring subscription against the founder's binding cost constraint, and a third party receiving visitor data |
 | Vercel Web Analytics | Convenient, but a paid tier at any real volume and another processor |
 | Self-hosted Umami | No vendor cost, but a second service to run, patch and back up — real maintenance for one person |
-| **First-party aggregate counters in the existing database** | **Recommended.** No vendor, no cookie, no identifier, no recurring cost. A tiny table of `(day, event, route, locale, count)` incremented server-side. Pure counters cannot be de-anonymised because no row ever describes a person |
+| **First-party aggregate counters in the existing database** | **Chosen and implemented.** No vendor, no cookie, no identifier, no recurring cost. A tiny table of `(day, event, route, locale, count)` incremented server-side. Pure counters cannot be de-anonymised because no row ever describes a person |
 
 Cost: effectively zero. Maintenance: one table and one endpoint. Privacy: strictly better than every
 hosted option, and consistent with what `/privacy` already tells visitors.
@@ -161,8 +161,12 @@ adversarial. No funnels per person are possible — which is the point.
   exclusion.
 - Instrumentation across every critical journey and failure state.
 - 35 automated assertions.
-- **Collection is disabled.** No sink is installed, so every call is a validated no-op and **no data
-  leaves any browser.** Enabling is one call, and requires owner approval.
+- **Collection is live**, using first-party aggregate counters in the existing database
+  (`analytics_daily`). One row is `(day, event, route shape, locale, dimension, count)` — a counter,
+  never a record of a person. The server re-validates every field against closed vocabularies, so the
+  browser is untrusted input. Reading the counters is admin-only.
+- `/privacy` was updated in the same change to state plainly that these counters exist, what they
+  contain, and that Do Not Track excludes a visitor entirely.
 
 ## 10. Decisions this will let the owner make
 

@@ -202,7 +202,7 @@ function formatSource(value: string | null | undefined, locale: "ar" | "en") {
 }
 
 function formatDate(value: Date | string, locale: "ar" | "en") {
-  return new Intl.DateTimeFormat(locale === "ar" ? "ar-OM" : "en-GB", {
+  return new Intl.DateTimeFormat(locale === "ar" ? "ar" : "en-GB", {
     dateStyle: "medium",
     timeStyle: "short",
   }).format(new Date(value));

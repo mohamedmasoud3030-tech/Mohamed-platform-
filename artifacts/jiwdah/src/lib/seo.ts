@@ -62,15 +62,16 @@ export function organizationJsonLd(locale: AppLocale): Record<string, unknown> {
         image: origin ? `${origin}${DEFAULT_OG_IMAGE}` : undefined,
         email: SITE_CONFIG.contactEmail,
         telephone: SITE_CONFIG.phone.tel,
-        areaServed: { "@type": "Country", name: "Oman" },
+        // Where the studio is, not who it will work with.
         address: { "@type": "PostalAddress", addressCountry: "OM" },
+        areaServed: "Worldwide",
         contactPoint: [
           {
             "@type": "ContactPoint",
             contactType: "sales",
             telephone: SITE_CONFIG.phone.tel,
             email: SITE_CONFIG.contactEmail,
-            areaServed: "OM",
+            areaServed: "Worldwide",
             availableLanguage: ["ar", "en"],
           },
         ],

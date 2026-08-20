@@ -23,12 +23,12 @@ export const PAGE_SEO: Record<PageSeoKey, Record<AppLocale, LocalizedSeo>> = {
     ar: {
       title: "LENA Digital House — بيت الحلول الرقمية الإبداعية",
       description:
-        "استوديو رقمي في سلطنة عمان يبني الهوية والمحتوى والمواقع والمنتجات الرقمية والأتمتة كنظام واحد متكامل.",
+        "نبني الهوية والمحتوى والمواقع والمنتجات الرقمية والأتمتة كنظام واحد متكامل — لعملاء في المنطقة العربية وخارجها.",
     },
     en: {
       title: "LENA Digital House — Creative Systems & Digital Experiences",
       description:
-        "An Oman-based digital house building identity, content, websites, digital products, and automation as one connected system.",
+        "A digital house building identity, content, websites, digital products, and automation as one connected system — for clients across the Arab region and beyond.",
     },
   },
   services: {
