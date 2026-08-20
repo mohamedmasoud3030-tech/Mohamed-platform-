@@ -1,5 +1,10 @@
 # Open Decisions & Pending Tasks — complete register
 
+> **ALL ANSWERED by the owner on 2026-08-20.** The register below is kept for traceability; the
+> answers and what each one changed are recorded in §Answers at the end. Only two items remain open,
+> both because the owner does not yet have the value: a second admin account id (C1, approved in
+> principle) and permission to name the hospitality client (B4, deliberately withheld).
+
 **Date:** 2026-08-20 · **Purpose:** the owner asked for *every* deferred decision and task in one
 place, with nothing held back.
 
@@ -92,3 +97,37 @@ Proceeding on the next pass unless told otherwise. Ordered by risk reduction.
 
 Answering **A1–A5, B1–B5, C1–C4, D1–D4, E1–E4** in any form — a sentence each is enough — clears
 every open decision in the project. Part B needs nothing from you.
+
+
+---
+
+# Answers received — 2026-08-20
+
+| # | Owner's answer | What changed |
+|---|---|---|
+| A1 | Per product: some are **outright sale with ownership transfer**, some **subscription** | Recorded. **Not published** — no commercial model is claimed on the site |
+| A2 | Do not publish prices | Unchanged; no price appears anywhere |
+| A3 | Hosting **per product**; do not force one model | No architecture built. Recorded as a per-product decision taken at sale time |
+| A4 | Subscription → ongoing updates and support. Outright sale → a **separate support agreement per product** | Published as the after-delivery answer |
+| A5 | **Property (Malek) and Hospitality are in real use** | Both now carry an "In real use" badge — the strongest proof on the site |
+| B1 | Screenshots later | Portfolio keeps its honest "being prepared" state |
+| B2 | Not a one-liner — **full detail per product**: what it is, how it is used, who benefits | Each product now has industry, stage, problem, how it is used, who benefits, and what it runs |
+| B3 | Everything is **trial**, except the two products in real use | Two stages implemented: `in-use` and `trial` |
+| B4 | **Do not name the hospitality client** until explicit approval | No client name appears. Still open |
+| B5 | Do not show nationality | Not shown |
+| C1 | **Approved** — second admin identity | Mechanism built and tested; awaiting the actual account id |
+| C2 | SMTP not ready, defer | Dashboard remains the reliable source; documented in the runbook |
+| C3 | Leave CI wiring for now | `pnpm run verify` stays manual; the four lines remain documented |
+| C4 | **No** AI draft translation | Recorded as rejected. No AI anywhere; the egress guard keeps it that way |
+| D1 | **Approved** — anonymise after 24 months | Policy confirmed. Still never runs automatically; the owner triggers it |
+| D2 | No lawyer for now | Recorded as an accepted, owner-known risk |
+| D3 | Keep the pricing answer; prices given per product and case on request | Wording updated to say exactly that |
+| D4 | Keep the one-business-day promise | Unchanged |
+| E1 | Order: **Bio Beauty**, then **LENA Dressroom**, then the rest. **Kayyal must not lead** | Implemented as an explicit `order` field |
+| E2 | Keep the creative tracks; hide them only, restore later as standalone services | Hidden, not deleted. Eight tracks and eight concept projects preserved |
+| E3 | **Yes** — a real delivery pipeline | Implemented: new → contacted → quoted → agreed → in delivery → completed → closed → archived |
+| E4 | Oman number for the floating button | Unchanged, already Oman |
+
+**Two interpretations the agent made, flagged for correction if wrong:** "منتج الفتاتين" was read as
+**الفساتين** (LENA Dressroom), and "بيو بيوتي" was taken as the product name for the health-centre and
+spa system previously referred to as LENA Beauty.

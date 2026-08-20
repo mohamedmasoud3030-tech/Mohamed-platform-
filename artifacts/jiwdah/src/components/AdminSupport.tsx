@@ -24,7 +24,7 @@ const HELP: Record<AdminHelpTab, Record<"ar" | "en", Note[]>> = {
       },
       {
         q: "ماذا تعني الحالات؟",
-        a: "«جديد» لم تفتحه بعد · «قيد المتابعة» تواصلت ولم يُحسم · «مؤهل» عميل جاد تكمل معه · «مغلق» انتهى · «مؤرشف» أخرجته من قائمة العمل.",
+        a: "«استفسار جديد» لم تفتحه بعد · «تم التواصل» رددت عليه · «عرض سعر» أرسلت له السعر · «متفق» وافق وبدأتم · «تحت التنفيذ» العمل جارٍ · «مكتمل» سُلِّم · «مغلق» انتهى بلا اتفاق · «مؤرشف» أخرجته من قائمة العمل.",
       },
       {
         q: "لماذا لم يصلني إشعار بالبريد؟",
@@ -54,7 +54,7 @@ const HELP: Record<AdminHelpTab, Record<"ar" | "en", Note[]>> = {
       },
       {
         q: "What do the statuses mean?",
-        a: "“New” not opened yet · “In progress” contacted, undecided · “Qualified” a serious client you are continuing with · “Closed” finished · “Archived” removed from your working list.",
+        a: "“New inquiry” not opened yet · “Contacted” you replied · “Quoted” price sent · “Agreed” they accepted · “In delivery” work under way · “Completed” delivered · “Closed” ended without agreement · “Archived” removed from your working list.",
       },
       {
         q: "Why did I not receive an email notification?",

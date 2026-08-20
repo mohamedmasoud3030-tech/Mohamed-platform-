@@ -89,8 +89,20 @@ export const HELP_ARTICLES: HelpArticle[] = [
       en: "How is cost determined?",
     },
     answer: {
-      ar: "لا توجد قائمة أسعار ثابتة على الموقع، لأن نطاق كل مشروع يختلف. نبدأ بفهم الهدف والمخرجات المطلوبة، ثم نحدد النطاق والتكلفة قبل أي التزام منك.",
-      en: "There is no fixed price list on the site because every project scope differs. We start by understanding the goal and the required deliverables, then define scope and cost before any commitment from you.",
+      ar: "لا توجد قائمة أسعار معلنة على الموقع، لأن السعر يختلف حسب المنتج وحالة كل عميل. اسألنا عن المنتج الذي يهمك ونوضح لك السعر وطريقة الحصول عليه — بيعًا أو اشتراكًا — قبل أي التزام منك.",
+      en: "There is no published price list, because the price depends on the product and on each client's situation. Ask about the product you care about and we will tell you the price and how it is obtained — purchase or subscription — before any commitment from you.",
+    },
+  },
+  {
+    id: "after-delivery",
+    topic: "work",
+    question: {
+      ar: "ماذا يحدث بعد ما أبدأ استخدام النظام؟",
+      en: "What happens after I start using the system?",
+    },
+    answer: {
+      ar: "يعتمد على نوع المنتج. الأنظمة التي تعمل بالاشتراك تشمل التحديثات والدعم المستمر طوال فترة الاشتراك. أما الأنظمة التي تُباع بالكامل مع نقل الملكية فيُتفق على الدعم في اتفاقية منفصلة تخص المنتج نفسه. نوضح لك أي الحالتين تنطبق قبل أي التزام.",
+      en: "It depends on the product. Systems on a subscription include updates and ongoing support for as long as the subscription runs. Systems sold outright with ownership transferred have support agreed in a separate agreement for that product. We tell you which case applies before any commitment.",
     },
   },
   {

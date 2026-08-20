@@ -33,7 +33,13 @@ import "./dashboard.css";
 type DashboardTab = "inquiries" | "projects";
 type ProjectStatus = "draft" | "published" | "archived";
 type ContentStatus = "draft" | "published" | "archived";
-type InquiryStatus = "new" | "in_progress" | "qualified" | "closed" | "archived";
+type InquiryStatus =
+  | "new" | "contacted" | "quoted" | "agreed"
+  | "in_progress" | "completed" | "closed" | "archived"
+  | "qualified"; // legacy, never offered — see 0011_lena_delivery_lifecycle.sql
+
+/** Offered in the picker, in the order work actually moves. */
+const PIPELINE: InquiryStatus[] = ["new", "contacted", "quoted", "agreed", "in_progress", "completed", "closed", "archived"];
 
 type ProjectForm = {
   title: string;
@@ -123,11 +129,15 @@ const TEXT = {
     projectsHint: "لا يظهر للزوار إلا المشروع المنشور.",
     contentHint: "لا يظهر للزوار إلا المحتوى المنشور.",
     statuses: {
-      new: "جديد",
-      in_progress: "قيد المتابعة",
-      qualified: "مؤهل",
+      new: "استفسار جديد",
+      contacted: "تم التواصل",
+      quoted: "عرض سعر",
+      agreed: "متفق",
+      in_progress: "تحت التنفيذ",
+      completed: "مكتمل",
       closed: "مغلق",
       archived: "مؤرشف",
+      qualified: "مؤهل (قديم)",
       draft: "مسودة",
       published: "منشور",
     },
@@ -181,11 +191,15 @@ const TEXT = {
     projectsHint: "Only published projects are visible to visitors.",
     contentHint: "Only published content is visible to visitors.",
     statuses: {
-      new: "New",
-      in_progress: "In progress",
-      qualified: "Qualified",
+      new: "New inquiry",
+      contacted: "Contacted",
+      quoted: "Quoted",
+      agreed: "Agreed",
+      in_progress: "In delivery",
+      completed: "Completed",
       closed: "Closed",
       archived: "Archived",
+      qualified: "Qualified (legacy)",
       draft: "Draft",
       published: "Published",
     },
@@ -402,7 +416,7 @@ export default function Dashboard() {
                             value={inquiry.status}
                             onChange={(event) => updateInquiryStatus.mutate({ id: inquiry.id, status: event.target.value as InquiryStatus })}
                           >
-                            {(["new", "in_progress", "qualified", "closed", "archived"] as InquiryStatus[]).map((status) => (
+                            {PIPELINE.map((status) => (
                               <option key={status} value={status}>{text.statuses[status]}</option>
                             ))}
                           </select>

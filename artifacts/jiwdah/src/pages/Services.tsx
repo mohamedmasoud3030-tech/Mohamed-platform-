@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import LenaCta from "@/components/LenaCta";
 import SeoHead from "@/components/SeoHead";
 import { pageSeo } from "@/content/seo";
-import { publicSystems } from "@/content/systems";
+import { STAGE_LABEL, STAGE_NOTE, publicSystems } from "@/content/systems";
 import PublicShell from "@/layouts/PublicShell";
 import { usePreferences } from "@/providers/preferences";
 
@@ -30,13 +30,34 @@ export default function Services() {
       <section className="lena-section">
         <div className="lena-container lena-bento">
           {systems.map((system, index) => (
-            <article className={`lena-glass lena-service-card${index === 0 ? " wide" : ""}`} key={system.id}>
+            <article className="lena-glass lena-service-card lena-system-card wide" key={system.id}>
               <i className="lena-card-glow" />
               <div className="lena-card-top">
                 <small>{String(index + 1).padStart(2, "0")}</small>
               </div>
-              <h2>{system.industry[locale]}</h2>
+              <h2>{system.name[locale]}</h2>
+              <p className="lena-system-industry">{system.industry[locale]}</p>
+              <p className={`lena-stage lena-stage-${system.stage}`} title={STAGE_NOTE[system.stage][locale]}>
+                {STAGE_LABEL[system.stage][locale]}
+              </p>
+
+              <h3 className="lena-system-heading">{isArabic ? "المشكلة" : "The problem"}</h3>
               <p>{system.problem[locale]}</p>
+
+              <h3 className="lena-system-heading">{isArabic ? "كيف يُستخدم" : "How it is used"}</h3>
+              <p>{system.usage[locale]}</p>
+
+              <h3 className="lena-system-heading">{isArabic ? "من المستفيد" : "Who benefits"}</h3>
+              <ul className="lena-system-does">
+                {system.beneficiaries[locale].map((who) => (
+                  <li key={who}>
+                    <CheckCircle2 size={15} />
+                    {who}
+                  </li>
+                ))}
+              </ul>
+
+              <h3 className="lena-system-heading">{isArabic ? "ما الذي يديره" : "What it runs"}</h3>
               <ul className="lena-system-does">
                 {system.does[locale].map((item) => (
                   <li key={item}>
