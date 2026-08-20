@@ -1,4 +1,5 @@
 import { SITE_CONFIG } from "@/config/site";
+import { FOUNDER } from "@/content/founder";
 import type { AppLocale } from "@/providers/preferences";
 
 export const BRAND_NAME = "LENA Digital House";
@@ -65,6 +66,14 @@ export function organizationJsonLd(locale: AppLocale): Record<string, unknown> {
         // Where the studio is, not who it will work with.
         address: { "@type": "PostalAddress", addressCountry: "OM" },
         areaServed: "Worldwide",
+        // The hybrid identity: a brand with a named person behind it.
+        founder: {
+          "@type": "Person",
+          name: FOUNDER.name.en,
+          alternateName: FOUNDER.name.ar,
+          jobTitle: FOUNDER.role.en,
+          ...(FOUNDER.photo && origin ? { image: `${origin}${FOUNDER.photo}` } : {}),
+        },
         contactPoint: [
           {
             "@type": "ContactPoint",

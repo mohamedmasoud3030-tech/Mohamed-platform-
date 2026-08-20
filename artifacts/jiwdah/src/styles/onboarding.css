@@ -243,3 +243,19 @@
 .lena-privacy-card ul { display: grid; gap: 11px; margin: 14px 0 0; padding: 0; list-style: none; }
 .lena-privacy-card li { position: relative; padding-inline-start: 18px; color: var(--lena-muted); font-size: 14px; line-height: 1.95; }
 .lena-privacy-card li::before { content: ""; position: absolute; inset-inline-start: 0; top: 11px; width: 6px; height: 6px; border-radius: 50%; background: var(--lena-accent); }
+
+/* Founder card: works with a photograph, with a monogram, or with a broken image. */
+.lena-founder { display: grid; grid-template-columns: 220px 1fr; align-items: center; gap: 26px; padding: 26px; }
+.lena-founder-portrait { position: relative; display: grid; width: 220px; height: 220px; place-items: center; overflow: hidden; border: 1px solid var(--lena-line-strong); border-radius: 50%; background: linear-gradient(145deg, rgba(97,130,255,.22), rgba(160,86,255,.12)); }
+.lena-founder-portrait img { width: 100%; height: 100%; object-fit: cover; }
+.lena-founder-monogram { color: var(--lena-accent); font-size: 54px; font-weight: 800; letter-spacing: .08em; }
+.lena-founder-body h2 { margin: 10px 0 0; font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.3; letter-spacing: -.03em; }
+.lena-founder-role { margin-top: 8px; color: var(--lena-accent); font-size: 14px; font-weight: 700; }
+.lena-founder-bio { margin-top: 14px; color: var(--lena-muted); font-size: 15px; line-height: 1.95; }
+.lena-founder-note { margin-top: 14px; color: var(--lena-muted); font-size: 14px; line-height: 1.9; }
+@media (max-width: 720px) {
+  .lena-founder { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 18px; padding: 22px; }
+  .lena-founder-portrait { width: 168px; height: 168px; }
+  .lena-founder-monogram { font-size: 42px; }
+  .lena-founder .lena-actions { justify-content: center; }
+}
