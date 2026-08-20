@@ -1,6 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router";
-import { publicSystems } from "@/content/systems";
+import { STAGE_LABEL, publicSystems } from "@/content/systems";
 import { usePreferences } from "@/providers/preferences";
 
 /** Industry-first entry points, as decided in PRODUCT_DECISIONS.md D4. */
@@ -16,7 +16,9 @@ export default function SystemGrid({ limit }: { limit?: number }) {
           <div className="lena-card-top">
             <small>{String(index + 1).padStart(2, "0")}</small>
           </div>
-          <h3>{system.industry[locale]}</h3>
+          <h3>{system.name[locale]}</h3>
+          <p className="lena-system-industry">{system.industry[locale]}</p>
+          <span className={`lena-stage lena-stage-${system.stage}`}>{STAGE_LABEL[system.stage][locale]}</span>
           <p>{system.problem[locale]}</p>
           <Link className="lena-more" to={`/contact?service=${system.id}`}>
             {locale === "ar" ? "تحدث عن نظام لقطاعك" : "Talk about a system for your trade"}

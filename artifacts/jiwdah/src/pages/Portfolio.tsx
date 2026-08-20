@@ -5,7 +5,7 @@ import SeoHead from "@/components/SeoHead";
 import { pageSeo } from "@/content/seo";
 import PortfolioShowcase from "@/features/projects/PortfolioShowcase";
 import { publicProjects } from "@/content/projects";
-import { publicSystems } from "@/content/systems";
+import { STAGE_LABEL, publicSystems } from "@/content/systems";
 import PublicShell from "@/layouts/PublicShell";
 import { useSiteCopy } from "@/hooks/useSiteCopy";
 import { usePreferences } from "@/providers/preferences";
@@ -28,7 +28,7 @@ export default function Portfolio() {
               ? "الأنظمة التالية مبنية وتعمل، ونجهّز الآن توثيقها بالشاشات والتفاصيل. حتى ذلك الحين، اطلب جولة مباشرة على أي نظام يخص قطاعك."
               : "The systems below are built and running; their documentation and screens are being prepared. Until then, ask for a live walkthrough of whichever one fits your trade."}</p>
             <ul className="lena-system-does">
-              {publicSystems().map((system) => <li key={system.id}>{system.industry[locale]}</li>)}
+              {publicSystems().map((system) => <li key={system.id}>{system.name[locale]} — {system.industry[locale]} <span className={`lena-stage lena-stage-${system.stage}`}>{STAGE_LABEL[system.stage][locale]}</span></li>)}
             </ul>
             <Link className="lena-primary" to="/contact">
               {locale === "ar" ? "اطلب جولة مباشرة" : "Request a live walkthrough"}

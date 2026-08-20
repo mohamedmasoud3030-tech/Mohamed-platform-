@@ -66,10 +66,23 @@ check("help says five per hour in Arabic and English", () => {
 });
 
 console.log("\n== FT4: inquiry statuses in the admin help match the enum ==");
-const statuses = /INQUIRY_STATUS_VALUES\s*=\s*\[([^\]]+)\]/.exec(enums)[1]
+// Only the statuses actually offered in the interface need an explanation.
+// Legacy values still render on historical rows but are never selectable.
+const statuses = /INQUIRY_PIPELINE_VALUES\s*=\s*\[([^\]]+)\]/.exec(enums)[1]
   .match(/"([a-z_]+)"/g).map((s) => s.replaceAll('"', ""));
-check(`all statuses (${statuses.join(", ")}) are explained to the owner`, () => {
-  const labels = { new: ["جديد", "New"], in_progress: ["قيد المتابعة", "In progress"], qualified: ["مؤهل", "Qualified"], closed: ["مغلق", "Closed"], archived: ["مؤرشف", "Archived"] };
+const allStatuses = /INQUIRY_STATUS_VALUES\s*=\s*\[([^\]]+)\]/.exec(enums)[1]
+  .match(/"([a-z_]+)"/g).map((s) => s.replaceAll('"', ""));
+const legacyStatuses = allStatuses.filter((v) => !statuses.includes(v));
+check(`legacy statuses (${legacyStatuses.join(", ") || "none"}) are never offered as a choice`, () => {
+  const dashboard = read("artifacts/jiwdah/src/pages/Dashboard.tsx");
+  const pipeline = /const PIPELINE: InquiryStatus\[\] = \[([^\]]+)\]/.exec(dashboard);
+  assert.ok(pipeline, "the dashboard no longer declares an explicit pipeline");
+  for (const legacy of legacyStatuses) {
+    assert.ok(!pipeline[1].includes(`"${legacy}"`), `legacy status "${legacy}" is offered in the picker`);
+  }
+});
+check(`every offered status (${statuses.join(", ")}) is explained to the owner`, () => {
+  const labels = { new: ["استفسار جديد", "New inquiry"], contacted: ["تم التواصل", "Contacted"], quoted: ["عرض سعر", "Quoted"], agreed: ["متفق", "Agreed"], in_progress: ["تحت التنفيذ", "In delivery"], completed: ["مكتمل", "Completed"], closed: ["مغلق", "Closed"], archived: ["مؤرشف", "Archived"], qualified: ["مؤهل", "Qualified"] };
   for (const status of statuses) {
     const pair = labels[status];
     assert.ok(pair, `status "${status}" has no documented label at all`);
@@ -103,9 +116,19 @@ check("English promise identical on /contact and /help", () => {
 });
 
 console.log("\n== FT7: help never describes something that does not exist ==");
-check("no help text promises accounts, billing, or a client portal", () => {
-  for (const forbidden of ["حسابك", "اشتراك", "الفاتورة", "subscription", "invoice", "client portal", "your account"]) {
+check("help never promises an in-product feature that does not exist", () => {
+  // Subscription is a real commercial model (owner, 2026-08-20), so describing it
+  // is truthful. What must never be implied is an in-app surface for it: this
+  // product has no customer login, no billing screen and no invoices.
+  for (const forbidden of ["حسابك على المنصة", "لوحة العميل", "بوابة العملاء", "الفاتورة",
+                           "invoice", "client portal", "your account", "billing page", "sign up"]) {
     assert.ok(!help.includes(forbidden), `help mentions "${forbidden}" which this product does not have`);
+  }
+});
+check("no in-app billing or customer-account surface actually exists", () => {
+  const routes = app.match(/path="([^"]+)"/g) ?? [];
+  for (const route of routes) {
+    assert.ok(!/billing|checkout|subscribe|account/i.test(route), `unexpected route ${route}`);
   }
 });
 
