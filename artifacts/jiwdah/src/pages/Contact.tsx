@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from "react";
 import { Mail, MessageCircle, Phone, Send } from "lucide-react";
+import SeoHead from "@/components/SeoHead";
 import { SITE_CONFIG } from "@/config/site";
+import { pageSeo } from "@/content/seo";
 import { LENA_SERVICES } from "@/content/services";
 import PublicShell from "@/layouts/PublicShell";
 import { useSiteCopy } from "@/hooks/useSiteCopy";
@@ -87,8 +89,11 @@ export default function Contact() {
     });
   }
 
+  const seo = pageSeo("contact", locale);
+
   return (
     <PublicShell>
+      <SeoHead title={seo.title} description={seo.description} path="/contact" />
       <section className="lena-page lena-container">
         <p className="lena-kicker">{copy.contact.eyebrow}</p>
         <h1 className="lena-page-title">{copy.contact.title}</h1>
