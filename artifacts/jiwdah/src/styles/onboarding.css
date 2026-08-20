@@ -259,3 +259,10 @@
   .lena-founder-monogram { font-size: 42px; }
   .lena-founder .lena-actions { justify-content: center; }
 }
+
+/* Contact channels: one card per market. */
+.lena-contact-reach { margin-top: 18px; color: var(--lena-muted); font-size: 14px; line-height: 1.9; }
+.lena-contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 13px; margin-top: 20px; }
+.lena-contact-card .lena-primary { margin-top: auto; }
+.lena-contact-card .lena-secondary { margin-top: 8px; }
+.lena-footer-links a small { margin-inline-start: 6px; opacity: .65; font-size: 11px; }

@@ -62,9 +62,9 @@ export function organizationJsonLd(locale: AppLocale): Record<string, unknown> {
         logo: origin ? `${origin}/favicon.svg` : undefined,
         image: origin ? `${origin}${DEFAULT_OG_IMAGE}` : undefined,
         email: SITE_CONFIG.contactEmail,
-        telephone: SITE_CONFIG.phone.tel,
-        // Where the studio is, not who it will work with.
-        address: { "@type": "PostalAddress", addressCountry: "OM" },
+        telephone: SITE_CONFIG.channels.map((channel) => channel.tel),
+        // No location is claimed. Reach is expressed by the markets the studio
+        // can be reached in locally, which is verifiable, unlike an address.
         areaServed: "Worldwide",
         // The hybrid identity: a brand with a named person behind it.
         founder: {
@@ -74,16 +74,14 @@ export function organizationJsonLd(locale: AppLocale): Record<string, unknown> {
           jobTitle: FOUNDER.role.en,
           ...(FOUNDER.photo && origin ? { image: `${origin}${FOUNDER.photo}` } : {}),
         },
-        contactPoint: [
-          {
-            "@type": "ContactPoint",
-            contactType: "sales",
-            telephone: SITE_CONFIG.phone.tel,
-            email: SITE_CONFIG.contactEmail,
-            areaServed: "Worldwide",
-            availableLanguage: ["ar", "en"],
-          },
-        ],
+        contactPoint: SITE_CONFIG.channels.map((channel) => ({
+          "@type": "ContactPoint",
+          contactType: "sales",
+          telephone: channel.tel,
+          email: SITE_CONFIG.contactEmail,
+          areaServed: channel.id.toUpperCase(),
+          availableLanguage: ["ar", "en"],
+        })),
       },
       {
         "@type": "WebSite",

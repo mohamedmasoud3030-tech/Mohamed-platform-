@@ -6,6 +6,21 @@ ADMIN="kimi_sid=$(cat /tmp/admin.jwt)"
 USER="kimi_sid=$(cat /tmp/user.jwt)"
 pass=0; fail=0
 
+# A test fixture that has quietly expired produces UNAUTHORIZED everywhere and
+# looks exactly like a catastrophic authorization regression. Fail loudly instead.
+for token in /tmp/admin.jwt /tmp/user.jwt; do
+  if ! python3 - "$token" <<'CHECK'
+import base64, json, sys, time
+raw = open(sys.argv[1]).read().split(".")[1]
+payload = json.loads(base64.urlsafe_b64decode(raw + "==" * (-len(raw) % 4)))
+sys.exit(0 if payload["exp"] > time.time() + 60 else 1)
+CHECK
+  then
+    echo "FIXTURE EXPIRED: $token — re-run 'node e2e/seed.mjs' before this suite." >&2
+    exit 2
+  fi
+done
+
 code() { # code <cookie|-> <method> <procedure> [json]
   local cookie="$1" method="$2" proc="$3" body="${4:-}"
   local args=(-s -o /tmp/resp.json -w '%{http_code}')
