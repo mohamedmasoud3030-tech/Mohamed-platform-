@@ -432,7 +432,8 @@ metric that cannot be substantiated; add a paid service or recurring cost; colle
 beyond the inquiry form; change the published reply commitment; add push notifications or install
 prompts.
 
-**Open owner decision blocking nothing but affecting §FR-4:** whether the five applications are
-presented as *screens plus recordings inside this site* (zero additional cost, the recommendation) or
-as *five separately hosted live demos* (recurring hosting cost and ongoing maintenance, and the
-current hosting tier's terms must be reviewed for commercial use).
+**Resolved owner decision (2026-08-20):** the five applications are presented as **screens plus
+short recordings inside this site**, with a "request a live walkthrough" action for anyone who wants
+to see one running. Separate hosting for the five applications is **rejected** — zero additional
+recurring cost, less maintenance, and the walkthrough requests measure real interest instead of
+assuming it. Any single application may still be published live later without rebuilding anything.
