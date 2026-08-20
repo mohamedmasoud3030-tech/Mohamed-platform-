@@ -12,7 +12,7 @@ Founder decisions on record (2026-08-20):
 | Market | **Arabic and English as two equal, real markets** (not Gulf-only) |
 | Default language | **Detected from the visitor's device**, always switchable |
 | 6-month goal | **New paying project clients** |
-| Proof | **5 web applications across different industries**, plus the existing industry/service pages retained |
+| Proof | **Six web applications across different industries** (five self-built, one for a named client), plus the existing industry/service pages retained |
 | Binding constraint | **Cost** — no new paid services, no new recurring spend |
 
 ---
@@ -20,8 +20,9 @@ Founder decisions on record (2026-08-20):
 ## 1. Value proposition
 
 **One sentence:**
-> LENA is where a business owner sees five working web applications that already solve real problems
-> in their industry — then talks directly to the person who built them, in Arabic or English.
+> LENA is where a business owner sees working applications that already solve real problems in their
+> industry — built by someone who ran those operations before he automated them — and then talks to
+> him directly, in Arabic or English.
 
 Why this wording holds: it names the proof (working applications, not mockups), the relevance
 (their industry), the differentiator (direct access to the builder, not an account manager), and the
@@ -84,7 +85,7 @@ process.
 
 | # | Assumption | Confidence | Cheapest validation |
 |---|---|---|---|
-| A1 | Business owners find self-built applications persuasive enough to make contact, without client references | **Low — the riskiest assumption in this document** | Ship 5 app pages; measure app-page → inquiry rate over 30 days. Under 1%, the proof model is wrong, not the design |
+| A1 | Business owners find self-built applications persuasive enough to make contact, without client references | **Reduced from Low to Medium** — one of the six was built for a named client, and the founder's operator background is verifiable domain proof rather than a capability claim | Ship 5 app pages; measure app-page → inquiry rate over 30 days. Under 1%, the proof model is wrong, not the design |
 | A2 | The English market responds at a rate worth the cost of maintaining two languages | Medium | Compare inquiries by locale after 60 days; if English is under 15% of the total, stop investing in English content |
 | A3 | Five applications is enough breadth; a visitor finds one relevant to them | Medium | Track which app pages get opened; if one industry takes over 60% of the traffic, specialise instead of broadening |
 | A4 | Visitors will contact a stranger through a form/WhatsApp with no pricing shown | Medium-high (normal for the category) | Already measurable via the existing entry-context attribution |
@@ -103,7 +104,7 @@ believe this person can solve *their* problem — and nothing else.
 1. **Identity correction (hybrid).** Founder named, pictured and described; brand retained; copy voice corrected so it never claims a team that does not exist.
 2. **De-regionalisation.** Remove Oman as a market boundary; keep it as the founder's location. All contact details, phone formats and date formats become configuration, not literals.
 3. **Language as an address.** Every public page reachable at a per-language URL, both indexable, cross-linked, with device-based detection on first visit and a persistent manual switch.
-4. **Five application case studies.** Each with: industry, the business problem, who it is for, what the application does, key screens, an honest provenance label, and one primary action.
+4. **Six application case studies.** Each with: industry, the business problem, who it is for, what the application does, key screens, an honest provenance label, and one primary action. Inventory and status: `docs/PROJECT_INVENTORY.md`.
 5. **Retained industry/service pages** (founder's explicit requirement), rewritten to lead with the business problem and to link to the relevant application.
 6. **Trust layer.** Founder bio, an honest "how I work" sequence, and the already-published one-business-day reply commitment.
 7. **Conversion path.** Existing inquiry form and WhatsApp, with entry-context attribution extended so the founder knows which application produced each inquiry.

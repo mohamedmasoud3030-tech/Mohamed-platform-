@@ -1,93 +1,75 @@
-# مشاريع جودة الإنطلاقة — Jiwdah Hospitality
+# LENA Digital House
 
-## Overview
+بيت رقمي يبني أنظمة تشغيل للأعمال — إدارة العقارات، والمراكز الصحية، وصالات العرض، وشركات
+الاستثمار، وخدمات الضيافة، ومخازن إعادة التدوير — ويعرضها على منصة ثنائية اللغة تستقبل استفسارات
+العملاء وتديرها من لوحة تحكم.
 
-Luxury Arabic event management and hospitality site for Oman (سلطنة عمان). Migrated from Vercel/v0 to Replit's pnpm workspace stack.
+A digital house building operations systems for businesses, presented on a bilingual platform that
+captures and manages client inquiries.
 
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+> **This file replaces an earlier version that described a different product entirely** ("Jiwdah
+> Hospitality", with tables and endpoints that do not exist). The hospitality application it referred
+> to is a real client project — see `docs/PROJECT_INVENTORY.md` §5 — but it is not what this
+> repository contains.
+
+## Documents that matter
+
+| Document | What it answers |
+|---|---|
+| `PRODUCT_DEFINITION.md` | What the product is, who it serves, what is in and out of scope |
+| `FEATURE_GAP_STRATEGY.md` | What is missing, what should be removed, in what order |
+| `ONBOARDING_ACTIVATION_PLAN.md` | First visit through first value |
+| `HELP_SUPPORT_SYSTEM.md` | Help content map, support intake, escalation |
+| `ADMIN_SUPPORT_OPERATIONS_SPEC.md` | Roles, capabilities, audit, risk controls |
+| `PRIVACY_DATA_GOVERNANCE.md` | Data inventory, retention, user rights |
+| `PRODUCT_MEASUREMENT_PLAN.md` | North star, event dictionary, dashboards |
+| `AI_FEATURE_SYSTEM.md` | Why there is no AI, and the policy if that changes |
+| `docs/RUNBOOK.md` | Operating procedures, severity, escalation |
+| `docs/PROJECT_INVENTORY.md` | The six applications and what each still needs |
 
 ## Stack
 
-- **Monorepo tool**: pnpm workspaces
-- **Node.js version**: 24
-- **Package manager**: pnpm
-- **Language**: TypeScript 5.9
-- **Frontend**: React 19 + Vite (RTL Arabic, Tailwind v4, Framer Motion)
-- **Backend**: Express 5 + tRPC v11 (type-safe API)
-- **Database**: PostgreSQL (Replit built-in) + Drizzle ORM
-- **Auth**: Kimi OAuth (custom — env vars required, not yet configured)
-- **Validation**: Zod, drizzle-zod
+pnpm workspace · TypeScript 5.9 · React 19 + Vite 7 (bilingual AR/EN, RTL and LTR) ·
+Express 5 + tRPC v11 · PostgreSQL + Drizzle · Supabase Storage for project media · OAuth for the
+single admin.
 
-## Artifacts
-
-| Artifact | Path | Port | Description |
-|---|---|---|---|
-| `artifacts/jiwdah` | `/` | 20063 | React/Vite frontend |
-| `artifacts/api-server` | `/api` | 8080 | Express + tRPC backend |
-| `artifacts/mockup-sandbox` | — | — | Component preview (dev only) |
-
-## Key Routes
-
-### Frontend (`/`)
-- `/` — Home (hero, services, portfolio, testimonials, FAQ)
-- `/services` — Services page
-- `/portfolio` — Portfolio gallery with category filter
-- `/about` — About us
-- `/contact` — Contact/lead form
-- `/login` — Kimi OAuth login
-- `/dashboard` — Admin dashboard (requires auth)
-
-### Backend (`/api`)
-- `GET /api/healthz` — health check
-- `GET /api/oauth/callback` — Kimi OAuth callback
-- `GET/POST /api/trpc/*` — tRPC router
-
-### tRPC Endpoints
-- `ping` — server ping
-- `auth.me` — current user (requires auth cookie)
-- `leads.create` — public, creates a lead from contact form
-- `leads.list` — admin only, list all leads
-- `portfolio.list` — public, list portfolio items (from DB)
-- `portfolio.create/update/delete` — admin only
-- `instagramPosts.list` — public, list all instagram posts ordered by section + sortOrder
-- `instagramPosts.listBySection` — public, list instagram posts for a specific section
-- `instagramPosts.create` — admin only, add a post
-- `instagramPosts.delete` — admin only, remove a post
-- `instagramPosts.reorder` — admin only, update sort order
-- `instagramPosts.seed` — admin only, seed initial posts from hardcoded defaults (only if table empty)
-
-## Database Schema (`lib/db/src/schema/index.ts`)
-- `users` — admin users (linked to Kimi OAuth)
-- `leads` — contact form submissions
-- `portfolio` — managed portfolio entries (image/video uploads)
-- `instagram_posts` — Instagram embed posts with section (wedding/conference/private/corporate/coffee/vip/about/team), sortOrder, and instagramId
-
-## Key Commands
-
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- `pnpm --filter @workspace/api-server run build` — rebuild API server
-- `pnpm --filter @workspace/api-server run dev` — run API server locally
-
-## Environment Variables Needed
-
-The following must be set as Replit secrets for full functionality:
-
-| Variable | Used By | Purpose |
+| Artifact | Path | Purpose |
 |---|---|---|
-| `DATABASE_URL` | api-server, db | PostgreSQL connection (auto-provided by Replit) |
-| `APP_ID` | api-server | Kimi OAuth client ID |
-| `APP_SECRET` | api-server | Kimi OAuth client secret |
-| `KIMI_AUTH_URL` | api-server, frontend | Kimi OAuth base URL |
-| `KIMI_OPEN_URL` | api-server | Kimi API base URL |
-| `OWNER_UNION_ID` | api-server | Owner's Kimi union ID (grants admin access) |
-| `VITE_KIMI_AUTH_URL` | frontend | Kimi auth URL for OAuth redirect |
-| `VITE_APP_ID` | frontend | Kimi OAuth app ID for redirect URL |
+| `artifacts/jiwdah` | `/` | Public site and admin dashboard |
+| `artifacts/api-server` | `/api` | API |
+| `artifacts/mockup-sandbox` | — | Component preview, development only |
 
-## Dev Notes
+## Routes
 
-- **API server dev script**: runs pre-built `dist/index.mjs` directly (avoids workflow startup timeout during build). After source changes, run `pnpm --filter @workspace/api-server run build` manually then restart the workflow.
-- **Tailwind v4**: uses `@theme inline` in `index.css` for custom tokens (`--color-gold`, `--color-surface`, etc.). Uses `@reference "tailwindcss"` in `App.css` instead of `@apply` with custom tokens.
-- **tRPC type bridge**: `artifacts/jiwdah/src/types/router.ts` re-exports `AppRouter` from the api-server via relative path.
-- **Instagram Posts**: previously hardcoded in `const.ts` as `INSTAGRAM_PORTFOLIO_ITEMS`, `ABOUT_INSTAGRAM_POST`, `TEAM_INSTAGRAM_POSTS`. Now managed via the admin dashboard's "منشورات إنستغرام" tab. Admin can seed initial data using the "تحميل المنشورات الافتراضية" button.
-- **Shared enum build**: When adding new enum values to `lib/api-zod/src/enums.ts`, run `cd lib/api-zod && npx tsc -p tsconfig.json && cd ../api-client-react && npx tsc -p tsconfig.json && cd ../db && npx tsc -p tsconfig.json` to regenerate declaration files.
+Every public page lives under a language segment: `/ar/...` and `/en/...`. A link opens in the
+language it was shared in; an unprefixed link is moved to the visitor's language without losing the
+query string.
+
+`/` · `/services` · `/services/:id` · `/portfolio` · `/work/:slug` · `/about` · `/ai-solutions` ·
+`/contact` · `/help` · `/privacy` · `/login` · `/dashboard` · `/dashboard/projects-editor`
+
+## Commands
+
+```bash
+pnpm install
+pnpm run typecheck                                   # all packages
+pnpm run build                                       # egress guard, typecheck, then build
+pnpm run verify:egress                               # no AI SDKs, no undeclared outbound hosts
+pnpm --filter @workspace/api-server dev              # API
+pnpm --filter @workspace/jiwdah dev                  # site (proxies /api to localhost:8080)
+pnpm --filter @workspace/db migrate                  # apply migrations
+bash tools/prepare-founder-photo.sh <photo>          # portrait + social card, metadata stripped
+```
+
+## Environment
+
+Copy `.env.example`. Required in production: `DATABASE_URL`, `APP_SECRET`,
+`INQUIRY_RATE_LIMIT_SECRET`, the OAuth values, and `SITE_URL` for canonical URLs and the sitemap.
+Without `SMTP_*` the inquiry notification silently does nothing — the dashboard remains the reliable
+source (`docs/RUNBOOK.md` §R2).
+
+## Verification
+
+Automated checks live in `tools/`. They cover authorization, the measurement layer, help-content
+freshness, and outbound egress. `pnpm run build` runs the egress guard first, so a new AI provider or
+an undeclared outbound host fails the build.
