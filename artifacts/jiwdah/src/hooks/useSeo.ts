@@ -6,6 +6,7 @@ import {
   buildDocumentTitle,
   clampDescription,
 } from "@/lib/seo";
+import { SUPPORTED_LOCALES, withLocale } from "@/lib/locale";
 import type { AppLocale } from "@/providers/preferences";
 
 const STRUCTURED_DATA_ID = "lena-structured-data";
@@ -49,6 +50,23 @@ function upsertCanonical(href: string | null) {
   element.setAttribute("href", href);
 }
 
+/**
+ * Language alternates. Without these, two language versions of the same page
+ * look like duplicates to a search engine instead of a pair.
+ */
+function upsertAlternates(entries: Array<{ hreflang: string; href: string }>) {
+  const managed = document.head.querySelectorAll<HTMLLinkElement>('link[rel="alternate"][data-lena="hreflang"]');
+  managed.forEach((element) => element.remove());
+  for (const entry of entries) {
+    const element = document.createElement("link");
+    element.setAttribute("rel", "alternate");
+    element.setAttribute("hreflang", entry.hreflang);
+    element.setAttribute("href", entry.href);
+    element.setAttribute("data-lena", "hreflang");
+    document.head.appendChild(element);
+  }
+}
+
 function upsertStructuredData(data: Record<string, unknown> | null | undefined) {
   const existing = document.head.querySelector<HTMLScriptElement>(`script#${STRUCTURED_DATA_ID}`);
   if (!data) {
@@ -84,7 +102,8 @@ export function useSeo({
     const isHome = path === "/";
     const documentTitle = buildDocumentTitle(title, isHome);
     const summary = clampDescription(description);
-    const canonical = absoluteUrl(path);
+    // Canonical and alternates always point at the language-prefixed address.
+    const canonical = absoluteUrl(withLocale(locale, path));
     const hasOrigin = canonical.startsWith("http");
     const imageUrl = image.startsWith("http") ? image : absoluteUrl(image);
 
@@ -92,6 +111,15 @@ export function useSeo({
     upsertMeta("name", "description", summary);
     upsertMeta("name", "robots", noindex ? "noindex,nofollow" : "index,follow");
     upsertCanonical(hasOrigin ? canonical : null);
+
+    if (hasOrigin && !noindex) {
+      upsertAlternates([
+        ...SUPPORTED_LOCALES.map((code) => ({ hreflang: code, href: absoluteUrl(withLocale(code, path)) })),
+        { hreflang: "x-default", href: absoluteUrl(withLocale("en", path)) },
+      ]);
+    } else {
+      upsertAlternates([]);
+    }
 
     upsertMeta("property", "og:site_name", BRAND_NAME);
     upsertMeta("property", "og:type", type);

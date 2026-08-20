@@ -2,6 +2,7 @@ import { trpc } from "@/providers/trpc";
 import { useCallback, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router";
 import { LOGIN_PATH } from "@/const";
+import { stripLocale } from "@/lib/locale";
 
 type UseAuthOptions = {
   redirectOnUnauthenticated?: boolean;
@@ -39,7 +40,7 @@ export function useAuth(options?: UseAuthOptions) {
 
   useEffect(() => {
     if (redirectOnUnauthenticated && !isLoading && !user) {
-      const currentPath = window.location.pathname;
+      const currentPath = stripLocale(window.location.pathname);
       if (currentPath !== redirectPath) {
         // Preserve where the owner was heading and explain why they were sent away,
         // so an expired session never turns into a dead end.

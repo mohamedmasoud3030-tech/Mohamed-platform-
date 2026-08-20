@@ -1,7 +1,14 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  DEFAULT_LOCALE,
+  type SupportedLocale,
+  storeLocale,
+  stripLocale,
+  withLocale,
+} from "@/lib/locale";
 
 export type AppTheme = "dark" | "light";
-export type AppLocale = "ar" | "en";
+export type AppLocale = SupportedLocale;
 
 type PreferencesContextValue = {
   theme: AppTheme;
@@ -15,7 +22,6 @@ type PreferencesContextValue = {
 
 const PreferencesContext = createContext<PreferencesContextValue | null>(null);
 const THEME_STORAGE_KEY = "lena-digital-house.theme";
-const LOCALE_STORAGE_KEY = "lena-digital-house.locale";
 
 function getInitialTheme(): AppTheme {
   if (typeof window === "undefined") return "dark";
@@ -24,14 +30,15 @@ function getInitialTheme(): AppTheme {
   return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
 }
 
-function getInitialLocale(): AppLocale {
-  if (typeof window === "undefined") return "ar";
-  return window.localStorage.getItem(LOCALE_STORAGE_KEY) === "en" ? "en" : "ar";
-}
-
-export function PreferencesProvider({ children }: { children: ReactNode }) {
+export function PreferencesProvider({
+  children,
+  initialLocale = DEFAULT_LOCALE,
+}: {
+  children: ReactNode;
+  initialLocale?: AppLocale;
+}) {
   const [theme, setTheme] = useState<AppTheme>(getInitialTheme);
-  const [locale, setLocale] = useState<AppLocale>(getInitialLocale);
+  const [locale, setLocaleState] = useState<AppLocale>(initialLocale);
   const direction = locale === "ar" ? "rtl" : "ltr";
 
   useEffect(() => {
@@ -46,18 +53,46 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     root.lang = locale;
     root.dir = direction;
-    window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
   }, [direction, locale]);
 
-  const value = useMemo<PreferencesContextValue>(() => ({
-    theme,
-    locale,
-    direction,
-    setTheme,
-    setLocale,
-    toggleTheme: () => setTheme((current) => (current === "dark" ? "light" : "dark")),
-    toggleLocale: () => setLocale((current) => (current === "ar" ? "en" : "ar")),
-  }), [direction, locale, theme]);
+  /**
+   * Changing language changes the address. The visitor stays on the page they
+   * were reading — only the language segment of the URL is swapped.
+   */
+  const setLocale = useCallback((next: AppLocale) => {
+    setLocaleState((current) => {
+      if (current === next) return current;
+      storeLocale(next);
+      if (typeof window !== "undefined") {
+        const { pathname, search, hash } = window.location;
+        window.history.pushState(null, "", `${withLocale(next, pathname)}${search}${hash}`);
+      }
+      return next;
+    });
+  }, []);
+
+  // Back/forward between language versions must be honoured, not fought.
+  useEffect(() => {
+    function onPopState() {
+      const fromUrl = window.location.pathname.split("/")[1];
+      if (fromUrl === "ar" || fromUrl === "en") setLocaleState(fromUrl);
+    }
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  const value = useMemo<PreferencesContextValue>(
+    () => ({
+      theme,
+      locale,
+      direction,
+      setTheme,
+      setLocale,
+      toggleTheme: () => setTheme((current) => (current === "dark" ? "light" : "dark")),
+      toggleLocale: () => setLocale(locale === "ar" ? "en" : "ar"),
+    }),
+    [direction, locale, setLocale, theme],
+  );
 
   return <PreferencesContext.Provider value={value}>{children}</PreferencesContext.Provider>;
 }
@@ -66,4 +101,9 @@ export function usePreferences() {
   const value = useContext(PreferencesContext);
   if (!value) throw new Error("usePreferences must be used within PreferencesProvider");
   return value;
+}
+
+/** Router-relative path of the current page, i.e. without the language segment. */
+export function currentRoutePath(): string {
+  return typeof window === "undefined" ? "/" : stripLocale(window.location.pathname);
 }

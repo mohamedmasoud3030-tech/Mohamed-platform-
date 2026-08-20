@@ -113,3 +113,21 @@ Run these whenever the interface, limits or messages change. If any fails, the h
 5. Each `?error=` value produced by `oauth.ts` has a matching sentence in `Login.tsx`.
 6. The published reply-time promise appears identically on `/contact` and `/help`.
 7. No help text mentions a feature that does not exist (search `content/help.ts` for anything not in the router).
+
+---
+
+## 4. Language addressing (added with M1)
+
+Every public page lives under a language segment: `/ar/...` and `/en/...`.
+
+- **Priority:** the URL wins, then the visitor's stored choice, then the device language, then English.
+- **Old links keep working.** An unprefixed path such as `/services` is moved client-side to the
+  visitor's language, preserving the query string and hash. Nothing 404s.
+- **Never prefixed:** `/api/*`, `/assets/*`, `/robots.txt`, `/sitemap.xml`, and the icon files.
+- **Switching language** rewrites only the language segment, so the visitor stays on the same page.
+- **Search engines** receive a self-canonical plus `hreflang` alternates for both languages and
+  `x-default` pointing at English; the sitemap lists both versions with mutual alternates.
+- **Admin routes** are `noindex` and deliberately emit no alternates.
+
+Freshness test: `sitemap.xml` must contain exactly twice the number of public routes, and every
+`<loc>` must begin with a supported language segment.
