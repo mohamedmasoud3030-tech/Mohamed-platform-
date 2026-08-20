@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { count, desc, eq } from "drizzle-orm";
+import { and, count, desc, eq, lt, ne } from "drizzle-orm";
 import { adminAuditEvents, inquiries, INQUIRY_STATUS_VALUES } from "@workspace/db";
 import { createRouter, adminQuery } from "../middleware";
 import { hasCapability, maskEmail, maskPhone, recordAudit, type Capability } from "../../lib/admin-authorization";
@@ -12,6 +12,22 @@ const inquiryStatusEnum = z.enum(INQUIRY_STATUS_VALUES);
 const reasonSchema = z.string().trim().min(8, "A reason of at least 8 characters is required.").max(500);
 
 const EXPORT_LIMIT = 200;
+
+/**
+ * Retention.
+ *
+ * Old inquiries are ANONYMISED, not deleted: the personal fields are cleared
+ * while the row survives, so historical counts, attribution and the audit trail
+ * stay truthful. Nothing runs on a schedule — there is no cron and no automatic
+ * deletion. The founder previews first, then applies deliberately.
+ */
+const RETENTION_MONTHS = Number(process.env.INQUIRY_RETENTION_MONTHS ?? 24);
+
+function retentionCutoff() {
+  const cutoff = new Date();
+  cutoff.setMonth(cutoff.getMonth() - (Number.isFinite(RETENTION_MONTHS) && RETENTION_MONTHS > 0 ? RETENTION_MONTHS : 24));
+  return cutoff;
+}
 
 /**
  * Authorization is enforced here, server-side, on every privileged path.
@@ -179,6 +195,54 @@ export const operationsRouter = createRouter({
         })),
         truncated: rows.length === EXPORT_LIMIT,
       };
+    }),
+
+  /** Dry run: exactly what a retention pass would touch, changing nothing. */
+  retentionPreview: adminQuery.query(async ({ ctx }) => {
+    authorize(ctx, "inquiry.read");
+    const cutoff = retentionCutoff();
+    const rows = await ctx.db
+      .select()
+      .from(inquiries)
+      .where(and(lt(inquiries.updatedAt, cutoff), ne(inquiries.name, "")));
+    const affected = rows.filter((row) => row.email || row.phone || row.name !== "[anonymised]");
+    return {
+      retentionMonths: Number.isFinite(RETENTION_MONTHS) && RETENTION_MONTHS > 0 ? RETENTION_MONTHS : 24,
+      cutoff: cutoff.toISOString().slice(0, 10),
+      affected: affected.length,
+      oldest: rows[0]?.createdAt?.toISOString().slice(0, 10) ?? null,
+    };
+  }),
+
+  /**
+   * Applies the retention policy. Manual, reasoned, audited, and idempotent.
+   * Personal fields are cleared; the row, its status, its date and its entry
+   * context remain so history and measurement stay correct.
+   */
+  applyRetention: adminQuery
+    .input(z.object({ reason: reasonSchema, confirm: z.literal("ANONYMISE") }))
+    .mutation(async ({ ctx, input }) => {
+      authorize(ctx, "inquiry.purge");
+      const cutoff = retentionCutoff();
+      const rows = await ctx.db.select().from(inquiries).where(lt(inquiries.updatedAt, cutoff));
+      const targets = rows.filter((row) => row.name !== "[anonymised]" || row.email || row.phone);
+
+      for (const row of targets) {
+        await ctx.db
+          .update(inquiries)
+          .set({ name: "[anonymised]", email: null, phone: null, message: "[anonymised]", updatedAt: new Date() })
+          .where(eq(inquiries.id, row.id));
+      }
+
+      await recordAudit(ctx, {
+        action: "inquiry.retention",
+        subjectType: "inquiry",
+        subjectId: null,
+        reason: input.reason,
+        details: { cutoff: cutoff.toISOString().slice(0, 10), anonymised: targets.length, months: RETENTION_MONTHS },
+      });
+
+      return { anonymised: targets.length, cutoff: cutoff.toISOString().slice(0, 10) };
     }),
 
   /** Read-only investigation: what happened, to what, by whom, and why. */
