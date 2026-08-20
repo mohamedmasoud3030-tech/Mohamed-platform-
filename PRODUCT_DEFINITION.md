@@ -174,6 +174,11 @@ Each requirement is independently testable. "Verified" means a person or a check
 without reading code.
 
 ### FR-1 — Founder identity is present and consistent
+> **Status (2026-08-20): partially implemented.** The founder is named — Mohamed Masoud /
+> محمد مسعود — on the About page, in `SITE_CONFIG.ownerName`, and as `founder` in the Organization
+> structured data. The photograph and the biography are pending: `tools/prepare-founder-photo.sh`
+> processes the photograph and builds the social preview card in one command, and the biography stays
+> empty (and its block unrendered) until the founder writes it. Nothing about him is invented.
 The About page presents the founder by name, photo, background and the reason the work is credible.
 Copy elsewhere never implies a team that does not exist.
 **Acceptance:** (a) About shows name, photo, and a bio of 60–150 words in both languages. (b) No public

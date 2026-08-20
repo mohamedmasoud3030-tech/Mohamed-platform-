@@ -20,7 +20,7 @@ const whatsappUrl = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message
 const emailUrl = `mailto:${email}?subject=${encodeURIComponent("استفسار مشروع جديد — LENA Digital House")}`;
 
 export const SITE_CONFIG = {
-  ownerName: "LENA",
+  ownerName: "Mohamed Masoud",
   brandName: "LENA",
   brandFullName: "LENA Digital House",
   brandSubtitle: "بيت الحلول الرقمية الإبداعية",
