@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
+import { execSync } from "node:child_process";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 const rawPort = process.env.PORT ?? "3000";
@@ -10,8 +11,29 @@ const resolvedPort = Number.isNaN(port) || port <= 0 ? 3000 : port;
 
 const basePath = process.env.BASE_PATH ?? "/";
 
+/**
+ * Build identity, used by the in-app error reference and the support report.
+ * Contains no secrets: a short commit id and the build date only.
+ */
+function resolveBuildId(): string {
+  const fromHost = process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.GIT_COMMIT_SHA;
+  if (fromHost) return fromHost.slice(0, 7);
+  try {
+    return execSync("git rev-parse --short HEAD", { stdio: ["ignore", "pipe", "ignore"] })
+      .toString()
+      .trim();
+  } catch {
+    return "dev";
+  }
+}
+
+const appBuild = `${resolveBuildId()}.${new Date().toISOString().slice(0, 10)}`;
+
 export default defineConfig({
   base: basePath,
+  define: {
+    __APP_BUILD__: JSON.stringify(appBuild),
+  },
   plugins: [
     react(),
     tailwindcss(),

@@ -14,6 +14,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
+import AdminSupport from "@/components/AdminSupport";
 import AppShell from "@/components/AppShell";
 import SeoHead from "@/components/SeoHead";
 import { pageSeo } from "@/content/seo";
@@ -340,6 +341,8 @@ export default function Dashboard() {
               <LogOut size={17} /> {text.logout}
             </button>
           </div>
+
+          <AdminSupport tab={activeTab} isAdmin={isAdmin} />
 
           <div className="dashboard-summary" aria-label={text.overview}>
             {tabs.map(({ id, label, icon: Icon, count, badge }) => (
