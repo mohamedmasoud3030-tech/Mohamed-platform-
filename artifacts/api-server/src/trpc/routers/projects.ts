@@ -2,6 +2,7 @@ import { z } from "zod";
 import { and, asc, desc, eq } from "drizzle-orm";
 import { projects, PROJECT_STATUS_VALUES } from "@workspace/db";
 import { createRouter, publicQuery, adminQuery } from "../middleware";
+import { recordAudit } from "../../lib/admin-authorization";
 
 const projectStatusEnum = z.enum(PROJECT_STATUS_VALUES);
 const localizedText = z.object({
@@ -90,9 +91,18 @@ export const projectsRouter = createRouter({
     }),
 
   delete: adminQuery
-    .input(z.object({ id: z.number().int().positive() }))
+    .input(z.object({ id: z.number().int().positive(), reason: z.string().trim().max(500).optional() }))
     .mutation(async ({ ctx, input }) => {
+      const [existing] = await ctx.db.select().from(projects).where(eq(projects.id, input.id)).limit(1);
+      if (!existing) return { success: true }; // idempotent
       await ctx.db.delete(projects).where(eq(projects.id, input.id));
+      await recordAudit(ctx, {
+        action: "project.delete",
+        subjectType: "project",
+        subjectId: input.id,
+        reason: input.reason,
+        details: { slug: existing.slug, status: existing.status, title: existing.title },
+      });
       return { success: true };
     }),
 });

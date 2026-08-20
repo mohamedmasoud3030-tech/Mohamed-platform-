@@ -226,17 +226,18 @@ export function createOAuthCallbackHandler() {
       const ownerUnionId = getEnv("OWNER_UNION_ID");
       const role = (ownerUnionId && userId === ownerUnionId) ? "admin" : "user";
 
+      // Data minimisation: only the identifier, a display name and the sign-in time
+      // are stored. The provider also returns an avatar URL, which this product has
+      // never displayed anywhere, so it is deliberately not collected.
       await db.insert(users).values({
         unionId: userId,
         name: profile?.name,
-        avatar: profile?.avatar_url,
         role,
         lastSignInAt: new Date(),
       }).onConflictDoUpdate({
         target: users.unionId,
         set: {
           name: profile?.name,
-          avatar: profile?.avatar_url,
           lastSignInAt: new Date(),
           ...(ownerUnionId && userId === ownerUnionId ? { role: "admin" } : {}),
         },

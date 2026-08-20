@@ -4,7 +4,8 @@ import { createHmac } from "crypto";
 import { count, desc, eq, lt, sql } from "drizzle-orm";
 import { inquiries, inquiryRateLimits, INQUIRY_STATUS_VALUES } from "@workspace/db";
 import { createRouter, publicQuery, adminQuery } from "../middleware";
-import { sendNewInquiryNotification } from "../../lib/mailer";
+import { maskEmail, maskPhone, recordAudit } from "../../lib/admin-authorization";
+import { sendNewInquiryNotification, summariseTransportError } from "../../lib/mailer";
 import type { TrpcContext } from "../context";
 
 const inquiryStatusEnum = z.enum(INQUIRY_STATUS_VALUES);
@@ -69,8 +70,20 @@ async function enforceInquiryRateLimit(ctx: TrpcContext) {
 }
 
 export const inquiriesRouter = createRouter({
+  /**
+   * Contact details are masked here. Seeing them requires an explicit, reasoned
+   * and audited reveal (operations.revealInquiryContact), so the working list
+   * cannot double as a quiet contact-harvesting surface.
+   */
   list: adminQuery.query(async ({ ctx }) => {
-    return ctx.db.select().from(inquiries).orderBy(desc(inquiries.createdAt));
+    const rows = await ctx.db.select().from(inquiries).orderBy(desc(inquiries.createdAt));
+    return rows.map((row) => ({
+      ...row,
+      email: maskEmail(row.email),
+      phone: maskPhone(row.phone),
+      hasEmail: Boolean(row.email),
+      hasPhone: Boolean(row.phone),
+    }));
   }),
 
   countNew: adminQuery.query(async ({ ctx }) => {
@@ -121,7 +134,7 @@ export const inquiriesRouter = createRouter({
       const inquiry = result[0];
       if (inquiry) {
         sendNewInquiryNotification(inquiry).catch((error) =>
-          console.error("[inquiries] notification error:", error)
+          console.error("[inquiries] notification error:", summariseTransportError(error))
         );
       }
 
@@ -131,18 +144,29 @@ export const inquiriesRouter = createRouter({
   updateStatus: adminQuery
     .input(z.object({ id: z.number().int().positive(), status: inquiryStatusEnum }))
     .mutation(async ({ ctx, input }) => {
+      const [existing] = await ctx.db.select().from(inquiries).where(eq(inquiries.id, input.id)).limit(1);
+      if (!existing) throw new TRPCError({ code: "NOT_FOUND", message: "Inquiry not found." });
+      // Idempotent: repeating the same change is a no-op, not a duplicate audit entry.
+      if (existing.status === input.status) return { ...existing, email: null, phone: null };
+
       const result = await ctx.db
         .update(inquiries)
         .set({ status: input.status, updatedAt: new Date() })
         .where(eq(inquiries.id, input.id))
         .returning();
-      return result[0];
+
+      await recordAudit(ctx, {
+        action: "inquiry.status",
+        subjectType: "inquiry",
+        subjectId: input.id,
+        details: { from: existing.status, to: input.status },
+      });
+
+      const updated = result[0];
+      return { ...updated, email: maskEmail(updated.email), phone: maskPhone(updated.phone) };
     }),
 
-  delete: adminQuery
-    .input(z.object({ id: z.number().int().positive() }))
-    .mutation(async ({ ctx, input }) => {
-      await ctx.db.delete(inquiries).where(eq(inquiries.id, input.id));
-      return { success: true };
-    }),
+  // One-click permanent deletion of a potential client has been retired.
+  // Reversible: operations.archiveInquiry. Irreversible: operations.purgeInquiry,
+  // which requires typed confirmation, a written reason, and an audit record.
 });

@@ -30,6 +30,7 @@ const STATIC_ROUTES = [
   { path: "/ai-solutions", changefreq: "monthly", priority: "0.7" },
   { path: "/contact", changefreq: "yearly", priority: "0.8" },
   { path: "/help", changefreq: "monthly", priority: "0.7" },
+  { path: "/privacy", changefreq: "yearly", priority: "0.4" },
 ];
 
 function resolveBaseUrl() {

@@ -15,6 +15,8 @@ import {
   X,
 } from "lucide-react";
 import AdminSupport from "@/components/AdminSupport";
+import AuditTrail from "@/components/AuditTrail";
+import InquiryOperations from "@/components/InquiryOperations";
 import AppShell from "@/components/AppShell";
 import SeoHead from "@/components/SeoHead";
 import { pageSeo } from "@/content/seo";
@@ -223,11 +225,11 @@ export default function Dashboard() {
   const projectsQuery = trpc.projects.list.useQuery(undefined, { enabled: isAdmin });
   const contentQuery = trpc.content.list.useQuery(undefined, { enabled: isAdmin });
   const newInquiriesQuery = trpc.inquiries.countNew.useQuery(undefined, { enabled: isAdmin });
+  // The interface offers only what the server will actually authorise.
+  const capabilitiesQuery = trpc.operations.capabilities.useQuery(undefined, { enabled: isAdmin });
+  const can = capabilitiesQuery.data?.can ?? { reveal: false, archive: false, purge: false, export: false, audit: false };
 
   const updateInquiryStatus = trpc.inquiries.updateStatus.useMutation({
-    onSuccess: () => utils.inquiries.invalidate(),
-  });
-  const deleteInquiry = trpc.inquiries.delete.useMutation({
     onSuccess: () => utils.inquiries.invalidate(),
   });
   const createProject = trpc.projects.create.useMutation({
@@ -343,6 +345,7 @@ export default function Dashboard() {
           </div>
 
           <AdminSupport tab={activeTab} isAdmin={isAdmin} />
+          <AuditTrail enabled={isAdmin && can.audit} />
 
           <div className="dashboard-summary" aria-label={text.overview}>
             {tabs.map(({ id, label, icon: Icon, count, badge }) => (
@@ -387,8 +390,8 @@ export default function Dashboard() {
                           <time>{formatDate(inquiry.createdAt, locale)}</time>
                         </div>
                         <dl className="dashboard-meta-grid">
-                          {inquiry.phone && <div><dt>{text.phone}</dt><dd dir="ltr">{inquiry.phone}</dd></div>}
-                          {inquiry.email && <div><dt>{text.email}</dt><dd>{inquiry.email}</dd></div>}
+                          {inquiry.hasPhone && <div><dt>{text.phone}</dt><dd dir="ltr">{inquiry.phone}</dd></div>}
+                          {inquiry.hasEmail && <div><dt>{text.email}</dt><dd dir="ltr">{inquiry.email}</dd></div>}
                           {inquiry.service && <div><dt>{text.service}</dt><dd>{inquiry.service}</dd></div>}
                           <div><dt>{text.source}</dt><dd>{formatSource(inquiry.source, locale)}</dd></div>
                         </dl>
@@ -406,14 +409,7 @@ export default function Dashboard() {
                             ))}
                           </select>
                         </label>
-                        <button
-                          type="button"
-                          className="dashboard-danger-button"
-                          onClick={() => window.confirm(text.confirmDelete) && deleteInquiry.mutate({ id: inquiry.id })}
-                          aria-label={text.remove}
-                        >
-                          <Trash2 size={16} />
-                        </button>
+                        <InquiryOperations inquiryId={inquiry.id} status={inquiry.status} can={can} />
                       </div>
                     </article>
                   ))}
