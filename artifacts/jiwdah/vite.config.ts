@@ -47,6 +47,14 @@ export default defineConfig({
     strictPort: true,
     host: "0.0.0.0",
     allowedHosts: true,
+    // Development only: the browser calls relative /api paths, so the dev server
+    // forwards them to the local API instead of returning the SPA shell.
+    proxy: {
+      "/api": {
+        target: process.env.API_PROXY_TARGET ?? "http://127.0.0.1:8080",
+        changeOrigin: false,
+      },
+    },
     fs: {
       strict: true,
     },

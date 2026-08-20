@@ -41,7 +41,10 @@ export function useAuth(options?: UseAuthOptions) {
     if (redirectOnUnauthenticated && !isLoading && !user) {
       const currentPath = window.location.pathname;
       if (currentPath !== redirectPath) {
-        navigate(redirectPath);
+        // Preserve where the owner was heading and explain why they were sent away,
+        // so an expired session never turns into a dead end.
+        const params = new URLSearchParams({ next: currentPath, reason: "session" });
+        navigate(`${redirectPath}?${params.toString()}`, { replace: true });
       }
     }
   }, [redirectOnUnauthenticated, isLoading, user, navigate, redirectPath]);

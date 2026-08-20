@@ -42,7 +42,7 @@ export default function FloatingHeader() {
           <button type="button" className="lena-icon-button lena-menu-toggle" aria-expanded={open} aria-label={locale === "ar" ? "فتح القائمة" : "Open menu"} onClick={() => setOpen((value) => !value)}>{open ? <X size={18} /> : <Menu size={18} />}</button>
         </div>
       </nav>
-      {open && <div className="lena-glass lena-mobile-menu">{PUBLIC_NAVIGATION.map((item) => <Link key={item.to} className={`lena-mobile-link${active(item.to) ? " active" : ""}`} to={item.to}>{locale === "ar" ? item.ar : item.en}</Link>)}</div>}
+      {open && <div className="lena-glass lena-mobile-menu">{PUBLIC_NAVIGATION.map((item) => <Link key={item.to} className={`lena-mobile-link${active(item.to) ? " active" : ""}`} to={item.to}>{locale === "ar" ? item.ar : item.en}</Link>)}<Link className="lena-primary lena-mobile-cta" to="/contact">{locale === "ar" ? "لنتحدث" : "Let's talk"}</Link></div>}
     </header>
   );
 }

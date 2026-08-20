@@ -1,0 +1,160 @@
+/* Onboarding and activation affordances: form guidance, draft recovery, completion state. */
+
+.lena-form-hint {
+  margin-top: 6px;
+  color: var(--lena-muted);
+  font-size: 12px;
+}
+
+.lena-form-context {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  border: 1px solid var(--lena-line);
+  border-radius: 99px;
+  background: rgba(91, 124, 255, 0.12);
+  padding: 8px 13px;
+  color: var(--lena-text);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.lena-form-draft {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin-top: 14px;
+  border: 1px solid var(--lena-line);
+  border-radius: 12px;
+  background: rgba(91, 124, 255, 0.08);
+  padding: 10px 13px;
+  color: var(--lena-muted);
+  font-size: 12px;
+}
+
+.lena-form-draft svg {
+  flex: 0 0 auto;
+  color: var(--lena-accent);
+}
+
+.lena-form-draft button {
+  min-height: 32px;
+  border: 1px solid var(--lena-line);
+  border-radius: 9px;
+  background: transparent;
+  padding: 0 11px;
+  color: var(--lena-accent);
+  font: inherit;
+  font-weight: 700;
+}
+
+.lena-form-error {
+  display: grid;
+  gap: 11px;
+  justify-items: start;
+  margin-top: 16px;
+  padding: 13px 15px;
+}
+
+.lena-form-error p {
+  margin: 0;
+  color: inherit !important;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.lena-inquiry-success {
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+}
+
+.lena-inquiry-success svg {
+  color: #4ade80;
+}
+
+.lena-inquiry-success h2 {
+  margin: 10px 0 0;
+}
+
+.lena-inquiry-reference {
+  margin: 10px 0 0;
+  border: 1px solid var(--lena-line);
+  border-radius: 10px;
+  background: rgba(74, 222, 128, 0.1);
+  padding: 8px 12px;
+  color: var(--lena-text) !important;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.lena-inquiry-success:focus-visible {
+  outline: 3px solid var(--lena-focus);
+  outline-offset: 3px;
+}
+
+/* Mobile: the primary action must never be hidden behind a scroll. */
+.lena-mobile-cta {
+  margin-top: 6px;
+  width: 100%;
+}
+
+/* Dashboard onboarding: guided empty states and plain-language recovery. */
+.dashboard-guide {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  border: 1px dashed var(--platform-border, rgba(140, 160, 200, 0.35));
+  border-radius: 14px;
+  padding: 26px 22px;
+  text-align: start;
+}
+
+.dashboard-guide h3 {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.dashboard-guide p {
+  max-width: 62ch;
+  color: var(--platform-text-muted, #8a97b4);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.dashboard-guide .dashboard-guide-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.dashboard-guide a,
+.dashboard-guide button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--platform-border, rgba(140, 160, 200, 0.35));
+  border-radius: 11px;
+  padding: 0 15px;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+}
+
+.dashboard-new-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 22px;
+  border-radius: 99px;
+  background: #ef4444;
+  padding: 0 8px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+}

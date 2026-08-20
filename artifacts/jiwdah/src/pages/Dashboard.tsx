@@ -1,6 +1,9 @@
 import { useState, type FormEvent } from "react";
+import { Link } from "react-router";
 import {
   FileText,
+  ExternalLink,
+  RefreshCw,
   FolderKanban,
   Inbox,
   LogOut,
@@ -98,6 +101,18 @@ const TEXT = {
     projectForm: "إضافة أو تعديل مشروع",
     contentForm: "إضافة أو تعديل محتوى",
     inquiriesHint: "راجع الاستفسارات الجديدة وحدّث حالتها بعد التواصل.",
+    newBadge: "جديد",
+    retry: "إعادة المحاولة",
+    failedTitle: "تعذر تحميل البيانات",
+    failedBody: "لم نتمكن من الوصول إلى بياناتك الآن. جرّب إعادة المحاولة، وإن استمر الأمر فالمشكلة في الاتصال بالخادم وليست في حسابك.",
+    emptyInquiriesTitle: "لا توجد استفسارات بعد",
+    emptyInquiriesBody: "تصل الاستفسارات إلى هنا تلقائيًا عند إرسال أي زائر لنموذج «ابدأ مشروعك». افتح صفحة التواصل لتجربة النموذج بنفسك والتأكد من وصول الرسائل.",
+    emptyInquiriesAction: "فتح صفحة التواصل",
+    emptyProjectsTitle: "لم تنشر أي مشروع بعد",
+    emptyProjectsBody: "المشاريع هي أقوى دليل يراه العميل قبل التواصل. أضف مشروعًا واحدًا كمسودة أولًا، وانشره عندما يصبح جاهزًا — لا يظهر للزوار إلا المنشور.",
+    emptyProjectsAction: "فتح محرر المشاريع الكامل",
+    emptyContentTitle: "لا توجد مقاطع محتوى",
+    emptyContentBody: "هذه المساحة مخصصة لمقاطع نصية يعاد استخدامها لاحقًا. لا حاجة لاستخدامها الآن.",
     projectsHint: "لا يظهر للزوار إلا المشروع المنشور.",
     contentHint: "لا يظهر للزوار إلا المحتوى المنشور.",
     statuses: {
@@ -144,6 +159,18 @@ const TEXT = {
     projectForm: "Add or edit project",
     contentForm: "Add or edit content",
     inquiriesHint: "Review new inquiries and update their status after follow-up.",
+    newBadge: "new",
+    retry: "Try again",
+    failedTitle: "Could not load your data",
+    failedBody: "We could not reach your data right now. Try again — if it keeps failing, the problem is the connection to the server, not your account.",
+    emptyInquiriesTitle: "No inquiries yet",
+    emptyInquiriesBody: "Inquiries arrive here automatically whenever a visitor submits the \"Start a project\" form. Open the contact page to try the form yourself and confirm messages come through.",
+    emptyInquiriesAction: "Open the contact page",
+    emptyProjectsTitle: "No published project yet",
+    emptyProjectsBody: "Projects are the strongest proof a client sees before reaching out. Add one project as a draft first, and publish it when it is ready — only published projects are visible to visitors.",
+    emptyProjectsAction: "Open the full project editor",
+    emptyContentTitle: "No content blocks",
+    emptyContentBody: "This space is for reusable text blocks. You do not need it right now.",
     projectsHint: "Only published projects are visible to visitors.",
     contentHint: "Only published content is visible to visitors.",
     statuses: {
@@ -157,6 +184,19 @@ const TEXT = {
     },
   },
 } as const;
+
+/** Turns the stored entry context into something the owner can read at a glance. */
+function formatSource(value: string | null | undefined, locale: "ar" | "en") {
+  if (!value) return locale === "ar" ? "نموذج التواصل" : "Contact form";
+  const [kind, reference] = value.split(":");
+  if (kind === "service" && reference) {
+    return locale === "ar" ? `صفحة خدمة: ${reference}` : `Service page: ${reference}`;
+  }
+  if (kind === "work" && reference) {
+    return locale === "ar" ? `دراسة حالة: ${reference}` : `Case study: ${reference}`;
+  }
+  return locale === "ar" ? "نموذج التواصل" : "Contact form";
+}
 
 function formatDate(value: Date | string, locale: "ar" | "en") {
   return new Intl.DateTimeFormat(locale === "ar" ? "ar-OM" : "en-GB", {
@@ -181,12 +221,13 @@ export default function Dashboard() {
   const inquiriesQuery = trpc.inquiries.list.useQuery(undefined, { enabled: isAdmin });
   const projectsQuery = trpc.projects.list.useQuery(undefined, { enabled: isAdmin });
   const contentQuery = trpc.content.list.useQuery(undefined, { enabled: isAdmin });
+  const newInquiriesQuery = trpc.inquiries.countNew.useQuery(undefined, { enabled: isAdmin });
 
   const updateInquiryStatus = trpc.inquiries.updateStatus.useMutation({
-    onSuccess: () => utils.inquiries.list.invalidate(),
+    onSuccess: () => utils.inquiries.invalidate(),
   });
   const deleteInquiry = trpc.inquiries.delete.useMutation({
-    onSuccess: () => utils.inquiries.list.invalidate(),
+    onSuccess: () => utils.inquiries.invalidate(),
   });
   const createProject = trpc.projects.create.useMutation({
     onSuccess: async () => {
@@ -276,8 +317,10 @@ export default function Dashboard() {
     );
   }
 
-  const tabs: Array<{ id: DashboardTab; label: string; icon: typeof Inbox; count: number }> = [
-    { id: "inquiries", label: copy.dashboard.inquiries, icon: Inbox, count: inquiriesQuery.data?.length ?? 0 },
+  const newInquiries = newInquiriesQuery.data ?? 0;
+
+  const tabs: Array<{ id: DashboardTab; label: string; icon: typeof Inbox; count: number; badge?: number }> = [
+    { id: "inquiries", label: copy.dashboard.inquiries, icon: Inbox, count: inquiriesQuery.data?.length ?? 0, badge: newInquiries },
     { id: "projects", label: copy.dashboard.portfolio, icon: FolderKanban, count: projectsQuery.data?.length ?? 0 },
     { id: "content", label: copy.dashboard.content, icon: FileText, count: contentQuery.data?.length ?? 0 },
   ];
@@ -299,7 +342,7 @@ export default function Dashboard() {
           </div>
 
           <div className="dashboard-summary" aria-label={text.overview}>
-            {tabs.map(({ id, label, icon: Icon, count }) => (
+            {tabs.map(({ id, label, icon: Icon, count, badge }) => (
               <button
                 key={id}
                 type="button"
@@ -307,7 +350,7 @@ export default function Dashboard() {
                 onClick={() => setActiveTab(id)}
               >
                 <span className="service-icon"><Icon size={20} /></span>
-                <span>{label}</span>
+                <span>{label}{badge ? <> <span className="dashboard-new-badge">{badge} {text.newBadge}</span></> : null}</span>
                 <strong>{count}</strong>
               </button>
             ))}
@@ -324,7 +367,13 @@ export default function Dashboard() {
               {inquiriesQuery.isLoading ? (
                 <div className="empty-state">{text.loading}</div>
               ) : inquiriesQuery.error ? (
-                <div className="empty-state" role="alert">{text.failed}</div>
+                <div className="dashboard-guide" role="alert">
+                  <h3>{text.failedTitle}</h3>
+                  <p>{text.failedBody}</p>
+                  <div className="dashboard-guide-actions">
+                    <button type="button" onClick={() => inquiriesQuery.refetch()}><RefreshCw size={16} />{text.retry}</button>
+                  </div>
+                </div>
               ) : inquiriesQuery.data?.length ? (
                 <div className="dashboard-list">
                   {inquiriesQuery.data.map((inquiry) => (
@@ -338,7 +387,7 @@ export default function Dashboard() {
                           {inquiry.phone && <div><dt>{text.phone}</dt><dd dir="ltr">{inquiry.phone}</dd></div>}
                           {inquiry.email && <div><dt>{text.email}</dt><dd>{inquiry.email}</dd></div>}
                           {inquiry.service && <div><dt>{text.service}</dt><dd>{inquiry.service}</dd></div>}
-                          <div><dt>{text.source}</dt><dd>{inquiry.source}</dd></div>
+                          <div><dt>{text.source}</dt><dd>{formatSource(inquiry.source, locale)}</dd></div>
                         </dl>
                         <p className="dashboard-message">{inquiry.message}</p>
                       </div>
@@ -367,7 +416,13 @@ export default function Dashboard() {
                   ))}
                 </div>
               ) : (
-                <div className="empty-state">{text.empty}</div>
+                <div className="dashboard-guide">
+                  <h3>{text.emptyInquiriesTitle}</h3>
+                  <p>{text.emptyInquiriesBody}</p>
+                  <div className="dashboard-guide-actions">
+                    <Link to="/contact" target="_blank" rel="noreferrer"><ExternalLink size={16} />{text.emptyInquiriesAction}</Link>
+                  </div>
+                </div>
               )}
             </section>
           )}
@@ -398,7 +453,7 @@ export default function Dashboard() {
                   {editingProjectId && <button type="button" className="btn-secondary" onClick={resetProjectForm}><X size={17} />{text.cancel}</button>}
                 </div>
               </form>
-              {projectsQuery.isLoading ? <div className="empty-state">{text.loading}</div> : projectsQuery.error ? <div className="empty-state" role="alert">{text.failed}</div> : projectsQuery.data?.length ? (
+              {projectsQuery.isLoading ? <div className="empty-state">{text.loading}</div> : projectsQuery.error ? <div className="dashboard-guide" role="alert"><h3>{text.failedTitle}</h3><p>{text.failedBody}</p><div className="dashboard-guide-actions"><button type="button" onClick={() => projectsQuery.refetch()}><RefreshCw size={16} />{text.retry}</button></div></div> : projectsQuery.data?.length ? (
                 <div className="dashboard-list">
                   {projectsQuery.data.map((project) => (
                     <article key={project.id} className="dashboard-record">
@@ -410,7 +465,7 @@ export default function Dashboard() {
                     </article>
                   ))}
                 </div>
-              ) : <div className="empty-state">{text.empty}</div>}
+              ) : <div className="dashboard-guide"><h3>{text.emptyProjectsTitle}</h3><p>{text.emptyProjectsBody}</p><div className="dashboard-guide-actions"><Link to="/dashboard/projects-editor"><FolderKanban size={16} />{text.emptyProjectsAction}</Link></div></div>}
             </section>
           )}
 
@@ -430,7 +485,7 @@ export default function Dashboard() {
                   {editingContentId && <button type="button" className="btn-secondary" onClick={resetContentForm}><X size={17} />{text.cancel}</button>}
                 </div>
               </form>
-              {contentQuery.isLoading ? <div className="empty-state">{text.loading}</div> : contentQuery.error ? <div className="empty-state" role="alert">{text.failed}</div> : contentQuery.data?.length ? (
+              {contentQuery.isLoading ? <div className="empty-state">{text.loading}</div> : contentQuery.error ? <div className="dashboard-guide" role="alert"><h3>{text.failedTitle}</h3><p>{text.failedBody}</p><div className="dashboard-guide-actions"><button type="button" onClick={() => contentQuery.refetch()}><RefreshCw size={16} />{text.retry}</button></div></div> : contentQuery.data?.length ? (
                 <div className="dashboard-list">
                   {contentQuery.data.map((entry) => (
                     <article key={entry.id} className="dashboard-record">
@@ -442,7 +497,7 @@ export default function Dashboard() {
                     </article>
                   ))}
                 </div>
-              ) : <div className="empty-state">{text.empty}</div>}
+              ) : <div className="dashboard-guide"><h3>{text.emptyContentTitle}</h3><p>{text.emptyContentBody}</p></div>}
             </section>
           )}
         </div>
