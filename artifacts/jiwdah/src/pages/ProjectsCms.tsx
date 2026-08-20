@@ -2,6 +2,8 @@ import { useState, type ChangeEvent, type FormEvent } from "react";
 import { ArrowLeft, Eye, FileImage, FolderKanban, Loader2, Pencil, Plus, Save, Send, Trash2, Upload, X } from "lucide-react";
 import { Link } from "react-router";
 import AppShell from "@/components/AppShell";
+import SeoHead from "@/components/SeoHead";
+import { pageSeo } from "@/content/seo";
 import { useAuth } from "@/hooks/useAuth";
 import { uploadProjectMedia } from "@/lib/uploadProjectMedia";
 import { usePreferences } from "@/providers/preferences";
@@ -42,9 +44,11 @@ export default function ProjectsCms() {
   function saveAs(status: ProjectStatus) { const data = payload(status); if (!form.title || !form.slug) return; if (editingId) updateProject.mutate({ id: editingId, ...data }); else createProject.mutate(data); }
   async function upload(event: ChangeEvent<HTMLInputElement>, target: "cover" | "gallery") { const file = event.target.files?.[0]; if (!file) return; setUploading(target); setError(""); try { const imageUrl = await uploadProjectMedia(file); setForm((current) => target === "cover" ? { ...current, imageUrl } : { ...current, galleryUrls: [...lines(current.galleryUrls), imageUrl].join("\n") }); } catch (error) { setError(error instanceof Error && error.message ? error.message : text.uploadFailed); } finally { setUploading(null); event.target.value = ""; } }
   function edit(project: NonNullable<typeof projects.data>[number]) { const blocks = project.contentBlocks; setEditingId(project.id); setForm({ title: project.title, slug: project.slug, summary: project.summary ?? "", description: project.description ?? "", imageUrl: project.imageUrl ?? "", projectUrl: project.projectUrl ?? "", repositoryUrl: project.repositoryUrl ?? "", status: project.status, sortOrder: project.sortOrder, overviewAr: blocks.overview?.ar ?? "", overviewEn: blocks.overview?.en ?? "", challengeAr: blocks.challenge?.ar ?? "", challengeEn: blocks.challenge?.en ?? "", directionAr: blocks.direction?.ar ?? "", directionEn: blocks.direction?.en ?? "", solutionAr: blocks.solution?.ar ?? "", solutionEn: blocks.solution?.en ?? "", featuresAr: blocks.features?.ar.join("\n") ?? "", featuresEn: blocks.features?.en.join("\n") ?? "", journeyAr: blocks.journey?.ar.join("\n") ?? "", journeyEn: blocks.journey?.en.join("\n") ?? "", galleryUrls: project.gallery.map((item) => item.url).join("\n"), relatedServices: project.relatedServices.join(", ") }); window.scrollTo({ top: 0, behavior: "smooth" }); }
-  if (isLoading) return <AppShell><main className="cms-page"><div className="cms-empty"><Loader2 className="cms-spin" />{text.loading}</div></main></AppShell>;
-  if (!user || !isAdmin) return <AppShell><main className="cms-page"><div className="cms-empty">{text.unauthorized}</div></main></AppShell>;
-  return <AppShell><main className="cms-page"><div className="cms-container">
+  const seo = pageSeo("dashboard", locale);
+  const seoHead = <SeoHead title={seo.title} description={seo.description} path="/dashboard/projects-editor" noindex />;
+  if (isLoading) return <AppShell>{seoHead}<main className="cms-page"><div className="cms-empty"><Loader2 className="cms-spin" />{text.loading}</div></main></AppShell>;
+  if (!user || !isAdmin) return <AppShell>{seoHead}<main className="cms-page"><div className="cms-empty">{text.unauthorized}</div></main></AppShell>;
+  return <AppShell>{seoHead}<main className="cms-page"><div className="cms-container">
     <header className="cms-header"><div><p>{text.eyebrow}</p><h1>{text.title}</h1><span>{text.intro}</span></div><nav><Link to="/dashboard"><ArrowLeft size={16} />{text.back}</Link><Link to="/portfolio" target="_blank"><Eye size={16} />{text.portfolio}</Link></nav></header>
     <div className="cms-grid"><section className="cms-panel"><div className="cms-panel-title"><div><p>{editingId ? text.editor : text.newProject}</p><h2>{form.title || text.editor}</h2></div>{editingId && <button type="button" onClick={reset}><X size={16} />{text.cancel}</button>}</div>
       <form onSubmit={save} className="cms-form"><h3 className="wide cms-form-section">{text.basic}</h3><label><span>{text.titleField}</span><input required value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} /></label><label><span>{text.slug}</span><input required dir="ltr" value={form.slug} onChange={(event) => setForm({ ...form, slug: event.target.value })} /></label><label className="wide"><span>{text.summary}</span><textarea value={form.summary} onChange={(event) => setForm({ ...form, summary: event.target.value })} /></label><label className="wide"><span>{text.description}</span><textarea rows={4} value={form.description} onChange={(event) => setForm({ ...form, description: event.target.value })} /></label>

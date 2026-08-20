@@ -12,6 +12,8 @@ import {
   X,
 } from "lucide-react";
 import AppShell from "@/components/AppShell";
+import SeoHead from "@/components/SeoHead";
+import { pageSeo } from "@/content/seo";
 import { useAuth } from "@/hooks/useAuth";
 import { useSiteCopy } from "@/hooks/useSiteCopy";
 import { usePreferences } from "@/providers/preferences";
@@ -174,6 +176,7 @@ export default function Dashboard() {
   const [contentForm, setContentForm] = useState<ContentForm>(EMPTY_CONTENT);
   const [editingContentId, setEditingContentId] = useState<number | null>(null);
   const utils = trpc.useUtils();
+  const seo = pageSeo("dashboard", locale);
 
   const inquiriesQuery = trpc.inquiries.list.useQuery(undefined, { enabled: isAdmin });
   const projectsQuery = trpc.projects.list.useQuery(undefined, { enabled: isAdmin });
@@ -246,9 +249,12 @@ export default function Dashboard() {
     else createContent.mutate(contentForm);
   }
 
+  const seoHead = <SeoHead title={seo.title} description={seo.description} path="/dashboard" noindex />;
+
   if (isLoading) {
     return (
       <AppShell>
+        {seoHead}
         <section className="site-section">
           <div className="site-container empty-state" aria-live="polite">{text.loading}</div>
         </section>
@@ -259,6 +265,7 @@ export default function Dashboard() {
   if (!user || !isAdmin) {
     return (
       <AppShell>
+        {seoHead}
         <section className="site-section">
           <div className="site-container empty-state" role="alert">
             <ShieldAlert size={24} style={{ margin: "0 auto 12px" }} />
@@ -277,6 +284,7 @@ export default function Dashboard() {
 
   return (
     <AppShell>
+      {seoHead}
       <section className="site-section dashboard-shell">
         <div className="site-container">
           <div className="dashboard-header bento-card bento-full">
