@@ -40,7 +40,7 @@ const FORM = {
     draftClear: "مسح المسودة",
     successTitle: "وصلنا استفسارك",
     successRef: "رقم المرجع",
-    successNext: "نراجع الاستفسارات يدويًا ونرد على القناة التي تركتها. إن كان الأمر عاجلًا، راسلنا على واتساب مباشرة.",
+    successNext: "نرد خلال يوم عمل واحد على القناة التي تركتها. إن كان الأمر عاجلًا، راسلنا على واتساب مباشرة.",
     successAnother: "إرسال استفسار آخر",
     whatsapp: "المتابعة عبر واتساب",
     errors: {
@@ -69,7 +69,7 @@ const FORM = {
     draftClear: "Clear draft",
     successTitle: "Your inquiry reached us",
     successRef: "Reference",
-    successNext: "We review inquiries manually and reply on the channel you left. If it is urgent, message us on WhatsApp.",
+    successNext: "We reply within one business day on the channel you left. If it is urgent, message us on WhatsApp.",
     successAnother: "Send another inquiry",
     whatsapp: "Continue on WhatsApp",
     errors: {

@@ -12,6 +12,7 @@ export type PageSeoKey =
   | "about"
   | "ai"
   | "contact"
+  | "help"
   | "login"
   | "dashboard"
   | "notFound";
@@ -87,6 +88,18 @@ export const PAGE_SEO: Record<PageSeoKey, Record<AppLocale, LocalizedSeo>> = {
       title: "Start a Project",
       description:
         "Reach LENA on WhatsApp, by email, or through the inquiry form. We review the idea and define the clearest next step.",
+    },
+  },
+  help: {
+    ar: {
+      title: "المساعدة والأسئلة الشائعة",
+      description:
+        "إجابات مباشرة عن بدء المشروع، وقت الرد، الأسعار، مشاكل النموذج، وبياناتك — مع قنوات التواصل المباشرة.",
+    },
+    en: {
+      title: "Help and frequently asked questions",
+      description:
+        "Direct answers about starting a project, reply times, pricing, form problems and your data — plus the direct contact channels.",
     },
   },
   login: {
