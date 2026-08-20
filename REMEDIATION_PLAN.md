@@ -50,7 +50,7 @@ each exercised against a real server and database earlier in this session.
 
 | # | Finding | Evidence | Status |
 |---|---|---|---|
-| T4.1 | **CI cannot detect any regression this session's work protects against.** The workflow runs only `pnpm install`, `pnpm run typecheck`, `pnpm run build`. | `.github/workflows/ci.yml` | **VERIFIED COMPLETE** (M1) |
+| T4.1 | **CI cannot detect any regression this session's work protects against.** The workflow runs only `pnpm install`, `pnpm run typecheck`, `pnpm run build`. | `.github/workflows/ci.yml` | **BLOCKED** — the runner exists and passes; wiring it into CI needs the `workflows` permission. See `docs/CI_VERIFY_STEP.md` |
 | T4.2 | **Six of the nine verification harnesses live outside the repository** (`/home/user/e2e/`, `/home/user/`). They are not versioned, not backed up, and would be lost with the sandbox — including the SEO, locale, draft-recovery, support-privacy and crash-boundary suites. | `ls` of both locations | **VERIFIED COMPLETE** (M1) |
 
 ### Tier 5 — domain / PWA / deployment, UX, accessibility, performance
@@ -81,7 +81,7 @@ enabling AI draft translation (recurring cost).
 
 | Milestone | Outcome | Risk | Status |
 |---|---|---|---|
-| **M1** | Every verification harness lives in the repository and runs in CI | None — additive | **VERIFIED COMPLETE** |
+| **M1** | Every verification harness lives in the repository and runs on one command | None — additive | **VERIFIED COMPLETE**, except CI automation which is **BLOCKED** on a GitHub permission |
 | **M2** | The owner cannot be permanently locked out | Low — config widening, default unchanged | **VERIFIED COMPLETE** |
 | **M3** | Regression suite proves M2 behaves correctly | None | **VERIFIED COMPLETE** |
 | **M4** | No surface lets the operator "publish" something invisible | Low — hides a tab, deletes no data | **NOT STARTED** |
@@ -99,7 +99,7 @@ enabling AI draft translation (recurring cost).
 **Acceptance criteria**
 1. Every harness lives under `tools/` in the repository.
 2. `pnpm run verify` runs all of them and exits non-zero if any fails.
-3. CI runs it on every push and pull request.
+3. CI runs it on every push and pull request. — **BLOCKED**, see below.
 4. Harnesses that need a database skip cleanly rather than failing when one is absent.
 
 **Problem reproduced:** CI ran `typecheck` and `build` only. Six of nine harnesses — SEO metadata,
@@ -132,9 +132,15 @@ pnpm run verify
   10 suites, 206 assertions, 0 failures
 ```
 
-**Remaining risk:** the admin suite needs a running database and a seeded session; in CI without one
-it reports `SKIPPED`, so authorization regressions are caught locally and in review, not by CI alone.
-Recorded rather than hidden.
+**Blocked, and not hidden:** the workflow edit was rejected on push —
+`refusing to allow a GitHub App to create or update workflow .github/workflows/ci.yml without
+workflows permission`. The edit was reverted so the rest of the milestone could land, and the exact
+four lines required are recorded in `docs/CI_VERIFY_STEP.md`. Until an owner applies them, `pnpm run
+verify` must be run manually before a deployment.
+
+**Remaining risk:** the admin suite needs a running database and a seeded session; without one it
+reports `SKIPPED`, so authorization regressions are caught locally and in review rather than
+automatically. Recorded rather than hidden.
 
 **Status: VERIFIED COMPLETE**
 
