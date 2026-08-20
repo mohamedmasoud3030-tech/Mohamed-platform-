@@ -23,6 +23,6 @@ export default function ProjectDetails() {
     <CaseStudySections project={project} study={study} />
     <ProjectGallery project={project} study={study} />
     <RelatedServices project={project} />
-    <LenaCta project />
+    <LenaCta project work={project.id} />
   </PublicShell>;
 }

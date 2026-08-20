@@ -89,7 +89,14 @@ export const inquiriesRouter = createRouter({
         phone: z.string().trim().max(50).optional(),
         service: z.string().trim().max(255).optional(),
         message: z.string().trim().min(1).max(5000),
-        source: z.literal("contact").default("contact"),
+        // Entry context of the inquiry: which page the visitor started from.
+        // Activation attribution only — contains no personal data.
+        source: z
+          .string()
+          .trim()
+          .max(50)
+          .regex(/^(contact|service:[a-z0-9-]{1,40}|work:[a-z0-9-]{1,40})$/)
+          .default("contact"),
         website: z.string().trim().max(255).optional(),
         submittedAt: z.number().int().positive(),
       })

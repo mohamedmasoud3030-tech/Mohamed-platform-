@@ -1,40 +1,30 @@
-import { useState, type FormEvent } from "react";
-import { Mail, MessageCircle, Phone, Send } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { CheckCircle2, Mail, MessageCircle, Phone, RotateCcw, Send } from "lucide-react";
+import { Link, useLocation } from "react-router";
 import SeoHead from "@/components/SeoHead";
 import { SITE_CONFIG } from "@/config/site";
 import { pageSeo } from "@/content/seo";
-import { LENA_SERVICES } from "@/content/services";
+import { LENA_SERVICES, findService } from "@/content/services";
 import PublicShell from "@/layouts/PublicShell";
 import { useSiteCopy } from "@/hooks/useSiteCopy";
 import { usePreferences } from "@/providers/preferences";
 import { trpc } from "@/providers/trpc";
+import { clearDraft, emptyDraft, readDraft, writeDraft, type InquiryDraft } from "@/lib/inquiryDraft";
 
-type Inquiry = {
-  name: string;
-  email: string;
-  phone: string;
-  service: string;
-  message: string;
+type Inquiry = InquiryDraft & {
   website: string;
   submittedAt: number;
 };
 
 function createEmptyInquiry(): Inquiry {
-  return {
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    message: "",
-    website: "",
-    submittedAt: Date.now(),
-  };
+  return { ...emptyDraft(), website: "", submittedAt: Date.now() };
 }
 
 const FORM = {
   ar: {
     title: "أرسل نقطة البداية",
     intro: "اكتب احتياجك الأساسي وسنراجع الاستفسار لتحديد الخطوة التالية.",
+    required: "الاسم وتفاصيل الفكرة فقط مطلوبان — البقية اختيارية.",
     name: "الاسم",
     email: "البريد الإلكتروني",
     phone: "رقم الهاتف",
@@ -44,12 +34,26 @@ const FORM = {
     choose: "اختر عند الحاجة",
     submit: "إرسال الاستفسار",
     sending: "جارٍ الإرسال...",
-    success: "تم إرسال استفسارك بنجاح. سنراجع التفاصيل ونتواصل معك.",
-    failed: "تعذر الإرسال. استخدم واتساب أو البريد المباشر.",
+    retry: "إعادة المحاولة",
+    about: "بخصوص",
+    draftRestored: "استعدنا ما كتبته سابقًا على هذا الجهاز.",
+    draftClear: "مسح المسودة",
+    successTitle: "وصلنا استفسارك",
+    successRef: "رقم المرجع",
+    successNext: "نراجع الاستفسارات يدويًا ونرد على القناة التي تركتها. إن كان الأمر عاجلًا، راسلنا على واتساب مباشرة.",
+    successAnother: "إرسال استفسار آخر",
+    whatsapp: "المتابعة عبر واتساب",
+    errors: {
+      rate: "استلمنا عدة رسائل من هذا الاتصال خلال وقت قصير. انتظر قليلًا أو راسلنا على واتساب.",
+      rejected: "لم نتمكن من قبول النموذج. تأكد من تعبئة الاسم والتفاصيل ثم أعد الإرسال، أو راسلنا على واتساب.",
+      offline: "يبدو أن الاتصال بالإنترنت منقطع. نصك محفوظ على جهازك — أعد المحاولة بعد عودة الاتصال.",
+      server: "تعذر الإرسال الآن. نصك محفوظ على جهازك، ويمكنك إعادة المحاولة أو مراسلتنا على واتساب.",
+    },
   },
   en: {
     title: "Share the starting point",
     intro: "Describe the core requirement and we will review the inquiry to define the next step.",
+    required: "Only your name and the project details are required — everything else is optional.",
     name: "Name",
     email: "Email",
     phone: "Phone number",
@@ -59,37 +63,111 @@ const FORM = {
     choose: "Choose when relevant",
     submit: "Send inquiry",
     sending: "Sending...",
-    success: "Your inquiry has been sent. We will review the details and get back to you.",
-    failed: "Could not send. Use WhatsApp or direct email.",
+    retry: "Try again",
+    about: "About",
+    draftRestored: "We restored what you had written on this device.",
+    draftClear: "Clear draft",
+    successTitle: "Your inquiry reached us",
+    successRef: "Reference",
+    successNext: "We review inquiries manually and reply on the channel you left. If it is urgent, message us on WhatsApp.",
+    successAnother: "Send another inquiry",
+    whatsapp: "Continue on WhatsApp",
+    errors: {
+      rate: "We received several messages from this connection in a short time. Please wait a moment or message us on WhatsApp.",
+      rejected: "We could not accept the form. Check the name and details, then send again — or reach us on WhatsApp.",
+      offline: "You appear to be offline. Your text is saved on this device — try again once you reconnect.",
+      server: "Sending failed just now. Your text is saved on this device; retry or message us on WhatsApp.",
+    },
   },
 } as const;
+
+type ErrorKind = keyof (typeof FORM)["ar"]["errors"];
+
+function classifyError(error: { data?: { code?: string } | null } | null): ErrorKind {
+  if (typeof navigator !== "undefined" && navigator.onLine === false) return "offline";
+  const code = error?.data?.code;
+  if (code === "TOO_MANY_REQUESTS") return "rate";
+  if (code === "BAD_REQUEST") return "rejected";
+  return "server";
+}
 
 export default function Contact() {
   const copy = useSiteCopy();
   const { locale } = usePreferences();
+  const { search } = useLocation();
   const text = FORM[locale];
-  const [form, setForm] = useState(createEmptyInquiry);
-  const [done, setDone] = useState(false);
+  const seo = pageSeo("contact", locale);
+
+  const params = new URLSearchParams(search);
+  const requestedService = findService(params.get("service") ?? undefined);
+  const requestedWork = (params.get("work") ?? "").match(/^[a-z0-9-]{1,40}$/)?.[0];
+  const entrySource = requestedService
+    ? `service:${requestedService.id}`
+    : requestedWork
+      ? `work:${requestedWork}`
+      : "contact";
+
+  const [form, setForm] = useState<Inquiry>(createEmptyInquiry);
+  const [draftRestored, setDraftRestored] = useState(false);
+  const [reference, setReference] = useState<number | null>(null);
+  const successRef = useRef<HTMLDivElement | null>(null);
+
   const mutation = trpc.inquiries.create.useMutation({
-    onSuccess: () => {
-      setDone(true);
+    onSuccess: (inquiry) => {
+      setReference(inquiry?.id ?? null);
+      setDraftRestored(false);
       setForm(createEmptyInquiry());
+      clearDraft();
     },
   });
 
+  // Restore an abandoned draft, and pre-select the track the visitor came from.
+  useEffect(() => {
+    const draft = readDraft();
+    setForm((current) => ({
+      ...current,
+      ...(draft ?? {}),
+      service: draft?.service || requestedService?.id || current.service,
+      submittedAt: Date.now(),
+    }));
+    if (draft) setDraftRestored(true);
+  }, [requestedService?.id]);
+
+  useEffect(() => {
+    if (reference !== null) successRef.current?.focus();
+  }, [reference]);
+
+  function update(patch: Partial<Inquiry>) {
+    setForm((current) => {
+      const next = { ...current, ...patch };
+      writeDraft(next);
+      return next;
+    });
+    setDraftRestored(false);
+  }
+
+  function resetDraft() {
+    clearDraft();
+    setForm(createEmptyInquiry());
+    setDraftRestored(false);
+  }
+
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setDone(false);
+    setReference(null);
     mutation.mutate({
-      ...form,
+      name: form.name,
+      message: form.message,
+      website: form.website,
+      submittedAt: form.submittedAt,
       email: form.email || undefined,
       phone: form.phone || undefined,
       service: form.service || undefined,
-      source: "contact",
+      source: entrySource,
     });
   }
 
-  const seo = pageSeo("contact", locale);
+  const errorKind = mutation.error ? classifyError(mutation.error) : null;
 
   return (
     <PublicShell>
@@ -131,55 +209,150 @@ export default function Contact() {
 
       <section className="lena-section">
         <div className="lena-container">
-          <form className="lena-glass lena-form" onSubmit={submit}>
-            <p className="lena-kicker">{copy.contact.eyebrow}</p>
-            <h2>{text.title}</h2>
-            <p>{text.intro}</p>
-            <label
-              aria-hidden="true"
-              style={{ position: "absolute", insetInlineStart: "-10000px", width: 1, height: 1, overflow: "hidden" }}
+          {reference !== null ? (
+            <div
+              className="lena-glass lena-form lena-inquiry-success"
+              ref={successRef}
+              tabIndex={-1}
+              role="status"
+              aria-live="polite"
             >
-              <span>Website</span>
-              <input
-                name="website"
-                tabIndex={-1}
-                autoComplete="off"
-                value={form.website}
-                onChange={(event) => setForm({ ...form, website: event.target.value })}
-              />
-            </label>
-            <div className="lena-form-grid">
-              <label>
-                <span>{text.name}</span>
-                <input name="name" required value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} />
-              </label>
-              <label>
-                <span>{text.email} <small>{text.optional}</small></span>
-                <input name="email" type="email" dir="ltr" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} />
-              </label>
-              <label>
-                <span>{text.phone} <small>{text.optional}</small></span>
-                <input name="phone" dir="ltr" value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} />
-              </label>
-              <label>
-                <span>{text.service} <small>{text.optional}</small></span>
-                <select name="service" value={form.service} onChange={(event) => setForm({ ...form, service: event.target.value })}>
-                  <option value="">{text.choose}</option>
-                  {LENA_SERVICES.map((service) => <option value={service.id} key={service.id}>{service.title[locale]}</option>)}
-                </select>
-              </label>
-              <label className="wide">
-                <span>{text.message}</span>
-                <textarea name="message" required rows={6} value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} />
-              </label>
+              <CheckCircle2 size={26} />
+              <h2>{text.successTitle}</h2>
+              <p className="lena-inquiry-reference">
+                {text.successRef} <strong dir="ltr">#{reference}</strong>
+              </p>
+              <p>{text.successNext}</p>
+              <div className="lena-actions">
+                <a className="lena-primary" href={SITE_CONFIG.whatsappUrl} target="_blank" rel="noreferrer">
+                  <MessageCircle size={16} />
+                  {text.whatsapp}
+                </a>
+                <button type="button" className="lena-secondary" onClick={() => setReference(null)}>
+                  {text.successAnother}
+                </button>
+                <Link className="lena-secondary" to="/portfolio">
+                  {locale === "ar" ? "تصفّح الأعمال" : "Browse the work"}
+                </Link>
+              </div>
             </div>
-            {done && <p className="lena-success" role="status">{text.success}</p>}
-            {mutation.error && <p className="lena-error" role="alert">{text.failed}</p>}
-            <button type="submit" className="lena-primary" disabled={mutation.isPending}>
-              <Send size={16} />
-              {mutation.isPending ? text.sending : text.submit}
-            </button>
-          </form>
+          ) : (
+            <form className="lena-glass lena-form" onSubmit={submit}>
+              <p className="lena-kicker">{copy.contact.eyebrow}</p>
+              <h2>{text.title}</h2>
+              <p>{text.intro}</p>
+              <p className="lena-form-hint">{text.required}</p>
+
+              {requestedService && (
+                <p className="lena-form-context">
+                  {text.about}: <strong>{requestedService.title[locale]}</strong>
+                </p>
+              )}
+
+              {draftRestored && (
+                <p className="lena-form-draft" role="status">
+                  <RotateCcw size={14} />
+                  {text.draftRestored}
+                  <button type="button" onClick={resetDraft}>
+                    {text.draftClear}
+                  </button>
+                </p>
+              )}
+
+              <label
+                aria-hidden="true"
+                style={{ position: "absolute", insetInlineStart: "-10000px", width: 1, height: 1, overflow: "hidden" }}
+              >
+                <span>Website</span>
+                <input
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={form.website}
+                  onChange={(event) => setForm({ ...form, website: event.target.value })}
+                />
+              </label>
+
+              <div className="lena-form-grid">
+                <label>
+                  <span>{text.name}</span>
+                  <input
+                    name="name"
+                    required
+                    autoComplete="name"
+                    value={form.name}
+                    onChange={(event) => update({ name: event.target.value })}
+                  />
+                </label>
+                <label>
+                  <span>
+                    {text.email} <small>{text.optional}</small>
+                  </span>
+                  <input
+                    name="email"
+                    type="email"
+                    dir="ltr"
+                    autoComplete="email"
+                    inputMode="email"
+                    value={form.email}
+                    onChange={(event) => update({ email: event.target.value })}
+                  />
+                </label>
+                <label>
+                  <span>
+                    {text.phone} <small>{text.optional}</small>
+                  </span>
+                  <input
+                    name="phone"
+                    dir="ltr"
+                    type="tel"
+                    autoComplete="tel"
+                    inputMode="tel"
+                    value={form.phone}
+                    onChange={(event) => update({ phone: event.target.value })}
+                  />
+                </label>
+                <label>
+                  <span>
+                    {text.service} <small>{text.optional}</small>
+                  </span>
+                  <select name="service" value={form.service} onChange={(event) => update({ service: event.target.value })}>
+                    <option value="">{text.choose}</option>
+                    {LENA_SERVICES.map((service) => (
+                      <option value={service.id} key={service.id}>
+                        {service.title[locale]}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="wide">
+                  <span>{text.message}</span>
+                  <textarea
+                    name="message"
+                    required
+                    rows={6}
+                    value={form.message}
+                    onChange={(event) => update({ message: event.target.value })}
+                  />
+                </label>
+              </div>
+
+              {errorKind && (
+                <div className="lena-error lena-form-error" role="alert">
+                  <p>{text.errors[errorKind]}</p>
+                  <a className="lena-secondary" href={SITE_CONFIG.whatsappUrl} target="_blank" rel="noreferrer">
+                    <MessageCircle size={15} />
+                    {text.whatsapp}
+                  </a>
+                </div>
+              )}
+
+              <button type="submit" className="lena-primary" disabled={mutation.isPending}>
+                <Send size={16} />
+                {mutation.isPending ? text.sending : errorKind ? text.retry : text.submit}
+              </button>
+            </form>
+          )}
         </div>
       </section>
     </PublicShell>
