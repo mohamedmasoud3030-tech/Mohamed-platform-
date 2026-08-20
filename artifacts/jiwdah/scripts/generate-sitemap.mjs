@@ -18,6 +18,9 @@ const artifactDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "
 const outDir = path.join(artifactDir, "dist", "public");
 const srcDir = path.join(artifactDir, "src");
 
+/** Both languages are real markets, so both are listed with mutual alternates. */
+const LOCALES = ["ar", "en"];
+
 /** Public, indexable static routes. Admin routes are deliberately excluded. */
 const STATIC_ROUTES = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
@@ -69,19 +72,27 @@ function xmlEscape(value) {
 function buildSitemap(baseUrl, entries) {
   const today = new Date().toISOString().slice(0, 10);
   const urls = entries
-    .map(
-      (entry) =>
-        [
+    .flatMap((entry) =>
+      LOCALES.map((locale) => {
+        const alternates = [
+          ...LOCALES.map((code) => ({ hreflang: code, href: `${baseUrl}/${code}${entry.path === "/" ? "" : entry.path}` })),
+          { hreflang: "x-default", href: `${baseUrl}/en${entry.path === "/" ? "" : entry.path}` },
+        ];
+        return [
           "  <url>",
-          `    <loc>${xmlEscape(baseUrl + entry.path)}</loc>`,
+          `    <loc>${xmlEscape(`${baseUrl}/${locale}${entry.path === "/" ? "" : entry.path}`)}</loc>`,
+          ...alternates.map(
+            (alt) => `    <xhtml:link rel="alternate" hreflang="${alt.hreflang}" href="${xmlEscape(alt.href)}"/>`,
+          ),
           `    <lastmod>${today}</lastmod>`,
           `    <changefreq>${entry.changefreq}</changefreq>`,
           `    <priority>${entry.priority}</priority>`,
           "  </url>",
-        ].join("\n"),
+        ].join("\n");
+      }),
     )
     .join("\n");
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`;
 }
 
 function buildRobots(baseUrl) {
@@ -114,7 +125,7 @@ function main() {
 
   writeFileSync(path.join(outDir, "sitemap.xml"), buildSitemap(baseUrl, entries), "utf8");
   console.log(
-    `[sitemap] Wrote ${entries.length} URLs to dist/public/sitemap.xml ` +
+    `[sitemap] Wrote ${entries.length * LOCALES.length} URLs (${LOCALES.join("/")}) to dist/public/sitemap.xml ` +
       `(${STATIC_ROUTES.length} static, ${serviceIds.length} services, ${projectIds.length} case studies) — base ${baseUrl}`,
   );
 }

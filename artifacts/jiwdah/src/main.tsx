@@ -4,18 +4,40 @@ import { BrowserRouter } from "react-router";
 import App from "./App";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { TRPCProvider } from "./providers/trpc";
-import { PreferencesProvider } from "./providers/preferences";
+import { PreferencesProvider, usePreferences } from "./providers/preferences";
+import { bootstrapLocale } from "./lib/locale";
 import "./index.css";
 import "./App.css";
+
+/**
+ * Resolve the language before the app mounts, and move unprefixed links
+ * (including every URL shared before languages had their own address) onto a
+ * prefixed one without losing the query string or hash.
+ */
+const { locale, redirectTo } = bootstrapLocale(window.location);
+if (redirectTo) window.history.replaceState(null, "", redirectTo);
+
+/**
+ * The router's basename is the language segment, so every existing link such as
+ * `to="/services"` resolves to `/ar/services` or `/en/services` automatically.
+ * Remounting on language change is intentional: it is the moment the address,
+ * the direction and the content all switch together.
+ */
+function LocalizedRouter() {
+  const { locale: active } = usePreferences();
+  return (
+    <BrowserRouter basename={`/${active}`} key={active}>
+      <App />
+    </BrowserRouter>
+  );
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ErrorBoundary>
-      <PreferencesProvider>
+      <PreferencesProvider initialLocale={locale}>
         <TRPCProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <LocalizedRouter />
         </TRPCProvider>
       </PreferencesProvider>
     </ErrorBoundary>
