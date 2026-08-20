@@ -266,3 +266,30 @@
 .lena-contact-card .lena-primary { margin-top: auto; }
 .lena-contact-card .lena-secondary { margin-top: 8px; }
 .lena-footer-links a small { margin-inline-start: 6px; opacity: .65; font-size: 11px; }
+
+/* Provenance: what a portfolio item actually is, stated without a click. */
+.lena-provenance {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 8px;
+  border: 1px solid var(--lena-line);
+  border-radius: 99px;
+  background: rgba(91, 124, 255, 0.12);
+  padding: 4px 10px;
+  color: var(--lena-muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+.lena-provenance-banner {
+  display: block;
+  margin-top: 12px;
+  border: 1px solid var(--lena-line);
+  border-inline-start: 3px solid var(--lena-accent);
+  border-radius: 10px;
+  background: rgba(91, 124, 255, 0.08);
+  padding: 10px 14px;
+  color: var(--lena-muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+.lena-provenance-banner strong { color: var(--lena-text); }

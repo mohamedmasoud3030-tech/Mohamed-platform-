@@ -27,6 +27,7 @@ const SUITES = [
   { name: "crash boundary", file: "tools/verify-boundary.mjs" },
   { name: "analytics layer", file: "tools/verify-analytics.mjs" },
   { name: "owner allowlist", file: "tools/verify-owner-allowlist.mjs" },
+  { name: "localization integrity", file: "tools/verify-i18n.mjs" },
   { name: "help content freshness", file: "tools/verify-freshness.mjs" },
   { name: "admin authorization", file: "tools/verify-admin.sh", needsApi: true },
 ];

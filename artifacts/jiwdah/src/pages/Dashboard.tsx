@@ -14,6 +14,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
+import { formatDateTime } from "@/lib/format";
 import AdminSupport from "@/components/AdminSupport";
 import AuditTrail from "@/components/AuditTrail";
 import InquiryOperations from "@/components/InquiryOperations";
@@ -26,7 +27,10 @@ import { usePreferences } from "@/providers/preferences";
 import { trpc } from "@/providers/trpc";
 import "./dashboard.css";
 
-type DashboardTab = "inquiries" | "projects" | "content";
+// The content tab was removed: no public page reads content_entries, so
+// "publishing" there changed nothing a visitor could ever see. The server
+// procedures and the table remain untouched for a future real surface.
+type DashboardTab = "inquiries" | "projects";
 type ProjectStatus = "draft" | "published" | "archived";
 type ContentStatus = "draft" | "published" | "archived";
 type InquiryStatus = "new" | "in_progress" | "qualified" | "closed" | "archived";
@@ -201,12 +205,7 @@ function formatSource(value: string | null | undefined, locale: "ar" | "en") {
   return locale === "ar" ? "نموذج التواصل" : "Contact form";
 }
 
-function formatDate(value: Date | string, locale: "ar" | "en") {
-  return new Intl.DateTimeFormat(locale === "ar" ? "ar" : "en-GB", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(new Date(value));
-}
+
 
 export default function Dashboard() {
   const copy = useSiteCopy();
@@ -325,7 +324,6 @@ export default function Dashboard() {
   const tabs: Array<{ id: DashboardTab; label: string; icon: typeof Inbox; count: number; badge?: number }> = [
     { id: "inquiries", label: copy.dashboard.inquiries, icon: Inbox, count: inquiriesQuery.data?.length ?? 0, badge: newInquiries },
     { id: "projects", label: copy.dashboard.portfolio, icon: FolderKanban, count: projectsQuery.data?.length ?? 0 },
-    { id: "content", label: copy.dashboard.content, icon: FileText, count: contentQuery.data?.length ?? 0 },
   ];
 
   return (
@@ -387,7 +385,7 @@ export default function Dashboard() {
                       <div className="dashboard-record-main">
                         <div className="dashboard-record-title-row">
                           <h3>{inquiry.name}</h3>
-                          <time>{formatDate(inquiry.createdAt, locale)}</time>
+                          <time>{formatDateTime(inquiry.createdAt, locale)}</time>
                         </div>
                         <dl className="dashboard-meta-grid">
                           {inquiry.hasPhone && <div><dt>{text.phone}</dt><dd dir="ltr">{inquiry.phone}</dd></div>}
@@ -468,37 +466,6 @@ export default function Dashboard() {
             </section>
           )}
 
-          {activeTab === "content" && (
-            <section className="dashboard-panel" aria-labelledby="dashboard-content-title">
-              <div className="dashboard-panel-heading"><div><h2 id="dashboard-content-title">{copy.dashboard.content}</h2><p>{text.contentHint}</p></div></div>
-              <form className="dashboard-form" onSubmit={submitContent}>
-                <h3>{text.contentForm}</h3>
-                <div className="dashboard-form-grid">
-                  <label><span>{text.key}</span><input required dir="ltr" value={contentForm.key} onChange={(event) => setContentForm({ ...contentForm, key: event.target.value })} /></label>
-                  <label><span>{text.title}</span><input required value={contentForm.title} onChange={(event) => setContentForm({ ...contentForm, title: event.target.value })} /></label>
-                  <label><span>{text.status}</span><select value={contentForm.status} onChange={(event) => setContentForm({ ...contentForm, status: event.target.value as ContentStatus })}><option value="draft">{text.statuses.draft}</option><option value="published">{text.statuses.published}</option><option value="archived">{text.statuses.archived}</option></select></label>
-                  <label className="dashboard-form-wide"><span>{text.body}</span><textarea required rows={7} value={contentForm.body} onChange={(event) => setContentForm({ ...contentForm, body: event.target.value })} /></label>
-                </div>
-                <div className="actions-row">
-                  <button type="submit" className="btn-primary" disabled={createContent.isPending || updateContent.isPending}>{editingContentId ? <Save size={17} /> : <Plus size={17} />}{editingContentId ? text.save : text.add}</button>
-                  {editingContentId && <button type="button" className="btn-secondary" onClick={resetContentForm}><X size={17} />{text.cancel}</button>}
-                </div>
-              </form>
-              {contentQuery.isLoading ? <div className="empty-state">{text.loading}</div> : contentQuery.error ? <div className="dashboard-guide" role="alert"><h3>{text.failedTitle}</h3><p>{text.failedBody}</p><div className="dashboard-guide-actions"><button type="button" onClick={() => contentQuery.refetch()}><RefreshCw size={16} />{text.retry}</button></div></div> : contentQuery.data?.length ? (
-                <div className="dashboard-list">
-                  {contentQuery.data.map((entry) => (
-                    <article key={entry.id} className="dashboard-record">
-                      <div className="dashboard-record-main"><div className="dashboard-record-title-row"><h3>{entry.title}</h3><span className="dashboard-status">{text.statuses[entry.status]}</span></div><code>{entry.key}</code><p className="dashboard-message">{entry.body}</p></div>
-                      <div className="dashboard-record-actions dashboard-action-buttons">
-                        <button type="button" className="icon-button" aria-label={text.edit} onClick={() => { setEditingContentId(entry.id); setContentForm({ key: entry.key, title: entry.title, body: entry.body, status: entry.status }); }}><Pencil size={16} /></button>
-                        <button type="button" className="dashboard-danger-button" aria-label={text.remove} onClick={() => window.confirm(text.confirmDelete) && deleteContent.mutate({ id: entry.id })}><Trash2 size={16} /></button>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              ) : <div className="dashboard-guide"><h3>{text.emptyContentTitle}</h3><p>{text.emptyContentBody}</p></div>}
-            </section>
-          )}
         </div>
       </section>
     </AppShell>
