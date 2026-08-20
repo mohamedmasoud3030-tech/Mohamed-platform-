@@ -1,9 +1,14 @@
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
+/** Repository root, so these suites run from any checkout. */
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+
 // Executable freshness tests: does the help content still describe the real system?
 // These read the actual source of truth, so they fail when behaviour drifts from documentation.
 import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 
-const R = "/home/user/platform";
+const R = `${ROOT}`;
 const read = (p) => readFileSync(`${R}/${p}`, "utf8");
 
 const help = read("artifacts/jiwdah/src/content/help.ts");
