@@ -81,9 +81,13 @@ on the site).
 
 ---
 
-## Open question for the founder
+## Resolved: the studio publishes no location
 
-The site currently declares the studio's address as Oman (`addressCountry: OM`, an Omani phone number
-and WhatsApp). The founder is Egyptian and the newest project is based in Egypt. **Which country
-should the site state as the studio's location?** This is a factual claim in the published structured
-data, so it should be correct rather than assumed.
+**Decision (2026-08-20, founder):** no country is published as the studio's location. The address was
+removed from the structured data entirely.
+
+What replaces it is stronger than a location: a **local number in each of three markets** — Oman,
+Egypt and Saudi Arabia — so a client dials a familiar country code rather than an international one.
+Each is published as its own `ContactPoint` with its own `areaServed`. "Location undetermined" would
+read as evasive; "reachable locally in three markets" is a verifiable fact that supports the
+bilingual, cross-market positioning in `PRODUCT_DEFINITION.md`.

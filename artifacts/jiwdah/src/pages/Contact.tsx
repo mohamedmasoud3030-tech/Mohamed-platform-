@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { CheckCircle2, Mail, MessageCircle, Phone, RotateCcw, Send } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import SeoHead from "@/components/SeoHead";
-import { SITE_CONFIG } from "@/config/site";
+import { SITE_CONFIG, whatsappUrlFor } from "@/config/site";
 import { pageSeo } from "@/content/seo";
 import { LENA_SERVICES, findService } from "@/content/services";
 import PublicShell from "@/layouts/PublicShell";
@@ -187,29 +187,44 @@ export default function Contact() {
       </section>
 
       <section className="lena-section">
-        <div className="lena-container lena-contact-grid">
-          <article className="lena-glass lena-contact-card">
-            <MessageCircle />
-            <h2>WhatsApp</h2>
-            <p dir="ltr">{SITE_CONFIG.phone.display}</p>
-            <a className="lena-primary" href={SITE_CONFIG.whatsappUrl} target="_blank" rel="noreferrer">
-              {copy.contact.whatsapp}
-            </a>
-          </article>
+        <p className="lena-contact-reach">{SITE_CONFIG.reachLabel[locale]}</p>
+        <div className="lena-contact-grid">
+          {SITE_CONFIG.channels.map((channel) => (
+            <article className="lena-glass lena-contact-card" key={channel.id}>
+              <MessageCircle />
+              <h2>{channel.region[locale]}</h2>
+              <p dir="ltr">{channel.display}</p>
+              <a
+                className="lena-primary"
+                href={whatsappUrlFor(channel)}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => track("contact_channel_opened", { channel: "whatsapp", surface: "section" })}
+              >
+                <MessageCircle size={15} />
+                {copy.contact.whatsapp}
+              </a>
+              <a
+                className="lena-secondary"
+                href={`tel:${channel.tel}`}
+                onClick={() => track("contact_channel_opened", { channel: "phone", surface: "section" })}
+              >
+                <Phone size={15} />
+                {copy.contact.call}
+              </a>
+            </article>
+          ))}
           <article className="lena-glass lena-contact-card">
             <Mail />
             <h2>{copy.contact.email}</h2>
             <p dir="ltr">{SITE_CONFIG.email}</p>
-            <a className="lena-secondary" href={SITE_CONFIG.emailUrl}>
+            <a
+              className="lena-secondary"
+              href={SITE_CONFIG.emailUrl}
+              onClick={() => track("contact_channel_opened", { channel: "email", surface: "section" })}
+            >
+              <Mail size={15} />
               {copy.contact.email}
-            </a>
-          </article>
-          <article className="lena-glass lena-contact-card">
-            <Phone />
-            <h2>{copy.contact.call}</h2>
-            <p dir="ltr">{SITE_CONFIG.phone.display}</p>
-            <a className="lena-secondary" href={`tel:${SITE_CONFIG.phone.tel}`}>
-              {copy.contact.call}
             </a>
           </article>
         </div>
