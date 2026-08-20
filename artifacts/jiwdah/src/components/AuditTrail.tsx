@@ -1,4 +1,5 @@
 import { History } from "lucide-react";
+import { formatShortDateTime } from "@/lib/format";
 import { usePreferences } from "@/providers/preferences";
 import { trpc } from "@/providers/trpc";
 
@@ -73,12 +74,7 @@ export default function AuditTrail({ enabled }: { enabled: boolean }) {
                     </code>
                   )}
                   <span className="audit-outcome">{text.outcomes[event.outcome] ?? event.outcome}</span>
-                  <time dir="ltr">
-                    {new Intl.DateTimeFormat(locale === "ar" ? "ar" : "en-GB", {
-                      dateStyle: "short",
-                      timeStyle: "short",
-                    }).format(new Date(event.createdAt))}
-                  </time>
+                  <time dir="ltr">{formatShortDateTime(event.createdAt, locale)}</time>
                 </div>
                 {event.reason && (
                   <p className="audit-reason">
