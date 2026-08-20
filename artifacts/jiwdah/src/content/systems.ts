@@ -23,8 +23,8 @@ export type SystemId =
   | "recycling";
 
 /**
- * Stage, as stated by the owner (2026-08-20). Everything is treated as
- * experimental except the two products already used by real businesses.
+ * Stage reflects verified evidence, not inference. A product is marked in-use
+ * only when current real-business use is established; otherwise it stays trial.
  */
 export type SystemStage = "in-use" | "trial";
 
@@ -96,7 +96,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     id: "wellness",
     visibility: "public",
     order: 1,
-    name: { ar: "بيو بيوتي", en: "Bio Beauty" },
+    name: { ar: "LenaBeauty", en: "LenaBeauty" },
     stage: "trial",
     beneficiaries: {
       ar: ["صاحبة المركز أو مديرته", "موظفة الاستقبال", "المعالِجات ومقدّمات الخدمة"],
@@ -172,7 +172,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     visibility: "public",
     order: 4,
     name: { ar: "نظام الضيافة", en: "Hospitality system" },
-    stage: "in-use",
+    stage: "trial",
     beneficiaries: {
       ar: ["مكتب خدمات الضيافة", "منسّق المناسبة", "طاقم التنفيذ في الموقع"],
       en: ["The hospitality services office", "The event coordinator", "The on-site crew"],
