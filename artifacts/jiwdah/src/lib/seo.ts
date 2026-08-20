@@ -3,7 +3,7 @@ import { FOUNDER } from "@/content/founder";
 import type { AppLocale } from "@/providers/preferences";
 
 export const BRAND_NAME = "LENA Digital House";
-export const DEFAULT_OG_IMAGE = "/lena-og.svg";
+export const DEFAULT_OG_IMAGE = "/lena-og.jpg";
 
 /**
  * Absolute origin of the deployed site.

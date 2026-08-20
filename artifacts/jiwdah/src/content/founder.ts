@@ -30,9 +30,8 @@ export const FOUNDER: Founder = {
     en: "Founder, LENA Digital House",
   },
   initials: "MM",
-  // Drop the photograph at artifacts/jiwdah/public/founder.jpg and set this to
-  // "/founder.jpg". Until then the monogram renders, and nothing looks broken.
-  photo: "",
+  // Produced by tools/prepare-founder-photo.sh: 440x440, metadata stripped.
+  photo: "/founder.jpg",
   photoAlt: {
     ar: "محمد مسعود، مؤسس LENA Digital House",
     en: "Mohamed Masoud, founder of LENA Digital House",
