@@ -31,7 +31,7 @@ A "launch blocker" here means: do not spend money driving traffic until it is fi
 | # | Blocker | Why it blocks | Status |
 |---|---|---|---|
 | **B1** | Portfolio publishes work that does not exist, unlabelled | One question from a serious prospect destroys credibility permanently | **FIXED** — every item now carries an explicit provenance label |
-| **B2** | Positioning contradicts the founder's own stated capability | Traffic arrives expecting branding; the founder sells operations software. Every visit is mis-qualified | **AWAITING OWNER APPROVAL** — `PRODUCT_DECISIONS.md` D1 |
+| **B2** | Positioning contradicts the founder's own stated capability | Traffic arrives expecting branding; the founder sells operations software. Every visit is mis-qualified | **FIXED** — repositioned around six industry systems; the eight creative tracks and eight concept projects are hidden, not deleted |
 | **B3** | Admin can "publish" content no visitor can see | The operator cannot trust what the dashboard tells them | **FIXED** — surface removed |
 | **B4** | No real application is published | The six real systems are the entire argument, and none is visible | **BLOCKED** on owner content (screens + one line per app) |
 

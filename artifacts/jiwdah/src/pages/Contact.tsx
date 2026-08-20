@@ -4,7 +4,8 @@ import { Link, useLocation } from "react-router";
 import SeoHead from "@/components/SeoHead";
 import { SITE_CONFIG, whatsappUrlFor } from "@/config/site";
 import { pageSeo } from "@/content/seo";
-import { LENA_SERVICES, findService } from "@/content/services";
+import { findService } from "@/content/services";
+import { publicSystems } from "@/content/systems";
 import PublicShell from "@/layouts/PublicShell";
 import { useSiteCopy } from "@/hooks/useSiteCopy";
 import { usePreferences } from "@/providers/preferences";
@@ -341,9 +342,9 @@ export default function Contact() {
                   </span>
                   <select name="service" value={form.service} onChange={(event) => update({ service: event.target.value })}>
                     <option value="">{text.choose}</option>
-                    {LENA_SERVICES.map((service) => (
-                      <option value={service.id} key={service.id}>
-                        {service.title[locale]}
+                    {publicSystems().map((system) => (
+                      <option value={system.id} key={system.id}>
+                        {system.industry[locale]}
                       </option>
                     ))}
                   </select>

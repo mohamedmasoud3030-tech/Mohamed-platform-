@@ -1,0 +1,29 @@
+import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router";
+import { publicSystems } from "@/content/systems";
+import { usePreferences } from "@/providers/preferences";
+
+/** Industry-first entry points, as decided in PRODUCT_DECISIONS.md D4. */
+export default function SystemGrid({ limit }: { limit?: number }) {
+  const { locale } = usePreferences();
+  const systems = limit ? publicSystems().slice(0, limit) : publicSystems();
+
+  return (
+    <div className="lena-bento lena-showcase-grid">
+      {systems.map((system, index) => (
+        <article className={`lena-glass lena-service-card${index === 0 || index === 3 ? " wide" : ""}`} key={system.id}>
+          <i className="lena-card-glow" />
+          <div className="lena-card-top">
+            <small>{String(index + 1).padStart(2, "0")}</small>
+          </div>
+          <h3>{system.industry[locale]}</h3>
+          <p>{system.problem[locale]}</p>
+          <Link className="lena-more" to={`/contact?service=${system.id}`}>
+            {locale === "ar" ? "تحدث عن نظام لقطاعك" : "Talk about a system for your trade"}
+            <ArrowUpRight size={15} />
+          </Link>
+        </article>
+      ))}
+    </div>
+  );
+}

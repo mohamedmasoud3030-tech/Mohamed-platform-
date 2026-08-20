@@ -2,7 +2,7 @@ import { ArrowUpRight, CheckCircle2, Loader2 } from "lucide-react";
 import { Link, Navigate } from "react-router";
 import LenaCta from "@/components/LenaCta";
 import SeoHead from "@/components/SeoHead";
-import { LENA_SERVICES } from "@/content/services";
+import { publicServices } from "@/content/services";
 import PublicShell from "@/layouts/PublicShell";
 import { usePreferences } from "@/providers/preferences";
 import { trpc } from "@/providers/trpc";
@@ -21,7 +21,7 @@ export default function CmsProjectDetails({ slug }: { slug: string }) {
   addNarrative(locale === "ar" ? "الحل" : "Solution", blocks.solution?.[locale]);
   const features = blocks.features?.[locale] ?? [];
   const journey = blocks.journey?.[locale] ?? [];
-  const related = LENA_SERVICES.filter((service) => project.data.relatedServices.includes(service.id));
+  const related = publicServices().filter((service) => project.data.relatedServices.includes(service.id));
   return <PublicShell>
     <SeoHead title={project.data.title} description={project.data.summary || project.data.description || project.data.title} path={`/work/${project.data.slug}`} image={project.data.imageUrl || undefined} type="article" />
     <section className="lena-page lena-container lena-case-hero"><div><p className="lena-kicker">LENA CASE STUDY</p><h1 className="lena-page-title">{project.data.title}</h1><p className="lena-lead">{project.data.summary || project.data.description}</p></div>{project.data.imageUrl ? <img className="lena-cms-case-cover" src={project.data.imageUrl} alt="" /> : <div className="lena-project-visual blue" aria-hidden="true"><div className="lena-visual-window"><i /><i /><i /><b /><b /><b /></div><div className="lena-visual-stack"><span /><span /><span /></div><div className="lena-visual-nodes"><i /><i /><i /><i /></div><div className="lena-visual-orb" /></div>}</section>

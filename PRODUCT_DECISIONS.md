@@ -6,7 +6,7 @@ they can be revisited against evidence rather than opinion.
 ---
 
 ## D1 — Reposition the site around operations software for specific industries
-**Status: RECOMMENDED — requires one owner approval (market/brand decision).**
+**Status: APPROVED BY OWNER 2026-08-20 AND IMPLEMENTED**, with the owner's constraint: *nothing is deleted; the previous tracks are hidden from the public surface until real content exists for them.*
 
 **Decision.** Replace the creative-agency promise with a vertical operations-software promise: systems
 that run a business's daily work, built by someone who ran that work first. Keep design, content and
