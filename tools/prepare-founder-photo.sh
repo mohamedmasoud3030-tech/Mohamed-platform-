@@ -56,10 +56,13 @@ convert -size 1200x630 \
      \( -size 380x380 xc:none -fill white -draw 'circle 190,190 190,4' \) \
      -alpha set -compose DstIn -composite \) \
   -gravity west -geometry +90+0 -compose over -composite \
-  ${FONT_BOLD:+-font "$FONT_BOLD"} -pointsize 62 -fill '#ffffff' \
-  -gravity northwest -annotate +540+230 'LENA Digital House' \
-  ${FONT_REG:+-font "$FONT_REG"} -pointsize 30 -fill '#9fb0d6' \
-  -gravity northwest -annotate +540+320 'Mohamed Masoud' \
+  ${FONT_BOLD:+-font "$FONT_BOLD"} -pointsize 50 -fill '#ffffff' \
+  -gravity northwest -annotate +520+214 'LENA Digital House' \
+  ${FONT_REG:+-font "$FONT_REG"} -pointsize 28 -fill '#e8eeff' \
+  -gravity northwest -annotate +522+288 'Mohamed Masoud' \
+  ${FONT_REG:+-font "$FONT_REG"} -pointsize 23 -fill '#8fa3cf' \
+  -gravity northwest -annotate +522+336 'Creative systems and' \
+  -gravity northwest -annotate +522+368 'digital experiences' \
   -strip -quality 86 \
   "$PUBLIC/lena-og.jpg"
 echo "wrote lena-og.jpg   $(identify -format '%wx%h, %b' "$PUBLIC/lena-og.jpg")"

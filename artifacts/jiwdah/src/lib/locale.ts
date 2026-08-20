@@ -16,7 +16,7 @@ export const FALLBACK_LOCALE: SupportedLocale = "en";
 export const LOCALE_STORAGE_KEY = "lena-digital-house.locale";
 
 /** Paths that must never receive a language prefix. */
-const UNPREFIXED = ["/api", "/assets", "/robots.txt", "/sitemap.xml", "/favicon.svg", "/lena-og.svg"];
+const UNPREFIXED = ["/api", "/assets", "/robots.txt", "/sitemap.xml", "/favicon.svg", "/lena-og.jpg", "/founder.jpg"];
 
 export function isSupportedLocale(value: unknown): value is SupportedLocale {
   return typeof value === "string" && (SUPPORTED_LOCALES as readonly string[]).includes(value);
