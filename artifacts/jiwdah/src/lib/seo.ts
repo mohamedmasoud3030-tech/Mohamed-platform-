@@ -10,8 +10,8 @@ export const DEFAULT_OG_IMAGE = "/lena-og.jpg";
  * Absolute origin of the deployed site.
  * Never hard-coded: configuration first, current browser origin second.
  *
- * VITE_SITE_URL must be the public user-facing origin (the MALEK domain when
- * LENA is mounted at /lena). It must not be the internal Platform Vercel host.
+ * VITE_SITE_URL must be the public LENA origin (custom domain preferred).
+ * It must not be a MALEK domain, GitHub, or an internal preview host.
  */
 export function resolveSiteOrigin(): string {
   const configured = import.meta.env.VITE_SITE_URL?.trim();

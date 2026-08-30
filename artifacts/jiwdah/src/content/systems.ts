@@ -102,7 +102,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     id: "wellness",
     visibility: "public",
     order: 1,
-    name: { ar: "LenaBeauty", en: "LenaBeauty" },
+    name: { ar: "LENA Beauty", en: "LENA Beauty" },
     stage: "trial",
     beneficiaries: {
       ar: ["صاحبة المركز أو مديرته", "موظفة الاستقبال", "المعالِجات ومقدّمات الخدمة"],
@@ -127,7 +127,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     id: "rental",
     visibility: "public",
     order: 2,
-    name: { ar: "لينا — إدارة المعرض", en: "LENA Showroom" },
+    name: { ar: "LENA Dress", en: "LENA Dress" },
     stage: "trial",
     beneficiaries: {
       ar: ["صاحب المعرض", "موظف المعرض الذي يسلّم ويستلم", "العميلة التي تحجز موعدًا"],
@@ -152,7 +152,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     id: "investment",
     visibility: "public",
     order: 5,
-    name: { ar: "تيرانكس", en: "TERRANEX" },
+    name: { ar: "تيرانكس", en: "Terranex" },
     stage: "trial",
     beneficiaries: {
       ar: ["إدارة الشركة الاستثمارية", "مسؤول كل قسم: حيواني، زراعي، عقاري", "المحاسب"],

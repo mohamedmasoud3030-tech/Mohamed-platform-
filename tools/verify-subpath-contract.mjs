@@ -19,7 +19,7 @@ const check = (name, fn) => {
 const vercel = JSON.parse(readFileSync(resolve(ROOT, "vercel.json"), "utf8"));
 const sources = vercel.rewrites.map((rule) => rule.source);
 
-console.log("\n== Platform Vercel rewrites expose /lena without colliding with /api ==");
+console.log("\n== Optional /lena mount remains available without colliding with /api ==");
 check("/lena/api is rewritten to the API function before the SPA fallback", () => {
   const api = sources.indexOf("/lena/api/:path*");
   const spa = sources.indexOf("/lena/:path*");

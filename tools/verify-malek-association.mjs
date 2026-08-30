@@ -37,6 +37,13 @@ check("LENA is not described as MALEK support", () => {
   const home = readFileSync(resolve(ROOT, "artifacts/jiwdah/src/pages/Home.tsx"), "utf8");
   assert.doesNotMatch(home, /MALEK support/i);
   assert.doesNotMatch(home, /مركز دعم MALEK/);
+  assert.doesNotMatch(systems, /LENA MALEK/);
+  assert.match(home, /Products developed by LENA Digital House/);
+});
+check("the named product family keeps independent brands", () => {
+  assert.match(systems, /name:\s*\{\s*ar:\s*"LENA Beauty",\s*en:\s*"LENA Beauty"\s*\}/);
+  assert.match(systems, /name:\s*\{\s*ar:\s*"LENA Dress",\s*en:\s*"LENA Dress"\s*\}/);
+  assert.match(systems, /en:\s*"Terranex"/);
 });
 
 console.log(failures === 0 ? "\nALL CHECKS PASSED\n" : `\n${failures} FAILED\n`);

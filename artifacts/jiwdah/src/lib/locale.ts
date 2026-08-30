@@ -67,7 +67,7 @@ export function withLocale(locale: SupportedLocale, pathname: string): string {
 
 /**
  * React Router basename for the active language: `/ar` standalone, `/lena/ar`
- * when mounted under MALEK.
+ * when optionally mounted under a subpath.
  */
 export function routerBasename(locale: SupportedLocale): string {
   const base = getBasePath();

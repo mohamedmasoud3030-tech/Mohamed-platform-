@@ -2,7 +2,7 @@
  * Canonical base-path authority for the LENA public site.
  *
  * Vite `base` (from the BASE_PATH environment variable) is the single input.
- * Production behind MALEK uses `/lena/`. Standalone and local development use `/`.
+ * Canonical production uses `/`. An optional subpath mount may use `/lena/`.
  *
  * Every public URL, API call, asset path, locale prefix, canonical tag and
  * sitemap entry must go through these helpers. Do not concatenate BASE_PATH

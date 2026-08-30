@@ -1,71 +1,96 @@
-# LENA under MALEK `/lena`
+# LENA Digital House — parent brand and independent deploys
 
-LENA Digital House remains an independent product of this repository. MALEK is a
-separate product, developed by LENA. The public relationship is:
+LENA Digital House is the parent company / master corporate brand.
+MALEK, Terranex, LENA Beauty, LENA Dress and future products are independent
+products developed by LENA. They are not white-labels of one another, and
+MALEK is never renamed “LENA MALEK”.
 
 ```
-MALEK  →  Developed by LENA Digital House  →  LENA Digital House
+LENA Digital House
+├── MALEK
+├── Terranex
+├── LENA Beauty
+├── LENA Dress
+└── future products
 ```
 
-This document is the deployment contract that makes that relationship true in
-the browser without merging the two repositories or using an iframe.
+Public relationship on a product surface:
 
-## Public addresses
+```
+MALEK — Developed by LENA Digital House
+تم تطوير MALEK بواسطة LENA Digital House
+```
 
-When reverse-proxied from MALEK, every LENA URL lives under the MALEK origin:
+## Canonical production: two Vercel projects
 
-- `https://<MALEK_PUBLIC_DOMAIN>/lena`
-- `https://<MALEK_PUBLIC_DOMAIN>/lena/ar`
-- `https://<MALEK_PUBLIC_DOMAIN>/lena/ar/services`
-- `https://<MALEK_PUBLIC_DOMAIN>/lena/en/about`
-- `https://<MALEK_PUBLIC_DOMAIN>/lena/api/*`
+MALEK keeps its existing Vercel project and domain. LENA Digital House is
+deployed independently from `mohamedmasoud3030-tech/platform`. The company
+website does **not** live inside a product as `/lena`.
 
-The browser never sees the internal Platform Vercel host.
+| Project | Repo | `BASE_PATH` | Public origin |
+| --- | --- | --- | --- |
+| LENA Digital House | `platform` | `/` | LENA custom domain (preferred) |
+| MALEK | `malek` | `/` | existing MALEK domain |
 
-## Environment (Platform Vercel project)
+Platform production environment:
 
-| Variable | Production value behind MALEK |
-| --- | --- |
-| `BASE_PATH` | `/lena/` |
-| `SITE_URL` | `https://<MALEK_PUBLIC_DOMAIN>` |
-| `VITE_SITE_URL` | `https://<MALEK_PUBLIC_DOMAIN>` |
+```env
+BASE_PATH=/
+SITE_URL=https://<LENA_PUBLIC_DOMAIN>
+VITE_SITE_URL=https://<LENA_PUBLIC_DOMAIN>
+```
 
-`SITE_URL` / `VITE_SITE_URL` must be the **MALEK public origin**, not this
-project's `*.vercel.app` host. Canonical tags, Open Graph URLs and the sitemap
-are built from that origin plus `BASE_PATH`.
+`SITE_URL` / `VITE_SITE_URL` must be **this** site's public origin, never a
+MALEK domain and never an internal preview host used as the brand destination.
 
-Standalone deploys keep `BASE_PATH=/` and may omit `SITE_URL` (Vercel production
-URL is then used).
+MALEK production environment:
 
-`BASE_PATH` is the only input. Vite `base`, the React router basename, API
-clients, cookie `Path`, OAuth callback URLs, canonical tags and the sitemap all
-read it through `lib/base-path.ts`. Do not concatenate it at call sites.
+```env
+VITE_LENA_HOUSE_ORIGIN=https://<LENA_PUBLIC_DOMAIN>
+```
 
-## Vercel
+The MALEK login endorsement is a native `<a>` to that origin (`/ar?from=malek`).
+`from=malek` is a non-sensitive referral marker. No user id, email, tenant id
+or auth state is transferred.
 
-This project's `vercel.json` already maps:
+## What this architecture rejects
 
-- `/lena/api/*` → the Platform API function
-- `/lena/assets/*` → Vite assets
-- `/lena/*` → the LENA SPA
-- `/api/*` → the same API, for a standalone origin
+- Reverse-proxying `MALEK_DOMAIN/lena/*` as the canonical company website
+- Requiring MALEK production to rewrite `/lena` to Platform
+- Iframing Platform into MALEK
+- Redirecting users to GitHub
+- Exposing a random `*.vercel.app` preview host as the intended public brand URL
+- Merging the two repositories or copying the LENA frontend into MALEK
 
-MALEK's Vercel project must **rewrite** (not redirect) `/lena/:path*` to this
-deployment's `/lena/:path*` **before** MALEK's SPA fallback. A Platform outage
-then fails only under `/lena`; MALEK login, dashboard and APIs keep working.
+MALEK must not depend on Platform for boot, authentication, core assets or
+runtime. A LENA outage cannot take down MALEK login or APIs.
 
-## Security
+## Optional capability: `BASE_PATH=/lena/`
 
-- Admin UI (`/login`, `/dashboard`, CMS) is still authenticated. Same-domain
-  proxying is not permission.
-- Session cookies (`kimi_sid`) use `Path=/lena` when `BASE_PATH=/lena/`, so they
-  are not sent to MALEK routes.
+The `/lena` engineering in this repository is **preserved as an optional
+mount**, not as the canonical production design. It remains useful for a
+future embed or a path-based host, and every public URL, API call, asset path,
+locale prefix, canonical tag, cookie `Path` and OAuth callback still goes
+through `lib/base-path.ts`.
+
+```env
+BASE_PATH=/lena/
+SITE_URL=https://<THAT_HOST>
+VITE_SITE_URL=https://<THAT_HOST>
+```
+
+Do not concatenate `BASE_PATH` at call sites. Do not treat this mode as the
+LENA marketing site.
+
+This project's `vercel.json` still maps `/lena/api`, `/lena/assets`, public
+files and the LENA SPA so the optional mount keeps working. Standalone
+production continues to use `/api` and `/` as well.
+
+## Security (both modes)
+
+- Admin UI (`/login`, `/dashboard`, CMS) stays authenticated.
+- Session cookies (`kimi_sid`) use `Path=/lena` only when `BASE_PATH=/lena/`.
+  Canonical production uses `Path=/`.
 - OAuth `next` values are accepted only after stripping the base path and
   locale, and only if the remainder is `/dashboard...`.
 - `robots.txt` disallows login and dashboard under both `/` and `/lena`.
-
-## Referral marker
-
-The MALEK login endorsement may link to `/lena/ar?from=malek`. That query is a
-non-sensitive source marker. No user id, email, tenant id or auth state is
-transferred.

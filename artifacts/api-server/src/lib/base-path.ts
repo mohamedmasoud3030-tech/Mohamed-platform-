@@ -1,9 +1,9 @@
 /**
  * Canonical base-path authority for the LENA API.
  *
- * Mirrors the frontend helper. When the public site is mounted under `/lena`,
- * OAuth callbacks, cookie Path attributes and post-login redirects must use
- * that prefix so they never land on the host application's own routes.
+ * Mirrors the frontend helper. Canonical production uses `/`. When the site is
+ * optionally mounted under `/lena`, OAuth callbacks, cookie Path attributes and
+ * post-login redirects must use that prefix so they never leak onto a host app.
  */
 
 export function normalizeBasePath(raw: string | undefined | null): string {

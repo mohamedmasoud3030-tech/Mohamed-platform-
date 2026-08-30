@@ -23,7 +23,7 @@ const SUITES = [
   { name: "seo metadata & hreflang", file: "tools/verify-seo.mjs" },
   { name: "locale routing", file: "tools/verify-locale.mjs" },
   { name: "base-path authority", file: "tools/verify-base-path.mjs" },
-  { name: "lena subpath contract", file: "tools/verify-subpath-contract.mjs" },
+  { name: "optional lena subpath contract", file: "tools/verify-subpath-contract.mjs" },
   { name: "malek product association", file: "tools/verify-malek-association.mjs" },
   { name: "inquiry draft recovery", file: "tools/verify-draft.mjs" },
   { name: "support report privacy", file: "tools/verify-support.mjs" },
