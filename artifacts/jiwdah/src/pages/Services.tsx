@@ -30,7 +30,7 @@ export default function Services() {
       <section className="lena-section">
         <div className="lena-container lena-bento">
           {systems.map((system, index) => (
-            <article className="lena-glass lena-service-card lena-system-card wide" key={system.id}>
+            <article className="lena-glass lena-service-card lena-system-card wide" id={system.id} key={system.id}>
               <i className="lena-card-glow" />
               <div className="lena-card-top">
                 <small>{String(index + 1).padStart(2, "0")}</small>

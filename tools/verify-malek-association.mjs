@@ -38,12 +38,24 @@ check("LENA is not described as MALEK support", () => {
   assert.doesNotMatch(home, /MALEK support/i);
   assert.doesNotMatch(home, /مركز دعم MALEK/);
   assert.doesNotMatch(systems, /LENA MALEK/);
-  assert.match(home, /Products developed by LENA Digital House/);
 });
 check("the named product family keeps independent brands", () => {
   assert.match(systems, /name:\s*\{\s*ar:\s*"LENA Beauty",\s*en:\s*"LENA Beauty"\s*\}/);
   assert.match(systems, /name:\s*\{\s*ar:\s*"LENA Dress",\s*en:\s*"LENA Dress"\s*\}/);
   assert.match(systems, /en:\s*"Terranex"/);
+});
+check("the homepage is a normal LENA company page, not an app chooser or support flow", () => {
+  const home = readFileSync(resolve(ROOT, "artifacts/jiwdah/src/pages/Home.tsx"), "utf8");
+  const app = readFileSync(resolve(ROOT, "artifacts/jiwdah/src/App.tsx"), "utf8");
+  assert.match(home, /LENA DIGITAL HOUSE — CREATIVE SYSTEMS/);
+  assert.doesNotMatch(home, /useSearchParams/);
+  assert.doesNotMatch(home, /from=malek/);
+  assert.doesNotMatch(home, /choose your app/i);
+  assert.doesNotMatch(home, /اختر تطبيق/);
+  assert.doesNotMatch(home, /support popup/i);
+  assert.doesNotMatch(app, /path="\/products/);
+  assert.match(grid, /\/services#\$\{system\.id\}/);
+  assert.doesNotMatch(grid, /\/contact\?service=/);
 });
 
 console.log(failures === 0 ? "\nALL CHECKS PASSED\n" : `\n${failures} FAILED\n`);

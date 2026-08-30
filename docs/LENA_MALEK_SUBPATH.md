@@ -49,9 +49,14 @@ MALEK production environment:
 VITE_LENA_HOUSE_ORIGIN=https://<LENA_PUBLIC_DOMAIN>
 ```
 
-The MALEK login endorsement is a native `<a>` to that origin (`/ar?from=malek`).
-`from=malek` is a non-sensitive referral marker. No user id, email, tenant id
-or auth state is transferred.
+The MALEK login endorsement is a native `<a>` to LENA’s **normal homepage**
+(`/{ar|en}?from=malek`). It must not land on `/products/malek`, support, or a
+chooser screen.
+
+`from=malek` is a non-PII referral marker for analytics/context only. It must
+not change the LENA homepage into a support flow, force the visitor back into
+MALEK, or open a product-selector. Products (MALEK, Terranex, LENA Beauty,
+LENA Dress) are discovered inside the ordinary LENA company content.
 
 ## What this architecture rejects
 
