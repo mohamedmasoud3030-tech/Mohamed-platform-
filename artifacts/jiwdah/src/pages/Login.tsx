@@ -6,6 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { pageSeo } from "@/content/seo";
 import LenaLogo from "@/design-system/brand/LenaLogo";
 import { usePreferences } from "@/providers/preferences";
+import { withBase } from "@/lib/base-path";
+import { withLocale } from "@/lib/locale";
 
 const COPY = {
   ar: {
@@ -62,7 +64,8 @@ export default function Login() {
   const errorMessage = errorCode ? (text.errors[errorCode] ?? text.errors.failed) : null;
   const sessionExpired = params.get("reason") === "session";
 
-  const signInHref = `/api/oauth/login${next !== DEFAULT_NEXT ? `?next=${encodeURIComponent(next)}` : ""}`;
+  const publicNext = withLocale(locale, next);
+  const signInHref = `${withBase("/api/oauth/login")}?next=${encodeURIComponent(publicNext)}`;
 
   return (
     <div className="lena-login min-h-screen flex items-center justify-center bg-surface" dir={direction}>

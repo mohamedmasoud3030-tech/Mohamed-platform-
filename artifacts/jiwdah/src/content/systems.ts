@@ -35,6 +35,8 @@ export type BusinessSystem = {
   order: number;
   /** Product name where one exists; otherwise the industry stands in. */
   name: Record<AppLocale, string>;
+  /** Optional one-line product description, used for named products such as MALEK. */
+  tagline?: Record<AppLocale, string>;
   stage: SystemStage;
   /** Who benefits, by role — the buyer and the person using it daily. */
   beneficiaries: Record<AppLocale, string[]>;
@@ -71,7 +73,11 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     id: "property",
     visibility: "public",
     order: 3,
-    name: { ar: "مالك", en: "Malek" },
+    name: { ar: "MALEK", en: "MALEK" },
+    tagline: {
+      ar: "منصة عربية لتشغيل العقارات ومحاسبة الإيجار.",
+      en: "Arabic-first property operations and rent accounting platform.",
+    },
     stage: "in-use",
     beneficiaries: {
       ar: ["مالك العقار أو المحفظة العقارية", "مدير المكتب الذي يشغّل الأصول للغير", "المستأجر عند طلب صيانة"],
@@ -96,7 +102,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     id: "wellness",
     visibility: "public",
     order: 1,
-    name: { ar: "LenaBeauty", en: "LenaBeauty" },
+    name: { ar: "LENA Beauty", en: "LENA Beauty" },
     stage: "trial",
     beneficiaries: {
       ar: ["صاحبة المركز أو مديرته", "موظفة الاستقبال", "المعالِجات ومقدّمات الخدمة"],
@@ -121,7 +127,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     id: "rental",
     visibility: "public",
     order: 2,
-    name: { ar: "لينا — إدارة المعرض", en: "LENA Showroom" },
+    name: { ar: "LENA Dress", en: "LENA Dress" },
     stage: "trial",
     beneficiaries: {
       ar: ["صاحب المعرض", "موظف المعرض الذي يسلّم ويستلم", "العميلة التي تحجز موعدًا"],
@@ -146,7 +152,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     id: "investment",
     visibility: "public",
     order: 5,
-    name: { ar: "تيرانكس", en: "TERRANEX" },
+    name: { ar: "تيرانكس", en: "Terranex" },
     stage: "trial",
     beneficiaries: {
       ar: ["إدارة الشركة الاستثمارية", "مسؤول كل قسم: حيواني، زراعي، عقاري", "المحاسب"],

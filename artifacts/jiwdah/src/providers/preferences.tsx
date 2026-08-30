@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import {
   DEFAULT_LOCALE,
   type SupportedLocale,
+  localeFromPath,
   storeLocale,
   stripLocale,
   withLocale,
@@ -74,8 +75,8 @@ export function PreferencesProvider({
   // Back/forward between language versions must be honoured, not fought.
   useEffect(() => {
     function onPopState() {
-      const fromUrl = window.location.pathname.split("/")[1];
-      if (fromUrl === "ar" || fromUrl === "en") setLocaleState(fromUrl);
+      const fromUrl = localeFromPath(window.location.pathname);
+      if (fromUrl) setLocaleState(fromUrl);
     }
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);

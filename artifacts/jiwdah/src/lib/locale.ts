@@ -5,7 +5,16 @@
  * language is a real URL that can be indexed, shared and bookmarked. The router
  * runs with a language basename, which keeps every existing in-app link working
  * unchanged while producing prefixed URLs in the address bar.
+ *
+ * When the site is mounted under a deployment base path (BASE_PATH=/lena/), the
+ * public address is /lena/ar/... and /lena/en/.... Locale helpers are the only
+ * place that understands both the base path and the language segment — callers
+ * pass the full browser pathname and receive full public pathnames back.
  */
+
+import { getBasePath, stripBase, withBase } from "@/lib/base-path";
+
+export { setBasePathForTests, getBasePath, withBase, stripBase } from "@/lib/base-path";
 
 export const SUPPORTED_LOCALES = ["ar", "en"] as const;
 export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
@@ -15,7 +24,7 @@ export const DEFAULT_LOCALE: SupportedLocale = "ar";
 export const FALLBACK_LOCALE: SupportedLocale = "en";
 export const LOCALE_STORAGE_KEY = "lena-digital-house.locale";
 
-/** Paths that must never receive a language prefix. */
+/** Paths that must never receive a language prefix, relative to the site root (after stripping BASE_PATH). */
 const UNPREFIXED = ["/api", "/assets", "/robots.txt", "/sitemap.xml", "/favicon.svg", "/lena-og.jpg", "/founder.jpg"];
 
 export function isSupportedLocale(value: unknown): value is SupportedLocale {
@@ -23,26 +32,46 @@ export function isSupportedLocale(value: unknown): value is SupportedLocale {
 }
 
 export function isUnprefixedPath(pathname: string): boolean {
-  return UNPREFIXED.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+  const stripped = stripBase(pathname);
+  return UNPREFIXED.some((prefix) => stripped === prefix || stripped.startsWith(`${prefix}/`));
 }
 
-/** Reads the language segment from a full pathname, if there is one. */
+/** Reads the language segment from a full public pathname, if there is one. */
 export function localeFromPath(pathname: string): SupportedLocale | null {
-  const segment = pathname.split("/")[1];
+  const stripped = stripBase(pathname);
+  const segment = stripped.split("/")[1];
   return isSupportedLocale(segment) ? segment : null;
 }
 
-/** Removes the language segment, returning a router-relative path that always starts with "/". */
+/**
+ * Removes the deployment base path and the language segment, returning a
+ * router-relative path that always starts with "/".
+ */
 export function stripLocale(pathname: string): string {
+  const stripped = stripBase(pathname);
   const locale = localeFromPath(pathname);
-  if (!locale) return pathname || "/";
-  const rest = pathname.slice(locale.length + 1);
+  if (!locale) return stripped || "/";
+  const rest = stripped.slice(locale.length + 1);
   return rest.startsWith("/") ? rest : `/${rest}`;
 }
 
+/**
+ * Build the public pathname for a locale. Includes the deployment base path
+ * when one is configured, e.g. `/lena/ar/services`.
+ */
 export function withLocale(locale: SupportedLocale, pathname: string): string {
   const rest = stripLocale(pathname);
-  return rest === "/" ? `/${locale}` : `/${locale}${rest}`;
+  const prefixed = rest === "/" ? `/${locale}` : `/${locale}${rest}`;
+  return withBase(prefixed);
+}
+
+/**
+ * React Router basename for the active language: `/ar` standalone, `/lena/ar`
+ * when optionally mounted under a subpath.
+ */
+export function routerBasename(locale: SupportedLocale): string {
+  const base = getBasePath();
+  return base ? `${base}/${locale}` : `/${locale}`;
 }
 
 function readStoredLocale(): SupportedLocale | null {
@@ -93,6 +122,9 @@ export type LocaleBootstrap = { locale: SupportedLocale; redirectTo: string | nu
  * Works out the language for the current URL and whether the browser should be
  * moved to a prefixed address. Old, unprefixed links keep working: they resolve
  * to the visitor's language instead of failing.
+ *
+ * Under `/lena`, `/lena/services` becomes `/lena/ar/services` (or `/lena/en/...`).
+ * `/lena` itself becomes `/lena/ar` (or `/lena/en`).
  */
 export function bootstrapLocale(url: { pathname: string; search: string; hash: string }, languages?: readonly string[]): LocaleBootstrap {
   const { pathname, search, hash } = url;

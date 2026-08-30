@@ -3,6 +3,7 @@ import { ArrowUpRight, MessageCircle } from "lucide-react";
 import { Link } from "react-router";
 import { SITE_CONFIG } from "@/config/site";
 import { FOUNDER, hasFounderBio } from "@/content/founder";
+import { withBase } from "@/lib/base-path";
 import { usePreferences } from "@/providers/preferences";
 
 /**
@@ -22,7 +23,7 @@ export default function FounderCard() {
       <div className="lena-founder-portrait">
         {showPhoto ? (
           <img
-            src={FOUNDER.photo}
+            src={withBase(FOUNDER.photo)}
             alt={FOUNDER.photoAlt[locale]}
             width={220}
             height={220}

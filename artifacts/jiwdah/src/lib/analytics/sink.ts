@@ -1,4 +1,5 @@
 import type { AnalyticsPayload, AnalyticsSink } from "./index";
+import { withBase } from "@/lib/base-path";
 
 /**
  * First-party aggregate sink.
@@ -24,7 +25,7 @@ function dimensionFor(payload: AnalyticsPayload): string {
 
 export const firstPartySink: AnalyticsSink = (payload) => {
   try {
-    void fetch("/api/trpc/analytics.record", {
+    void fetch(withBase("/api/trpc/analytics.record"), {
       method: "POST",
       headers: { "content-type": "application/json" },
       keepalive: true,

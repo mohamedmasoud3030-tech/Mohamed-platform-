@@ -6,12 +6,52 @@
   "outputDirectory": "artifacts/jiwdah/dist/public",
   "rewrites": [
     {
+      "source": "/lena/api",
+      "destination": "/api/index?__path="
+    },
+    {
+      "source": "/lena/api/:path*",
+      "destination": "/api/index?__path=:path*"
+    },
+    {
       "source": "/api",
       "destination": "/api/index?__path="
     },
     {
       "source": "/api/:path*",
       "destination": "/api/index?__path=:path*"
+    },
+    {
+      "source": "/lena/assets/:path*",
+      "destination": "/assets/:path*"
+    },
+    {
+      "source": "/lena/favicon.svg",
+      "destination": "/favicon.svg"
+    },
+    {
+      "source": "/lena/lena-og.jpg",
+      "destination": "/lena-og.jpg"
+    },
+    {
+      "source": "/lena/founder.jpg",
+      "destination": "/founder.jpg"
+    },
+    {
+      "source": "/lena/robots.txt",
+      "destination": "/robots.txt"
+    },
+    {
+      "source": "/lena/sitemap.xml",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/lena",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/lena/:path*",
+      "destination": "/index.html"
     },
     {
       "source": "/(.*)",

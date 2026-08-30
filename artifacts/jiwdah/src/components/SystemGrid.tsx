@@ -17,11 +17,12 @@ export default function SystemGrid({ limit }: { limit?: number }) {
             <small>{String(index + 1).padStart(2, "0")}</small>
           </div>
           <h3>{system.name[locale]}</h3>
+          {system.tagline ? <p className="lena-system-tagline">{system.tagline[locale]}</p> : null}
           <p className="lena-system-industry">{system.industry[locale]}</p>
           <span className={`lena-stage lena-stage-${system.stage}`}>{STAGE_LABEL[system.stage][locale]}</span>
           <p>{system.problem[locale]}</p>
-          <Link className="lena-more" to={`/contact?service=${system.id}`}>
-            {locale === "ar" ? "تحدث عن نظام لقطاعك" : "Talk about a system for your trade"}
+          <Link className="lena-more" to={`/services#${system.id}`}>
+            {locale === "ar" ? "تعرّف على النظام" : "See how it runs"}
             <ArrowUpRight size={15} />
           </Link>
         </article>

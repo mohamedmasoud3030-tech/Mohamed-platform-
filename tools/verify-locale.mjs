@@ -24,6 +24,7 @@ globalThis.window = { localStorage: new FakeStorage() };
 const out = await build({
   entryPoints: [`${ROOT}/artifacts/jiwdah/src/lib/locale.ts`],
   bundle: true, write: false, format: "esm", platform: "neutral",
+  alias: { "@": `${ROOT}/artifacts/jiwdah/src` },
 });
 const L = await import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));
 
@@ -103,6 +104,54 @@ for (const path of ["/", "/services", "/services/ui-ux", "/work/riwaq", "/contac
     assert.equal(L.stripLocale(L.withLocale("ar", L.withLocale("en", L.withLocale("ar", path)))), path);
   });
 }
+
+console.log("\n== mounted under /lena (MALEK same-domain namespace) ==");
+L.setBasePathForTests("/lena");
+reset();
+check("/lena/ar/services is Arabic and does not redirect", () => {
+  const r = L.bootstrapLocale(url("/lena/ar/services"), ["en"]);
+  assert.equal(r.locale, "ar");
+  assert.equal(r.redirectTo, null);
+});
+check("/lena/en/about is English and does not redirect", () => {
+  const r = L.bootstrapLocale(url("/lena/en/about"), ["ar"]);
+  assert.equal(r.locale, "en");
+  assert.equal(r.redirectTo, null);
+});
+check("/lena → /lena/ar for an Arabic device", () => {
+  assert.equal(L.bootstrapLocale(url("/lena"), ["ar"]).redirectTo, "/lena/ar");
+});
+check("/lena/services → /lena/en/services for an English visitor", () => {
+  assert.equal(L.bootstrapLocale(url("/lena/services"), ["en"]).redirectTo, "/lena/en/services");
+});
+check("query string survives the /lena move", () => {
+  const r = L.bootstrapLocale(url("/lena/contact", "?from=malek", "#form"), ["ar"]);
+  assert.equal(r.redirectTo, "/lena/ar/contact?from=malek#form");
+});
+check("language switch keeps the page under /lena", () => {
+  assert.equal(L.withLocale("en", "/lena/ar/services"), "/lena/en/services");
+  assert.equal(L.withLocale("ar", "/lena/en/contact"), "/lena/ar/contact");
+});
+check("router basename is /lena/<locale>", () => {
+  assert.equal(L.routerBasename("ar"), "/lena/ar");
+  assert.equal(L.routerBasename("en"), "/lena/en");
+});
+check("stripLocale under /lena returns a router-relative path", () => {
+  assert.equal(L.stripLocale("/lena/ar/portfolio"), "/portfolio");
+  assert.equal(L.stripLocale("/lena/en"), "/");
+});
+check("/lena/api and /lena/assets never receive a language", () => {
+  assert.equal(L.bootstrapLocale(url("/lena/api/trpc/ping"), ["ar"]).redirectTo, null);
+  assert.equal(L.bootstrapLocale(url("/lena/assets/index-abc.js"), ["en"]).redirectTo, null);
+});
+check("round trip under /lena is stable", () => {
+  assert.equal(L.stripLocale(L.withLocale("ar", L.withLocale("en", "/lena/ar/services"))), "/services");
+});
+L.setBasePathForTests(null);
+check("restoring the default base path returns standalone URLs", () => {
+  assert.equal(L.withLocale("ar", "/contact"), "/ar/contact");
+  assert.equal(L.routerBasename("en"), "/en");
+});
 
 console.log(failures === 0 ? "\nALL CHECKS PASSED\n" : `\n${failures} FAILED\n`);
 process.exit(failures ? 1 : 0);

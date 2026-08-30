@@ -65,7 +65,7 @@ if (import.meta.env.PROD) {
 }
 
 const message =
-  "مرحبًا LENA، لدي فكرة مشروع وأرغب في معرفة التفاصيل. / Hello LENA, I have a project idea and would like to know more.";
+  "مرحبًا بفريق LENA Digital House، لدي فكرة مشروع وأرغب في استكشاف كيف يمكن تحويلها إلى تجربة رقمية متكاملة. يسعدني معرفة المزيد عن خدماتكم والخطوات المناسبة للبدء. / Hello LENA Digital House, I have a project idea and would love to explore how it could be shaped into a complete digital experience. I’d like to learn more about your services and the best way to get started.";
 
 export function whatsappUrlFor(channel: ContactChannel): string {
   return `https://wa.me/${channel.whatsapp}?text=${encodeURIComponent(message)}`;
