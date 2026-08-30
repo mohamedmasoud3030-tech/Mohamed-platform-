@@ -33,19 +33,37 @@ const STATIC_ROUTES = [
   { path: "/privacy", changefreq: "yearly", priority: "0.4" },
 ];
 
+function normalizeBasePath(raw) {
+  if (!raw || raw === "/") return "";
+  let value = String(raw).trim();
+  if (!value.startsWith("/")) value = `/${value}`;
+  return value.replace(/\/+$/, "");
+}
+
+const publicBasePath = normalizeBasePath(process.env.BASE_PATH);
+
 function resolveBaseUrl() {
-  const candidates = [
-    process.env.SITE_URL,
-    process.env.VITE_SITE_URL,
-    process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : "",
-  ];
+  // Prefer explicit public origin. Do not fall back to the internal Vercel
+  // production host when the site is mounted under /lena — that host must
+  // never appear in canonical or sitemap URLs.
+  const candidates = [process.env.SITE_URL, process.env.VITE_SITE_URL];
+  if (!publicBasePath) {
+    candidates.push(
+      process.env.VERCEL_PROJECT_PRODUCTION_URL
+        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+        : "",
+    );
+  }
   for (const candidate of candidates) {
     const value = candidate?.trim();
     if (value) return value.replace(/\/+$/, "");
   }
   return "";
+}
+
+function publicPath(locale, routePath) {
+  const rest = routePath === "/" ? `/${locale}` : `/${locale}${routePath}`;
+  return publicBasePath ? `${publicBasePath}${rest}` : rest;
 }
 
 function extractPublicIds(relativeFile, label) {
@@ -77,12 +95,12 @@ function buildSitemap(baseUrl, entries) {
     .flatMap((entry) =>
       LOCALES.map((locale) => {
         const alternates = [
-          ...LOCALES.map((code) => ({ hreflang: code, href: `${baseUrl}/${code}${entry.path === "/" ? "" : entry.path}` })),
-          { hreflang: "x-default", href: `${baseUrl}/en${entry.path === "/" ? "" : entry.path}` },
+          ...LOCALES.map((code) => ({ hreflang: code, href: `${baseUrl}${publicPath(code, entry.path)}` })),
+          { hreflang: "x-default", href: `${baseUrl}${publicPath("en", entry.path)}` },
         ];
         return [
           "  <url>",
-          `    <loc>${xmlEscape(`${baseUrl}/${locale}${entry.path === "/" ? "" : entry.path}`)}</loc>`,
+          `    <loc>${xmlEscape(`${baseUrl}${publicPath(locale, entry.path)}`)}</loc>`,
           ...alternates.map(
             (alt) => `    <xhtml:link rel="alternate" hreflang="${alt.hreflang}" href="${xmlEscape(alt.href)}"/>`,
           ),
@@ -98,8 +116,15 @@ function buildSitemap(baseUrl, entries) {
 }
 
 function buildRobots(baseUrl) {
-  const lines = ["User-agent: *", "Allow: /", "Disallow: /dashboard", "Disallow: /dashboard/", "Disallow: /login"];
-  if (baseUrl) lines.push("", `Sitemap: ${baseUrl}/sitemap.xml`);
+  const prefixes = publicBasePath ? ["", publicBasePath] : [""];
+  const lines = ["User-agent: *", "Allow: /"];
+  for (const prefix of prefixes) {
+    for (const path of ["/dashboard", "/dashboard/", "/login", "/ar/dashboard", "/en/dashboard", "/ar/login", "/en/login"]) {
+      lines.push(`Disallow: ${prefix}${path}`);
+    }
+  }
+  const sitemapPath = publicBasePath ? `${publicBasePath}/sitemap.xml` : "/sitemap.xml";
+  if (baseUrl) lines.push("", `Sitemap: ${baseUrl}${sitemapPath}`);
   return `${lines.join("\n")}\n`;
 }
 

@@ -92,7 +92,10 @@ check(`every offered status (${statuses.join(", ")}) is explained to the owner`,
 });
 
 console.log("\n== FT5: every sign-in failure has a human sentence ==");
-const errorCodes = [...oauth.matchAll(/\/login\?error=([a-z]+)/g)].map((m) => m[1]);
+const errorCodes = [
+  ...oauth.matchAll(/\/login\?error=([a-z]+)/g),
+  ...oauth.matchAll(/loginErrorPath\("([a-z]+)"\)/g),
+].map((m) => m[1]);
 check(`server emits [${[...new Set(errorCodes)].join(", ")}] and all are handled`, () => {
   assert.ok(errorCodes.length >= 5, "expected at least five distinct failure redirects");
   for (const code of new Set(errorCodes)) {

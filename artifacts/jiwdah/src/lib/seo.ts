@@ -1,5 +1,6 @@
 import { SITE_CONFIG } from "@/config/site";
 import { FOUNDER } from "@/content/founder";
+import { withBase } from "@/lib/base-path";
 import type { AppLocale } from "@/providers/preferences";
 
 export const BRAND_NAME = "LENA Digital House";
@@ -8,6 +9,9 @@ export const DEFAULT_OG_IMAGE = "/lena-og.jpg";
 /**
  * Absolute origin of the deployed site.
  * Never hard-coded: configuration first, current browser origin second.
+ *
+ * VITE_SITE_URL must be the public user-facing origin (the MALEK domain when
+ * LENA is mounted at /lena). It must not be the internal Platform Vercel host.
  */
 export function resolveSiteOrigin(): string {
   const configured = import.meta.env.VITE_SITE_URL?.trim();
@@ -21,7 +25,9 @@ export function resolveSiteOrigin(): string {
 export function absoluteUrl(path: string): string {
   const origin = resolveSiteOrigin();
   const normalized = path.startsWith("/") ? path : `/${path}`;
-  return origin ? `${origin}${normalized}` : normalized;
+  // Locale helpers already return public paths that include BASE_PATH; withBase is idempotent.
+  const publicPath = withBase(normalized);
+  return origin ? `${origin}${publicPath}` : publicPath;
 }
 
 export function buildDocumentTitle(title: string, isHome: boolean): string {
@@ -43,7 +49,7 @@ export function clampDescription(value: string, max = 165): string {
  */
 export function organizationJsonLd(locale: AppLocale): Record<string, unknown> {
   const origin = resolveSiteOrigin();
-  const url = origin || undefined;
+  const siteUrl = origin ? `${origin}${withBase("/") === "/" ? "" : withBase("/")}` : undefined;
   const description =
     locale === "ar"
       ? "بيت الحلول الرقمية الإبداعية: استراتيجية وتصميم ومحتوى ومواقع ومنتجات رقمية وأتمتة."
@@ -54,13 +60,13 @@ export function organizationJsonLd(locale: AppLocale): Record<string, unknown> {
     "@graph": [
       {
         "@type": "Organization",
-        "@id": url ? `${url}/#organization` : "#organization",
+        "@id": siteUrl ? `${origin}/#organization` : "#organization",
         name: BRAND_NAME,
         alternateName: SITE_CONFIG.brandName,
         description,
-        url,
-        logo: origin ? `${origin}/favicon.svg` : undefined,
-        image: origin ? `${origin}${DEFAULT_OG_IMAGE}` : undefined,
+        url: siteUrl || origin || undefined,
+        logo: origin ? `${origin}${withBase("/favicon.svg")}` : undefined,
+        image: origin ? `${origin}${withBase(DEFAULT_OG_IMAGE)}` : undefined,
         email: SITE_CONFIG.contactEmail,
         telephone: SITE_CONFIG.channels.map((channel) => channel.tel),
         // No location is claimed. Reach is expressed by the markets the studio
@@ -72,7 +78,7 @@ export function organizationJsonLd(locale: AppLocale): Record<string, unknown> {
           name: FOUNDER.name.en,
           alternateName: FOUNDER.name.ar,
           jobTitle: FOUNDER.role.en,
-          ...(FOUNDER.photo && origin ? { image: `${origin}${FOUNDER.photo}` } : {}),
+          ...(FOUNDER.photo && origin ? { image: `${origin}${withBase(FOUNDER.photo)}` } : {}),
         },
         contactPoint: SITE_CONFIG.channels.map((channel) => ({
           "@type": "ContactPoint",
@@ -85,11 +91,11 @@ export function organizationJsonLd(locale: AppLocale): Record<string, unknown> {
       },
       {
         "@type": "WebSite",
-        "@id": url ? `${url}/#website` : "#website",
+        "@id": siteUrl ? `${origin}/#website` : "#website",
         name: BRAND_NAME,
-        url,
+        url: siteUrl || origin || undefined,
         inLanguage: locale,
-        publisher: { "@id": url ? `${url}/#organization` : "#organization" },
+        publisher: { "@id": siteUrl ? `${origin}/#organization` : "#organization" },
       },
     ],
   };

@@ -1,3 +1,5 @@
+import { withBase } from "@/lib/base-path";
+
 type SignedUploadResponse = {
   objectPath: string;
   publicUrl: string;
@@ -6,7 +8,7 @@ type SignedUploadResponse = {
 };
 
 export async function uploadProjectMedia(file: File) {
-  const authorize = await fetch("/api/upload/sign", {
+  const authorize = await fetch(withBase("/api/upload/sign"), {
     method: "POST",
     credentials: "include",
     headers: { "content-type": "application/json" },

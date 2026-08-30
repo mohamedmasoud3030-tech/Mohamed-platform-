@@ -1,5 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { SITE_CONFIG } from "@/config/site";
+import { withBase } from "@/lib/base-path";
 import { APP_BUILD, createErrorReference } from "@/lib/support";
 import { normaliseRoute, track } from "@/lib/analytics";
 
@@ -72,7 +73,7 @@ export default class ErrorBoundary extends Component<Props, State> {
             <button type="button" className="lena-primary" onClick={() => window.location.reload()}>
               {text.reload}
             </button>
-            <a className="lena-secondary" href="/">
+            <a className="lena-secondary" href={withBase("/")}>
               {text.home}
             </a>
             <a className="lena-secondary" href={whatsappUrl} target="_blank" rel="noreferrer">

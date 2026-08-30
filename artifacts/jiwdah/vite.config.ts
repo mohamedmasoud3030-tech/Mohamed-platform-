@@ -9,7 +9,15 @@ const rawPort = process.env.PORT ?? "3000";
 const port = Number(rawPort);
 const resolvedPort = Number.isNaN(port) || port <= 0 ? 3000 : port;
 
-const basePath = process.env.BASE_PATH ?? "/";
+function normalizeViteBase(raw: string | undefined): string {
+  if (!raw || raw === "/") return "/";
+  let value = raw.trim();
+  if (!value.startsWith("/")) value = `/${value}`;
+  if (!value.endsWith("/")) value += "/";
+  return value;
+}
+
+const basePath = normalizeViteBase(process.env.BASE_PATH);
 
 /**
  * Build identity, used by the in-app error reference and the support report.

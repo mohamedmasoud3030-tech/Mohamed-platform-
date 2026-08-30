@@ -7,12 +7,20 @@ import { eq } from "drizzle-orm";
 import * as jose from "jose";
 import { SESSION_COOKIE, SESSION_MAX_AGE_SECONDS, signSessionToken, createAuthContext } from "../middleware/auth";
 import { logger } from "../lib/logger";
+import { cookiePath, stripBase, withBase } from "../lib/base-path";
 import { isOwnerIdentity } from "./owner-identity";
 
 const OAUTH_STATE_COOKIE = "kimi_oauth_state";
 const OAUTH_NEXT_COOKIE = "kimi_oauth_next";
-const DEFAULT_POST_LOGIN_PATH = "/dashboard";
 const OAUTH_STATE_MAX_AGE_SECONDS = 10 * 60;
+
+function defaultPostLoginPath(): string {
+  return withBase("/dashboard");
+}
+
+function loginErrorPath(code: string): string {
+  return `${withBase("/login")}?error=${encodeURIComponent(code)}`;
+}
 
 function getEnv(key: string): string {
   return process.env[key] ?? "";
@@ -39,7 +47,7 @@ function getRequestOrigin(req: Request): string {
 }
 
 function getRedirectUri(req: Request): string {
-  return `${getRequestOrigin(req)}/api/oauth/callback`;
+  return `${getRequestOrigin(req)}${withBase("/api/oauth/callback")}`;
 }
 
 function isLocalhost(host: string): boolean {
@@ -51,8 +59,8 @@ function getCookieOptions(req: Request, maxAge: number) {
   const localhost = isLocalhost(host);
   return {
     httpOnly: true,
-    path: "/",
-    sameSite: localhost ? "lax" as const : "none" as const,
+    path: cookiePath(),
+    sameSite: "lax" as const,
     secure: !localhost,
     maxAge,
   };
@@ -72,17 +80,33 @@ function clearOAuthStateCookie(req: Request, res: Response) {
  * Only same-origin admin paths are accepted, so the sign-in redirect can never
  * be used to bounce a signed-in owner to an external site.
  */
+function stripLocaleSegment(pathname: string): string {
+  const stripped = stripBase(pathname);
+  const segment = stripped.split("/")[1];
+  if (segment === "ar" || segment === "en") {
+    const rest = stripped.slice(segment.length + 1);
+    return rest.startsWith("/") ? rest : `/${rest}`;
+  }
+  return stripped;
+}
+
+/**
+ * Only same-origin LENA admin paths are accepted, so the sign-in redirect can
+ * never bounce a signed-in owner onto the host application's routes (e.g. MALEK
+ * /dashboard) when LENA is mounted under /lena.
+ */
 function sanitizeNextPath(value: unknown): string | null {
   if (typeof value !== "string") return null;
   const candidate = value.trim();
   if (!candidate.startsWith("/") || candidate.startsWith("//")) return null;
-  if (!/^\/dashboard(?:\/[A-Za-z0-9\-._~/]*)?$/.test(candidate)) return null;
+  const relative = stripLocaleSegment(candidate);
+  if (!/^\/dashboard(?:\/[A-Za-z0-9\-._~/]*)?$/.test(relative)) return null;
   return candidate;
 }
 
 function readNextPath(req: Request): string {
   const cookies = cookie.parse(req.headers.cookie || "");
-  return sanitizeNextPath(cookies[OAUTH_NEXT_COOKIE]) ?? DEFAULT_POST_LOGIN_PATH;
+  return sanitizeNextPath(cookies[OAUTH_NEXT_COOKIE]) ?? defaultPostLoginPath();
 }
 
 function clearNextCookie(req: Request, res: Response) {
@@ -151,7 +175,7 @@ export function createOAuthLoginHandler() {
     const requestedNext = sanitizeNextPath((req.query as Record<string, unknown>).next);
 
     const existing = await createAuthContext(req);
-    if (existing.user) return res.redirect(requestedNext ?? DEFAULT_POST_LOGIN_PATH);
+    if (existing.user) return res.redirect(requestedNext ?? defaultPostLoginPath());
 
     try {
       const redirectUri = getRedirectUri(req);
@@ -179,7 +203,7 @@ export function createOAuthLoginHandler() {
       return res.redirect(url.toString());
     } catch (err) {
       logger.error({ err }, "OAuth login failed");
-      return res.redirect("/login?error=unavailable");
+      return res.redirect(loginErrorPath("unavailable"));
     }
   };
 }
@@ -199,14 +223,14 @@ export function createOAuthCallbackHandler() {
     if (error) {
       clearOAuthStateCookie(req, res);
       clearNextCookie(req, res);
-      if (error === "access_denied") return res.redirect("/login?error=cancelled");
-      return res.redirect("/login?error=provider");
+      if (error === "access_denied") return res.redirect(loginErrorPath("cancelled"));
+      return res.redirect(loginErrorPath("provider"));
     }
 
     if (!code || !state) {
       clearOAuthStateCookie(req, res);
       clearNextCookie(req, res);
-      return res.redirect("/login?error=incomplete");
+      return res.redirect(loginErrorPath("incomplete"));
     }
 
     const cookies = cookie.parse(req.headers.cookie || "");
@@ -215,7 +239,7 @@ export function createOAuthCallbackHandler() {
 
     if (!expectedState || !safeCompare(expectedState, state)) {
       clearNextCookie(req, res);
-      return res.redirect("/login?error=expired");
+      return res.redirect(loginErrorPath("expired"));
     }
 
     try {
@@ -257,7 +281,7 @@ export function createOAuthCallbackHandler() {
     } catch (err) {
       logger.error({ err }, "OAuth callback failed");
       clearNextCookie(req, res);
-      return res.redirect("/login?error=failed");
+      return res.redirect(loginErrorPath("failed"));
     }
   };
 }

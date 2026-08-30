@@ -35,6 +35,8 @@ export type BusinessSystem = {
   order: number;
   /** Product name where one exists; otherwise the industry stands in. */
   name: Record<AppLocale, string>;
+  /** Optional one-line product description, used for named products such as MALEK. */
+  tagline?: Record<AppLocale, string>;
   stage: SystemStage;
   /** Who benefits, by role — the buyer and the person using it daily. */
   beneficiaries: Record<AppLocale, string[]>;
@@ -71,7 +73,11 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     id: "property",
     visibility: "public",
     order: 3,
-    name: { ar: "مالك", en: "Malek" },
+    name: { ar: "MALEK", en: "MALEK" },
+    tagline: {
+      ar: "منصة عربية لتشغيل العقارات ومحاسبة الإيجار.",
+      en: "Arabic-first property operations and rent accounting platform.",
+    },
     stage: "in-use",
     beneficiaries: {
       ar: ["مالك العقار أو المحفظة العقارية", "مدير المكتب الذي يشغّل الأصول للغير", "المستأجر عند طلب صيانة"],

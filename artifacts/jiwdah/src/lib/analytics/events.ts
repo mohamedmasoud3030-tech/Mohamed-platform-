@@ -1,3 +1,5 @@
+import { stripBase } from "@/lib/base-path";
+
 /**
  * Product measurement — event taxonomy.
  *
@@ -64,7 +66,9 @@ export type AnalyticsProperties = Partial<{
  */
 export function normaliseRoute(pathname: string): string {
   const withoutQuery = pathname.split("?")[0].split("#")[0];
-  const segments = withoutQuery.split("/").filter(Boolean);
+  // Strip the deployment base path first so `/lena/ar/services` classifies as `/services`.
+  const stripped = stripBase(withoutQuery);
+  const segments = stripped.split("/").filter(Boolean);
   const [first, ...rest] = segments;
   const body = first === "ar" || first === "en" ? rest : segments;
 

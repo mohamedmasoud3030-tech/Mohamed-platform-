@@ -5,7 +5,7 @@ import App from "./App";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { TRPCProvider } from "./providers/trpc";
 import { PreferencesProvider, usePreferences } from "./providers/preferences";
-import { bootstrapLocale } from "./lib/locale";
+import { bootstrapLocale, routerBasename } from "./lib/locale";
 import { configureAnalytics } from "./lib/analytics";
 import { firstPartySink } from "./lib/analytics/sink";
 import "./index.css";
@@ -28,15 +28,16 @@ const { locale, redirectTo } = bootstrapLocale(window.location);
 if (redirectTo) window.history.replaceState(null, "", redirectTo);
 
 /**
- * The router's basename is the language segment, so every existing link such as
- * `to="/services"` resolves to `/ar/services` or `/en/services` automatically.
+ * The router's basename is the deployment base path plus the language segment,
+ * so every existing link such as `to="/services"` resolves to `/ar/services`
+ * standalone or `/lena/ar/services` when mounted under MALEK.
  * Remounting on language change is intentional: it is the moment the address,
  * the direction and the content all switch together.
  */
 function LocalizedRouter() {
   const { locale: active } = usePreferences();
   return (
-    <BrowserRouter basename={`/${active}`} key={active}>
+    <BrowserRouter basename={routerBasename(active)} key={active}>
       <App />
     </BrowserRouter>
   );

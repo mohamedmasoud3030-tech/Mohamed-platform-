@@ -1,5 +1,6 @@
 import { createRouter, authedQuery } from "../middleware";
 import { SESSION_COOKIE } from "../context";
+import { cookiePath } from "../../lib/base-path";
 import cookie from "cookie";
 
 function isLocalhost(host: string): boolean {
@@ -17,8 +18,8 @@ export const authRouter = createRouter({
       "set-cookie",
       cookie.serialize(SESSION_COOKIE, "", {
         httpOnly: true,
-        path: "/",
-        sameSite: localhost ? "lax" : "none",
+        path: cookiePath(),
+        sameSite: "lax",
         secure: !localhost,
         maxAge: 0,
         expires: new Date(0),

@@ -17,6 +17,7 @@ export default function SystemGrid({ limit }: { limit?: number }) {
             <small>{String(index + 1).padStart(2, "0")}</small>
           </div>
           <h3>{system.name[locale]}</h3>
+          {system.tagline ? <p className="lena-system-tagline">{system.tagline[locale]}</p> : null}
           <p className="lena-system-industry">{system.industry[locale]}</p>
           <span className={`lena-stage lena-stage-${system.stage}`}>{STAGE_LABEL[system.stage][locale]}</span>
           <p>{system.problem[locale]}</p>
