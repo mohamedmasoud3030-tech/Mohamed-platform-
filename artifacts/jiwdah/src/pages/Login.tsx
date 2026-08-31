@@ -1,8 +1,7 @@
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import SeoHead from "@/components/SeoHead";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import AmbientBackdrop from "@/layouts/AmbientBackdrop";
 import { pageSeo } from "@/content/seo";
 import LenaLogo from "@/design-system/brand/LenaLogo";
 import { usePreferences } from "@/providers/preferences";
@@ -11,6 +10,7 @@ import { withLocale } from "@/lib/locale";
 
 const COPY = {
   ar: {
+    eyebrow: "لوحة تحكم LENA",
     welcome: "لوحة تحكم LENA",
     intro: "الدخول مخصص لفريق LENA لمراجعة الاستفسارات وإدارة المشاريع.",
     action: "متابعة تسجيل الدخول",
@@ -27,6 +27,7 @@ const COPY = {
     } as Record<string, string>,
   },
   en: {
+    eyebrow: "LENA DASHBOARD",
     welcome: "LENA dashboard",
     intro: "Sign-in is reserved for the LENA team to review inquiries and manage projects.",
     action: "Continue to sign in",
@@ -68,44 +69,44 @@ export default function Login() {
   const signInHref = `${withBase("/api/oauth/login")}?next=${encodeURIComponent(publicNext)}`;
 
   return (
-    <div className="lena-login min-h-screen flex items-center justify-center bg-surface" dir={direction}>
+    <div className="lena-login" dir={direction}>
+      <AmbientBackdrop />
       <SeoHead title={seo.title} description={seo.description} path="/login" noindex />
-      <Card className="w-full max-w-sm border-gold/20 bg-surface-light">
-        <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">
-            <LenaLogo />
-          </div>
-          <CardTitle className="text-cream text-xl">{text.welcome}</CardTitle>
-          <CardDescription className="text-cream-muted text-sm">{text.intro}</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <main className="lena-login-card-wrap">
+        <div className="lena-glass lena-login-card">
+          <LenaLogo />
+          <p className="lena-kicker">{text.eyebrow}</p>
+          <h1>{text.welcome}</h1>
+          <p className="lena-login-intro">{text.intro}</p>
+
           {sessionExpired && !errorMessage && (
-            <p className="lena-success text-sm" role="status">
+            <p className="lena-success lena-login-status" role="status">
               {text.sessionExpired}
             </p>
           )}
           {errorMessage && (
-            <p className="lena-error text-sm" role="alert">
+            <p className="lena-error lena-login-status" role="alert">
               {errorMessage}
             </p>
           )}
-          <Button
-            className="w-full btn-gold"
-            size="lg"
+
+          <button
+            type="button"
+            className="lena-primary lena-login-cta"
             onClick={() => {
               window.location.href = signInHref;
             }}
           >
             <ShieldCheck size={17} />
             {text.action}
-          </Button>
-          <p className="text-cream-muted text-xs text-center">{text.note}</p>
-          <Link to="/" className="text-cream-muted text-xs flex items-center justify-center gap-2 min-h-11">
+          </button>
+          <p className="lena-login-note">{text.note}</p>
+          <Link to="/" className="lena-login-back">
             <ArrowLeft size={14} />
             {text.back}
           </Link>
-        </CardContent>
-      </Card>
+        </div>
+      </main>
     </div>
   );
 }

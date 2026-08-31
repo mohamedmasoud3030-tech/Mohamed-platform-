@@ -188,6 +188,7 @@ export default function Contact() {
       </section>
 
       <section className="lena-section">
+        <div className="lena-container">
         <p className="lena-contact-reach">{SITE_CONFIG.reachLabel[locale]}</p>
         <div className="lena-contact-grid">
           {SITE_CONFIG.channels.map((channel) => (
@@ -229,6 +230,7 @@ export default function Contact() {
             </a>
           </article>
         </div>
+        </div>
       </section>
 
       <section className="lena-section">
@@ -262,7 +264,6 @@ export default function Contact() {
             </div>
           ) : (
             <form className="lena-glass lena-form" onSubmit={submit}>
-              <p className="lena-kicker">{copy.contact.eyebrow}</p>
               <h2>{text.title}</h2>
               <p>{text.intro}</p>
               <p className="lena-form-hint">{text.required}</p>

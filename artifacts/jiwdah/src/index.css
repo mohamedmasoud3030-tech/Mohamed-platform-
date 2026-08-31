@@ -103,8 +103,8 @@
   --sidebar-accent: 0 0% 14%;
   --sidebar-accent-foreground: 40 10% 96%;
   --sidebar-ring: 40 45% 57%;
-  --app-font-sans: 'IBM Plex Sans Arabic', sans-serif;
-  --app-font-serif: 'Noto Serif Arabic', serif;
+  --app-font-sans: 'IBM Plex Sans Arabic', 'Inter', sans-serif;
+  --app-font-serif: 'Noto Kufi Arabic', 'Noto Naskh Arabic', serif;
   --app-font-mono: Menlo, monospace;
 }
 
@@ -115,7 +115,7 @@
 
   body {
     @apply bg-surface text-cream antialiased;
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-family: var(--app-font-sans);
     font-feature-settings: "kern" 1;
     -webkit-font-smoothing: antialiased;
   }

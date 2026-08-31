@@ -303,11 +303,133 @@
 .lena-portfolio-preparing p { margin-top: 10px; color: var(--lena-muted); font-size: 14px; line-height: 1.9; }
 .lena-portfolio-preparing .lena-primary { margin-top: 18px; }
 
-/* Product cards: name, industry, stage. */
-.lena-system-card { grid-column: 1 / -1; }
-.lena-system-industry { margin-top: 4px; color: var(--lena-accent) !important; font-size: 13px; font-weight: 700; }
-.lena-system-tagline { margin-top: 8px; color: var(--lena-muted); font-size: 14px; font-weight: 500; line-height: 1.45; }
-.lena-system-heading { margin: 18px 0 6px; font-size: 13px; font-weight: 800; letter-spacing: .04em; color: var(--lena-text); }
-.lena-stage { display: inline-flex; align-items: center; margin-top: 10px; border-radius: 99px; padding: 4px 11px; font-size: 11px; font-weight: 800; }
-.lena-stage-in-use { border: 1px solid rgba(34,197,94,.45); background: rgba(34,197,94,.12); color: #4ade80; }
-.lena-stage-trial { border: 1px solid var(--lena-line); background: rgba(91,124,255,.12); color: var(--lena-muted); }
+/* Product cards: name, industry, stage. Two-up catalogue layout with a compact
+   problem/usage block and two check-list columns, instead of one giant stacked
+   card per system. */
+.lena-system-card {
+  display: flex;
+  grid-column: span 6;
+  flex-direction: column;
+}
+.lena-system-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.lena-system-top small {
+  color: var(--lena-muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+.lena-system-card h2 {
+  margin: 18px 0 0;
+  font-size: clamp(1.3rem, 1.9vw, 1.55rem);
+  font-weight: 600;
+  line-height: 1.45;
+}
+.lena-system-industry {
+  margin-top: 5px;
+  color: var(--lena-accent) !important;
+  font-size: 13px;
+  font-weight: 700;
+}
+.lena-system-tagline {
+  margin-top: 8px;
+  color: var(--lena-muted);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+.lena-system-rows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 20px;
+  margin-top: 20px;
+}
+.lena-system-rows > div {
+  min-width: 0;
+}
+.lena-system-rows dt {
+  color: var(--lena-text);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.lena-system-rows dd {
+  margin: 6px 0 0;
+  color: var(--lena-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.lena-system-lists {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+  margin-top: 22px;
+  border-top: 1px solid var(--lena-line);
+  padding-top: 18px;
+}
+.lena-system-lists h3 {
+  margin: 0;
+  color: var(--lena-text);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.lena-system-lists ul {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.lena-system-lists li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--lena-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.lena-system-lists li svg {
+  flex: 0 0 auto;
+  margin-top: 3px;
+  color: var(--lena-accent);
+}
+.lena-system-card .lena-more {
+  padding-top: 22px;
+}
+.lena-system-heading {
+  margin: 18px 0 6px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--lena-text);
+}
+.lena-stage {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  border-radius: 99px;
+  padding: 5px 11px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.lena-system-top .lena-stage {
+  margin-top: 0;
+}
+.lena-stage-in-use {
+  border: 1px solid rgba(34, 197, 94, 0.45);
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+}
+.lena-stage-trial {
+  border: 1px solid var(--lena-line);
+  background: rgba(91, 124, 255, 0.12);
+  color: var(--lena-muted);
+}
