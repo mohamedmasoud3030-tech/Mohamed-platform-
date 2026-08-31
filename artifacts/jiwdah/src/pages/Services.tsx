@@ -30,42 +30,53 @@ export default function Services() {
       <section className="lena-section">
         <div className="lena-container lena-bento">
           {systems.map((system, index) => (
-            <article className="lena-glass lena-service-card lena-system-card wide" id={system.id} key={system.id}>
+            <article className="lena-glass lena-service-card lena-system-card" id={system.id} key={system.id}>
               <i className="lena-card-glow" />
-              <div className="lena-card-top">
+              <div className="lena-system-top">
                 <small>{String(index + 1).padStart(2, "0")}</small>
+                <span className={`lena-stage lena-stage-${system.stage}`} title={STAGE_NOTE[system.stage][locale]}>
+                  {STAGE_LABEL[system.stage][locale]}
+                </span>
               </div>
               <h2>{system.name[locale]}</h2>
               <p className="lena-system-industry">{system.industry[locale]}</p>
-              <p className={`lena-stage lena-stage-${system.stage}`} title={STAGE_NOTE[system.stage][locale]}>
-                {STAGE_LABEL[system.stage][locale]}
-              </p>
 
-              <h3 className="lena-system-heading">{isArabic ? "المشكلة" : "The problem"}</h3>
-              <p>{system.problem[locale]}</p>
+              <dl className="lena-system-rows">
+                <div>
+                  <dt>{isArabic ? "المشكلة" : "The problem"}</dt>
+                  <dd>{system.problem[locale]}</dd>
+                </div>
+                <div>
+                  <dt>{isArabic ? "كيف يُستخدم" : "How it is used"}</dt>
+                  <dd>{system.usage[locale]}</dd>
+                </div>
+              </dl>
 
-              <h3 className="lena-system-heading">{isArabic ? "كيف يُستخدم" : "How it is used"}</h3>
-              <p>{system.usage[locale]}</p>
+              <div className="lena-system-lists">
+                <div>
+                  <h3>{isArabic ? "من المستفيد" : "Who benefits"}</h3>
+                  <ul>
+                    {system.beneficiaries[locale].map((who) => (
+                      <li key={who}>
+                        <CheckCircle2 size={15} />
+                        {who}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3>{isArabic ? "ما الذي يديره" : "What it runs"}</h3>
+                  <ul>
+                    {system.does[locale].map((item) => (
+                      <li key={item}>
+                        <CheckCircle2 size={15} />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
 
-              <h3 className="lena-system-heading">{isArabic ? "من المستفيد" : "Who benefits"}</h3>
-              <ul className="lena-system-does">
-                {system.beneficiaries[locale].map((who) => (
-                  <li key={who}>
-                    <CheckCircle2 size={15} />
-                    {who}
-                  </li>
-                ))}
-              </ul>
-
-              <h3 className="lena-system-heading">{isArabic ? "ما الذي يديره" : "What it runs"}</h3>
-              <ul className="lena-system-does">
-                {system.does[locale].map((item) => (
-                  <li key={item}>
-                    <CheckCircle2 size={15} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
               <Link className="lena-more" to={`/contact?service=${system.id}`}>
                 {isArabic ? "تحدث عن نظام لقطاعك" : "Talk about a system for your trade"}
                 <ArrowUpRight size={15} />
