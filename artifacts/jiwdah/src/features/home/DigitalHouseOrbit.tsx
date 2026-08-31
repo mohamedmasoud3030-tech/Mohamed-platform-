@@ -5,6 +5,8 @@ import {
   type CSSProperties,
   type PointerEvent,
 } from "react";
+import { BUSINESS_SYSTEMS, type SystemId } from "@/content/systems";
+import { usePreferences } from "@/providers/preferences";
 
 /**
  * LENA orbital system.
@@ -13,11 +15,14 @@ import {
  *
  *   - ambient field  — faint stars + atmospheric haze, static, masked
  *   - orbital planes — four rings, each with its own period & direction
- *   - satellites     — capability labels riding their ring's orbit; each
+ *   - satellites     — LENA products riding three orbital planes; each
  *                      satellite is positioned by a single rAF pass that also
  *                      derives depth (scale / opacity / z) from its angle, so
- *                      labels pass in front of and behind the core
+ *                      products pass in front of and behind the core
  *   - LENA core      — stable center; only a restrained scale/glow breath
+ *
+ * Product names come from BUSINESS_SYSTEMS, so the hero never becomes a second
+ * source of truth for naming or localisation.
  *
  * Motion is driven by transforms + opacity only. The rAF loop no-ops when the
  * scene is outside the viewport (IntersectionObserver) or under
@@ -26,34 +31,29 @@ import {
  */
 
 type Satellite = {
-  label: string;
+  id: SystemId;
   ring: 1 | 2 | 3;
-  /** Initial angle in degrees; satellites keep their relative spacing forever. */
+  /** Initial angle in degrees; paired products remain opposite each other. */
   phase: number;
-  /** Shown on small screens only. */
-  mobileHidden?: boolean;
 };
 
 /** Ring geometry. Speeds are deg/sec derived from each ring's CSS period:
  *  lena-orbit-ring-1 40s fwd · lena-orbit-ring-2 55s back ·
  *  lena-orbit-ring-3 75s fwd (see orbit.css). */
 const RING = {
-  1: { radius: 135, speed: 360 / 40 },
-  2: { radius: 190, speed: -(360 / 55) },
-  3: { radius: 243, speed: 360 / 75 },
+  1: { radius: 126, speed: 360 / 40 },
+  2: { radius: 176, speed: -(360 / 55) },
+  3: { radius: 225, speed: 360 / 75 },
 } as const;
 
-const SATELLITES: Satellite[] = [
-  { label: "Strategy", ring: 1, phase: 30 },
-  { label: "Branding", ring: 1, phase: 150 },
-  { label: "Marketing", ring: 1, phase: 270 },
-  { label: "Content", ring: 2, phase: 90 },
-  { label: "UI/UX", ring: 2, phase: 210 },
-  { label: "Web", ring: 2, phase: 330 },
-  { label: "Automation", ring: 3, phase: 45, mobileHidden: true },
-  { label: "AI", ring: 3, phase: 135, mobileHidden: true },
-  { label: "Systems", ring: 3, phase: 225, mobileHidden: true },
-  { label: "Experience", ring: 3, phase: 315, mobileHidden: true },
+/** Two real LENA products per plane. The fourth ring remains atmospheric only. */
+const ORBIT_LAYOUT: Satellite[] = [
+  { id: "wellness", ring: 1, phase: 30 },
+  { id: "property", ring: 1, phase: 210 },
+  { id: "rental", ring: 2, phase: 95 },
+  { id: "recycling", ring: 2, phase: 275 },
+  { id: "investment", ring: 3, phase: 40 },
+  { id: "hospitality", ring: 3, phase: 220 },
 ];
 
 const DEG = Math.PI / 180;
@@ -89,6 +89,7 @@ function buildStars(): string {
 }
 
 export default function DigitalHouseOrbit() {
+  const { locale } = usePreferences();
   const rootRef = useRef<HTMLDivElement | null>(null);
   const satRefs = useRef<(HTMLDivElement | null)[]>([]);
   const state = useRef<OrbitState>({
@@ -100,9 +101,16 @@ export default function DigitalHouseOrbit() {
     last: 0,
     px: 0,
     py: 0,
-    z: new Array(SATELLITES.length).fill(0) as number[],
+    z: new Array(ORBIT_LAYOUT.length).fill(0) as number[],
     squash: 1,
   });
+
+  const satellites = ORBIT_LAYOUT.map((satellite) => ({
+    ...satellite,
+    label:
+      BUSINESS_SYSTEMS.find((system) => system.id === satellite.id)?.name[locale] ??
+      satellite.id,
+  }));
 
   /** Read the plane tilt (--lena-squash) used by the CSS rings. */
   const readSquash = () => {
@@ -115,10 +123,10 @@ export default function DigitalHouseOrbit() {
   /** One positioning pass — places every satellite at angle θ with depth. */
   const renderSats = (t: number) => {
     const s = state.current;
-    for (let i = 0; i < SATELLITES.length; i += 1) {
+    for (let i = 0; i < ORBIT_LAYOUT.length; i += 1) {
       const el = satRefs.current[i];
       if (!el) continue;
-      const sat = SATELLITES[i];
+      const sat = ORBIT_LAYOUT[i];
       const ring = RING[sat.ring];
       const angle = ((sat.phase + t * ring.speed) % 360 + 360) % 360;
       const rad = angle * DEG;
@@ -251,7 +259,7 @@ export default function DigitalHouseOrbit() {
     state.current.focus = true;
     root.classList.add("is-focus");
     root
-      .querySelector(`.lena-orbit-ring-${SATELLITES[i].ring}`)
+      .querySelector(`.lena-orbit-ring-${ORBIT_LAYOUT[i].ring}`)
       ?.classList.add("is-lit");
     satRefs.current[i]?.classList.add("is-active");
   }
@@ -286,17 +294,20 @@ export default function DigitalHouseOrbit() {
       <i className="lena-ring-wrap lena-orbit-ring-4">
         <i className="lena-ring" />
       </i>
-      {SATELLITES.map((sat, i) => (
+      {satellites.map((sat, i) => (
         <div
-          key={sat.label}
+          key={sat.id}
           ref={(el) => {
             satRefs.current[i] = el;
           }}
-          className={`lena-sat${sat.mobileHidden ? " sat-mobile-hidden" : ""}`}
+          className="lena-sat"
           onPointerEnter={() => onSatEnter(i)}
           onPointerLeave={() => onSatLeave(i)}
         >
-          <div className="lena-sat-inner" style={{ "--i": `${0.3 + i * 0.06}s` } as CSSProperties}>
+          <div
+            className="lena-sat-inner"
+            style={{ "--i": `${0.3 + i * 0.08}s` } as CSSProperties}
+          >
             <span className="lena-sat-dot" />
             <span>{sat.label}</span>
           </div>
@@ -309,7 +320,7 @@ export default function DigitalHouseOrbit() {
           <br />
           HOUSE
         </strong>
-        <span>Creative systems</span>
+        <span>{locale === "ar" ? "أنظمة إبداعية" : "Creative systems"}</span>
       </div>
       <i className="lena-pulse" />
     </div>
