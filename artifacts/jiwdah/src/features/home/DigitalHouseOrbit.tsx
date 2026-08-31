@@ -35,7 +35,8 @@ type Satellite = {
 };
 
 /** Ring geometry. Speeds are deg/sec derived from each ring's CSS period:
- *  ring-1 40s fwd · ring-2 55s back · ring-3 75s fwd (see orbit.css). */
+ *  lena-orbit-ring-1 40s fwd · lena-orbit-ring-2 55s back ·
+ *  lena-orbit-ring-3 75s fwd (see orbit.css). */
 const RING = {
   1: { radius: 135, speed: 360 / 40 },
   2: { radius: 190, speed: -(360 / 55) },
@@ -249,7 +250,9 @@ export default function DigitalHouseOrbit() {
     if (!root) return;
     state.current.focus = true;
     root.classList.add("is-focus");
-    root.querySelector(`.ring-${SATELLITES[i].ring} .lena-ring`)?.classList.add("is-lit");
+    root
+      .querySelector(`.lena-orbit-ring-${SATELLITES[i].ring}`)
+      ?.classList.add("is-lit");
     satRefs.current[i]?.classList.add("is-active");
   }
 
@@ -258,7 +261,7 @@ export default function DigitalHouseOrbit() {
     if (!root) return;
     state.current.focus = false;
     root.classList.remove("is-focus");
-    root.querySelector(".lena-ring.is-lit")?.classList.remove("is-lit");
+    root.querySelector(".lena-ring-wrap.is-lit")?.classList.remove("is-lit");
     satRefs.current[i]?.classList.remove("is-active");
   }
 
@@ -271,16 +274,16 @@ export default function DigitalHouseOrbit() {
       aria-hidden="true"
     >
       <div className="lena-orbit-field" />
-      <i className="lena-ring-wrap ring-1">
+      <i className="lena-ring-wrap lena-orbit-ring-1">
         <i className="lena-ring" />
       </i>
-      <i className="lena-ring-wrap ring-2">
+      <i className="lena-ring-wrap lena-orbit-ring-2">
         <i className="lena-ring" />
       </i>
-      <i className="lena-ring-wrap ring-3">
+      <i className="lena-ring-wrap lena-orbit-ring-3">
         <i className="lena-ring" />
       </i>
-      <i className="lena-ring-wrap ring-4">
+      <i className="lena-ring-wrap lena-orbit-ring-4">
         <i className="lena-ring" />
       </i>
       {SATELLITES.map((sat, i) => (
