@@ -102,7 +102,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     id: "wellness",
     visibility: "public",
     order: 1,
-    name: { ar: "LENA Beauty", en: "LENA Beauty" },
+    name: { ar: "LenaBeauty", en: "LenaBeauty" },
     stage: "trial",
     beneficiaries: {
       ar: ["صاحبة المركز أو مديرته", "موظفة الاستقبال", "المعالِجات ومقدّمات الخدمة"],
