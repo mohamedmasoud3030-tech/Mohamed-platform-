@@ -14,6 +14,15 @@
   overflow: visible;
 }
 
+/* On wide screens the visual centre sits slightly left/below the mathematical
+   centre of its column so it belongs to the hero instead of reading as a
+   separate illustration pinned to the right edge. */
+@media (min-width: 1051px) {
+  .lena-orbit {
+    transform: translate3d(-22px, 8px, 0);
+  }
+}
+
 /* --- Ambient field: faint stars + atmospheric haze (static, masked) ------- */
 .lena-orbit-field {
   position: absolute;
@@ -21,8 +30,8 @@
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 32% 42%, rgba(79, 108, 255, 0.1), transparent 42%),
-    radial-gradient(circle at 68% 58%, rgba(150, 101, 255, 0.08), transparent 46%);
+    radial-gradient(circle at 32% 42%, rgba(79, 108, 255, 0.12), transparent 42%),
+    radial-gradient(circle at 68% 58%, rgba(150, 101, 255, 0.1), transparent 46%);
   opacity: 0;
   animation:
     lena-field-enter 0.9s ease 0.75s backwards,
@@ -30,16 +39,16 @@
 }
 .light .lena-orbit-field {
   background:
-    radial-gradient(circle at 32% 42%, rgba(49, 94, 251, 0.06), transparent 42%),
-    radial-gradient(circle at 68% 58%, rgba(122, 84, 214, 0.05), transparent 46%);
+    radial-gradient(circle at 32% 42%, rgba(49, 94, 251, 0.085), transparent 42%),
+    radial-gradient(circle at 68% 58%, rgba(122, 84, 214, 0.07), transparent 46%);
 }
 .lena-orbit-field::before {
   content: "";
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 620px;
-  height: 620px;
+  width: 570px;
+  height: 570px;
   border-radius: 50%;
   transform: translate(-50%, -50%);
   box-shadow: var(--lena-stars, none);
@@ -62,8 +71,8 @@
   border-radius: 50%;
 }
 .lena-orbit-ring-1 {
-  width: 270px;
-  height: 270px;
+  width: 252px;
+  height: 252px;
   translate: calc(var(--orbit-x) * 0.3) calc(var(--orbit-y) * 0.3);
 }
 .lena-orbit-ring-1 .lena-ring {
@@ -73,8 +82,8 @@
     lena-orbit-forward 40s linear infinite;
 }
 .lena-orbit-ring-2 {
-  width: 380px;
-  height: 380px;
+  width: 352px;
+  height: 352px;
   translate: calc(var(--orbit-x) * 0.45) calc(var(--orbit-y) * 0.45);
 }
 .lena-orbit-ring-2 .lena-ring {
@@ -83,9 +92,9 @@
     lena-orbit-back 55s linear infinite;
 }
 .lena-orbit-ring-3 {
-  width: 486px;
-  height: 486px;
-  opacity: 0.65;
+  width: 450px;
+  height: 450px;
+  opacity: 0.68;
   translate: calc(var(--orbit-x) * 0.6) calc(var(--orbit-y) * 0.6);
 }
 .lena-orbit-ring-3 .lena-ring {
@@ -95,9 +104,9 @@
     lena-orbit-forward 75s linear infinite;
 }
 .lena-orbit-ring-4 {
-  width: 560px;
-  height: 560px;
-  opacity: 0.32;
+  width: 520px;
+  height: 520px;
+  opacity: 0.34;
   translate: calc(var(--orbit-x) * 0.75) calc(var(--orbit-y) * 0.75);
 }
 .lena-orbit-ring-4 .lena-ring {
@@ -106,14 +115,14 @@
     lena-orbit-back 95s linear infinite;
 }
 .light .lena-ring {
-  border-color: rgba(38, 72, 152, 0.16);
+  border-color: rgba(38, 72, 152, 0.22);
 }
 .light .lena-orbit-ring-1 .lena-ring,
 .light .lena-orbit-ring-3 .lena-ring {
-  border-color: rgba(38, 72, 152, 0.2);
+  border-color: rgba(38, 72, 152, 0.27);
 }
 
-/* --- Capability satellites: chips that travel the rings ------------------- */
+/* --- Product satellites: real LENA systems travelling the rings ----------- */
 .lena-sat {
   position: absolute;
   left: 50%;
@@ -154,13 +163,13 @@
   box-shadow: 0 0 8px rgba(130, 161, 255, 0.8);
 }
 .light .lena-sat-inner {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(240, 246, 255, 0.86));
-  border-color: rgba(38, 72, 152, 0.18);
-  color: #33456f;
-  box-shadow: 0 8px 22px rgba(42, 67, 130, 0.1);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.97), rgba(235, 242, 255, 0.92));
+  border-color: rgba(38, 72, 152, 0.25);
+  color: #253a69;
+  box-shadow: 0 8px 22px rgba(42, 67, 130, 0.12);
 }
 .light .lena-sat-dot {
-  box-shadow: 0 0 8px rgba(49, 94, 251, 0.55);
+  box-shadow: 0 0 9px rgba(49, 94, 251, 0.68);
 }
 
 /* Focus: slow the system and highlight one satellite + its ring. */
@@ -181,14 +190,14 @@
   border-color: rgba(130, 161, 255, 0.55);
 }
 .light .lena-orbit.is-focus .lena-sat.is-active .lena-sat-inner {
-  border-color: rgba(49, 94, 251, 0.5);
-  color: #1d3b8f;
+  border-color: rgba(49, 94, 251, 0.55);
+  color: #17388f;
   box-shadow:
-    0 0 0 1px rgba(49, 94, 251, 0.16),
-    0 10px 26px rgba(42, 67, 130, 0.16);
+    0 0 0 1px rgba(49, 94, 251, 0.18),
+    0 10px 26px rgba(42, 67, 130, 0.18);
 }
 .light .lena-orbit.is-focus .lena-ring-wrap.is-lit .lena-ring {
-  border-color: rgba(49, 94, 251, 0.5);
+  border-color: rgba(49, 94, 251, 0.58);
 }
 
 /* --- LENA core: the stable gravitational center --------------------------- */
@@ -196,8 +205,8 @@
   position: relative;
   display: grid;
   z-index: 3;
-  width: 220px;
-  height: 220px;
+  width: 210px;
+  height: 210px;
   place-content: center;
   border: 1px solid rgba(174, 194, 255, 0.34);
   border-radius: 50%;
@@ -232,7 +241,7 @@
 }
 .lena-house strong {
   margin-top: 8px;
-  font-size: 25px;
+  font-size: 24px;
   letter-spacing: 0.08em;
   line-height: 1.06;
 }
@@ -240,23 +249,36 @@
   margin-top: 9px;
   color: #a8bdff;
   font-size: 9px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .light .lena-house {
-  border-color: rgba(38, 72, 152, 0.32);
-  box-shadow: 0 0 90px rgba(49, 94, 251, 0.18);
+  border-color: rgba(38, 72, 152, 0.38);
+  background: radial-gradient(
+    circle at 28% 22%,
+    rgba(255, 255, 255, 0.98),
+    rgba(226, 235, 255, 0.94) 44%,
+    rgba(200, 214, 252, 0.9)
+  );
+  box-shadow: 0 0 90px rgba(49, 94, 251, 0.2);
 }
 .light .lena-house::after {
-  background: radial-gradient(circle, rgba(49, 94, 251, 0.16), transparent 64%);
+  background: radial-gradient(circle, rgba(49, 94, 251, 0.2), transparent 64%);
+}
+.light .lena-house small,
+.light .lena-house span {
+  color: #4661a5;
+}
+.light .lena-house strong {
+  color: #172750;
 }
 
 /* --- Restrained energy pulse from the core -------------------------------- */
 .lena-pulse {
   position: absolute;
   z-index: 1;
-  width: 216px;
-  height: 216px;
+  width: 206px;
+  height: 206px;
   border: 1px solid rgba(146, 170, 255, 0.26);
   border-radius: 50%;
   opacity: 0;
@@ -264,7 +286,7 @@
   animation: lena-pulse 10s ease-out 2.4s infinite;
 }
 .light .lena-pulse {
-  border-color: rgba(49, 94, 251, 0.22);
+  border-color: rgba(49, 94, 251, 0.28);
 }
 
 /* --- Entry assembly ------------------------------------------------------- */
