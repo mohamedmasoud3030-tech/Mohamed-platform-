@@ -20,7 +20,8 @@ export type SystemId =
   | "rental"
   | "investment"
   | "hospitality"
-  | "recycling";
+  | "recycling"
+  | "materials";
 
 /**
  * Stage reflects verified evidence, not inference. A product is marked in-use
@@ -67,28 +68,16 @@ export type BusinessSystem = {
   problem: Record<AppLocale, string>;
   /** What the system does. Verbs, not features. */
   does: Record<AppLocale, string[]>;
+  /** The real domain entities the system holds and coordinates. */
+  entities: Record<AppLocale, string[]>;
   /** Explicit links to cross-system operating roots; never inferred from copy. */
   operatingPrimitives: OperatingPrimitiveId[];
   /** Whether a documented case study with screens exists yet. */
   documented: boolean;
 };
 
-export const STAGE_LABEL: Record<SystemStage, Record<AppLocale, string>> = {
-  "in-use": { ar: "قيد الاستخدام الفعلي", en: "In real use" },
-  trial: { ar: "نسخة تجريبية", en: "Trial version" },
-};
-
-export const STAGE_NOTE: Record<SystemStage, Record<AppLocale, string>> = {
-  "in-use": {
-    ar: "يعمل اليوم داخل نشاط حقيقي، ويستمر تطويره.",
-    en: "Running today inside a real business, and still being developed.",
-  },
-  trial: {
-    ar: "مبني ويعمل، وما زال في مرحلة تجريبية قبل التشغيل الواسع.",
-    en: "Built and working, still in a trial stage before wider rollout.",
-  },
-};
-
+/** Stage is internal canonical truth (verified evidence), never rendered as
+ *  public lifecycle status. The public experience describes capability only. */
 export const BUSINESS_SYSTEMS: BusinessSystem[] = [
   {
     id: "property",
@@ -117,6 +106,10 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       ar: ["تشغيل الوحدات والعقود", "التأجير والتجديد", "التحصيل والمتأخرات", "طلبات الصيانة", "تقارير الملّاك"],
       en: ["Unit and contract operations", "Leasing and renewals", "Collection and arrears", "Maintenance requests", "Owner reporting"],
     },
+    entities: {
+      ar: ["العقارات والوحدات", "الملاك والمستأجرون", "العقود والتجديدات", "طلبات الصيانة", "التحصيل والمتأخرات", "المدفوعات والتسويات"],
+      en: ["Properties and units", "Owners and tenants", "Contracts and renewals", "Maintenance requests", "Collections and arrears", "Payments and settlements"],
+    },
     operatingPrimitives: ["relationships", "time", "money", "assets", "workflow", "documents", "insight"],
     documented: false,
   },
@@ -142,6 +135,10 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     does: {
       ar: ["المواعيد والحجوزات", "نقطة البيع", "ملفات العملاء", "المخزون", "الموظفون وجدولتهم", "ملخص يومي للمالك"],
       en: ["Appointments and bookings", "Point of sale", "Client records", "Inventory", "Staff and scheduling", "Daily summary for the owner"],
+    },
+    entities: {
+      ar: ["المواعيد والحجوزات", "العملاء وملفاتهم", "الخدمات", "الموظفون والجدولة", "المخزون", "نقطة البيع"],
+      en: ["Appointments and bookings", "Clients and their records", "Services", "Staff and scheduling", "Inventory", "Point of sale"],
     },
     operatingPrimitives: ["relationships", "time", "money", "assets", "workflow", "people", "insight"],
     documented: false,
@@ -169,6 +166,10 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       ar: ["مخزون القطع وحالتها", "الحجز بالتواريخ", "الخروج والإرجاع", "التأمين والمدفوعات", "توفر فوري"],
       en: ["Piece inventory and condition", "Date-based reservations", "Check-out and return", "Deposits and payments", "Live availability"],
     },
+    entities: {
+      ar: ["القطع وحالتها", "الحجوزات بالتواريخ", "الخروج والإرجاع", "التأمين والمدفوعات"],
+      en: ["Pieces and their condition", "Date-based reservations", "Check-out and return", "Deposits and payments"],
+    },
     operatingPrimitives: ["relationships", "time", "money", "assets", "workflow"],
     documented: false,
   },
@@ -195,6 +196,10 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       ar: ["أقسام متعددة في نظام واحد", "الأصول والعمليات", "المصروفات والإيرادات", "تقارير لكل قسم"],
       en: ["Multiple divisions in one system", "Assets and operations", "Costs and revenue", "Reporting per division"],
     },
+    entities: {
+      ar: ["الأقسام (حيواني، زراعي، عقاري)", "الأصول", "العمليات", "المصروفات والإيرادات", "التقارير"],
+      en: ["Divisions (livestock, agriculture, real estate)", "Assets", "Operations", "Costs and revenue", "Reports"],
+    },
     operatingPrimitives: ["money", "assets", "workflow", "insight"],
     documented: false,
   },
@@ -220,6 +225,10 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
     does: {
       ar: ["طلبات المناسبات", "الطاقم والتجهيزات", "الجدولة", "التكلفة لكل مناسبة"],
       en: ["Event orders", "Crew and equipment", "Scheduling", "Cost per occasion"],
+    },
+    entities: {
+      ar: ["المناسبات والأحداث", "الطلبات وعروض الأسعار", "الطاقم", "التجهيزات", "التكلفة والربح"],
+      en: ["Occasions and events", "Requests and quotes", "Crew", "Equipment", "Cost and profit"],
     },
     operatingPrimitives: ["relationships", "time", "money", "assets", "workflow", "people"],
     documented: false,
@@ -261,7 +270,49 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
         "Works offline; corrections by reversal, never deletion",
       ],
     },
+    entities: {
+      ar: ["الأصناف بالأنواع والدرجات", "الموردون والأطراف", "الشراء والبيع", "الخزنة", "الإيصالات المرقّمة"],
+      en: ["Items by type and grade", "Suppliers and counterparties", "Purchases and sales", "Cash box", "Numbered receipts"],
+    },
     operatingPrimitives: ["relationships", "money", "assets", "workflow", "documents", "insight", "integrity"],
+    documented: false,
+  },
+
+  {
+    id: "materials",
+    // Real product (Lenastore, construction materials), represented canonically
+    // but held off the public World for now — the World deepens existing worlds
+    // before expanding the count.
+    visibility: "hidden",
+    order: 7,
+    name: { ar: "Lenastore", en: "Lenastore" },
+    tagline: {
+      ar: "إدارة مواد المشاريع الإنشائية: طلبات الشراء والمخزون والموردون في نظام واحد.",
+      en: "Construction project materials: purchase requests, inventory and suppliers in one system.",
+    },
+    stage: "trial",
+    beneficiaries: {
+      ar: ["مدير المشروع", "مهندس الموقع أو المشرف", "مسؤول المشتريات", "المحاسب"],
+      en: ["The project manager", "The site engineer or supervisor", "The purchasing officer", "The accountant"],
+    },
+    usage: {
+      ar: "المشروع الإنشائي يتعامل مع مواد كثيرة: ما طُلب، وما وصل فعلًا كاملًا أو جزئيًا، وما دُفع للموردين. النظام يجمع طلبات الشراء والمشتريات والاستلام والمدفوعات والمرفقات في سجل واحد يعمل من الجوال، مع تقارير تكشف حالة المخزون وحركة المدفوعات.",
+      en: "A construction project deals with many materials: what was requested, what actually arrived in full or in part, and what has been paid to suppliers. The system brings purchase requests, purchases, receiving, payments and attachments into one mobile-working record, with reports that reveal inventory state and payment movement.",
+    },
+    industry: { ar: "إدارة مواد المشاريع الإنشائية", en: "Construction project materials" },
+    problem: {
+      ar: "طلبات شراء متفرقة، ولا صورة واضحة لما طُلب مقابل ما استُلم فعلًا، وأرصدة الموردين تتجمع بلا سجل موثوق.",
+      en: "Scattered purchase requests, no clear picture of what was ordered versus what actually arrived, and supplier balances accumulating without a reliable record.",
+    },
+    does: {
+      ar: ["المواد والمخزون", "طلبات الشراء", "المشتريات والاستلام الكامل أو الجزئي", "الموردون والمدفوعات", "المرفقات", "تقارير الحالة"],
+      en: ["Materials and inventory", "Purchase requests", "Purchases with full or partial receiving", "Suppliers and payments", "Attachments", "Status reports"],
+    },
+    entities: {
+      ar: ["المواد", "المخزون", "طلبات الشراء", "المشتريات والاستلام", "الموردون", "المدفوعات", "المرفقات"],
+      en: ["Materials", "Inventory", "Purchase requests", "Purchases and receiving", "Suppliers", "Payments", "Attachments"],
+    },
+    operatingPrimitives: ["assets", "money", "relationships", "workflow", "documents", "insight"],
     documented: false,
   },
 ];

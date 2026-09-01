@@ -620,3 +620,30 @@
   transform: scale(1.16);
   transition: transform 0.4s ease;
 }
+
+/* --- Operating-roots chip (public capability signal, never lifecycle) --- */
+.lena-roots-chip {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--lena-line);
+  border-radius: 99px;
+  background: rgba(82,112,255,.1);
+  padding: 6px 10px;
+  color: var(--lena-muted);
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.lena-roots-chip::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--lena-accent);
+  box-shadow: 0 0 8px var(--lena-accent);
+}
+.lena-showcase-grid .lena-roots-chip,
+.lena-system-card .lena-roots-chip { margin-top: 12px; }
+.lena-portfolio-preparing .lena-roots-chip { margin-inline-start: 8px; }

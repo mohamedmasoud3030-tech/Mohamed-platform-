@@ -3,13 +3,7 @@ import { usePreferences } from "@/providers/preferences";
 import { useSpatialScene } from "../spatial/useSpatialScene";
 import { buildStars } from "../spatial/ambientField";
 import { useWorldPortalTransition } from "../WorldPortalTransition";
-import {
-  worldSystem,
-  WORLD_ACTION_LABEL,
-  WORLD_STATE_LABEL,
-  WORLD_STATE_NOTE,
-  type WorldEntity,
-} from "../content/world";
+import { worldSystem, type WorldEntity } from "../content/world";
 
 export type WorldSceneProps = {
   entities: WorldEntity[];
@@ -111,7 +105,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
             }
             onClick={() => onSelect(entity.systemId)}
             aria-pressed={selected}
-            aria-label={`${system.name[locale]} — ${system.industry[locale]} — ${WORLD_STATE_LABEL[entity.state][locale]}`}
+            aria-label={`${system.name[locale]} — ${system.industry[locale]}`}
           >
             <span className="lena-world-entity-figure" aria-hidden="true">
               <span className="lena-world-entity-marks" />
@@ -119,8 +113,9 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
             <span className="lena-world-entity-caption">
               <strong>{system.name[locale]}</strong>
               <em>{system.industry[locale]}</em>
-              <span className="lena-world-entity-state">
-                {WORLD_STATE_LABEL[entity.state][locale]}
+              <span className="lena-world-entity-roots">
+                {system.operatingPrimitives.length}{" "}
+                {locale === "ar" ? "جذور تشغيل" : "operating roots"}
               </span>
             </span>
           </button>
@@ -138,21 +133,20 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
             style={{ "--info-x": "0px", "--info-y": "430px" } as CSSProperties}
             aria-live="polite"
           >
-            <p className="lena-world-info-state">
-              {WORLD_STATE_LABEL[selected.state][locale]}
+            <p className="lena-world-info-roots">
+              {system.operatingPrimitives.length}{" "}
+              {locale === "ar" ? "جذور تشغيل مشتركة مع أنظمة LENA" : "operating roots shared with LENA systems"}
             </p>
             <h2>{system.name[locale]}</h2>
             <p className="lena-world-info-industry">{system.industry[locale]}</p>
             <p className="lena-world-info-problem">{system.problem[locale]}</p>
-            <p className="lena-world-info-note">
-              {WORLD_STATE_NOTE[selected.state][locale]}
-            </p>
+            <p className="lena-world-info-note">{system.usage[locale]}</p>
             <a
               className="lena-world-info-action"
               href={selected.detailPath}
               onClick={(event) => enterPortal(event, selected.detailPath, selected.systemId)}
             >
-              <span>{WORLD_ACTION_LABEL[selected.state][locale]}</span>
+              <span>{locale === "ar" ? "افتح غرفة النظام" : "Open the system chamber"}</span>
               <span aria-hidden="true">→</span>
             </a>
           </aside>
