@@ -10,8 +10,8 @@ import { useEffect, useRef } from "react";
  *
  * Returns a ref to attach to the scene root and the current gates.
  */
-export function useSpatialScene(options?: { margin?: string }) {
-  const rootRef = useRef<HTMLDivElement | null>(null);
+export function useSpatialScene<T extends HTMLElement = HTMLDivElement>(options?: { margin?: string }) {
+  const rootRef = useRef<T | null>(null);
   const visibleRef = useRef(false);
   const enteredRef = useRef(false);
   const reducedRef = useRef(false);

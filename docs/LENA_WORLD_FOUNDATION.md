@@ -177,10 +177,18 @@ After Spatial Language v1:
 - keep ordinary product/case-study reading calm and content-first
 
 ### Phase D — Platform Leverage Map
-In parallel with product maturity:
+Started in World v6:
 - inventory repeated capabilities across MALEK, LenaBeauty, LENA Dress, Kayyal, Terranex, and future systems
 - classify them as domain-specific, shared candidate, or true platform primitive
 - only then begin extracting LENA OS foundations
+
+World v6 establishes the first public Platform Leverage Map. Every graph edge is
+an explicit, reviewable classification attached to a canonical product record.
+A capability connected to two or more public systems is shown as a proven shared
+root; a capability evidenced in only one system remains an emerging signal. This
+is a map of leverage, not a claim that shared runtime infrastructure already
+exists. Technical extraction remains a separate decision governed by domain
+truth, security boundaries, and demonstrated reuse.
 
 ## 12. Founding Sentence
 

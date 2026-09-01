@@ -1,0 +1,628 @@
+/* ===========================================================================
+   LENA World v6 — Constellation Graph
+   --------------------------------------------------------------------------
+   The graph reveals explicit cross-system operating roots. Bright lines always
+   mean a selected, factual relationship. A dotted root is an emerging signal,
+   never a claim that shared LENA OS infrastructure already exists.
+============================================================================ */
+
+.lena-os-reveal {
+  position: relative;
+  margin-top: clamp(84px, 12vw, 148px);
+  padding: clamp(30px, 5vw, 58px) 0 24px;
+  border-top: 1px solid var(--lena-line);
+}
+
+.lena-os-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 32px;
+}
+
+.lena-os-heading h2 {
+  max-width: 830px;
+  margin: 12px 0 0;
+  font-size: clamp(2rem, 4.2vw, 3.5rem);
+  font-weight: 580;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.lena-os-heading > div > p:last-child {
+  max-width: 710px;
+  margin: 16px 0 0;
+  color: var(--lena-muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.lena-os-proof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(88px, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.lena-os-proof > div {
+  min-height: 88px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  border: 1px solid rgba(130, 158, 255, 0.16);
+  border-radius: 16px;
+  background: rgba(10, 17, 41, 0.44);
+  padding: 13px;
+}
+
+.lena-os-proof dt {
+  color: var(--lena-muted);
+  font-size: 8px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lena-os-proof dd {
+  margin: 0;
+  color: var(--lena-text);
+  font-size: 24px;
+  font-weight: 650;
+}
+
+.lena-os-graph-stage {
+  position: relative;
+  width: min(1060px, 100%);
+  height: 780px;
+  margin: 32px auto 0;
+  overflow: hidden;
+  border: 1px solid rgba(130, 158, 255, 0.12);
+  border-radius: 34px;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(84, 98, 255, 0.12),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 18% 20%,
+      rgba(39, 145, 255, 0.075),
+      transparent 31%
+    ),
+    radial-gradient(
+      circle at 82% 78%,
+      rgba(181, 80, 255, 0.065),
+      transparent 30%
+    ),
+    linear-gradient(160deg, rgba(10, 17, 42, 0.82), rgba(5, 9, 25, 0.58));
+  isolation: isolate;
+}
+
+.lena-os-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(146, 170, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(146, 170, 255, 0.035) 1px, transparent 1px);
+  background-size: 42px 42px;
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 50%,
+    #000 10%,
+    transparent 76%
+  );
+  mask-image: radial-gradient(circle at 50% 50%, #000 10%, transparent 76%);
+}
+
+.lena-os-field::after {
+  content: "";
+  position: absolute;
+  inset: 9%;
+  border: 1px solid rgba(142, 168, 255, 0.08);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 74px rgba(142, 168, 255, 0.025),
+    0 0 0 148px rgba(142, 168, 255, 0.018);
+}
+
+.lena-os-edges {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.lena-os-edges line {
+  vector-effect: non-scaling-stroke;
+  stroke: rgba(135, 160, 245, 0.075);
+  stroke-width: 1;
+  transition:
+    stroke 0.32s ease,
+    opacity 0.32s ease;
+}
+
+.lena-os-edges .lena-os-core-edge {
+  stroke: rgba(185, 130, 255, 0.13);
+  stroke-dasharray: 2 3;
+}
+
+.lena-os-edges line.is-active {
+  stroke: rgba(116, 165, 255, 0.64);
+  stroke-width: 1.4;
+  stroke-dasharray: 3 2;
+  animation: lena-os-signal 2.4s linear infinite;
+}
+
+.lena-os-edges .lena-os-core-edge.is-active {
+  stroke: rgba(223, 151, 255, 0.78);
+}
+
+.lena-os-reveal.is-away .lena-os-edges line {
+  animation-play-state: paused;
+}
+
+.lena-os-core,
+.lena-os-system,
+.lena-os-root {
+  position: absolute;
+  left: var(--os-x, 50%);
+  top: var(--os-y, 50%);
+  transform: translate(-50%, -50%);
+}
+
+.lena-os-core {
+  z-index: 5;
+  display: grid;
+  width: 138px;
+  aspect-ratio: 1;
+  place-content: center;
+  border: 1px solid rgba(198, 178, 255, 0.46);
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 33% 28%,
+      rgba(132, 163, 255, 0.4),
+      transparent 34%
+    ),
+    radial-gradient(circle, rgba(53, 47, 136, 0.9), rgba(7, 11, 31, 0.97) 69%);
+  box-shadow:
+    0 0 0 12px rgba(115, 108, 255, 0.035),
+    0 0 62px rgba(95, 98, 255, 0.24);
+  text-align: center;
+}
+
+.lena-os-core > span {
+  position: absolute;
+  left: 50%;
+  top: 23%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f1c8ff;
+  box-shadow: 0 0 16px rgba(229, 168, 255, 0.9);
+  transform: translateX(-50%);
+}
+
+.lena-os-core strong {
+  margin-top: 13px;
+  color: #f7f3ff;
+  font-size: 16px;
+  letter-spacing: 0.16em;
+  padding-inline-start: 0.16em;
+}
+
+.lena-os-core small {
+  margin-top: 5px;
+  color: #c6a9ff;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.lena-os-system {
+  z-index: 4;
+  display: grid;
+  width: 128px;
+  min-height: 78px;
+  place-content: center;
+  justify-items: center;
+  border: 1px solid rgba(132, 160, 244, 0.14);
+  border-radius: 17px;
+  background: rgba(8, 14, 35, 0.76);
+  padding: 10px;
+  color: var(--lena-muted);
+  text-align: center;
+  text-decoration: none;
+  opacity: 0.48;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.lena-os-system > i {
+  width: 7px;
+  height: 7px;
+  margin-bottom: 6px;
+  border: 1px solid rgba(144, 173, 255, 0.5);
+  border-radius: 50%;
+}
+
+.lena-os-system strong {
+  color: var(--lena-text);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.lena-os-system small {
+  max-width: 106px;
+  margin-top: 4px;
+  font-size: 7.5px;
+  line-height: 1.35;
+}
+
+.lena-os-system.is-connected {
+  border-color: rgba(108, 158, 255, 0.52);
+  background: rgba(21, 35, 76, 0.84);
+  box-shadow: 0 0 34px rgba(74, 117, 255, 0.17);
+  color: var(--lena-text);
+  opacity: 1;
+}
+
+.lena-os-system:hover,
+.lena-os-system:focus-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.04);
+}
+
+.lena-os-root {
+  z-index: 6;
+  display: flex;
+  width: 112px;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid rgba(145, 169, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(10, 18, 43, 0.94);
+  padding: 8px 10px;
+  color: var(--lena-muted);
+  cursor: pointer;
+  font: inherit;
+  text-align: center;
+  transition:
+    border-color 0.28s ease,
+    color 0.28s ease,
+    box-shadow 0.28s ease,
+    transform 0.28s ease;
+}
+
+.lena-os-root > span {
+  font-size: 8.5px;
+  font-weight: 760;
+  line-height: 1.2;
+}
+
+.lena-os-root > small {
+  display: grid;
+  min-width: 20px;
+  height: 20px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(124, 151, 255, 0.13);
+  color: #aebfff;
+  font-size: 8px;
+  font-weight: 850;
+}
+
+.lena-os-root.is-signal {
+  border-style: dashed;
+  opacity: 0.64;
+}
+
+.lena-os-root.is-selected {
+  border-color: rgba(211, 161, 255, 0.78);
+  box-shadow:
+    0 0 0 4px rgba(173, 117, 255, 0.055),
+    0 0 28px rgba(128, 111, 255, 0.22);
+  color: var(--lena-text);
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.lena-os-mobile-roots {
+  display: none;
+}
+
+.lena-os-explanation {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  min-height: 184px;
+  margin-top: 14px;
+  border: 1px solid rgba(132, 160, 244, 0.15);
+  border-radius: 22px;
+  background: linear-gradient(
+    145deg,
+    rgba(18, 29, 64, 0.55),
+    rgba(7, 12, 31, 0.48)
+  );
+  padding: 24px;
+}
+
+.lena-os-explanation.is-signal {
+  border-style: dashed;
+}
+
+.lena-os-explanation-title > span,
+.lena-os-connected-systems > small {
+  color: #b8a4ff;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lena-os-explanation-title h3 {
+  margin: 7px 0 0;
+  font-size: 24px;
+  font-weight: 620;
+}
+
+.lena-os-explanation-title p,
+.lena-os-boundary {
+  margin: 8px 0 0;
+  color: var(--lena-muted);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.lena-os-connected-systems > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 11px;
+}
+
+.lena-os-connected-systems a {
+  border: 1px solid rgba(132, 160, 244, 0.18);
+  border-radius: 999px;
+  padding: 6px 10px;
+  color: var(--lena-text);
+  font-size: 9px;
+  font-weight: 720;
+  text-decoration: none;
+}
+
+.lena-os-boundary {
+  margin: 0;
+  border-inline-start: 1px solid rgba(198, 165, 255, 0.25);
+  padding-inline-start: 18px;
+}
+
+.light .lena-os-proof > div,
+.light .lena-os-system,
+.light .lena-os-root {
+  background-color: rgba(255, 255, 255, 0.82);
+}
+
+.light .lena-os-explanation {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.94),
+    rgba(232, 238, 255, 0.88)
+  );
+}
+
+.light .lena-os-graph-stage {
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(84, 98, 255, 0.09),
+      transparent 25%
+    ),
+    linear-gradient(
+      160deg,
+      rgba(245, 248, 255, 0.92),
+      rgba(229, 236, 255, 0.72)
+    );
+}
+
+.light .lena-os-system.is-connected {
+  background: rgba(231, 238, 255, 0.94);
+}
+.light .lena-os-root {
+  background: rgba(247, 249, 255, 0.96);
+}
+
+/* The reveal assembles once; only selected factual edges keep carrying energy. */
+.lena-os-reveal.is-visible .lena-os-system,
+.lena-os-reveal.is-visible .lena-os-root,
+.lena-os-reveal.is-visible .lena-os-core {
+  animation: lena-os-arrive 0.66s cubic-bezier(0.16, 0.84, 0.26, 1) both;
+}
+
+@keyframes lena-os-arrive {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.84);
+  }
+}
+
+@keyframes lena-os-signal {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+@media (max-width: 900px) {
+  .lena-os-heading {
+    grid-template-columns: 1fr;
+  }
+  .lena-os-proof {
+    width: min(430px, 100%);
+  }
+  .lena-os-graph-stage {
+    height: 700px;
+  }
+  .lena-os-system {
+    width: 108px;
+  }
+  .lena-os-root {
+    width: 100px;
+  }
+  .lena-os-root > span {
+    font-size: 7.5px;
+  }
+  .lena-os-explanation {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .lena-os-boundary {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 720px) {
+  .lena-os-reveal {
+    margin-top: 82px;
+    padding-top: 38px;
+  }
+  .lena-os-heading h2 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+  .lena-os-proof {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .lena-os-proof > div {
+    min-height: 78px;
+    padding: 10px;
+  }
+  .lena-os-proof dd {
+    font-size: 20px;
+  }
+  .lena-os-graph-stage {
+    display: none;
+  }
+
+  .lena-os-mobile-roots {
+    display: block;
+    margin-top: 28px;
+    border: 1px solid rgba(132, 160, 244, 0.13);
+    border-radius: 24px;
+    background:
+      radial-gradient(
+        circle at 50% 0,
+        rgba(107, 110, 255, 0.15),
+        transparent 43%
+      ),
+      rgba(7, 12, 31, 0.48);
+    padding: 17px;
+  }
+
+  .lena-os-mobile-core {
+    display: flex;
+    min-height: 74px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 1px solid rgba(132, 160, 244, 0.13);
+    padding: 2px 5px 16px;
+  }
+
+  .lena-os-mobile-core strong {
+    font-size: 15px;
+    letter-spacing: 0.14em;
+  }
+  .lena-os-mobile-core span {
+    color: #b8a4ff;
+    font-size: 9px;
+  }
+
+  .lena-os-root-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .lena-os-root-card {
+    display: grid;
+    min-height: 76px;
+    align-content: center;
+    gap: 7px;
+    border: 1px solid rgba(132, 160, 244, 0.16);
+    border-radius: 15px;
+    background: rgba(12, 21, 48, 0.72);
+    padding: 11px;
+    color: var(--lena-text);
+    font: inherit;
+    text-align: start;
+  }
+
+  .lena-os-root-card > span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 10px;
+    font-weight: 760;
+  }
+  .lena-os-root-card > span i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #809cff;
+    box-shadow: 0 0 9px rgba(100, 141, 255, 0.7);
+  }
+  .lena-os-root-card > small {
+    color: var(--lena-muted);
+    font-size: 8px;
+  }
+  .lena-os-root-card.is-signal {
+    border-style: dashed;
+  }
+  .lena-os-root-card.is-selected {
+    border-color: rgba(207, 157, 255, 0.74);
+    background: rgba(37, 31, 86, 0.78);
+  }
+
+  .lena-os-explanation {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 20px;
+  }
+  .lena-os-boundary {
+    grid-column: auto;
+  }
+  .light .lena-os-mobile-roots,
+  .light .lena-os-root-card {
+    background-color: rgba(255, 255, 255, 0.82);
+  }
+}
+
+@media (max-width: 420px) {
+  .lena-os-root-grid {
+    gap: 6px;
+  }
+  .lena-os-root-card {
+    min-height: 70px;
+    padding: 9px;
+  }
+  .lena-os-root-card > span {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lena-os-reveal *,
+  .lena-os-reveal *::before,
+  .lena-os-reveal *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
