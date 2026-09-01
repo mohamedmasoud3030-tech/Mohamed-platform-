@@ -5,18 +5,23 @@ import { findSystem, type SystemId } from "@/content/systems";
  * LENA World presentation model.
  *
  * The World is a curated entrance into the LENA ecosystem. Everything factual
- * (names, industries, problems, destinations) is read from the canonical
- * `content/systems.ts` — this file never duplicates product facts. What it adds
- * is founder-controlled *presentation* metadata: which systems appear in the
- * World v1, their visual state, their Digital DNA, and where they exit into
- * detailed content. These are world-building choices, not runtime inference.
+ * (names, industries, problems, destinations) is read from canonical
+ * `content/systems.ts`; this file owns presentation metadata only: visual state,
+ * Digital DNA and the calm exit path. These are explicit world-building choices,
+ * never runtime inference or invented telemetry.
  */
 
-/** Visual state vocabulary for World entities (see LENA_WORLD_FOUNDATION.md §6). */
+/** Visual state vocabulary for World entities (LENA_WORLD_FOUNDATION.md §6). */
 export type WorldState = "live" | "beta" | "forming";
 
 /** Controlled variation inside one LENA visual universe (foundation §7). */
-export type DigitalDNA = "architectural" | "organic" | "industrial";
+export type DigitalDNA =
+  | "architectural"
+  | "organic"
+  | "crafted"
+  | "ceremonial"
+  | "systemic"
+  | "industrial";
 
 export type WorldEntity = {
   /** Stable canonical id — the single source of truth for every fact. */
@@ -28,24 +33,29 @@ export type WorldEntity = {
 };
 
 /**
- * v1 constellation. MALEK (property) is live and architectural; LenaBeauty
- * (wellness) is beta and organic; Kayyal (recycling) is forming and industrial.
- * This mapping is explicit and stable — it is not derived from runtime data.
+ * Full public constellation v2.
+ *
+ * Presentation order follows the canonical public family rather than creating a
+ * second portfolio taxonomy. State/DNA are explicit founder-controlled visual
+ * metadata. The underlying product stage remains owned by `content/systems.ts`.
  */
 export const WORLD_ENTITIES: WorldEntity[] = [
-  { systemId: "property", state: "live", dna: "architectural", detailPath: "/services#property" },
   { systemId: "wellness", state: "beta", dna: "organic", detailPath: "/services#wellness" },
+  { systemId: "rental", state: "beta", dna: "crafted", detailPath: "/services#rental" },
+  { systemId: "property", state: "live", dna: "architectural", detailPath: "/services#property" },
+  { systemId: "hospitality", state: "forming", dna: "ceremonial", detailPath: "/services#hospitality" },
+  { systemId: "investment", state: "beta", dna: "systemic", detailPath: "/services#investment" },
   { systemId: "recycling", state: "forming", dna: "industrial", detailPath: "/services#recycling" },
 ];
 
-/** Stage labels used by the World surface. Real stage vocabulary, not telemetry. */
+/** Stage labels used by the World surface. Real vocabulary, not telemetry. */
 export const WORLD_STATE_LABEL: Record<WorldState, Record<AppLocale, string>> = {
   live: { ar: "مباشر", en: "Live" },
   beta: { ar: "تجريبي", en: "Beta" },
   forming: { ar: "قيد التكوين", en: "Forming" },
 };
 
-/** Short non-claim explanation of what each state means. */
+/** Short non-claim explanation of what each visual state means. */
 export const WORLD_STATE_NOTE: Record<WorldState, Record<AppLocale, string>> = {
   live: {
     ar: "نظام مستقر يعمل اليوم داخل عمل حقيقي.",
