@@ -1,0 +1,286 @@
+/* ========================================================================== 
+   LENA World v5 — Inner Constellations
+   --------------------------------------------------------------------------
+   A System Chamber now reveals the operating scope inside the selected system.
+   The center remains the system identity; every orbiting node is canonical
+   `BusinessSystem.does` content. No inferred sequence, live telemetry or fake
+   capability graph is introduced. Motion is arrival-only; the settled map is
+   intentionally still so reading remains calm.
+============================================================================ */
+
+.lena-inner-constellation {
+  position: relative;
+  width: min(500px, 100%);
+  aspect-ratio: 1;
+  justify-self: center;
+  isolation: isolate;
+}
+
+.lena-inner-field,
+.lena-inner-ring,
+.lena-inner-origin,
+.lena-inner-core,
+.lena-inner-link,
+.lena-inner-node {
+  position: absolute;
+}
+
+.lena-inner-field {
+  inset: 0;
+  pointer-events: none;
+}
+
+.lena-inner-field::before {
+  content: "";
+  position: absolute;
+  inset: 9%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(var(--chamber-a), .12), transparent 54%),
+    radial-gradient(circle at 50% 50%, rgba(var(--chamber-gold), .055), transparent 72%);
+}
+
+.lena-inner-ring {
+  left: 50%;
+  top: 50%;
+  border: 1px solid rgba(var(--chamber-a), .17);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.inner-ring-a { width: 82%; height: 82%; opacity: .48; }
+.inner-ring-b { width: 62%; height: 62%; border-style: dashed; opacity: .46; }
+.inner-ring-c { width: 42%; height: 42%; border-color: rgba(var(--chamber-gold), .24); opacity: .7; }
+
+.lena-inner-origin {
+  left: 50%;
+  top: 50%;
+  width: 74%;
+  height: 74%;
+  border-radius: 50%;
+  background: url("../assets/lena-sacred-core.webp") center / contain no-repeat;
+  opacity: .052;
+  transform: translate(-50%, -50%);
+  filter: saturate(.78);
+}
+
+.lena-inner-core {
+  left: 50%;
+  top: 50%;
+  width: 31%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid rgba(var(--chamber-a), .48);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 31% 28%, rgba(var(--chamber-a), .36), transparent 38%),
+    linear-gradient(145deg, rgba(var(--chamber-b), .22), rgba(8, 13, 31, .94));
+  box-shadow:
+    0 24px 78px rgba(0,0,0,.32),
+    0 0 52px rgba(var(--chamber-a), .13);
+  transform: translate(-50%, -50%);
+  z-index: 4;
+}
+
+.lena-inner-core-marks,
+.lena-inner-core-light {
+  position: absolute;
+  display: block;
+}
+.lena-inner-core-marks { inset: 0; opacity: .72; }
+.lena-inner-core-light {
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgb(var(--chamber-gold));
+  box-shadow:
+    0 0 15px rgba(var(--chamber-gold), .86),
+    0 0 36px rgba(var(--chamber-a), .3);
+  transform: translate(-50%, -50%);
+}
+
+.lena-inner-core-label {
+  position: absolute;
+  left: 50%;
+  top: 68%;
+  z-index: 6;
+  max-width: 170px;
+  transform: translateX(-50%);
+  color: var(--lena-text);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .08em;
+  text-align: center;
+}
+
+.lena-inner-operation { display: contents; }
+
+.lena-inner-link {
+  left: 50%;
+  top: 50%;
+  width: 31%;
+  height: 1px;
+  z-index: 2;
+  transform: rotate(var(--inner-angle));
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, rgba(var(--chamber-gold), .42), rgba(var(--chamber-a), .22), transparent);
+  opacity: .62;
+}
+
+.lena-inner-node {
+  z-index: 5;
+  display: grid;
+  width: clamp(82px, 21%, 112px);
+  min-height: 54px;
+  place-items: center;
+  gap: 5px;
+  border: 1px solid rgba(var(--chamber-a), .24);
+  border-radius: 15px;
+  background:
+    linear-gradient(145deg, rgba(var(--chamber-a), .095), rgba(8,13,31,.84));
+  box-shadow: 0 12px 32px rgba(0,0,0,.2);
+  padding: 8px 9px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.lena-inner-node > i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(var(--chamber-a));
+  box-shadow: 0 0 10px rgba(var(--chamber-a), .66);
+}
+
+.lena-inner-node > span {
+  color: var(--lena-muted);
+  font-size: 9px;
+  font-weight: 740;
+  line-height: 1.35;
+}
+
+/* DNA stays structural. The Chamber palette is inherited; geometry changes. */
+.dna-architectural .lena-inner-core {
+  border-radius: 16px;
+  background:
+    linear-gradient(90deg, rgba(var(--chamber-a), .16) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(var(--chamber-a), .16) 1px, transparent 1px),
+    linear-gradient(145deg, rgba(var(--chamber-b), .25), rgba(8,13,31,.94));
+  background-size: 21px 21px, 21px 21px, auto;
+}
+.dna-architectural .lena-inner-core-marks {
+  background:
+    linear-gradient(90deg, transparent 23%, rgba(var(--chamber-a), .28) 24%, transparent 25%),
+    linear-gradient(0deg, transparent 63%, rgba(var(--chamber-a), .2) 64%, transparent 65%);
+}
+.dna-architectural .lena-inner-node { border-radius: 10px; }
+
+.dna-organic .lena-inner-core {
+  border-radius: 50% 46% 54% 48% / 48% 56% 44% 52%;
+}
+.dna-organic .lena-inner-core-marks {
+  background: repeating-radial-gradient(ellipse at 50% 45%, transparent 0 13px, rgba(var(--chamber-a), .19) 14px 15px);
+}
+.dna-organic .lena-inner-node { border-radius: 50% 46% 50% 54% / 48% 54% 46% 52%; }
+
+.dna-crafted .lena-inner-core {
+  clip-path: polygon(22% 3%, 78% 3%, 98% 30%, 84% 88%, 50% 100%, 16% 88%, 2% 30%);
+  border-radius: 0;
+}
+.dna-crafted .lena-inner-core-marks {
+  background: repeating-linear-gradient(45deg, transparent 0 16px, rgba(var(--chamber-a), .2) 17px 18px);
+}
+.dna-crafted .lena-inner-node { clip-path: polygon(10% 0, 90% 0, 100% 20%, 94% 88%, 50% 100%, 6% 88%, 0 20%); border-radius: 0; }
+
+.dna-ceremonial .lena-inner-core {
+  border-radius: 50%;
+  background:
+    repeating-conic-gradient(from 8deg, rgba(var(--chamber-gold), .17) 0 5deg, transparent 5deg 24deg),
+    radial-gradient(circle, rgba(var(--chamber-b), .23), rgba(8,13,31,.94) 68%);
+}
+.dna-ceremonial .lena-inner-node { border-radius: 50%; min-height: 72px; }
+
+.dna-systemic .lena-inner-core {
+  border-radius: 15px;
+  background:
+    linear-gradient(90deg, rgba(var(--chamber-a), .14) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(var(--chamber-b), .14) 1px, transparent 1px),
+    radial-gradient(circle, rgba(var(--chamber-a), .22), rgba(8,13,31,.94) 70%);
+  background-size: 17px 17px, 17px 17px, auto;
+}
+.dna-systemic .lena-inner-core-marks {
+  background:
+    radial-gradient(circle at 24% 24%, rgba(var(--chamber-a), .8) 0 2px, transparent 3px),
+    radial-gradient(circle at 76% 24%, rgba(var(--chamber-b), .8) 0 2px, transparent 3px),
+    radial-gradient(circle at 24% 76%, rgba(var(--chamber-b), .8) 0 2px, transparent 3px),
+    radial-gradient(circle at 76% 76%, rgba(var(--chamber-a), .8) 0 2px, transparent 3px);
+}
+
+.dna-industrial .lena-inner-core {
+  border-radius: 8px;
+  background:
+    repeating-linear-gradient(90deg, rgba(var(--chamber-a), .1) 0 10px, transparent 10px 20px),
+    linear-gradient(145deg, rgba(var(--chamber-b), .27), rgba(8,13,31,.94));
+}
+.dna-industrial .lena-inner-core-marks {
+  background: repeating-linear-gradient(0deg, transparent 0 12px, rgba(var(--chamber-a), .19) 13px 14px);
+}
+.dna-industrial .lena-inner-node { border-radius: 7px; }
+
+/* Arrival-only assembly. Once this finishes, every element remains static. */
+.lena-system-chamber.is-arrival .lena-inner-core {
+  animation: lena-inner-core-arrive .74s cubic-bezier(.16,.84,.26,1) both;
+}
+.lena-system-chamber.is-arrival .lena-inner-link {
+  animation: lena-inner-link-arrive .54s ease calc(.16s + var(--inner-i)) both;
+}
+.lena-system-chamber.is-arrival .lena-inner-node {
+  animation: lena-inner-node-arrive .58s cubic-bezier(.16,.84,.26,1) calc(.2s + var(--inner-i)) both;
+}
+
+@keyframes lena-inner-core-arrive {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(.72); }
+}
+@keyframes lena-inner-link-arrive {
+  from { opacity: 0; scale: 0 1; }
+}
+@keyframes lena-inner-node-arrive {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(.78); }
+}
+
+@media (max-width: 900px) {
+  .lena-inner-constellation { width: min(440px, 100%); }
+}
+
+@media (max-width: 720px) {
+  .lena-inner-constellation {
+    width: min(390px, 100%);
+    margin-top: 6px;
+  }
+  .lena-inner-node {
+    width: clamp(72px, 22%, 92px);
+    min-height: 49px;
+    padding: 7px 7px;
+  }
+  .lena-inner-node > span { font-size: 8px; }
+  .dna-ceremonial .lena-inner-node { min-height: 60px; }
+  .lena-inner-core-label { top: 67%; font-size: 9px; }
+}
+
+@media (max-width: 430px) {
+  .lena-inner-constellation { width: 340px; max-width: 100%; }
+  .lena-inner-node {
+    width: 76px;
+    min-height: 44px;
+  }
+  .lena-inner-node > span { font-size: 7.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lena-inner-core,
+  .lena-inner-link,
+  .lena-inner-node {
+    animation: none !important;
+  }
+}
