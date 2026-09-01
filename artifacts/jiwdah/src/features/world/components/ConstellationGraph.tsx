@@ -14,7 +14,9 @@ import {
 
 type Point = { x: number; y: number };
 
-const SYSTEM_POSITIONS: Record<SystemId, Point> = {
+// Positions only for worlds currently shown in the graph; hidden canonical
+// products have no position and are simply not plotted.
+const SYSTEM_POSITIONS: Partial<Record<SystemId, Point>> = {
   wellness: { x: 16, y: 18 },
   rental: { x: 50, y: 8 },
   property: { x: 84, y: 18 },
@@ -130,6 +132,7 @@ export default function ConstellationGraph({
             const rootPoint = ROOT_POSITIONS[root.id];
             return root.systemIds.map((systemId) => {
               const systemPoint = SYSTEM_POSITIONS[systemId];
+              if (!systemPoint) return null;
               return (
                 <line
                   key={`${systemId}-${root.id}`}
@@ -169,6 +172,7 @@ export default function ConstellationGraph({
 
         {systems.map((system) => {
           const point = SYSTEM_POSITIONS[system.id];
+          if (!point) return null;
           const connected = selectedRoot.systemIds.includes(system.id);
           return (
             <Link

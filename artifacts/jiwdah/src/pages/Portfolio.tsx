@@ -5,7 +5,7 @@ import SeoHead from "@/components/SeoHead";
 import { pageSeo } from "@/content/seo";
 import PortfolioShowcase from "@/features/projects/PortfolioShowcase";
 import { publicProjects } from "@/content/projects";
-import { STAGE_LABEL, publicSystems } from "@/content/systems";
+import { publicSystems } from "@/content/systems";
 import PublicShell from "@/layouts/PublicShell";
 import { useSiteCopy } from "@/hooks/useSiteCopy";
 import { usePreferences } from "@/providers/preferences";
@@ -23,15 +23,15 @@ export default function Portfolio() {
       <section className="lena-section">
         <div className="lena-container">
           <article className="lena-glass lena-portfolio-preparing">
-            <h2>{locale === "ar" ? "دراسات المشاريع قيد التجهيز" : "Case studies are being prepared"}</h2>
+            <h2>{locale === "ar" ? "أنظمة تدير قطاعات كاملة" : "Systems that run whole operations"}</h2>
             <p>{locale === "ar"
-              ? "الأنظمة التالية مبنية وتعمل، ونجهّز الآن توثيقها بالشاشات والتفاصيل. حتى ذلك الحين، اطلب جولة مباشرة على أي نظام يخص قطاعك."
-              : "The systems below are built and running; their documentation and screens are being prepared. Until then, ask for a live walkthrough of whichever one fits your trade."}</p>
+              ? "كل نظام هنا يدير قطاعًا متكاملًا — عقارات، سبا، تأجير، استثمار، ضيافة، إعادة تدوير. افتح عالم LENA لترى كيف يعمل كل نظام من الداخل، أو تحدثنا عن النظام الذي يناسب قطاعك."
+              : "Each system here runs a complete operation — property, spa, rental, investment, hospitality, recycling. Open LENA World to see how each system works from the inside, or talk to us about the one that fits your trade."}</p>
             <ul className="lena-system-does">
-              {publicSystems().map((system) => <li key={system.id}>{system.name[locale]} — {system.industry[locale]} <span className={`lena-stage lena-stage-${system.stage}`}>{STAGE_LABEL[system.stage][locale]}</span></li>)}
+              {publicSystems().map((system) => <li key={system.id}>{system.name[locale]} — {system.industry[locale]} <span className="lena-roots-chip">{system.operatingPrimitives.length} {locale === "ar" ? "جذور تشغيل" : "operating roots"}</span></li>)}
             </ul>
-            <Link className="lena-primary" to="/contact">
-              {locale === "ar" ? "اطلب جولة مباشرة" : "Request a live walkthrough"}
+            <Link className="lena-primary" to="/world">
+              {locale === "ar" ? "ادخل إلى عالم LENA" : "Enter LENA World"}
               <ArrowUpRight size={16} />
             </Link>
           </article>

@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import assert from "node:assert/strict";
@@ -9,10 +9,33 @@ const read = (path) => readFileSync(resolve(ROOT, path), "utf8");
 const app = read("artifacts/jiwdah/src/App.tsx");
 const page = read("artifacts/jiwdah/src/pages/WorldSystem.tsx");
 const world = read("artifacts/jiwdah/src/features/world/content/world.ts");
+const systems = read("artifacts/jiwdah/src/content/systems.ts");
 const css = read("artifacts/jiwdah/src/styles/world-chamber.css");
+const evidenceCss = read("artifacts/jiwdah/src/styles/world-evidence.css");
 const lenaCss = read("artifacts/jiwdah/src/lena.css");
 const sitemap = read("artifacts/jiwdah/scripts/generate-sitemap.mjs");
 const analytics = read("artifacts/jiwdah/src/lib/analytics/events.ts");
+
+const FORBIDDEN_LIFECYCLE = [
+  // English lifecycle vocabulary that must not appear on public surfaces.
+  /\bDemo\b/i,
+  /\bTrial\b/i,
+  /\bPrototype\b/i,
+  /\bBeta\b/i,
+  /\bExperimental\b/i,
+  /\bUnder development\b/i,
+  /\bComing soon\b/i,
+  /\bWork in progress\b/i,
+  /\bIn real use\b/i,
+  /Demo version/i,
+  // Arabic lifecycle vocabulary.
+  /نسخة تجريبية/,
+  /تحت التطوير/,
+  /جاري العمل/,
+  /قريبًا/,
+  /قيد التجربة/,
+  /قيد الاستخدام الفعلي/,
+];
 
 let failures = 0;
 const check = (name, fn) => {
@@ -25,7 +48,7 @@ const check = (name, fn) => {
   }
 };
 
-console.log("\n== LENA World System Chamber contract ==");
+console.log("\n== LENA World System Chamber contract ==\n");
 
 check("a lazy dynamic World chamber route exists", () => {
   assert.match(app, /const WorldSystem = lazy\(\(\) => import\("\.\/pages\/WorldSystem"\)\)/);
@@ -52,11 +75,39 @@ check("invalid system ids return safely to World", () => {
   assert.match(page, /if \(!entity \|\| !system\) return <Navigate to="\/world" replace \/>/);
 });
 
-check("World state and verified product stage stay visibly distinct", () => {
-  assert.match(page, /WORLD_STATE_LABEL\[entity\.state\]\[locale\]/);
-  assert.match(page, /STAGE_LABEL\[system\.stage\]\[locale\]/);
-  assert.match(page, /WORLD_STATE_NOTE\[entity\.state\]\[locale\]/);
-  assert.match(page, /STAGE_NOTE\[system\.stage\]\[locale\]/);
+check("public Chamber copy carries no lifecycle status vocabulary", () => {
+  for (const pattern of FORBIDDEN_LIFECYCLE) {
+    assert.doesNotMatch(page, pattern, `forbidden lifecycle term on the chamber page`);
+  }
+});
+
+check("no lifecycle label tables are exported for public rendering", () => {
+  assert.doesNotMatch(systems, /STAGE_LABEL|STAGE_NOTE/);
+  assert.doesNotMatch(world, /WORLD_STATE_LABEL|WORLD_STATE_NOTE|WORLD_ACTION_LABEL/);
+});
+
+check("the Chamber exposes operating roots as Layer B intelligence", () => {
+  assert.match(page, /lena-chamber-signals/);
+  assert.match(page, /lena-chamber-roots/);
+  assert.match(page, /OPERATING_PRIMITIVES/);
+  assert.match(page, /system\.operatingPrimitives\.map/);
+  assert.match(css, /\.lena-chamber-roots\s*\{/);
+});
+
+check("the Chamber mounts the Operating Surfaces evidence layer", () => {
+  assert.match(page, /<OperatingSurfaces\s+systemId=\{entity\.systemId\}\s+brand=\{system\.name\[locale\]\}\s*\/>/);
+  assert.match(page, /import \{ OperatingSurfaces \} from "@\/features\/world\/components\/OperatingSurfaces"/);
+});
+
+check("Operating Surfaces is real-evidence only, never a gallery", () => {
+  assert.match(evidenceCss, /floating dimensional planes|constellation language/);
+  assert.match(evidenceCss, /prefers-reduced-motion/);
+  assert.match(evidenceCss, /\.lena-surface-frame img\.is-missing/);
+});
+
+check("Operating Surfaces renders nothing when a system has no evidence", () => {
+  const component = read("artifacts/jiwdah/src/features/world/components/OperatingSurfaces.tsx");
+  assert.match(component, /if \(surfaces\.length === 0\) return null/);
 });
 
 check("the Chamber keeps a calm exit into operating detail and contact", () => {
@@ -80,8 +131,10 @@ check("all six Digital DNA families have chamber material rules", () => {
 check("Chamber styles load after Portal styles", () => {
   const portal = lenaCss.indexOf('@import "./styles/world-portal.css"');
   const chamber = lenaCss.indexOf('@import "./styles/world-chamber.css"');
+  const evidence = lenaCss.indexOf('@import "./styles/world-evidence.css"');
   assert.ok(portal >= 0, "world-portal.css import missing");
   assert.ok(chamber > portal, "world-chamber.css must load after world-portal.css");
+  assert.ok(evidence > chamber, "world-evidence.css must load after world-chamber.css");
 });
 
 check("reduced-motion removes arrival animation", () => {
@@ -96,6 +149,43 @@ check("public systems generate indexable Chamber sitemap entries", () => {
 
 check("analytics records a route shape, never the chamber system id", () => {
   assert.match(analytics, /case "world":\s*\n\s*return second \? "\/world\/:system" : "\/world"/);
+});
+
+check("real evidence assets exist under the canonical system folder", () => {
+  const evidence = read("artifacts/jiwdah/src/features/world/content/evidence.ts");
+  const publicDir = resolve(ROOT, "artifacts/jiwdah/public");
+  const matches = evidence.matchAll(/src:\s*"(\/world\/evidence\/([a-z0-9-]+)\/([^"]+))"/g);
+  let count = 0;
+  for (const match of matches) {
+    const [, src, systemFolder, file] = match;
+    assert.match(src, /^\/world\/evidence\/[a-z0-9-]+\/[^/]+$/);
+    assert.ok(
+      existsSync(resolve(publicDir, "world/evidence", systemFolder, file)),
+      `missing evidence asset: ${src}`,
+    );
+    count += 1;
+  }
+  assert.ok(count >= 5, `expected at least 5 real surfaces, found ${count}`);
+});
+
+check("evidence ids are unique and every surface is alt + capability labelled", () => {
+  const evidence = read("artifacts/jiwdah/src/features/world/content/evidence.ts");
+  const ids = [...evidence.matchAll(/id:\s*"([^"]+)"/g)].map((m) => m[1]);
+  assert.equal(new Set(ids).size, ids.length, "duplicate evidence surface ids");
+  assert.ok(evidence.includes("alt: {"), "surfaces need alt text");
+  assert.ok(evidence.includes("capability: {"), "surfaces need capability copy");
+});
+
+check("no public render site still references stage labels", () => {
+  for (const file of [
+    "artifacts/jiwdah/src/components/SystemGrid.tsx",
+    "artifacts/jiwdah/src/pages/Portfolio.tsx",
+    "artifacts/jiwdah/src/pages/Services.tsx",
+    "artifacts/jiwdah/src/features/world/components/WorldScene.tsx",
+  ]) {
+    const source = read(file);
+    assert.doesNotMatch(source, /STAGE_LABEL|STAGE_NOTE|WORLD_STATE_LABEL|WORLD_STATE_NOTE|WORLD_ACTION_LABEL/);
+  }
 });
 
 console.log(failures === 0 ? "\nALL CHECKS PASSED\n" : `\n${failures} FAILED\n`);

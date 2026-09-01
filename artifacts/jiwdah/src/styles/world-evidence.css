@@ -1,0 +1,258 @@
+/* ========================================================================== 
+   LENA World v7 — Operating Surfaces (Chamber Layer C)
+   --------------------------------------------------------------------------
+   Real application evidence presented as floating dimensional planes inside
+   the System Chamber: one focused operational window, an orbit of capability
+   markers around it, arrow stepping, and a calm figure caption. The layout
+   reuses the constellation language (orbit + core) so the real UI feels like
+   part of the world — not a screenshots gallery.
+
+   Quality contract: screenshots stay recognizable (no aggressive 3D skew),
+   readable on desktop and mobile, fully keyboard-operable, and simplified
+   under prefers-reduced-motion.
+============================================================================ */
+
+.lena-surfaces {
+  position: relative;
+  margin-top: 46px;
+  border-top: 1px solid var(--lena-line);
+  padding-top: 30px;
+}
+
+.lena-surfaces-head { max-width: 760px; }
+.lena-surfaces-kicker {
+  margin: 0;
+  color: rgb(var(--chamber-a));
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .16em;
+}
+.lena-surfaces-head h3 {
+  margin: 10px 0 0;
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+.lena-surfaces-note {
+  margin: 10px 0 0;
+  color: var(--lena-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.lena-surfaces-stage {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 26px;
+  margin-top: 24px;
+}
+
+/* --- Orbit rail of capability markers ----------------------------------- */
+.lena-surfaces-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.lena-surface-marker {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  gap: 11px;
+  border: 1px solid var(--lena-line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.022);
+  padding: 9px 12px;
+  color: var(--lena-muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: start;
+  transition: border-color .18s ease, background .18s ease, color .18s ease;
+}
+.lena-surface-marker:hover {
+  border-color: rgba(var(--chamber-a), .4);
+  color: var(--lena-text);
+}
+.lena-surface-marker.is-active {
+  border-color: rgba(var(--chamber-a), .55);
+  background: rgba(var(--chamber-a), .09);
+  color: var(--lena-text);
+  box-shadow: inset 0 0 24px rgba(var(--chamber-a), .05);
+}
+.lena-surface-marker-ring {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  flex: 0 0 auto;
+  border: 2px solid rgba(var(--chamber-a), .45);
+  border-radius: 50%;
+  transition: box-shadow .18s ease;
+}
+.lena-surface-marker.is-active .lena-surface-marker-ring {
+  box-shadow: 0 0 12px rgba(var(--chamber-a), .85);
+}
+.lena-surface-marker.is-active .lena-surface-marker-ring::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: rgb(var(--chamber-a));
+}
+
+/* --- Focused operational window ------------------------------------------ */
+.lena-surfaces-window {
+  position: relative;
+  min-width: 0;
+}
+.lena-surface-figure {
+  margin: 0;
+}
+.lena-surface-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--lena-line-strong);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 22% 12%, rgba(var(--chamber-a), .16), transparent 42%),
+    rgba(4, 10, 27, .86);
+  box-shadow:
+    0 34px 80px rgba(0, 0, 0, .42),
+    inset 0 0 0 1px rgba(var(--chamber-a), .08);
+  transform: perspective(1500px) rotateX(2.2deg) rotateY(-1.6deg);
+  transform-style: preserve-3d;
+}
+.light .lena-surface-frame {
+  background:
+    radial-gradient(circle at 22% 12%, rgba(var(--chamber-a), .14), transparent 42%),
+    rgba(248, 251, 255, .92);
+}
+[dir="rtl"] .lena-surface-frame {
+  transform: perspective(1500px) rotateX(2.2deg) rotateY(1.6deg);
+}
+.lena-surface-frame-bar {
+  display: flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--lena-line);
+  padding: 0 13px;
+}
+.lena-surface-frame-bar i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(var(--chamber-a), .55);
+}
+.lena-surface-frame-bar span {
+  margin-inline-start: auto;
+  color: var(--lena-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+.lena-surface-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10.3;
+  object-fit: cover;
+  object-position: top center;
+}
+.lena-surface-frame img.is-missing {
+  display: grid;
+  min-height: 220px;
+  place-items: center;
+  background:
+    repeating-linear-gradient(45deg, rgba(var(--chamber-a), .05), rgba(var(--chamber-a), .05) 12px, transparent 12px, transparent 24px);
+}
+.lena-surface-frame img.is-missing::after {
+  content: "";
+}
+.lena-surface-figure figcaption {
+  display: grid;
+  gap: 5px;
+  margin-top: 13px;
+  padding: 0 2px;
+}
+.lena-surface-figure figcaption strong {
+  color: var(--lena-text);
+  font-size: 13.5px;
+  font-weight: 800;
+}
+.lena-surface-figure figcaption span {
+  color: var(--lena-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* --- Stepping controls ---------------------------------------------------- */
+.lena-surfaces-arrows {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+.lena-surface-arrow {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid var(--lena-line);
+  border-radius: 13px;
+  background: rgba(255,255,255,.035);
+  color: var(--lena-muted);
+  font-size: 20px;
+  line-height: 1;
+  transition: border-color .18s ease, color .18s ease, transform .18s ease;
+}
+.lena-surface-arrow:hover {
+  border-color: rgba(var(--chamber-a), .5);
+  color: var(--lena-text);
+}
+.lena-surface-arrow:active { transform: scale(.96); }
+.lena-surfaces-count {
+  margin-inline: 4px;
+  color: var(--lena-muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+
+/* --- Entrance choreography (respects reduced motion) ---------------------- */
+@keyframes lena-surface-enter {
+  from { opacity: 0; transform: translateY(14px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.lena-surface-figure { animation: lena-surface-enter .5s cubic-bezier(.2, .7, .3, 1) both; }
+
+/* --- Responsive ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .lena-surfaces-stage {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .lena-surfaces-rail {
+    flex-direction: row;
+    flex-wrap: wrap;
+    order: 2;
+  }
+  .lena-surface-marker { min-height: 40px; }
+  .lena-surfaces-window { order: 1; }
+  .lena-surface-frame { transform: none; }
+}
+
+@media (max-width: 480px) {
+  .lena-surface-marker { flex: 1 1 calc(50% - 8px); }
+  .lena-surface-frame img { aspect-ratio: 3 / 3.4; }
+}
+
+/* --- Reduced motion: calm, no dimensional tilt ----------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .lena-surfaces[data-reduced-motion] .lena-surface-frame {
+    transform: none;
+  }
+  .lena-surfaces[data-reduced-motion] .lena-surface-figure,
+  .lena-surfaces[data-reduced-motion] .lena-surface-figure * {
+    animation: none !important;
+  }
+}

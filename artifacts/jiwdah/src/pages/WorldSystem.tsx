@@ -1,13 +1,10 @@
 import { Link, Navigate, useLocation, useParams } from "react-router";
 import SeoHead from "@/components/SeoHead";
-import { STAGE_LABEL, STAGE_NOTE } from "@/content/systems";
+import type { OperatingPrimitiveId } from "@/content/systems";
 import InnerConstellation from "@/features/world/components/InnerConstellation";
-import {
-  findWorldEntity,
-  worldSystem,
-  WORLD_STATE_LABEL,
-  WORLD_STATE_NOTE,
-} from "@/features/world/content/world";
+import { OperatingSurfaces } from "@/features/world/components/OperatingSurfaces";
+import { OPERATING_PRIMITIVES } from "@/features/world/content/operating-primitives";
+import { findWorldEntity, worldSystem } from "@/features/world/content/world";
 import PublicShell from "@/layouts/PublicShell";
 import { usePreferences } from "@/providers/preferences";
 
@@ -69,15 +66,17 @@ export default function WorldSystem() {
                 <p className="lena-chamber-tagline">{system.tagline[locale]}</p>
               ) : null}
 
-              <div className="lena-chamber-statuses" aria-label={isArabic ? "حالة النظام" : "System status"}>
-                <span className="lena-chamber-world-state">
-                  <small>{isArabic ? "داخل العالم" : "World state"}</small>
-                  <strong>{WORLD_STATE_LABEL[entity.state][locale]}</strong>
-                </span>
-                <span className="lena-chamber-proof-state">
-                  <small>{isArabic ? "الحالة الموثقة" : "Verified stage"}</small>
-                  <strong>{STAGE_LABEL[system.stage][locale]}</strong>
-                </span>
+              <div className="lena-chamber-signals" aria-label={isArabic ? "جذور التشغيل في هذا النظام" : "Operating roots inside this system"}>
+                {system.operatingPrimitives.map((primitiveId: OperatingPrimitiveId) => {
+                  const root = OPERATING_PRIMITIVES.find((entry) => entry.id === primitiveId);
+                  if (!root) return null;
+                  return (
+                    <span key={primitiveId} className="lena-chamber-signal">
+                      <i aria-hidden="true" />
+                      {root.label[locale]}
+                    </span>
+                  );
+                })}
               </div>
             </div>
 
@@ -122,16 +121,34 @@ export default function WorldSystem() {
             </article>
           </section>
 
-          <section className="lena-chamber-status-note">
-            <div>
-              <small>{WORLD_STATE_LABEL[entity.state][locale]}</small>
-              <p>{WORLD_STATE_NOTE[entity.state][locale]}</p>
-            </div>
-            <div>
-              <small>{STAGE_LABEL[system.stage][locale]}</small>
-              <p>{STAGE_NOTE[system.stage][locale]}</p>
-            </div>
+          <section className="lena-chamber-roots" aria-label={isArabic ? "جذور التشغيل" : "Operating roots"}>
+            <header>
+              <small>{isArabic ? "جذور التشغيل داخل هذا النظام" : "OPERATING ROOTS INSIDE THIS SYSTEM"}</small>
+              <h2>{isArabic ? "نفس القدرة التشغيلية عبر عوالم LENA" : "The same operating primitives across LENA worlds"}</h2>
+            </header>
+            <ul>
+              {system.operatingPrimitives.map((primitiveId: OperatingPrimitiveId) => {
+                const root = OPERATING_PRIMITIVES.find((entry) => entry.id === primitiveId);
+                if (!root) return null;
+                return (
+                  <li key={primitiveId}>
+                    <strong>{root.label[locale]}</strong>
+                    <p>{root.meaning[locale]}</p>
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="lena-chamber-roots-note">
+              {isArabic
+                ? "هذه الجذور تتكرر في أنظمة أخرى داخل عالم LENA — وهي البداية المعمارية لما سيكون LENA OS."
+                : "These roots repeat in other systems inside LENA World — the architectural beginning of what becomes LENA OS."}
+            </p>
           </section>
+
+          <OperatingSurfaces
+            systemId={entity.systemId}
+            brand={system.name[locale]}
+          />
 
           <section className="lena-chamber-actions">
             <Link className="lena-primary" to={`/services#${system.id}`}>

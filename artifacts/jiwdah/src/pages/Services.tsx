@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import LenaCta from "@/components/LenaCta";
 import SeoHead from "@/components/SeoHead";
 import { pageSeo } from "@/content/seo";
-import { STAGE_LABEL, STAGE_NOTE, publicSystems } from "@/content/systems";
+import { publicSystems } from "@/content/systems";
 import PublicShell from "@/layouts/PublicShell";
 import { usePreferences } from "@/providers/preferences";
 
@@ -34,8 +34,9 @@ export default function Services() {
               <i className="lena-card-glow" />
               <div className="lena-system-top">
                 <small>{String(index + 1).padStart(2, "0")}</small>
-                <span className={`lena-stage lena-stage-${system.stage}`} title={STAGE_NOTE[system.stage][locale]}>
-                  {STAGE_LABEL[system.stage][locale]}
+                <span className="lena-roots-chip">
+                  {system.operatingPrimitives.length}{" "}
+                  {isArabic ? "جذور تشغيل" : "operating roots"}
                 </span>
               </div>
               <h2>{system.name[locale]}</h2>
