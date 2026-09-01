@@ -4,6 +4,10 @@ packages:
   - lib/integrations/*
   - scripts
 
+allowBuilds:
+  # Vite's pinned bundler binary is required for local and CI production builds.
+  esbuild: true
+
 autoInstallPeers: false
 
 catalog:

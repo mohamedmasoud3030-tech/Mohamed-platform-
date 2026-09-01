@@ -5,7 +5,9 @@ import { pageSeo } from "@/content/seo";
 import PublicShell from "@/layouts/PublicShell";
 import { usePreferences } from "@/providers/preferences";
 import WorldScene from "@/features/world/components/WorldScene";
+import ConstellationGraph from "@/features/world/components/ConstellationGraph";
 import { WORLD_ENTITIES, worldEntities, worldSystem } from "@/features/world/content/world";
+import { publicSystems } from "@/content/systems";
 
 /**
  * LENA World — the public entrance into the complete LENA system family.
@@ -18,6 +20,7 @@ export default function WorldPage() {
   const { locale } = usePreferences();
   const seo = pageSeo("world", locale);
   const entities = useMemo(() => worldEntities(), []);
+  const systems = useMemo(() => publicSystems(), []);
   const defaultId = useMemo(
     () => entities.find((entity) => entity.systemId === "property")?.systemId ?? entities[0]?.systemId ?? null,
     [entities],
@@ -71,6 +74,8 @@ export default function WorldPage() {
             );
           })}
         </nav>
+
+        <ConstellationGraph systems={systems} locale={locale} />
       </section>
     </PublicShell>
   );

@@ -28,6 +28,25 @@ export type SystemId =
  */
 export type SystemStage = "in-use" | "trial";
 
+/**
+ * Explicit operating roots that recur across the product family.
+ *
+ * This is a founder-controlled classification, not a claim that the products
+ * already share code, databases or infrastructure. LENA World uses it to reveal
+ * proven repetition; a root only becomes a shared LENA OS candidate when two or
+ * more public systems point to it.
+ */
+export type OperatingPrimitiveId =
+  | "relationships"
+  | "time"
+  | "money"
+  | "assets"
+  | "workflow"
+  | "documents"
+  | "people"
+  | "insight"
+  | "integrity";
+
 export type BusinessSystem = {
   id: SystemId;
   visibility: Visibility;
@@ -48,6 +67,8 @@ export type BusinessSystem = {
   problem: Record<AppLocale, string>;
   /** What the system does. Verbs, not features. */
   does: Record<AppLocale, string[]>;
+  /** Explicit links to cross-system operating roots; never inferred from copy. */
+  operatingPrimitives: OperatingPrimitiveId[];
   /** Whether a documented case study with screens exists yet. */
   documented: boolean;
 };
@@ -96,6 +117,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       ar: ["تشغيل الوحدات والعقود", "التأجير والتجديد", "التحصيل والمتأخرات", "طلبات الصيانة", "تقارير الملّاك"],
       en: ["Unit and contract operations", "Leasing and renewals", "Collection and arrears", "Maintenance requests", "Owner reporting"],
     },
+    operatingPrimitives: ["relationships", "time", "money", "assets", "workflow", "documents", "insight"],
     documented: false,
   },
   {
@@ -121,6 +143,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       ar: ["المواعيد والحجوزات", "نقطة البيع", "ملفات العملاء", "المخزون", "الموظفون وجدولتهم", "ملخص يومي للمالك"],
       en: ["Appointments and bookings", "Point of sale", "Client records", "Inventory", "Staff and scheduling", "Daily summary for the owner"],
     },
+    operatingPrimitives: ["relationships", "time", "money", "assets", "workflow", "people", "insight"],
     documented: false,
   },
   {
@@ -146,6 +169,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       ar: ["مخزون القطع وحالتها", "الحجز بالتواريخ", "الخروج والإرجاع", "التأمين والمدفوعات", "توفر فوري"],
       en: ["Piece inventory and condition", "Date-based reservations", "Check-out and return", "Deposits and payments", "Live availability"],
     },
+    operatingPrimitives: ["relationships", "time", "money", "assets", "workflow"],
     documented: false,
   },
   {
@@ -171,6 +195,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       ar: ["أقسام متعددة في نظام واحد", "الأصول والعمليات", "المصروفات والإيرادات", "تقارير لكل قسم"],
       en: ["Multiple divisions in one system", "Assets and operations", "Costs and revenue", "Reporting per division"],
     },
+    operatingPrimitives: ["money", "assets", "workflow", "insight"],
     documented: false,
   },
   {
@@ -196,6 +221,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       ar: ["طلبات المناسبات", "الطاقم والتجهيزات", "الجدولة", "التكلفة لكل مناسبة"],
       en: ["Event orders", "Crew and equipment", "Scheduling", "Cost per occasion"],
     },
+    operatingPrimitives: ["relationships", "time", "money", "assets", "workflow", "people"],
     documented: false,
   },
   {
@@ -235,6 +261,7 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
         "Works offline; corrections by reversal, never deletion",
       ],
     },
+    operatingPrimitives: ["relationships", "money", "assets", "workflow", "documents", "insight", "integrity"],
     documented: false,
   },
 ];
