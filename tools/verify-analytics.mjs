@@ -75,6 +75,7 @@ const routes = [
   ["/en/dashboard/projects-editor", "/dashboard/:section"],
   ["/ar", "/"],
   ["/en/privacy", "/privacy"],
+  ["/en/world", "/world"],
   ["/ar/some-unknown-thing", "/other"],
 ];
 for (const [input, expected] of routes) {

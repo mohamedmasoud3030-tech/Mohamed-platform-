@@ -1,0 +1,208 @@
+/* ========================================================================== 
+   LENA World v3 — Portal / Approach
+   --------------------------------------------------------------------------
+   The selected system does not leave through a dead link. The World recedes,
+   its signal path becomes a corridor, the system approaches the Sacred Core,
+   and only then does the calm product content take over.
+============================================================================ */
+
+.lena-world-page .lena-kicker,
+.lena-world-page .lena-world-title,
+.lena-world-page .lena-world-intro,
+.lena-world-page .lena-world-hint,
+.lena-world-page .lena-world-entities-list {
+  transition:
+    opacity .38s ease,
+    transform .48s cubic-bezier(.22,1,.36,1);
+}
+
+.lena-world-page.is-portal .lena-kicker,
+.lena-world-page.is-portal .lena-world-title,
+.lena-world-page.is-portal .lena-world-intro,
+.lena-world-page.is-portal .lena-world-hint,
+.lena-world-page.is-portal .lena-world-entities-list {
+  opacity: .16;
+  transform: translateY(-5px);
+  pointer-events: none;
+}
+
+.lena-world.is-portal {
+  cursor: progress;
+}
+
+.lena-world.is-portal .lena-world-entity,
+.lena-world.is-portal .lena-world-ring,
+.lena-world.is-portal .lena-world-info,
+.lena-world.is-portal .lena-world-path,
+.lena-world.is-portal .lena-world-core,
+.lena-world.is-portal .lena-world-halo {
+  transition:
+    opacity .48s ease,
+    transform .62s cubic-bezier(.18,.82,.24,1),
+    scale .62s cubic-bezier(.18,.82,.24,1),
+    filter .48s ease,
+    box-shadow .48s ease;
+}
+
+/* Everything unrelated gives the chosen system actual spatial authority. */
+.lena-world.is-portal .lena-world-entity:not(.is-selected) {
+  opacity: .07;
+  pointer-events: none;
+}
+.lena-world.is-portal .lena-world-entity:not(.is-selected) .lena-world-entity-figure {
+  opacity: .22;
+  transform: scale(.72);
+}
+
+.lena-world.is-portal .lena-world-ring {
+  opacity: .08;
+}
+.lena-world.is-portal .lena-world-halo {
+  opacity: .28;
+  scale: .92;
+}
+.lena-world.is-portal .lena-world-info {
+  opacity: .1;
+  transform: translate(var(--info-x), var(--info-y)) scale(.96);
+  pointer-events: none;
+}
+
+/* The chosen system moves toward the center before it moves toward the viewer.
+   Portal coordinates are precomputed in React so this does not depend on CSS
+   multiplication support. */
+.lena-world.is-portal .lena-world-entity.is-selected {
+  z-index: 24;
+  transform: translate(var(--portal-x), var(--portal-y)) scale(1.12);
+  pointer-events: none;
+}
+.lena-world.is-portal .lena-world-entity.is-selected .lena-world-entity-figure {
+  opacity: 1;
+  transform: scale(1.24);
+  filter: saturate(1.08) brightness(1.08);
+}
+.lena-world.is-portal .lena-world-entity.is-selected .lena-world-entity-caption {
+  opacity: .72;
+  transition: opacity .28s ease;
+}
+
+/* The active signal stops reading as a line and starts reading as a corridor. */
+.lena-world.is-portal .lena-world-path:not(.is-active) {
+  opacity: 0;
+}
+.lena-world.is-portal .lena-world-path.is-active {
+  height: 2px;
+  opacity: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(255,226,160,.96),
+    rgba(241,185,74,.8) 32%,
+    rgba(130,161,255,.46) 68%,
+    rgba(150,101,255,.12)
+  );
+  box-shadow:
+    0 0 7px rgba(241,185,74,.52),
+    0 0 22px rgba(241,185,74,.18);
+  filter: none;
+}
+.lena-world.is-portal .lena-world-path.is-active::after {
+  width: 8px;
+  height: 8px;
+  opacity: 1;
+  animation-name: lena-world-portal-signal;
+  animation-duration: 1.35s;
+  animation-timing-function: cubic-bezier(.2,.72,.24,1);
+  animation-iteration-count: infinite;
+  box-shadow:
+    0 0 12px rgba(255,231,181,.92),
+    0 0 30px rgba(241,185,74,.52);
+}
+
+/* During entry, energy travels from the selected system back into LENA. */
+@keyframes lena-world-portal-signal {
+  0% { left: 100%; opacity: 0; }
+  12% { opacity: 1; }
+  82% { left: 0; opacity: 1; }
+  100% { left: 0; opacity: 0; }
+}
+
+/* Sacred Core acknowledges the approach. The selector is deliberately more
+   specific than the normal LIVE/BETA/FORMING acknowledgement in sacred-core. */
+.lena-world.lena-world-v2.is-portal:has(.is-selected) .lena-world-core {
+  z-index: 22;
+  scale: 1.09;
+}
+.lena-world.lena-world-v2.is-portal:has(.is-selected) .lena-world-core::after {
+  animation: lena-world-portal-core .92s cubic-bezier(.16,.84,.26,1) both !important;
+}
+
+/* Resolve beat: the entity and the Core align, then the body expands toward
+   the viewer. The actual route navigation lands in a calm ordinary surface. */
+.lena-world.is-portal-resolve .lena-world-entity.is-selected {
+  transform: translate(0, 0) scale(1.5);
+}
+.lena-world.is-portal-resolve .lena-world-entity.is-selected .lena-world-entity-figure {
+  transform: scale(1.78);
+  filter: saturate(1.12) brightness(1.18);
+}
+.lena-world.is-portal-resolve .lena-world-entity.is-selected .lena-world-entity-caption {
+  opacity: 0;
+}
+.lena-world.is-portal-resolve .lena-world-core {
+  scale: 1.22 !important;
+}
+.lena-world.is-portal-resolve .lena-world-halo {
+  opacity: .68;
+  scale: 1.18;
+}
+.lena-world.is-portal-resolve .lena-world-field {
+  opacity: .36;
+}
+
+@keyframes lena-world-portal-core {
+  0% {
+    opacity: .7;
+    transform: translate(-50%,-50%) scale(1);
+  }
+  48% {
+    opacity: 1;
+    transform: translate(-50%,-50%) scale(1.52);
+    box-shadow:
+      0 0 12px rgba(255,246,221,1),
+      0 0 42px rgba(244,192,86,.9),
+      0 0 104px rgba(226,142,32,.42);
+  }
+  100% {
+    opacity: .92;
+    transform: translate(-50%,-50%) scale(1.2);
+  }
+}
+
+/* Mobile already keeps one body focused. Preserve that contract and only add
+   the approach/depth change — never recreate the six-body desktop geometry. */
+@media (max-width: 720px) {
+  .lena-world.is-portal .lena-world-entity.is-selected {
+    transform: translate(0, -34px) scale(1.08);
+  }
+  .lena-world.is-portal-resolve .lena-world-entity.is-selected {
+    transform: translate(0, -22px) scale(1.32);
+  }
+  .lena-world.is-portal-resolve .lena-world-entity.is-selected .lena-world-entity-figure {
+    transform: scale(1.52);
+  }
+  .lena-world-page.is-portal .lena-world-title,
+  .lena-world-page.is-portal .lena-world-intro {
+    opacity: .1;
+  }
+}
+
+/* Reduced-motion turns the same action into immediate navigation in React;
+   these rules are a second defensive layer if classes ever appear externally. */
+@media (prefers-reduced-motion: reduce) {
+  .lena-world-page.is-portal *,
+  .lena-world.is-portal *,
+  .lena-world.is-portal *::before,
+  .lena-world.is-portal *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

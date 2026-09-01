@@ -37,7 +37,7 @@ export const ALLOWED_PROPERTIES = [
   "locale", // "ar" | "en"
   "surface", // where in the page: "header" | "footer" | "section" | "cta" | "mobile_menu"
   "channel", // "whatsapp" | "email" | "phone"
-  "context", // entry context: "contact" | "service" | "work"
+  "context", // bounded product/UI context — never free text or personal data
   "reason", // failure class only: "rate_limited" | "rejected" | "offline" | "server"
   "outcome", // "success" | "failure"
   "has_results", // boolean, for search
@@ -83,6 +83,7 @@ export function normaliseRoute(pathname: string): string {
       return second ? "/work/:project" : "/work";
     case "dashboard":
       return second ? "/dashboard/:section" : "/dashboard";
+    case "world":
     case "portfolio":
     case "about":
     case "ai-solutions":

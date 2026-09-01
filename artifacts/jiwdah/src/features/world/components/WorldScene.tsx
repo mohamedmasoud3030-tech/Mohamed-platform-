@@ -2,6 +2,7 @@ import { useLayoutEffect, type CSSProperties } from "react";
 import { usePreferences } from "@/providers/preferences";
 import { useSpatialScene } from "../spatial/useSpatialScene";
 import { buildStars } from "../spatial/ambientField";
+import { useWorldPortalTransition } from "../WorldPortalTransition";
 import {
   worldSystem,
   WORLD_ACTION_LABEL,
@@ -33,6 +34,7 @@ const ENTITY_POS = [
 export default function WorldScene({ entities, selectedId, onSelect }: WorldSceneProps) {
   const { locale } = usePreferences();
   const { rootRef } = useSpatialScene();
+  const enterPortal = useWorldPortalTransition();
 
   useLayoutEffect(() => {
     const field = rootRef.current?.querySelector<HTMLElement>(".lena-world-field");
@@ -102,6 +104,8 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
               {
                 "--ex": `${pos.x}px`,
                 "--ey": `${pos.y}px`,
+                "--portal-x": `${(pos.x * 0.34).toFixed(1)}px`,
+                "--portal-y": `${(pos.y * 0.34).toFixed(1)}px`,
                 "--i": `${i * 0.09}s`,
               } as CSSProperties
             }
@@ -143,7 +147,11 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
             <p className="lena-world-info-note">
               {WORLD_STATE_NOTE[selected.state][locale]}
             </p>
-            <a className="lena-world-info-action" href={selected.detailPath}>
+            <a
+              className="lena-world-info-action"
+              href={selected.detailPath}
+              onClick={(event) => enterPortal(event, selected.detailPath, selected.systemId)}
+            >
               <span>{WORLD_ACTION_LABEL[selected.state][locale]}</span>
               <span aria-hidden="true">→</span>
             </a>
