@@ -1,14 +1,15 @@
 import { Link, Navigate, useLocation, useParams } from "react-router";
 import SeoHead from "@/components/SeoHead";
 import { STAGE_LABEL, STAGE_NOTE } from "@/content/systems";
-import PublicShell from "@/layouts/PublicShell";
-import { usePreferences } from "@/providers/preferences";
+import InnerConstellation from "@/features/world/components/InnerConstellation";
 import {
   findWorldEntity,
   worldSystem,
   WORLD_STATE_LABEL,
   WORLD_STATE_NOTE,
 } from "@/features/world/content/world";
+import PublicShell from "@/layouts/PublicShell";
+import { usePreferences } from "@/providers/preferences";
 
 type PortalArrivalState = {
   fromWorldPortal?: boolean;
@@ -20,8 +21,9 @@ type PortalArrivalState = {
  *
  * This page owns no product facts. Every meaningful sentence comes from the
  * canonical BusinessSystem record; World contributes only its explicit visual
- * state and Digital DNA. That lets six products share one navigation
- * architecture without collapsing their domain identity into one template.
+ * state and Digital DNA. The Inner Constellation also resolves exclusively from
+ * `system.does`, turning verified operating scope into spatial structure without
+ * inventing workflow order, telemetry or capabilities.
  */
 export default function WorldSystem() {
   const { systemId } = useParams();
@@ -79,16 +81,15 @@ export default function WorldSystem() {
               </div>
             </div>
 
-            <div className="lena-chamber-visual" aria-hidden="true">
-              <i className="lena-chamber-ring ring-a" />
-              <i className="lena-chamber-ring ring-b" />
-              <i className="lena-chamber-ring ring-c" />
-              <div className="lena-chamber-body">
-                <span className="lena-chamber-body-marks" />
-                <span className="lena-chamber-body-core" />
-              </div>
-              <div className="lena-chamber-origin" />
-            </div>
+            <InnerConstellation
+              systemName={system.name[locale]}
+              operations={system.does[locale]}
+              ariaLabel={
+                isArabic
+                  ? `الخريطة التشغيلية لنظام ${system.name[locale]}`
+                  : `${system.name[locale]} operating constellation`
+              }
+            />
           </section>
 
           <section className="lena-chamber-truth" aria-label={isArabic ? "حقيقة النظام" : "System truth"}>

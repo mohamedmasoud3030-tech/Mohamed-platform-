@@ -28,6 +28,7 @@ const SUITES = [
   { name: "lena sacred core identity", file: "tools/verify-sacred-core.mjs" },
   { name: "lena world portal", file: "tools/verify-world-portal.mjs" },
   { name: "lena world chambers", file: "tools/verify-world-chambers.mjs" },
+  { name: "lena inner constellations", file: "tools/verify-inner-constellations.mjs" },
   { name: "inquiry draft recovery", file: "tools/verify-draft.mjs" },
   { name: "support report privacy", file: "tools/verify-support.mjs" },
   { name: "crash boundary", file: "tools/verify-boundary.mjs" },
