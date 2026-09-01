@@ -28,24 +28,24 @@ export type WorldEntity = {
   systemId: SystemId;
   state: WorldState;
   dna: DigitalDNA;
-  /** Exit into the calm, detailed product content. */
+  /** Enter the calm World chamber for this system. */
   detailPath: string;
 };
 
 /**
- * Full public constellation v2.
+ * Full public constellation v2+.
  *
  * Presentation order follows the canonical public family rather than creating a
  * second portfolio taxonomy. State/DNA are explicit founder-controlled visual
  * metadata. The underlying product stage remains owned by `content/systems.ts`.
  */
 export const WORLD_ENTITIES: WorldEntity[] = [
-  { systemId: "wellness", state: "beta", dna: "organic", detailPath: "/services#wellness" },
-  { systemId: "rental", state: "beta", dna: "crafted", detailPath: "/services#rental" },
-  { systemId: "property", state: "live", dna: "architectural", detailPath: "/services#property" },
-  { systemId: "hospitality", state: "forming", dna: "ceremonial", detailPath: "/services#hospitality" },
-  { systemId: "investment", state: "beta", dna: "systemic", detailPath: "/services#investment" },
-  { systemId: "recycling", state: "forming", dna: "industrial", detailPath: "/services#recycling" },
+  { systemId: "wellness", state: "beta", dna: "organic", detailPath: "/world/wellness" },
+  { systemId: "rental", state: "beta", dna: "crafted", detailPath: "/world/rental" },
+  { systemId: "property", state: "live", dna: "architectural", detailPath: "/world/property" },
+  { systemId: "hospitality", state: "forming", dna: "ceremonial", detailPath: "/world/hospitality" },
+  { systemId: "investment", state: "beta", dna: "systemic", detailPath: "/world/investment" },
+  { systemId: "recycling", state: "forming", dna: "industrial", detailPath: "/world/recycling" },
 ];
 
 /** Stage labels used by the World surface. Real vocabulary, not telemetry. */
@@ -80,6 +80,10 @@ export const WORLD_ACTION_LABEL: Record<WorldState, Record<AppLocale, string>> =
 
 export function worldEntities(): WorldEntity[] {
   return WORLD_ENTITIES;
+}
+
+export function findWorldEntity(systemId: string | undefined): WorldEntity | undefined {
+  return WORLD_ENTITIES.find((entity) => entity.systemId === systemId);
 }
 
 /** Resolve the canonical system for a World entity, if it is public. */
