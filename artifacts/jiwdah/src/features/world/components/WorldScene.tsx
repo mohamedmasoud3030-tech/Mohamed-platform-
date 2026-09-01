@@ -27,7 +27,7 @@ const ENTITY_POS = [
   { x: 250, y: -160 },
   { x: -285, y: 70 },
   { x: 285, y: 70 },
-  { x: 0, y: 170 },
+  { x: 0, y: 130 },
 ] as const;
 
 export default function WorldScene({ entities, selectedId, onSelect }: WorldSceneProps) {
@@ -131,7 +131,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
         return (
           <aside
             className={`lena-world-info dna-${selected.dna}`}
-            style={{ "--info-x": "0px", "--info-y": "470px" } as CSSProperties}
+            style={{ "--info-x": "0px", "--info-y": "430px" } as CSSProperties}
             aria-live="polite"
           >
             <p className="lena-world-info-state">
