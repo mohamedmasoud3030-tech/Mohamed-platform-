@@ -67,13 +67,12 @@
   pointer-events: none;
 }
 
-/* The chosen system moves toward the center before it moves toward the viewer. */
+/* The chosen system moves toward the center before it moves toward the viewer.
+   Portal coordinates are precomputed in React so this does not depend on CSS
+   multiplication support. */
 .lena-world.is-portal .lena-world-entity.is-selected {
   z-index: 24;
-  transform: translate(
-      calc(var(--ex) * .34),
-      calc(var(--ey) * .34)
-    ) scale(1.12);
+  transform: translate(var(--portal-x), var(--portal-y)) scale(1.12);
   pointer-events: none;
 }
 .lena-world.is-portal .lena-world-entity.is-selected .lena-world-entity-figure {
