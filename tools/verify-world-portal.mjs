@@ -62,7 +62,9 @@ check("World v3 CSS loads after World v2", () => {
 check("the chosen body approaches while unrelated systems recede", () => {
   assert.match(css, /\.lena-world\.is-portal \.lena-world-entity:not\(\.is-selected\)/);
   assert.match(css, /\.lena-world\.is-portal-resolve \.lena-world-entity\.is-selected/);
-  assert.match(css, /calc\(var\(--ex\) \* \.34\)/);
+  assert.match(css, /translate\(var\(--portal-x\), var\(--portal-y\)\)/);
+  assert.match(scene, /"--portal-x": `\$\{\(pos\.x \* 0\.34\)\.toFixed\(1\)\}px`/);
+  assert.match(scene, /"--portal-y": `\$\{\(pos\.y \* 0\.34\)\.toFixed\(1\)\}px`/);
 });
 
 check("the active signal becomes the corridor and the Sacred Core responds", () => {
