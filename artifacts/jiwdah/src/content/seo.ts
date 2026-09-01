@@ -36,12 +36,12 @@ export const PAGE_SEO: Record<PageSeoKey, Record<AppLocale, LocalizedSeo>> = {
     ar: {
       title: "عالم LENA",
       description:
-        "منظومة LENA: أنظمة تشغيل مختلفة تولد داخل عالم واحد — MALEK، LenaBeauty، وكيّال.",
+        "عالم LENA يجمع أنظمة العقارات والجمال وتأجير الفساتين والضيافة والاستثمار وإعادة التدوير داخل منظومة تشغيلية واحدة ذات هوية مشتركة.",
     },
     en: {
       title: "LENA World",
       description:
-        "LENA World: operating systems born into one world — MALEK, LenaBeauty, and Kayyal.",
+        "LENA World brings property, beauty, dress rental, hospitality, investment and recycling systems into one connected operating world with a shared identity.",
     },
   },
   services: {

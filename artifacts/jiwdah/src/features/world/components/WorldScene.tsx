@@ -10,92 +10,94 @@ import {
   type WorldEntity,
 } from "../content/world";
 
-/**
- * LENA World scene.
- *
- * LENA is the gravitational identity; the three systems are spatial entities,
- * not cards. Each entity carries its own Digital DNA (architectural / organic /
- * industrial) and encodes its state (live / beta / forming) through form and
- * behavior, not just a label.
- *
- * Layout: the three entities orbit the LENA center as a flat constellation on
- * desktop (an intentional departure from the homepage's tilted planes — the
- * World is a "map", the Orbit is a "machine"). On mobile the scene is a single
- * focused entity with explicit accessible prev/next controls.
- *
- * Focus: the selected entity approaches (grows, sharpens), the others recede
- * but remain spatially present, and a calm information layer resolves beside
- * it. Pointer, keyboard and touch all select.
- *
- * Motion discipline: transforms/opacity only, no per-frame React state, rAF
- * writes frozen offscreen and under reduced-motion, IntersectionObserver gating.
- */
-
 export type WorldSceneProps = {
   entities: WorldEntity[];
-  /** Active entity systemId. */
   selectedId: string | null;
   onSelect: (systemId: string) => void;
 };
+
 /**
- * Constellation geometry (desktop, centered on the scene's 0,0).
- * Positions keep the entities clear of the reserved info-panel band at the
- * bottom-center of the scene, so a selected entity's info layer never covers
- * (or blocks) another entity.
+ * Full-constellation geometry. The six systems form a wide hexagonal field
+ * around the Sacred Core, while the lower band remains reserved for the calm
+ * selected-system information layer.
  */
 const ENTITY_POS = [
-  // architectural (MALEK) — lower-left
-  { x: -220, y: 112 },
-  // organic (LenaBeauty) — upper-right
-  { x: 232, y: -82 },
-  // industrial (Kayyal) — lower-right
-  { x: 268, y: 172 },
+  { x: -250, y: -160 },
+  { x: 0, y: -250 },
+  { x: 250, y: -160 },
+  { x: -285, y: 70 },
+  { x: 285, y: 70 },
+  { x: 0, y: 130 },
 ] as const;
+
 export default function WorldScene({ entities, selectedId, onSelect }: WorldSceneProps) {
   const { locale } = usePreferences();
   const { rootRef } = useSpatialScene();
 
-  // Ambient field paint (once).
   useLayoutEffect(() => {
     const field = rootRef.current?.querySelector<HTMLElement>(".lena-world-field");
-    if (field) field.style.setProperty("--lena-stars", buildStars(22, 760, 2701));
+    if (field) field.style.setProperty("--lena-stars", buildStars(34, 840, 2701));
   }, []);
 
-  // Focus / approach state: selecting an entity slows the system, brings it
-  // forward and recedes the others. Toggled via class so CSS owns the motion.
   useLayoutEffect(() => {
     const root = rootRef.current;
     if (!root) return;
     root.classList.toggle("is-focus", selectedId !== null);
+    if (selectedId) root.dataset.focus = selectedId;
+    else delete root.dataset.focus;
   }, [selectedId]);
 
   return (
-    <div className="lena-world" ref={rootRef}>
+    <div className="lena-world lena-world-v2" ref={rootRef}>
       <div className="lena-world-field" />
       <div className="lena-world-halo" />
-      {/* LENA gravitational center */}
+
+      {/* Shared Sacred Core: the same gravitational identity used on Home. */}
       <div className="lena-world-core" aria-hidden="true">
         <span className="lena-world-core-orb" />
         <strong>LENA</strong>
         <small>{locale === "ar" ? "عالم واحد" : "One world"}</small>
       </div>
 
-      {/* Constellation rings (atmospheric, decorative) */}
+      {/* Constellation rings stay atmospheric; systems are not locked to them. */}
       <i className="lena-world-ring wr-1" aria-hidden="true" />
       <i className="lena-world-ring wr-2" aria-hidden="true" />
       <i className="lena-world-ring wr-3" aria-hidden="true" />
+      <i className="lena-world-ring wr-4" aria-hidden="true" />
+
+      {/* Energy paths make the relationship explicit: every system belongs to
+          one world and resolves back to the same center. */}
+      <div className="lena-world-paths" aria-hidden="true">
+        {entities.map((entity, i) => {
+          const pos = ENTITY_POS[i] ?? { x: 0, y: 0 };
+          const len = Math.hypot(pos.x, pos.y);
+          const angle = (Math.atan2(pos.y, pos.x) * 180) / Math.PI;
+          return (
+            <i
+              key={`path-${entity.systemId}`}
+              className={`lena-world-path${selectedId === entity.systemId ? " is-active" : ""}`}
+              style={
+                {
+                  "--path-l": `${len.toFixed(1)}px`,
+                  "--path-a": `${angle.toFixed(2)}deg`,
+                  "--path-i": `${i * 0.08}s`,
+                } as CSSProperties
+              }
+            />
+          );
+        })}
+      </div>
 
       {entities.map((entity, i) => {
         const system = worldSystem(entity);
         if (!system) return null;
-        const dna = entity.dna;
-        const pos = ENTITY_POS[i];
+        const pos = ENTITY_POS[i] ?? { x: 0, y: 0 };
         const selected = selectedId === entity.systemId;
         return (
           <button
             key={entity.systemId}
             type="button"
-            className={`lena-world-entity dna-${dna} state-${entity.state}${selected ? " is-selected" : ""}`}
+            className={`lena-world-entity dna-${entity.dna} state-${entity.state}${selected ? " is-selected" : ""}`}
             style={
               {
                 "--ex": `${pos.x}px`,
@@ -121,7 +123,6 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
         );
       })}
 
-      {/* Calm spatial information layer for the selected entity */}
       {(() => {
         const selected = entities.find((entity) => entity.systemId === selectedId);
         if (!selected) return null;
@@ -130,7 +131,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
         return (
           <aside
             className={`lena-world-info dna-${selected.dna}`}
-            style={{ "--info-x": "0px", "--info-y": "280px" } as CSSProperties}
+            style={{ "--info-x": "0px", "--info-y": "430px" } as CSSProperties}
             aria-live="polite"
           >
             <p className="lena-world-info-state">
@@ -150,8 +151,10 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
         );
       })()}
 
-      {/* Mobile: explicit accessible prev/next selection */}
-      <nav className="lena-world-mobile-nav" aria-label={locale === "ar" ? "اختيار النظام" : "Choose a system"}>
+      <nav
+        className="lena-world-mobile-nav"
+        aria-label={locale === "ar" ? "اختيار النظام" : "Choose a system"}
+      >
         {entities.map((entity) => {
           const system = worldSystem(entity);
           if (!system) return null;
