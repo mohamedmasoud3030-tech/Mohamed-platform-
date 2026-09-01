@@ -22,12 +22,12 @@ export type WorldSceneProps = {
  * selected-system information layer.
  */
 const ENTITY_POS = [
-  { x: -250, y: -165 },
-  { x: 0, y: -255 },
-  { x: 250, y: -165 },
+  { x: -250, y: -160 },
+  { x: 0, y: -250 },
+  { x: 250, y: -160 },
   { x: -285, y: 70 },
   { x: 285, y: 70 },
-  { x: 0, y: 215 },
+  { x: 0, y: 170 },
 ] as const;
 
 export default function WorldScene({ entities, selectedId, onSelect }: WorldSceneProps) {
@@ -131,7 +131,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
         return (
           <aside
             className={`lena-world-info dna-${selected.dna}`}
-            style={{ "--info-x": "0px", "--info-y": "350px" } as CSSProperties}
+            style={{ "--info-x": "0px", "--info-y": "470px" } as CSSProperties}
             aria-live="polite"
           >
             <p className="lena-world-info-state">
