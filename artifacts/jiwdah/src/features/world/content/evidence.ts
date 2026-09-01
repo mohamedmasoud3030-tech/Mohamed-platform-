@@ -29,12 +29,25 @@ export type EvidenceSurface = {
 
 export const SYSTEM_EVIDENCE: Partial<Record<SystemId, EvidenceSurface[]>> = {
   /**
-   * MALEK — six curated real application surfaces from the MALEK product
-   * repository (rentrix-app/public/landing), each proving a different
-   * capability: operating overview, assets, contracts, money, maintenance and
-   * mobile operations.
+   * MALEK — real application surfaces. Six curated surfaces come from the
+   * MALEK product repository (rentrix-app/public/landing), each proving a
+   * different capability: operating overview, assets, contracts, money,
+   * maintenance and mobile operations. The first surface (entry) is a fresh
+   * capture of MALEK's current sign-in screen from the running application.
    */
   property: [
+    {
+      id: "entry",
+      src: "/world/evidence/malek/entry.png",
+      alt: {
+        ar: "شاشة تسجيل الدخول إلى MALEK",
+        en: "The MALEK sign-in screen",
+      },
+      capability: {
+        ar: "نقطة دخول MALEK: جلسة واحدة تدخل إلى كل عمليات النظام.",
+        en: "MALEK's entry point: one session into the whole system's operations.",
+      },
+    },
     {
       id: "dashboard",
       src: "/world/evidence/malek/dashboard-dark.png",
