@@ -104,6 +104,8 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
               {
                 "--ex": `${pos.x}px`,
                 "--ey": `${pos.y}px`,
+                "--portal-x": `${(pos.x * 0.34).toFixed(1)}px`,
+                "--portal-y": `${(pos.y * 0.34).toFixed(1)}px`,
                 "--i": `${i * 0.09}s`,
               } as CSSProperties
             }
