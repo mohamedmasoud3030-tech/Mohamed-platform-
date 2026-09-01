@@ -166,14 +166,6 @@
   }
 }
 
-/* View Transition only owns the final hand-off, not the spatial choreography. */
-::view-transition-old(root) {
-  animation-duration: .28s;
-}
-::view-transition-new(root) {
-  animation-duration: .34s;
-}
-
 /* Mobile already keeps one body focused. Preserve that contract and only add
    the approach/depth change — never recreate the six-body desktop geometry. */
 @media (max-width: 720px) {
