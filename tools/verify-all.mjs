@@ -25,6 +25,7 @@ const SUITES = [
   { name: "base-path authority", file: "tools/verify-base-path.mjs" },
   { name: "optional lena subpath contract", file: "tools/verify-subpath-contract.mjs" },
   { name: "malek product association", file: "tools/verify-malek-association.mjs" },
+  { name: "lena sacred core identity", file: "tools/verify-sacred-core.mjs" },
   { name: "inquiry draft recovery", file: "tools/verify-draft.mjs" },
   { name: "support report privacy", file: "tools/verify-support.mjs" },
   { name: "crash boundary", file: "tools/verify-boundary.mjs" },
