@@ -10,7 +10,7 @@ import { track } from "@/lib/analytics";
  *   1. unrelated systems + page copy recede,
  *   2. the chosen signal path becomes a corridor,
  *   3. the chosen body approaches the Sacred Core / viewer,
- *   4. navigation lands in calm, content-first product detail.
+ *   4. navigation lands in the system's calm World chamber.
  *
  * Navigation remains deterministic and accessible. Reduced-motion skips the
  * choreography entirely. View Transitions enhance the final hand-off when the
@@ -28,6 +28,7 @@ export function useWorldPortalTransition() {
       const world = event.currentTarget.closest<HTMLElement>(".lena-world");
       const page = world?.closest<HTMLElement>(".lena-world-page") ?? null;
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const arrivalState = { fromWorldPortal: true, systemId };
 
       track("primary_action_clicked", {
         surface: "world_portal",
@@ -35,7 +36,7 @@ export function useWorldPortalTransition() {
       });
 
       if (!world || reduce) {
-        navigate(destination);
+        navigate(destination, { state: arrivalState });
         return;
       }
 
@@ -64,13 +65,13 @@ export function useWorldPortalTransition() {
       if (canViewTransition) {
         window.setTimeout(() => {
           const transition = document.startViewTransition(() => {
-            navigate(destination);
+            navigate(destination, { state: arrivalState });
           });
           transition.finished.then(cleanup).catch(cleanup);
         }, 480);
       } else {
         window.setTimeout(() => {
-          navigate(destination);
+          navigate(destination, { state: arrivalState });
           // Usually the World unmounts immediately. This is only a safety net
           // for a prevented navigation or a same-document destination.
           window.setTimeout(cleanup, 320);

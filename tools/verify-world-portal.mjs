@@ -37,7 +37,12 @@ check("native navigation is prevented so choreography has one owner", () => {
 
 check("reduced motion navigates without cinematic delay", () => {
   assert.match(transition, /prefers-reduced-motion:\s*reduce/);
-  assert.match(transition, /if \(!world \|\| reduce\)\s*\{\s*navigate\(destination\)/s);
+  assert.match(transition, /if \(!world \|\| reduce\)\s*\{\s*navigate\(destination, \{ state: arrivalState \}\)/s);
+});
+
+check("portal arrival context is canonical and bounded", () => {
+  assert.match(transition, /const arrivalState = \{ fromWorldPortal: true, systemId \}/);
+  assert.match(transition, /navigate\(destination, \{ state: arrivalState \}\)/);
 });
 
 check("the portal uses a two-beat isolate then resolve choreography", () => {
@@ -49,7 +54,7 @@ check("the portal uses a two-beat isolate then resolve choreography", () => {
 check("View Transitions enhance the final handoff with a CSS fallback", () => {
   assert.match(transition, /document\.startViewTransition/);
   assert.match(transition, /680/);
-  assert.match(transition, /navigate\(destination\)/);
+  assert.match(transition, /navigate\(destination, \{ state: arrivalState \}\)/);
 });
 
 check("World v3 CSS loads after World v2", () => {
@@ -69,6 +74,7 @@ check("the chosen body approaches while unrelated systems recede", () => {
 
 check("the active signal becomes the corridor and the Sacred Core responds", () => {
   assert.match(css, /\.lena-world\.is-portal \.lena-world-path\.is-active/);
+  assert.match(css, /lena-world-portal-signal/);
   assert.match(css, /lena-world-portal-core/);
   assert.match(css, /\.lena-world-core::after/);
 });
@@ -78,7 +84,7 @@ check("mobile keeps the single-focused-body contract", () => {
   assert.match(css, /translate\(0, -34px\)/);
 });
 
-check("analytics recognises World as a first-class route", () => {
+check("analytics recognises World as a first-class route family", () => {
   assert.match(analytics, /case "world":/);
 });
 
