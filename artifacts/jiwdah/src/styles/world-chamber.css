@@ -1,0 +1,411 @@
+/* ========================================================================== 
+   LENA World v4 — System Chambers
+   --------------------------------------------------------------------------
+   The portal lands in a calm, content-first chamber. One template, six Digital
+   DNA expressions, zero duplicated product facts. Wonder is concentrated in
+   the entrance and identity object; reading remains quiet and authoritative.
+============================================================================ */
+
+.lena-system-chamber {
+  --chamber-a: 130, 161, 255;
+  --chamber-b: 79, 108, 255;
+  --chamber-gold: 232, 177, 75;
+  position: relative;
+  min-height: calc(100vh - 82px);
+  overflow: clip;
+  padding: 28px 0 72px;
+}
+
+.lena-system-chamber::before {
+  content: "";
+  position: absolute;
+  inset: -12rem -20% auto;
+  height: 42rem;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(var(--chamber-a), .12), transparent 34%),
+    radial-gradient(circle at 68% 28%, rgba(var(--chamber-gold), .07), transparent 26%);
+  pointer-events: none;
+}
+
+.lena-system-chamber.dna-organic { --chamber-a: 150, 101, 255; --chamber-b: 81, 225, 255; }
+.lena-system-chamber.dna-crafted { --chamber-a: 246, 112, 210; --chamber-b: 150, 101, 255; }
+.lena-system-chamber.dna-architectural { --chamber-a: 79, 108, 255; --chamber-b: 130, 161, 255; }
+.lena-system-chamber.dna-ceremonial { --chamber-a: 226, 171, 74; --chamber-b: 150, 101, 255; }
+.lena-system-chamber.dna-systemic { --chamber-a: 81, 225, 255; --chamber-b: 79, 108, 255; }
+.lena-system-chamber.dna-industrial { --chamber-a: 174, 194, 255; --chamber-b: 114, 77, 255; }
+
+.lena-chamber-back {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 9px;
+  color: var(--lena-muted);
+  font-size: 12px;
+  font-weight: 800;
+  transition: color .2s ease, transform .2s ease;
+}
+.lena-chamber-back:hover {
+  color: rgb(var(--chamber-a));
+  transform: translateX(-3px);
+}
+[dir="rtl"] .lena-chamber-back:hover { transform: translateX(3px); }
+[dir="rtl"] .lena-chamber-back > span:first-child { transform: rotate(180deg); }
+
+.lena-chamber-hero {
+  display: grid;
+  min-height: 520px;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
+  align-items: center;
+  gap: 44px;
+  padding: 28px 0 18px;
+}
+
+.lena-chamber-copy {
+  position: relative;
+  z-index: 3;
+}
+.lena-chamber-copy h1 {
+  max-width: 820px;
+  margin: 14px 0 0;
+  font-size: clamp(3rem, 7vw, 6.6rem);
+  font-weight: 580;
+  line-height: .98;
+  letter-spacing: -.045em;
+}
+.lena-chamber-industry {
+  margin: 16px 0 0;
+  color: rgb(var(--chamber-a));
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.lena-chamber-tagline {
+  max-width: 680px;
+  margin: 18px 0 0;
+  color: var(--lena-muted);
+  font-size: clamp(1rem, 1.9vw, 1.22rem);
+  line-height: 1.8;
+}
+
+.lena-chamber-statuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+.lena-chamber-statuses > span {
+  display: grid;
+  min-width: 145px;
+  gap: 3px;
+  border: 1px solid var(--lena-line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.025);
+  padding: 10px 13px;
+}
+.lena-chamber-statuses small {
+  color: var(--lena-muted);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.lena-chamber-statuses strong {
+  color: var(--lena-text);
+  font-size: 12px;
+}
+.lena-chamber-world-state {
+  border-color: rgba(var(--chamber-a), .26) !important;
+  box-shadow: inset 0 0 28px rgba(var(--chamber-a), .035);
+}
+.lena-chamber-proof-state {
+  border-color: rgba(var(--chamber-gold), .22) !important;
+}
+
+/* --- The identity object ------------------------------------------------- */
+.lena-chamber-visual {
+  position: relative;
+  width: min(440px, 100%);
+  aspect-ratio: 1;
+  justify-self: center;
+  isolation: isolate;
+}
+.lena-chamber-visual::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  z-index: -2;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--chamber-a), .14), transparent 68%);
+}
+.lena-chamber-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px solid rgba(var(--chamber-a), .18);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.lena-chamber-ring.ring-a { width: 86%; height: 86%; opacity: .38; }
+.lena-chamber-ring.ring-b { width: 67%; height: 67%; border-style: dashed; opacity: .54; }
+.lena-chamber-ring.ring-c { width: 49%; height: 49%; border-color: rgba(var(--chamber-gold), .28); }
+
+.lena-chamber-origin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 72%;
+  height: 72%;
+  border-radius: 50%;
+  background: url("../assets/lena-sacred-core.webp") center / contain no-repeat;
+  opacity: .09;
+  transform: translate(-50%, -50%);
+  filter: saturate(.8);
+}
+
+.lena-chamber-body {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 42%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid rgba(var(--chamber-a), .46);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(var(--chamber-a), .34), transparent 36%),
+    linear-gradient(145deg, rgba(var(--chamber-b), .2), rgba(8,13,31,.88));
+  box-shadow:
+    0 22px 70px rgba(0,0,0,.3),
+    0 0 45px rgba(var(--chamber-a), .13);
+  transform: translate(-50%, -50%);
+}
+.lena-chamber-body-marks,
+.lena-chamber-body-core {
+  position: absolute;
+  display: block;
+}
+.lena-chamber-body-core {
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgb(var(--chamber-gold));
+  box-shadow: 0 0 16px rgba(var(--chamber-gold), .8), 0 0 36px rgba(var(--chamber-a), .28);
+  transform: translate(-50%, -50%);
+}
+.lena-chamber-body-marks { inset: 0; opacity: .7; }
+
+/* DNA changes geometry/material, not merely hue. */
+.dna-architectural .lena-chamber-body {
+  border-radius: 18px;
+  background:
+    linear-gradient(90deg, rgba(var(--chamber-a),.16) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(var(--chamber-a),.16) 1px, transparent 1px),
+    linear-gradient(145deg, rgba(var(--chamber-b),.26), rgba(8,13,31,.9));
+  background-size: 24px 24px, 24px 24px, auto;
+}
+.dna-organic .lena-chamber-body {
+  border-radius: 50% 46% 54% 48% / 48% 56% 44% 52%;
+}
+.dna-organic .lena-chamber-body-marks {
+  background: repeating-radial-gradient(ellipse at 50% 45%, transparent 0 15px, rgba(var(--chamber-a),.18) 16px 17px);
+}
+.dna-crafted .lena-chamber-body {
+  clip-path: polygon(22% 3%,78% 3%,98% 30%,84% 88%,50% 100%,16% 88%,2% 30%);
+  border-radius: 0;
+}
+.dna-crafted .lena-chamber-body-marks {
+  background: repeating-linear-gradient(45deg, transparent 0 19px, rgba(var(--chamber-a),.19) 20px 21px);
+}
+.dna-ceremonial .lena-chamber-body {
+  border-radius: 50%;
+  background:
+    repeating-conic-gradient(from 8deg, rgba(var(--chamber-gold),.16) 0 5deg, transparent 5deg 24deg),
+    radial-gradient(circle, rgba(var(--chamber-b),.22), rgba(8,13,31,.9) 68%);
+}
+.dna-systemic .lena-chamber-body {
+  border-radius: 16px;
+  background:
+    linear-gradient(90deg, rgba(var(--chamber-a),.14) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(var(--chamber-b),.14) 1px, transparent 1px),
+    radial-gradient(circle, rgba(var(--chamber-a),.22), rgba(8,13,31,.9) 70%);
+  background-size: 19px 19px, 19px 19px, auto;
+}
+.dna-systemic .lena-chamber-body-marks {
+  background:
+    radial-gradient(circle at 25% 25%, rgba(var(--chamber-a),.8) 0 2px, transparent 3px),
+    radial-gradient(circle at 75% 25%, rgba(var(--chamber-b),.8) 0 2px, transparent 3px),
+    radial-gradient(circle at 25% 75%, rgba(var(--chamber-b),.8) 0 2px, transparent 3px),
+    radial-gradient(circle at 75% 75%, rgba(var(--chamber-a),.8) 0 2px, transparent 3px);
+}
+.dna-industrial .lena-chamber-body {
+  border-radius: 9px;
+  background:
+    repeating-linear-gradient(90deg, rgba(var(--chamber-a),.1) 0 12px, transparent 12px 24px),
+    linear-gradient(145deg, rgba(var(--chamber-b),.26), rgba(8,13,31,.9));
+}
+.dna-industrial .lena-chamber-body-marks {
+  background: repeating-linear-gradient(0deg, transparent 0 14px, rgba(var(--chamber-a),.18) 15px 16px);
+}
+
+/* --- Truth panels -------------------------------------------------------- */
+.lena-chamber-truth {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+.lena-chamber-panel {
+  min-height: 220px;
+  border: 1px solid var(--lena-line);
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(7,14,34,.52));
+  padding: 24px;
+}
+.lena-chamber-panel > small,
+.lena-chamber-status-note small {
+  color: rgb(var(--chamber-a));
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.lena-chamber-panel h2 {
+  max-width: 720px;
+  margin: 16px 0 0;
+  font-size: clamp(1.45rem, 2.8vw, 2.25rem);
+  font-weight: 560;
+  line-height: 1.48;
+}
+.lena-chamber-panel p {
+  margin: 15px 0 0;
+  color: var(--lena-muted);
+  font-size: 14px;
+  line-height: 1.95;
+}
+.lena-chamber-panel ul {
+  display: grid;
+  gap: 11px;
+  margin: 17px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.lena-chamber-panel li {
+  position: relative;
+  padding-inline-start: 18px;
+  color: var(--lena-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.lena-chamber-panel li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: .68em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(var(--chamber-a));
+  box-shadow: 0 0 9px rgba(var(--chamber-a),.6);
+}
+.lena-chamber-problem {
+  grid-column: 1 / -1;
+  min-height: 200px;
+  border-color: rgba(var(--chamber-a), .19);
+}
+.lena-chamber-usage { grid-column: 1 / -1; min-height: 190px; }
+
+.lena-chamber-status-note {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.lena-chamber-status-note > div {
+  border-top: 1px solid var(--lena-line);
+  padding: 18px 4px 0;
+}
+.lena-chamber-status-note p {
+  max-width: 620px;
+  margin: 7px 0 0;
+  color: var(--lena-muted);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.lena-chamber-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid var(--lena-line);
+}
+
+/* Portal arrival: one short settling moment, then the page becomes completely
+   calm. No continuous chamber motion. */
+.lena-system-chamber.is-arrival .lena-chamber-copy {
+  animation: lena-chamber-copy-arrive .62s cubic-bezier(.16,.84,.26,1) both;
+}
+.lena-system-chamber.is-arrival .lena-chamber-body {
+  animation: lena-chamber-body-arrive .78s cubic-bezier(.16,.84,.26,1) both;
+}
+.lena-system-chamber.is-arrival .lena-chamber-ring {
+  animation: lena-chamber-ring-arrive .72s ease both;
+}
+
+@keyframes lena-chamber-copy-arrive {
+  from { opacity: 0; transform: translateY(12px); }
+}
+@keyframes lena-chamber-body-arrive {
+  from { opacity: 0; transform: translate(-50%,-50%) scale(1.5); filter: brightness(1.6); }
+  to { opacity: 1; transform: translate(-50%,-50%) scale(1); filter: none; }
+}
+@keyframes lena-chamber-ring-arrive {
+  from { opacity: 0; scale: .82; }
+}
+
+.light .lena-chamber-panel {
+  background: linear-gradient(145deg, rgba(255,255,255,.9), rgba(235,242,255,.76));
+}
+.light .lena-chamber-body {
+  background-color: rgba(10,18,42,.92);
+}
+.light .lena-chamber-statuses > span {
+  background: rgba(255,255,255,.5);
+}
+
+@media (max-width: 900px) {
+  .lena-chamber-hero {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-top: 20px;
+  }
+  .lena-chamber-visual {
+    width: min(380px, 88vw);
+    order: -1;
+  }
+  .lena-chamber-copy h1 { font-size: clamp(2.8rem, 13vw, 5.2rem); }
+}
+
+@media (max-width: 640px) {
+  .lena-system-chamber { padding-top: 18px; }
+  .lena-chamber-hero { min-height: 0; }
+  .lena-chamber-visual { width: min(310px, 88vw); }
+  .lena-chamber-truth,
+  .lena-chamber-status-note { grid-template-columns: 1fr; }
+  .lena-chamber-panel { min-height: auto; padding: 20px; }
+  .lena-chamber-statuses > span { min-width: min(150px, 100%); flex: 1; }
+  .lena-chamber-actions > a { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lena-system-chamber.is-arrival *,
+  .lena-system-chamber.is-arrival *::before,
+  .lena-system-chamber.is-arrival *::after {
+    animation: none !important;
+  }
+}
