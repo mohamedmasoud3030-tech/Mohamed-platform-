@@ -133,11 +133,13 @@ function main() {
   const baseUrl = resolveBaseUrl();
   // Hidden entries are excluded: the sitemap must never advertise a page the
   // owner has taken off the public surface.
+  const systemIds = extractPublicIds("content/systems.ts", "system");
   const serviceIds = extractPublicIds("content/services.ts", "service");
   const projectIds = extractPublicIds("content/projects.ts", "project");
 
   const entries = [
     ...STATIC_ROUTES,
+    ...systemIds.map((id) => ({ path: `/world/${id}`, changefreq: "monthly", priority: "0.85" })),
     ...serviceIds.map((id) => ({ path: `/services/${id}`, changefreq: "monthly", priority: "0.8" })),
     ...projectIds.map((id) => ({ path: `/work/${id}`, changefreq: "monthly", priority: "0.8" })),
   ];
@@ -156,7 +158,7 @@ function main() {
   writeFileSync(path.join(outDir, "sitemap.xml"), buildSitemap(baseUrl, entries), "utf8");
   console.log(
     `[sitemap] Wrote ${entries.length * LOCALES.length} URLs (${LOCALES.join("/")}) to dist/public/sitemap.xml ` +
-      `(${STATIC_ROUTES.length} static, ${serviceIds.length} services, ${projectIds.length} case studies) — base ${baseUrl}`,
+      `(${STATIC_ROUTES.length} static, ${systemIds.length} World chambers, ${serviceIds.length} services, ${projectIds.length} case studies) — base ${baseUrl}`,
   );
 }
 
