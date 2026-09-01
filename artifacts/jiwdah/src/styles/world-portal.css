@@ -108,10 +108,21 @@
   width: 8px;
   height: 8px;
   opacity: 1;
+  animation-name: lena-world-portal-signal;
   animation-duration: 1.35s;
+  animation-timing-function: cubic-bezier(.2,.72,.24,1);
+  animation-iteration-count: infinite;
   box-shadow:
     0 0 12px rgba(255,231,181,.92),
     0 0 30px rgba(241,185,74,.52);
+}
+
+/* During entry, energy travels from the selected system back into LENA. */
+@keyframes lena-world-portal-signal {
+  0% { left: 100%; opacity: 0; }
+  12% { opacity: 1; }
+  82% { left: 0; opacity: 1; }
+  100% { left: 0; opacity: 0; }
 }
 
 /* Sacred Core acknowledges the approach. The selector is deliberately more
