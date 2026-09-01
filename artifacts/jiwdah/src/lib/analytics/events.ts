@@ -84,6 +84,7 @@ export function normaliseRoute(pathname: string): string {
     case "dashboard":
       return second ? "/dashboard/:section" : "/dashboard";
     case "world":
+      return second ? "/world/:system" : "/world";
     case "portfolio":
     case "about":
     case "ai-solutions":
