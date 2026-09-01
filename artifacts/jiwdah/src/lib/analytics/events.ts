@@ -14,6 +14,7 @@ import { stripBase } from "@/lib/base-path";
 export const ANALYTICS_EVENTS = [
   "page_viewed", // denominator for every conversion rate
   "primary_action_clicked", // the single CTA, wherever it appears
+  "world_entered", // the homepage gateway into LENA World
   "contact_channel_opened", // WhatsApp / email / phone — the zero-field path
   "inquiry_started", // first keystroke in the form: intent, not just arrival
   "inquiry_submitted", // activation

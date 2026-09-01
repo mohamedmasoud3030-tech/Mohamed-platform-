@@ -7,6 +7,7 @@ export type LocalizedSeo = {
 
 export type PageSeoKey =
   | "home"
+  | "world"
   | "services"
   | "portfolio"
   | "about"
@@ -29,6 +30,18 @@ export const PAGE_SEO: Record<PageSeoKey, Record<AppLocale, LocalizedSeo>> = {
       title: "LENA Digital House — Creative Systems & Digital Experiences",
       description:
         "A digital house building identity, content, websites, digital products, and automation as one connected system — for clients across the Arab region and beyond.",
+    },
+  },
+  world: {
+    ar: {
+      title: "عالم LENA",
+      description:
+        "منظومة LENA: أنظمة تشغيل مختلفة تولد داخل عالم واحد — MALEK، LenaBeauty، وكيّال.",
+    },
+    en: {
+      title: "LENA World",
+      description:
+        "LENA World: operating systems born into one world — MALEK, LenaBeauty, and Kayyal.",
     },
   },
   services: {

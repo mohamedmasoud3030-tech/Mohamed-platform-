@@ -1,0 +1,622 @@
+/* ===========================================================================
+   LENA World — spatial scene
+   LENA stays the gravitational identity; the three systems are spatial
+   entities with distinct Digital DNA and encoded state. Motion is
+   transform/opacity only; continuous work pauses offscreen and under
+   reduced-motion. The world is a flat constellation map on desktop and a
+   single focused entity with explicit controls on mobile.
+=========================================================================== */
+
+/* --- Layout ---------------------------------------------------------------- */
+.lena-world-page {
+  position: relative;
+  padding-top: 28px;
+}
+.lena-world-title {
+  max-width: 820px;
+  margin: 12px 0 0;
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+.lena-world-intro {
+  max-width: 620px;
+  margin-top: 12px;
+  color: var(--lena-muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* The scene canvas: a square spatial field centered in the page. */
+.lena-world {
+  --lena-squash: 1;
+  position: relative;
+  margin: 34px auto 6px;
+  width: min(820px, 100%);
+  aspect-ratio: 1 / 1.15;
+  min-height: 430px;
+  contain: layout paint style;
+}
+.light .lena-world {
+  /* slightly stronger boundaries so structure stays visible in light mode */
+  filter: none;
+}
+
+/* --- Ambient field -------------------------------------------------------- */
+.lena-world-field {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(79, 108, 255, 0.1), transparent 45%),
+    radial-gradient(circle at 72% 68%, rgba(150, 101, 255, 0.08), transparent 48%);
+  opacity: 0;
+  pointer-events: none;
+  animation:
+    lena-world-field-enter 0.9s ease 0.5s backwards,
+    lena-world-field-drift 90s ease-in-out 2s infinite alternate;
+}
+.light .lena-world-field {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(49, 94, 251, 0.07), transparent 45%),
+    radial-gradient(circle at 72% 68%, rgba(122, 84, 214, 0.05), transparent 48%);
+}
+.lena-world-field::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 760px;
+  height: 760px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  box-shadow: var(--lena-stars, none);
+  -webkit-mask-image: radial-gradient(circle, #000 30%, transparent 72%);
+  mask-image: radial-gradient(circle, #000 30%, transparent 72%);
+}
+
+/* Soft halo behind the center — static, no blur animation. */
+.lena-world-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 340px;
+  height: 340px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 108, 255, 0.18), transparent 66%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+.lena-world-halo {
+  pointer-events: none;
+}
+.light .lena-world-halo {
+  background: radial-gradient(circle, rgba(49, 94, 251, 0.12), transparent 66%);
+}
+
+/* --- LENA gravitational center ------------------------------------------- */
+.lena-world-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-content: center;
+  width: 118px;
+  height: 118px;
+  border: 1px solid rgba(174, 194, 255, 0.34);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 28% 22%,
+    rgba(117, 153, 255, 0.42),
+    rgba(41, 53, 127, 0.26) 42%,
+    rgba(7, 15, 39, 0.94)
+  );
+  box-shadow: 0 0 60px rgba(78, 97, 255, 0.22);
+  text-align: center;
+  z-index: 4;
+  animation:
+    lena-world-core-enter 0.7s ease backwards,
+    lena-world-breathe 7s ease-in-out 0.9s infinite alternate;
+}
+.lena-world-core strong {
+  font-size: 15px;
+  letter-spacing: 0.24em;
+  padding-inline-start: 0.24em; /* optical centering for letter-spacing */
+}
+.lena-world-core small {
+  margin-top: 4px;
+  color: var(--lena-accent);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.light .lena-world-core {
+  border-color: rgba(38, 72, 152, 0.3);
+  box-shadow: 0 0 60px rgba(49, 94, 251, 0.14);
+}
+
+/* --- Constellation rings (decorative) ------------------------------------- */
+.lena-world-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(146, 170, 255, 0.16);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.wr-1 {
+  width: 396px;
+  height: 396px;
+}
+.wr-2 {
+  width: 420px;
+  height: 420px;
+  border-style: dashed;
+  opacity: 0.7;
+}
+.wr-3 {
+  width: 520px;
+  height: 520px;
+  opacity: 0.45;
+}
+.light .lena-world-ring {
+  border-color: rgba(38, 72, 152, 0.14);
+}
+
+/* --- Entities --------------------------------------------------------------
+   Each entity is a real <button> (keyboard + touch + pointer selectable).
+   The figure is the spatial body; the caption is the readable label.
+   Entity placement: the figure is centered at (--ex, --ey) from the core;
+   the caption offsets outward from the figure by its own radius.
+--------------------------------------------------------------------------- */
+.lena-world-entity {
+  --er: 196px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 132px;
+  height: 132px;
+  margin: -66px 0 0 -66px;
+  transform: translate(var(--ex), var(--ey));
+  border: 0;
+  background: none;
+  cursor: pointer;
+  z-index: 5;
+}
+.lena-world-entity:focus-visible {
+  outline: 2px solid var(--lena-focus);
+  outline-offset: 6px;
+  border-radius: 16px;
+}
+
+/* the figure body — shape and material are DNA-specific */
+.lena-world-entity-figure {
+  position: absolute;
+  inset: 8px;
+  border-radius: 24px;
+  display: block;
+  will-change: transform, opacity;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+}
+
+/* the inner decorative marks layer */
+.lena-world-entity-marks {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: inherit;
+  opacity: 0.9;
+}
+
+/* caption below/at the edge of the figure */
+.lena-world-entity-caption {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: max-content;
+  max-width: 190px;
+  text-align: center;
+  pointer-events: none;
+}
+.lena-world-entity-caption strong {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--lena-text);
+}
+.lena-world-entity-caption em {
+  font-style: normal;
+  color: var(--lena-muted);
+  font-size: 10px;
+}
+.lena-world-entity-state {
+  margin-top: 3px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lena-accent);
+}
+
+/* --- Digital DNA materials -------------------------------------------------
+   Geometry, density and material differ; the palette stays inside the shared
+   Midnight Navy → Electric Blue → Violet → controlled Pink family.
+--------------------------------------------------------------------------- */
+/* architectural — MALEK: layered planes, ledger lines, measured grids */
+.dna-architectural .lena-world-entity-figure {
+  background:
+    linear-gradient(135deg, rgba(79, 108, 255, 0.34), rgba(49, 94, 251, 0.12)),
+    linear-gradient(90deg, rgba(174, 194, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(174, 194, 255, 0.14) 1px, transparent 1px),
+    rgba(10, 18, 42, 0.8);
+  background-size: auto, 22px 22px, 22px 22px, auto;
+  border: 1px solid rgba(130, 161, 255, 0.42);
+  box-shadow: 0 18px 42px rgba(49, 94, 251, 0.22);
+}
+.dna-architectural .lena-world-entity-marks {
+  background:
+    linear-gradient(90deg, transparent 14px, rgba(130, 161, 255, 0.4) 14px, rgba(130, 161, 255, 0.4) 15px, transparent 15px),
+    linear-gradient(180deg, transparent 12px, rgba(130, 161, 255, 0.3) 12px, rgba(130, 161, 255, 0.3) 13px, transparent 13px),
+    radial-gradient(circle at 68% 28%, rgba(174, 194, 255, 0.5) 2px, transparent 3px);
+  background-repeat: no-repeat;
+}
+/* organic — LenaBeauty: soft flowing curves, fine luminous threads */
+.dna-organic .lena-world-entity-figure {
+  border-radius: 50% 50% 46% 54% / 52% 46% 54% 48%;
+  background: radial-gradient(circle at 36% 30%, rgba(150, 101, 255, 0.38), rgba(81, 225, 255, 0.1) 58%, rgba(10, 18, 42, 0.8));
+  border: 1px solid rgba(150, 101, 255, 0.4);
+  box-shadow: 0 18px 42px rgba(150, 101, 255, 0.16);
+}
+.dna-organic .lena-world-entity-marks {
+  background:
+    radial-gradient(circle at 30% 40%, rgba(81, 225, 255, 0.5) 1px, transparent 2px),
+    radial-gradient(circle at 62% 30%, rgba(81, 225, 255, 0.4) 1px, transparent 2px),
+    radial-gradient(circle at 50% 62%, rgba(150, 101, 255, 0.5) 1px, transparent 2px);
+}
+/* industrial — Kayyal: weight, segmented mechanical bands, measured ticks */
+.dna-industrial .lena-world-entity-figure {
+  border-radius: 10px;
+  background:
+    repeating-linear-gradient(90deg, rgba(174, 194, 255, 0.1) 0 10px, transparent 10px 20px),
+    linear-gradient(145deg, rgba(114, 77, 255, 0.28), rgba(10, 18, 42, 0.82));
+  border: 1px solid rgba(174, 194, 255, 0.3);
+  box-shadow: 0 18px 42px rgba(114, 77, 255, 0.18);
+}
+.dna-industrial .lena-world-entity-marks {
+  background:
+    repeating-linear-gradient(90deg, rgba(174, 194, 255, 0.24) 0 2px, transparent 2px 12px),
+    radial-gradient(circle at 50% 50%, rgba(114, 77, 255, 0.4) 0 3px, transparent 4px);
+}
+
+/* --- State grammar ---------------------------------------------------------
+   Form and behavior change, not just the label.
+--------------------------------------------------------------------------- */
+/* LIVE — complete stable boundary, calm continuous energy, crisp geometry */
+.state-live .lena-world-entity-figure {
+  border-style: solid;
+  animation: lena-world-state-live 9s ease-in-out infinite alternate;
+}
+@keyframes lena-world-state-live {
+  from { box-shadow: 0 18px 42px rgba(49, 94, 251, 0.2); }
+  to { box-shadow: 0 18px 46px rgba(49, 94, 251, 0.34); }
+}
+/* BETA — nearly complete form with soft calibration arcs */
+.state-beta .lena-world-entity-figure::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  border: 1px dashed rgba(150, 101, 255, 0.4);
+  opacity: 0.5;
+  animation: lena-world-state-beta 4.5s ease-in-out infinite;
+}
+@keyframes lena-world-state-beta {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.75; }
+}
+/* FORMING — partial structured assembly, segments joining the body */
+.state-forming .lena-world-entity-figure::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: inherit;
+  border: 1px solid rgba(114, 77, 255, 0.3);
+  opacity: 0.4;
+  clip-path: polygon(0 0, 34% 0, 34% 100%, 0 100%);
+  animation: lena-world-state-forming 6s ease-in-out infinite alternate;
+}
+@keyframes lena-world-state-forming {
+  from { clip-path: polygon(0 0, 22% 0, 22% 100%, 0 100%); }
+  to { clip-path: polygon(0 0, 46% 0, 46% 100%, 0 100%); }
+}
+
+/* --- Focus / approach ------------------------------------------------------ */
+/* selected entity approaches: grows and sharpens; others recede */
+.lena-world.is-focus .lena-world-entity:not(.is-selected) .lena-world-entity-figure {
+  opacity: 0.42;
+  transform: scale(0.9);
+}
+.lena-world.is-focus .lena-world-entity.is-selected .lena-world-entity-figure {
+  transform: scale(1.12);
+}
+.lena-world.is-focus .lena-world-entity.is-selected .lena-world-entity-caption strong {
+  color: var(--lena-text);
+}
+/* default: entities rest at their constellation position, slightly alive */
+.lena-world-entity .lena-world-entity-figure {
+  animation: lena-world-entity-float 7s ease-in-out var(--i) infinite alternate;
+}
+@keyframes lena-world-entity-float {
+  from { transform: translateY(-3px); }
+  to { transform: translateY(3px); }
+}
+
+/* --- Calm spatial information layer --------------------------------------- */
+.lena-world-info {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 6;
+  width: 300px;
+  padding: 22px 24px;
+  border: 1px solid var(--lena-line);
+  border-radius: 20px;
+  background: var(--lena-glass);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  animation: lena-world-info-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  /* reserved bottom-center band — never overlaps the three entities */
+  transform: translate(calc(-50% + var(--info-x, 0px)), calc(-50% + var(--info-y, 0px)));
+}
+@keyframes lena-world-info-in {
+  from { opacity: 0; scale: 0.97; }
+  to { opacity: 1; scale: 1; }
+}
+.lena-world-info-state {
+  margin: 0;
+  color: var(--lena-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.lena-world-info h2 {
+  margin: 8px 0 0;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.lena-world-info-industry {
+  margin: 2px 0 0;
+  color: var(--lena-muted);
+  font-size: 12px;
+}
+.lena-world-info-problem {
+  margin: 12px 0 0;
+  color: var(--lena-text);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.lena-world-info-note {
+  margin: 10px 0 0;
+  color: var(--lena-muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.lena-world-info-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  min-height: 40px;
+  padding: 0 15px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #416fff, #724dff);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 0.18s ease;
+}
+.lena-world-info-action:hover {
+  transform: translateY(-2px);
+}
+.light .lena-world-info {
+  background: var(--lena-card-strong);
+  box-shadow: 0 24px 60px rgba(42, 67, 130, 0.12);
+}
+
+
+/* --- World keyframes ------------------------------------------------------- */
+@keyframes lena-world-field-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes lena-world-field-drift {
+  to { transform: translate3d(10px, 8px, 0); }
+}
+@keyframes lena-world-core-enter {
+  from { opacity: 0; scale: 0.94; }
+}
+@keyframes lena-world-breathe {
+  to { scale: 1.015; }
+}
+/* --- Mobile: explicit prev/next-style selection --------------------------- */
+.lena-world-mobile-nav {
+  display: none;
+}
+.lena-world-hint {
+  margin: 20px auto 0;
+  max-width: 520px;
+  color: var(--lena-muted);
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+
+/* --- Offscreen: pause all continuous motion -------------------------------- */
+.lena-world.is-away .lena-world-field,
+.lena-world.is-away .lena-world-core,
+.lena-world.is-away .lena-world-entity .lena-world-entity-figure,
+.lena-world.is-away .state-live .lena-world-entity-figure,
+.lena-world.is-away .state-beta .lena-world-entity-figure::after,
+.lena-world.is-away .state-forming .lena-world-entity-figure::before {
+  animation-play-state: paused;
+}
+
+/* --- Supporting text list (calm fallback links under the scene) ------------ */
+.lena-world-entities-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 18px auto 0;
+  max-width: 560px;
+}
+.lena-world-list-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 15px;
+  border: 1px solid var(--lena-line);
+  border-radius: 99px;
+  color: var(--lena-muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+.lena-world-list-link:hover {
+  border-color: var(--lena-line-strong);
+  color: var(--lena-text);
+}
+/* --- Reduced motion: keep meaning, remove travel --------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .lena-world-field,
+  .lena-world-core,
+  .lena-world-entity .lena-world-entity-figure,
+  .state-live .lena-world-entity-figure,
+  .state-beta .lena-world-entity-figure::after,
+  .state-forming .lena-world-entity-figure::before {
+    animation: none !important;
+  }
+  /* the field's base opacity is 0 and fades in via animation; with travel
+     disabled it must render fully present so the scene is not empty */
+  .lena-world-field {
+    opacity: 1 !important;
+  }
+  .lena-world-info {
+    animation: none !important;
+    opacity: 1 !important;
+    scale: 1 !important;
+  }
+  .lena-world.is-focus .lena-world-entity.is-selected .lena-world-entity-figure {
+    transform: scale(1.05);
+  }
+}
+
+/* --- Responsive ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .lena-world {
+    width: 100%;
+    max-height: none;
+  }
+  .lena-world-entity-caption strong {
+    font-size: 11px;
+  }
+}
+/* Mobile: one entity in focus at a time, explicit tabs, no global scale. */
+@media (max-width: 720px) {
+  .lena-world {
+    margin-top: 22px;
+    min-height: 420px;
+    aspect-ratio: auto;
+  }
+  .lena-world-ring {
+    display: none;
+  }
+  .lena-world-entity {
+    /* entities rest toward the vertical center on mobile */
+    --ex: 0px;
+    --ey: -40px;
+    width: 108px;
+    height: 108px;
+    margin: -54px 0 0 -54px;
+  }
+  .lena-world-entity:not(.is-selected) {
+    opacity: 0.28;
+    pointer-events: none;
+  }
+  .lena-world-entity.is-selected {
+    opacity: 1;
+    transform: translate(0, -40px) scale(1.05);
+  }
+  .lena-world-entity .lena-world-entity-caption {
+    top: calc(100% + 8px);
+  }
+  .lena-world.is-focus .lena-world-entity:not(.is-selected) .lena-world-entity-figure {
+    transform: scale(0.92);
+  }
+  .lena-world-mobile-nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .lena-world-mobile-dot {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 12px;
+    border: 1px solid var(--lena-line);
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--lena-muted);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .lena-world-mobile-dot.is-active {
+    border-color: var(--lena-line-strong);
+    background: rgba(130, 161, 255, 0.12);
+    color: var(--lena-text);
+  }
+  .lena-world-info {
+    position: static;
+    width: 100%;
+    margin-top: 10px;
+    transform: none;
+    --info-x: 0px !important;
+    --info-y: 0px !important;
+  }
+
+}
+
+/* --- Gateway classes (set by HomeGatewayTransition) ----------------------- */
+.lena-public.lena-gateway-quiet .lena-orbit,
+.lena-public.lena-gateway-quiet .lena-hero .lena-lead,
+.lena-public.lena-gateway-quiet .lena-hero .lena-actions,
+.lena-public.lena-gateway-quiet .lena-hero .lena-scroll {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.lena-public.lena-gateway-quiet .lena-hero .lena-house {
+  transform: scale(1.08);
+  transition: transform 0.5s ease;
+}
+.lena-public.lena-gateway-resolve .lena-hero .lena-house {
+  transform: scale(1.16);
+  transition: transform 0.4s ease;
+}

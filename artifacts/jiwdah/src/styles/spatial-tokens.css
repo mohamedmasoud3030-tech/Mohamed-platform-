@@ -1,0 +1,19 @@
+/* ---------------------------------------------------------------------------
+   LENA Spatial Language v1 — shared tokens.
+   The only contracts genuinely reused by both the homepage Orbit and the
+   World scene. Everything else stays local to each surface.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* Motion durations (seconds) — one calm vocabulary across surfaces. */
+  --lena-dur-fast: 0.28s;
+  --lena-dur-enter: 0.7s;
+  --lena-dur-settle: 1.1s;
+  --lena-dur-drift: 90s;
+
+  /* Depth vocabulary — scale and opacity ranges shared by spatial scenes. */
+  --lena-depth-scale-far: 0.94;
+  --lena-depth-scale-near: 1.04;
+  --lena-depth-opacity-far: 0.68;
+  --lena-depth-opacity-near: 1;
+}

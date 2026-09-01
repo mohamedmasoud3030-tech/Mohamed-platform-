@@ -24,6 +24,7 @@ const LOCALES = ["ar", "en"];
 /** Public, indexable static routes. Admin routes are deliberately excluded. */
 const STATIC_ROUTES = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/world", changefreq: "monthly", priority: "0.9" },
   { path: "/services", changefreq: "monthly", priority: "0.9" },
   { path: "/portfolio", changefreq: "weekly", priority: "0.9" },
   { path: "/about", changefreq: "yearly", priority: "0.6" },
