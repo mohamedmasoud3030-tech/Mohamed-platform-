@@ -40,7 +40,7 @@ check("LENA is not described as MALEK support", () => {
   assert.doesNotMatch(systems, /LENA MALEK/);
 });
 check("the named product family keeps independent brands", () => {
-  assert.match(systems, /name:\s*\{\s*ar:\s*"LENA Beauty",\s*en:\s*"LENA Beauty"\s*\}/);
+  assert.match(systems, /name:\s*\{\s*ar:\s*"LenaBeauty",\s*en:\s*"LenaBeauty"\s*\}/);
   assert.match(systems, /name:\s*\{\s*ar:\s*"LENA Dress",\s*en:\s*"LENA Dress"\s*\}/);
   assert.match(systems, /en:\s*"Terranex"/);
 });
