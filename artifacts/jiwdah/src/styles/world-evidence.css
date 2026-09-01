@@ -243,7 +243,7 @@
 
 @media (max-width: 480px) {
   .lena-surface-marker { flex: 1 1 calc(50% - 8px); }
-  .lena-surface-frame img { aspect-ratio: 3 / 3.4; }
+  .lena-surface-frame img { aspect-ratio: 9 / 16; }
 }
 
 /* --- Reduced motion: calm, no dimensional tilt ----------------------------- */
