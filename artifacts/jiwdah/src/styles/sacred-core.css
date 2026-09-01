@@ -1,0 +1,234 @@
+/* ========================================================================== 
+   LENA Sacred Core — living gravitational identity
+   --------------------------------------------------------------------------
+   The artwork stays intact. Motion is layered over the eye so LENA can feel
+   awake without turning the mark into a looping gimmick. The blink is rare,
+   the pupil breath is restrained, and gateway/focus reactions are event-led.
+============================================================================ */
+
+.lena-sacred-core {
+  --sacred-core-size: 224px;
+  position: relative;
+  width: var(--sacred-core-size);
+  height: var(--sacred-core-size);
+  flex: 0 0 auto;
+  border-radius: 50%;
+  isolation: isolate;
+  pointer-events: none;
+  transform: translateZ(0);
+}
+
+.lena-sacred-core--world {
+  --sacred-core-size: 176px;
+}
+
+.lena-sacred-core-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  clip-path: circle(48.5% at 50% 50%);
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: saturate(1.03) contrast(1.04) brightness(1.02);
+  transform: translateZ(0);
+}
+
+/* Warm atmospheric field — intentionally much quieter than the eye. */
+.lena-sacred-core-aura {
+  position: absolute;
+  inset: 8%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 199, 92, 0.2), rgba(206, 132, 39, 0.08) 38%, transparent 72%);
+  opacity: 0.34;
+  transform: scale(0.96);
+  animation: lena-sacred-aura 8.5s ease-in-out infinite alternate;
+}
+
+/* The source eye lives around this area in the master artwork. Runtime light
+   is constrained to the same region so the effect feels emitted by the art. */
+.lena-sacred-eye {
+  position: absolute;
+  left: 50%;
+  top: 47.1%;
+  width: 31%;
+  height: 14.5%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 3;
+}
+
+/* Constant, low-energy pupil breath. */
+.lena-sacred-eye-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 34%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.98) 0 5%, rgba(255,231,174,.96) 12%, rgba(255,190,70,.72) 30%, rgba(255,161,25,.18) 56%, transparent 74%);
+  box-shadow:
+    0 0 8px rgba(255, 232, 177, 0.92),
+    0 0 20px rgba(255, 184, 62, 0.55),
+    0 0 42px rgba(255, 154, 24, 0.22);
+  opacity: 0.68;
+  animation: lena-sacred-eye-breathe 5.8s ease-in-out infinite alternate;
+}
+
+/* Re-mounted whenever World focus changes; one acknowledgement flash only. */
+.lena-sacred-eye-response {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    linear-gradient(90deg, transparent 4%, rgba(255,220,145,.72) 49%, rgba(255,255,255,.95) 50%, rgba(255,220,145,.72) 51%, transparent 96%),
+    radial-gradient(circle at center, rgba(255,230,166,.52), transparent 46%);
+  opacity: 0;
+  transform: scaleX(0.35);
+}
+
+.lena-sacred-core.is-reactive .lena-sacred-eye-response {
+  animation: lena-sacred-acknowledge 0.72s cubic-bezier(.18,.72,.2,1) both;
+}
+
+/* Two dark shutters cover the existing painted eye for a real close/open
+   moment. The long dead-time makes the blink feel intentional, not cartoonish. */
+.lena-sacred-eye-lid {
+  position: absolute;
+  left: -8%;
+  width: 116%;
+  height: 53%;
+  z-index: 5;
+  background: radial-gradient(ellipse at center, rgba(2,2,2,.995) 0 62%, rgba(2,2,2,.96) 76%, rgba(2,2,2,0) 100%);
+  will-change: transform;
+  animation: lena-sacred-blink 13.6s cubic-bezier(.4,0,.2,1) infinite;
+}
+
+.lena-sacred-eye-lid--top {
+  top: -3%;
+  transform-origin: 50% 0%;
+  transform: translateY(-108%);
+}
+
+.lena-sacred-eye-lid--bottom {
+  bottom: -3%;
+  transform-origin: 50% 100%;
+  transform: translateY(108%);
+  animation-name: lena-sacred-blink-bottom;
+}
+
+/* Homepage Orbit: replace the old purple text-disc but preserve its stable
+   transform/entry layer so the existing orbital physics remain untouched. */
+.lena-house.lena-house-sacred {
+  width: 236px;
+  height: 236px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  place-content: center;
+}
+.lena-house.lena-house-sacred::after {
+  display: none;
+}
+
+/* World: the same identity, slightly smaller so the entities remain primary. */
+.lena-world-core.lena-world-core-sacred {
+  width: 184px;
+  height: 184px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* Focus on any World entity makes the center acknowledge that system. */
+.lena-world.is-focus .lena-world-core-sacred .lena-sacred-core-aura {
+  opacity: 0.48;
+}
+
+/* Gateway choreography: first quiet the field, then visibly awaken the eye.
+   HomeGatewayTransition already owns these classes and timing. */
+.lena-public.lena-gateway-quiet .lena-sacred-core--orbit .lena-sacred-core-aura {
+  opacity: 0.58;
+  transform: scale(1.04);
+  transition: opacity .22s ease, transform .22s ease;
+}
+
+.lena-public.lena-gateway-resolve .lena-sacred-core--orbit {
+  animation: lena-sacred-gateway-core .42s cubic-bezier(.16,.84,.28,1) both;
+}
+.lena-public.lena-gateway-resolve .lena-sacred-core--orbit .lena-sacred-eye-glow {
+  animation: lena-sacred-awakening .42s cubic-bezier(.16,.84,.28,1) both;
+}
+.lena-public.lena-gateway-resolve .lena-sacred-core--orbit .lena-sacred-eye-response {
+  opacity: 1;
+  transform: scaleX(1);
+  box-shadow: 0 0 28px rgba(255,196,80,.6);
+}
+
+@keyframes lena-sacred-aura {
+  to { opacity: .48; transform: scale(1.025); }
+}
+
+@keyframes lena-sacred-eye-breathe {
+  from { opacity: .55; transform: translate(-50%,-50%) scale(.92); }
+  to { opacity: .82; transform: translate(-50%,-50%) scale(1.08); }
+}
+
+@keyframes lena-sacred-acknowledge {
+  0% { opacity: 0; transform: scaleX(.28); }
+  34% { opacity: .88; transform: scaleX(1.08); }
+  100% { opacity: 0; transform: scaleX(1.24); }
+}
+
+@keyframes lena-sacred-blink {
+  0%, 91.8%, 95.4%, 100% { transform: translateY(-108%); }
+  93.05%, 94.05% { transform: translateY(0%); }
+}
+
+@keyframes lena-sacred-blink-bottom {
+  0%, 91.8%, 95.4%, 100% { transform: translateY(108%); }
+  93.05%, 94.05% { transform: translateY(0%); }
+}
+
+@keyframes lena-sacred-awakening {
+  0% { opacity: .7; transform: translate(-50%,-50%) scale(1); }
+  56% { opacity: 1; transform: translate(-50%,-50%) scale(1.72); box-shadow: 0 0 12px rgba(255,245,220,1), 0 0 36px rgba(255,187,61,.88), 0 0 86px rgba(255,143,16,.46); }
+  100% { opacity: .9; transform: translate(-50%,-50%) scale(1.28); }
+}
+
+@keyframes lena-sacred-gateway-core {
+  from { transform: scale(1); }
+  to { transform: scale(1.055); }
+}
+
+@media (max-width: 900px) {
+  .lena-sacred-core--orbit { --sacred-core-size: 208px; }
+  .lena-sacred-core--world { --sacred-core-size: 158px; }
+  .lena-house.lena-house-sacred { width: 216px; height: 216px; }
+  .lena-world-core.lena-world-core-sacred { width: 166px; height: 166px; }
+}
+
+/* Motion preferences preserve the identity and bright pupil, but never blink,
+   breathe, pulse, or flare. */
+@media (prefers-reduced-motion: reduce) {
+  .lena-sacred-core-aura,
+  .lena-sacred-eye-glow,
+  .lena-sacred-eye-response,
+  .lena-sacred-eye-lid,
+  .lena-public.lena-gateway-resolve .lena-sacred-core--orbit,
+  .lena-public.lena-gateway-resolve .lena-sacred-core--orbit .lena-sacred-eye-glow {
+    animation: none !important;
+  }
+  .lena-sacred-core-aura { opacity: .4; transform: none; }
+  .lena-sacred-eye-glow { opacity: .74; transform: translate(-50%,-50%); }
+  .lena-sacred-eye-response { display: none; }
+  .lena-sacred-eye-lid--top { transform: translateY(-108%); }
+  .lena-sacred-eye-lid--bottom { transform: translateY(108%); }
+}
