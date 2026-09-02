@@ -20,19 +20,19 @@ export default function Home() {
     <PublicShell>
       <SeoHead title={seo.title} description={seo.description} path="/" jsonLd={organizationJsonLd(locale)} />
       <section className="lena-hero lena-container">
-        <div>
-          <p className="lena-kicker">LENA DIGITAL HOUSE — OPERATING WORLDS</p>
+        <div className="lena-hero-copy">
+          <p className="lena-kicker">LENA DIGITAL HOUSE</p>
           <h1>
             {locale === "ar" ? (
-              <>ندخل العمل إلى <span>عالم جديد</span></>
+              <>ادخل <span>عالم LENA الحي</span></>
             ) : (
-              <>Business becomes an <span>operating world</span></>
+              <>Enter a <span>living operating world</span></>
             )}
           </h1>
           <p className="lena-lead">
             {locale === "ar"
-              ? "نبني عوالم تشغيل رقمية لأعمال حقيقية عبر العقارات والجمال والتأجير والاستثمار والضيافة وإعادة التدوير — لكل عالم عملياته وذكاؤه وبرنامجه الحقيقي، وتجمعها جذور تشغيلية واحدة داخل LENA."
-              : "We build digital operating worlds across property, beauty, rental, investment, hospitality, and recycling — each with its own operations, intelligence, and real software, connected by a shared operating language inside LENA."}
+              ? "عوالم تشغيل حقيقية، بلغة مكانية واحدة. اقترب من النواة، اختر عالمًا، ثم تحرك إلى الداخل."
+              : "Real operating worlds, one spatial language. Approach the core, choose a world, then move inward."}
           </p>
           <div className="lena-actions">
             <Link
@@ -43,16 +43,16 @@ export default function Home() {
                 gateway();
               }}
             >
-              {locale === "ar" ? "ادخل عالم LENA" : "Enter LENA World"}
+              {locale === "ar" ? "ادخل العالم" : "Enter the world"}
               <ArrowUpRight size={16} />
             </Link>
             <Link className="lena-secondary" to="/world">
-              {locale === "ar" ? "استكشف الأنظمة" : "Explore systems"}
+              {locale === "ar" ? "شاهد الأنظمة" : "See the systems"}
             </Link>
           </div>
           <a className="lena-scroll" href="#solutions">
             <ArrowDown size={15} />
-            {locale === "ar" ? "اقترب… لكل نظام عالم في الداخل" : "Move closer… every system has a world inside"}
+            {locale === "ar" ? "اختر عالمًا… ثم تحرك إلى الداخل" : "Choose a world… then move inward"}
           </a>
         </div>
         <DigitalHouseOrbit />
