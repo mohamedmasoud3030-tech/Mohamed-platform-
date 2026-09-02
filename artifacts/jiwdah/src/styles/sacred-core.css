@@ -1,27 +1,22 @@
 /* ========================================================================== 
    LENA Sacred Core — living gravitational identity
-   --------------------------------------------------------------------------
-   This layer deliberately mounts onto the existing Orbit and World core
-   wrappers, so none of the proven orbital/runtime mechanics need to change.
-   The selected artwork becomes the shared center; eye light and blink are
-   runtime effects layered over it rather than baked into the asset.
 ============================================================================ */
 
-/* --- Shared artwork mount ------------------------------------------------ */
 .lena-house,
 .lena-world-core {
   isolation: isolate;
   overflow: visible;
   background:
-    #020202 url("../assets/lena-sacred-core.webp") center / contain no-repeat !important;
-  border-color: rgba(226, 173, 73, 0.28) !important;
+    url("../assets/lena-sacred-core.webp") center / contain no-repeat,
+    radial-gradient(ellipse at 50% 47%, rgba(255,244,214,.98) 0 2%, rgba(255,190,71,.88) 3% 6%, rgba(159,91,18,.28) 7% 12%, transparent 15%),
+    radial-gradient(circle at 50% 46%, #3a220b 0 18%, #171009 34%, #090705 56%, #030303 78%) !important;
+  border-color: rgba(226, 173, 73, 0.32) !important;
   box-shadow:
-    0 0 28px rgba(255, 190, 70, 0.12),
-    0 0 90px rgba(182, 112, 26, 0.12) !important;
+    0 0 0 1px rgba(255, 215, 139, 0.04),
+    0 0 34px rgba(255, 190, 70, 0.16),
+    0 0 96px rgba(182, 112, 26, 0.16) !important;
 }
 
-/* The old textual/purple core remains in the DOM for a zero-risk structural
-   change, but the Sacred Core owns the visual identity now. */
 .lena-house > small,
 .lena-house > strong,
 .lena-house > span,
@@ -32,8 +27,8 @@
 }
 
 .lena-house {
-  width: 236px !important;
-  height: 236px !important;
+  width: 220px !important;
+  height: 220px !important;
 }
 
 .lena-world-core {
@@ -41,8 +36,6 @@
   height: 184px !important;
 }
 
-/* Re-purpose the old glow layer as the living pupil/aura. The source eye is
-   centered at ~50% / 47% of the artwork. */
 .lena-house::after,
 .lena-world-core::after {
   content: "";
@@ -62,14 +55,12 @@
     0 0 9px rgba(255, 235, 188, 0.88),
     0 0 24px rgba(255, 183, 55, 0.52),
     0 0 54px rgba(255, 139, 18, 0.18);
-  opacity: .66;
+  opacity: .72;
   z-index: 3;
   pointer-events: none;
   animation: lena-sacred-eye-breathe 5.8s ease-in-out infinite alternate !important;
 }
 
-/* A single dark elliptical shutter creates a real close/open moment over the
-   already-painted eye. Long idle time keeps it mystical instead of cartoonish. */
 .lena-house::before,
 .lena-world-core::before {
   content: "";
@@ -88,18 +79,14 @@
   animation: lena-sacred-blink 13.6s cubic-bezier(.4,0,.2,1) infinite;
 }
 
-/* Hovering a real product does not make the whole scene louder; the core
-   simply appears to notice it. */
 .lena-orbit.is-focus .lena-house::after {
-  opacity: .9;
+  opacity: .94;
   box-shadow:
     0 0 11px rgba(255,245,220,.98),
     0 0 30px rgba(255,191,67,.72),
     0 0 70px rgba(255,141,16,.28);
 }
 
-/* LENA World selection response. Different system states produce subtly
-   different acknowledgement signatures without inventing fake telemetry. */
 .lena-world:has(.state-live.is-selected) .lena-world-core::after {
   animation: lena-sacred-ack-live .78s cubic-bezier(.18,.72,.2,1), lena-sacred-eye-breathe 5.8s ease-in-out .78s infinite alternate !important;
 }
@@ -110,13 +97,10 @@
   animation: lena-sacred-ack-forming 1.05s cubic-bezier(.18,.72,.2,1), lena-sacred-eye-breathe 5.8s ease-in-out 1.05s infinite alternate !important;
 }
 
-/* --- Gateway awakening ---------------------------------------------------
-   HomeGatewayTransition already owns these classes and timings. The core now
-   provides the visual payoff without changing navigation logic. */
 .lena-public.lena-gateway-quiet .lena-house {
   box-shadow:
-    0 0 36px rgba(255, 193, 70, .22),
-    0 0 110px rgba(189, 110, 22, .16) !important;
+    0 0 40px rgba(255, 193, 70, .24),
+    0 0 118px rgba(189, 110, 22, .2) !important;
 }
 
 .lena-public.lena-gateway-resolve .lena-house {
@@ -127,27 +111,14 @@
   animation: lena-sacred-awakening .42s cubic-bezier(.16,.84,.28,1) both !important;
 }
 
-/* --- Motion vocabulary --------------------------------------------------- */
 @keyframes lena-sacred-eye-breathe {
-  from {
-    opacity: .56;
-    transform: translate(-50%, -50%) scale(.92);
-  }
-  to {
-    opacity: .82;
-    transform: translate(-50%, -50%) scale(1.08);
-  }
+  from { opacity: .58; transform: translate(-50%, -50%) scale(.92); }
+  to { opacity: .88; transform: translate(-50%, -50%) scale(1.08); }
 }
 
 @keyframes lena-sacred-blink {
-  0%, 91.7%, 95.5%, 100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scaleY(0);
-  }
-  93.05%, 94.05% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scaleY(1);
-  }
+  0%, 91.7%, 95.5%, 100% { opacity: 0; transform: translate(-50%, -50%) scaleY(0); }
+  93.05%, 94.05% { opacity: 1; transform: translate(-50%, -50%) scaleY(1); }
 }
 
 @keyframes lena-sacred-ack-live {
@@ -171,22 +142,13 @@
 }
 
 @keyframes lena-sacred-awakening {
-  0% {
-    opacity: .7;
-    transform: translate(-50%,-50%) scale(1);
-  }
+  0% { opacity: .7; transform: translate(-50%,-50%) scale(1); }
   56% {
     opacity: 1;
     transform: translate(-50%,-50%) scale(1.72);
-    box-shadow:
-      0 0 12px rgba(255,245,220,1),
-      0 0 38px rgba(255,187,61,.88),
-      0 0 92px rgba(255,143,16,.46);
+    box-shadow: 0 0 12px rgba(255,245,220,1), 0 0 38px rgba(255,187,61,.88), 0 0 92px rgba(255,143,16,.46);
   }
-  100% {
-    opacity: .9;
-    transform: translate(-50%,-50%) scale(1.28);
-  }
+  100% { opacity: .9; transform: translate(-50%,-50%) scale(1.28); }
 }
 
 @keyframes lena-sacred-gateway-core {
@@ -194,20 +156,28 @@
   to { scale: 1.055; }
 }
 
-/* Existing mobile Orbit geometry remains authoritative; only core diameter is
-   optically tuned to keep enough room for the innermost product plane. */
 @media (max-width: 900px) {
   .lena-house {
-    width: 216px !important;
-    height: 216px !important;
+    width: 184px !important;
+    height: 184px !important;
   }
   .lena-world-core {
-    width: 166px !important;
-    height: 166px !important;
+    width: 158px !important;
+    height: 158px !important;
   }
 }
 
-/* Preserve the symbol but remove all continuous or surprise motion. */
+@media (max-width: 640px) {
+  .lena-house {
+    width: 168px !important;
+    height: 168px !important;
+    box-shadow:
+      0 0 0 1px rgba(255,215,139,.04),
+      0 0 30px rgba(255,190,70,.18),
+      0 0 78px rgba(182,112,26,.14) !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .lena-house::before,
   .lena-world-core::before {
@@ -215,16 +185,14 @@
     opacity: 0 !important;
     transform: translate(-50%, -50%) scaleY(0) !important;
   }
-
   .lena-house::after,
   .lena-world-core::after,
   .lena-world:has(.is-selected) .lena-world-core::after,
   .lena-public.lena-gateway-resolve .lena-house::after {
     animation: none !important;
-    opacity: .72 !important;
+    opacity: .76 !important;
     transform: translate(-50%, -50%) !important;
   }
-
   .lena-public.lena-gateway-resolve .lena-house {
     animation: none !important;
   }
