@@ -5,7 +5,8 @@ import assert from "node:assert/strict";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const cssPath = resolve(ROOT, "artifacts/jiwdah/src/styles/sacred-core.css");
-const assetPath = resolve(ROOT, "artifacts/jiwdah/src/assets/lena-sacred-core-v3-inline.svg");
+const assetPath = resolve(ROOT, "artifacts/jiwdah/src/assets/lena-sacred-core.webp");
+const retiredInlinePath = resolve(ROOT, "artifacts/jiwdah/src/assets/lena-sacred-core-v3-inline.svg");
 const lenaCssPath = resolve(ROOT, "artifacts/jiwdah/src/lena.css");
 
 let failures = 0;
@@ -19,12 +20,35 @@ const check = (name, fn) => {
   }
 };
 
+function assertCompleteWebP(buffer) {
+  assert.ok(buffer.length >= 20, "Sacred Core WebP is too small");
+  assert.equal(buffer.subarray(0, 4).toString("ascii"), "RIFF", "RIFF header missing");
+  assert.equal(buffer.subarray(8, 12).toString("ascii"), "WEBP", "WEBP header missing");
+  const declared = buffer.readUInt32LE(4) + 8;
+  assert.ok(declared <= buffer.length, `WebP is truncated: declares ${declared} bytes, has ${buffer.length}`);
+
+  let offset = 12;
+  let hasBitstream = false;
+  while (offset + 8 <= declared) {
+    const fourcc = buffer.subarray(offset, offset + 4).toString("ascii");
+    const size = buffer.readUInt32LE(offset + 4);
+    const end = offset + 8 + size;
+    assert.ok(end <= buffer.length, `WebP chunk ${fourcc} overruns the file`);
+    if (fourcc === "VP8 " || fourcc === "VP8L") hasBitstream = true;
+    offset = end + (size % 2);
+  }
+  assert.equal(hasBitstream, true, "WebP has no VP8/VP8L image bitstream");
+}
+
 console.log("\n== LENA Sacred Core identity contract ==");
 
-check("the approved self-contained Sacred Core v3 asset exists", () => {
+check("the approved canonical Sacred Core WebP exists and is complete", () => {
   assert.equal(existsSync(assetPath), true);
-  const asset = readFileSync(assetPath, "utf8");
-  assert.match(asset, /data:image\/webp;base64,/);
+  assertCompleteWebP(readFileSync(assetPath));
+});
+
+check("the retired truncated inline asset is gone", () => {
+  assert.equal(existsSync(retiredInlinePath), false);
 });
 
 check("the Sacred Core stylesheet is loaded after World styles", () => {
@@ -37,15 +61,18 @@ check("the Sacred Core stylesheet is loaded after World styles", () => {
 
 const css = readFileSync(cssPath, "utf8");
 
-check("Orbit and World share the approved v3 center", () => {
+check("Orbit, World, chamber and inner spaces share the approved center", () => {
   assert.match(css, /\.lena-house,\s*\n\.lena-world-core/);
-  assert.match(css, /lena-sacred-core-v3-inline\.svg/);
+  assert.match(css, /lena-sacred-core\.webp/);
+  assert.doesNotMatch(css, /lena-sacred-core-v3-inline\.svg/);
+  assert.match(css, /\.lena-inner-origin,\s*\n\.lena-chamber-origin[\s\S]*lena-sacred-core\.webp/);
 });
 
-check("no synthetic black sphere or retired v2 asset can own the core", () => {
+check("no synthetic black sphere or retired asset can own the core", () => {
   assert.doesNotMatch(css, /lena-sacred-core-v2/);
+  assert.doesNotMatch(css, /lena-sacred-core-v3-inline/);
   assert.doesNotMatch(css, /radial-gradient\([^\n]*(?:#020202|#030303|#090705|#171009)/i);
-  assert.match(css, /background:\s*transparent\s+url\(/);
+  assert.match(css, /background:\s*transparent\s+url\([^)]*lena-sacred-core\.webp[^)]*\)/);
   assert.match(css, /border-color:\s*transparent\s*!important/);
 });
 

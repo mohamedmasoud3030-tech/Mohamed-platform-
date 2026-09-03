@@ -1,14 +1,14 @@
 /* ========================================================================== 
    LENA Sacred Core v3 — approved living sigil
-   The approved transparent artwork is embedded in a self-contained SVG so the
-   public runtime cannot fall back to a black sphere or lose the image in Safari.
+   The approved transparent WebP is the single canonical artwork used by the
+   public runtime, World watermarks, and the Guardian integrity contract.
 ============================================================================ */
 
 .lena-house,
 .lena-world-core {
   isolation: isolate;
   overflow: visible;
-  background: transparent url("../assets/lena-sacred-core-v3-inline.svg") center / contain no-repeat !important;
+  background: transparent url("../assets/lena-sacred-core.webp") center / contain no-repeat !important;
   border-color: transparent !important;
   box-shadow: none !important;
   filter:
@@ -20,7 +20,7 @@
    approved identity. This override intentionally loads after World styles. */
 .lena-inner-origin,
 .lena-chamber-origin {
-  background-image: url("../assets/lena-sacred-core-v3-inline.svg") !important;
+  background-image: url("../assets/lena-sacred-core.webp") !important;
   background-position: center !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
