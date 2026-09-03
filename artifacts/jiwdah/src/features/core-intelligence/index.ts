@@ -96,3 +96,7 @@ export type { LenaContextSnapshot, LenaContextSituation } from "./context/types"
 export type { CoreView, CoreState } from "./core/types";
 export type { GuidanceResult } from "./guidance/types";
 export type { GraphContextAdapter } from "./graph/GraphContextAdapter";
+export {
+  CanonicalWorldGraphAdapter,
+  canonicalWorldGraphAdapter,
+} from "./graph/CanonicalWorldGraphAdapter";
