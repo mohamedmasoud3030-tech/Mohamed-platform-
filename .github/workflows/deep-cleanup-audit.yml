@@ -1,0 +1,47 @@
+name: Deep cleanup audit
+
+on:
+  push:
+    branches:
+      - chore/deep-cleanup-20260903
+
+permissions:
+  contents: read
+
+jobs:
+  knip:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout cleanup branch
+        uses: actions/checkout@v4
+        with:
+          ref: chore/deep-cleanup-20260903
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Scan unused files, exports and dependencies
+        shell: bash
+        run: |
+          pnpm dlx knip --reporter json > knip-report.json 2> knip-stderr.txt || true
+          test -s knip-report.json || echo '{}' > knip-report.json
+
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: deep-cleanup-audit
+          path: |
+            knip-report.json
+            knip-stderr.txt
+          if-no-files-found: error
