@@ -16,6 +16,16 @@
     drop-shadow(0 0 30px rgba(223, 137, 35, .18));
 }
 
+/* Any quiet Sacred Core watermark inside deeper LENA spaces uses the same
+   approved identity. This override intentionally loads after World styles. */
+.lena-inner-origin,
+.lena-chamber-origin {
+  background-image: url("../assets/lena-sacred-core-v3-inline.svg") !important;
+  background-position: center !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+}
+
 .lena-house > small,
 .lena-house > strong,
 .lena-house > span,
