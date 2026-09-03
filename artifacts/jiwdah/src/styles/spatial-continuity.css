@@ -1,0 +1,353 @@
+/* ==========================================================================
+   LENA Spatial Continuity — v1 visuals.
+
+   Motion grammar:
+     forward (enter / descend)  settles on var(--lena-ease-settle)
+     backward (return / emerge) settles on var(--lena-ease-emerge)
+   Every effect here is transform + opacity only. No filters on mobile, no
+   layout-affecting animation, stable viewport on iOS.
+============================================================================ */
+
+/* --- Shared reset for the new spatial controls -------------------------- */
+.lena-continue,
+.lena-world-back,
+.lena-chamber-back,
+.lena-inner-entry,
+.lena-inner-exit {
+  -webkit-tap-highlight-color: transparent;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+}
+.lena-continue:focus-visible,
+.lena-world-back:focus-visible,
+.lena-chamber-back:focus-visible,
+.lena-inner-entry:focus-visible,
+.lena-inner-exit:focus-visible {
+  outline: 2px solid var(--lena-focus);
+  outline-offset: 3px;
+  border-radius: 99px;
+}
+
+/* --- Footer: the quiet spatial-memory reset seam --------------------------- */
+.lena-footer-base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 26px;
+  border-top: 1px solid var(--lena-line);
+  padding-top: 14px;
+}
+.lena-footer-base small {
+  color: var(--lena-muted);
+  text-align: center;
+}
+.lena-memory-reset {
+  min-height: 30px;
+  padding: 4px 10px;
+  border: 0;
+  border-radius: 99px;
+  background: none;
+  color: var(--lena-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  opacity: .62;
+  transition: opacity var(--lena-motion-fast) ease,
+    color var(--lena-motion-fast) ease;
+}
+.lena-memory-reset:hover {
+  opacity: 1;
+  color: var(--lena-text);
+}
+@media (max-width: 720px) {
+  .lena-footer-base {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* --- Home: returning-visit seam ------------------------------------------ */
+.lena-return-line {
+  margin: 2px 0 10px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: rgb(var(--lena-cyan) / .92);
+  opacity: .9;
+}
+
+/* The continuation chip: a quiet seam, not a widget. */
+.lena-continue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid var(--lena-line-strong);
+  border-radius: 99px;
+  background: var(--lena-glass);
+  color: var(--lena-text);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  transition:
+    border-color var(--lena-motion-fast) ease,
+    transform var(--lena-motion-fast) var(--lena-ease-settle),
+    opacity var(--lena-motion-fast) ease;
+}
+.lena-continue:hover {
+  border-color: rgb(var(--lena-cyan) / .55);
+  transform: translateY(-1px);
+}
+.lena-continue:active {
+  transform: translateY(0);
+}
+.lena-continue-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgb(var(--lena-cyan));
+  box-shadow: 0 0 8px rgb(var(--lena-cyan) / .7);
+}
+.lena-continue-arrow {
+  opacity: .7;
+  transition: transform var(--lena-motion-fast) var(--lena-ease-settle);
+}
+.lena-continue:hover .lena-continue-arrow {
+  transform: translateX(3px);
+}
+[dir="rtl"] .lena-continue:hover .lena-continue-arrow {
+  transform: translateX(-3px);
+}
+
+/* The last-visited system card: a remembered mark, subtle by design. */
+.lena-service-card.is-visited {
+  border-color: rgb(var(--lena-cyan) / .4);
+}
+.lena-visited-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  color: rgb(var(--lena-cyan) / .95);
+}
+.lena-visited-mark::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(var(--lena-cyan));
+  box-shadow: 0 0 6px rgb(var(--lena-cyan) / .6);
+}
+
+/* --- World: back to the house --------------------------------------------- */
+.lena-world-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  min-height: 40px;
+  color: var(--lena-muted);
+  font-size: 12px;
+  font-weight: 800;
+  transition: color var(--lena-motion-fast) ease,
+    transform var(--lena-motion-fast) var(--lena-ease-emerge);
+}
+.lena-world-back:hover {
+  color: var(--lena-text);
+  transform: translateX(-3px);
+}
+[dir="rtl"] .lena-world-back:hover {
+  transform: translateX(3px);
+}
+[dir="rtl"] .lena-world-back > span:first-child {
+  transform: rotate(180deg);
+}
+
+/* The remembered system in the world's list: one quiet underline. */
+.lena-world-list-link.is-remembered {
+  color: var(--lena-text);
+  border-bottom-color: rgb(var(--lena-cyan) / .6);
+}
+
+/* Outward arrival: the field settles back in after a back move. No replay
+   of the entrance — a short rise and rest. */
+.lena-world-page.is-returning {
+  animation: lena-world-return var(--lena-motion-standard) var(--lena-ease-emerge) both;
+}
+@keyframes lena-world-return {
+  from {
+    opacity: .55;
+    transform: translateY(10px);
+  }
+}
+
+/* The world receding outward (emerge intent, pre-navigation beat). */
+.lena-world.is-emerging,
+.lena-world-page.is-emerging {
+  transition:
+    opacity var(--lena-motion-standard) var(--lena-ease-emerge),
+    transform var(--lena-motion-standard) var(--lena-ease-emerge);
+}
+.lena-world.is-emerging {
+  opacity: .35;
+  transform: scale(var(--lena-depth-recede));
+}
+.lena-world-page.is-emerging .lena-world-title,
+.lena-world-page.is-emerging .lena-world-intro,
+.lena-world-page.is-emerging .lena-world-kicker {
+  opacity: .2;
+}
+
+/* Approach: a remembered world gains presence without leaving the field.
+   The scale rides the entity (the figure's transform belongs to its float
+   animation); the figure adds a quiet glow. */
+.lena-world.is-approach .lena-world-entity.is-approached {
+  z-index: 20;
+  transform: translate(var(--ex), var(--ey)) scale(calc(1 + (var(--lena-depth-approach) - 1) * .85));
+  transition: transform var(--lena-motion-deep) var(--lena-ease-settle);
+}
+.lena-world.is-approach .lena-world-entity.is-approached .lena-world-entity-figure {
+  filter: brightness(1.12) saturate(1.08);
+  transition: filter var(--lena-motion-deep) var(--lena-ease-settle);
+}
+
+/* --- Chamber: outward settle after a back move ---------------------------- */
+.lena-system-chamber.is-return .lena-chamber-copy {
+  animation: lena-chamber-return var(--lena-motion-standard) var(--lena-ease-emerge) both;
+}
+@keyframes lena-chamber-return {
+  from {
+    opacity: .5;
+    transform: translateY(-8px);
+  }
+}
+
+/* The chamber receding back into the larger field (emerge, pre-navigation). */
+.lena-system-chamber.is-emerging {
+  transition:
+    opacity var(--lena-motion-standard) var(--lena-ease-emerge),
+    transform var(--lena-motion-standard) var(--lena-ease-emerge);
+  opacity: .3;
+  transform: scale(var(--lena-depth-recede));
+}
+
+/* --- Inner space: focus without a route change ---------------------------- */
+.lena-inner-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  transition: transform var(--lena-motion-deep) var(--lena-ease-settle);
+}
+
+.lena-inner-entry,
+.lena-inner-exit {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 7px 14px;
+  border: 1px solid var(--lena-line);
+  border-radius: 99px;
+  background: var(--lena-glass);
+  color: var(--lena-muted);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  transition:
+    color var(--lena-motion-fast) ease,
+    border-color var(--lena-motion-fast) ease,
+    transform var(--lena-motion-fast) var(--lena-ease-settle);
+}
+.lena-inner-entry:hover,
+.lena-inner-exit:hover {
+  color: var(--lena-text);
+  border-color: var(--lena-line-strong);
+  transform: translateY(-1px);
+}
+
+/* Focus: the constellation becomes dominant while the chamber stays visible.
+   Context recedes by presence only — never by removal. */
+.lena-system-chamber.is-inner-focus .lena-inner-stage {
+  transform: scale(calc(1 + (var(--lena-depth-approach) - 1) * .55));
+}
+.lena-system-chamber.is-inner-focus .lena-chamber-copy {
+  transition: opacity var(--lena-motion-standard) var(--lena-ease-settle);
+  opacity: .38;
+}
+.lena-system-chamber.is-inner-focus .lena-chamber-signals .lena-chamber-signal {
+  opacity: .55;
+}
+.lena-system-chamber.is-inner-focus .lena-inner-constellation {
+  filter: drop-shadow(0 0 26px rgb(var(--chamber-a) / .22));
+}
+
+/* --- Mobile: short travel, no heavy filters, stable viewport -------------- */
+@media (max-width: 720px) {
+  .lena-system-chamber.is-inner-focus .lena-inner-stage {
+    transform: scale(1.03);
+  }
+  .lena-system-chamber.is-inner-focus .lena-inner-constellation {
+    filter: none;
+  }
+  .lena-world.is-emerging,
+  .lena-system-chamber.is-emerging {
+    transform: none;
+  }
+  .lena-world-page.is-returning,
+  .lena-system-chamber.is-return .lena-chamber-copy {
+    animation-duration: var(--lena-motion-beat);
+  }
+}
+
+/* --- Reduced motion: state changes stay legible, travel disappears -------- */
+@media (prefers-reduced-motion: reduce) {
+  .lena-world-page.is-returning,
+  .lena-system-chamber.is-return .lena-chamber-copy {
+    animation: none;
+    opacity: 1;
+  }
+  .lena-world.is-emerging,
+  .lena-world-page.is-emerging,
+  .lena-system-chamber.is-emerging {
+    transition: opacity 90ms linear;
+    transform: none;
+  }
+  .lena-system-chamber.is-inner-focus .lena-inner-stage,
+  .lena-inner-stage,
+  .lena-system-chamber.is-inner-focus .lena-chamber-copy,
+  .lena-continue,
+  .lena-world-back,
+  .lena-inner-entry,
+  .lena-inner-exit,
+  .lena-world.is-approach .lena-world-entity.is-approached,
+  .lena-world.is-approach .lena-world-entity.is-approached .lena-world-entity-figure {
+    transition-duration: 90ms;
+  }
+  .lena-system-chamber.is-inner-focus .lena-inner-stage {
+    transform: none;
+  }
+  .lena-world.is-approach .lena-world-entity.is-approached {
+    transform: translate(var(--ex), var(--ey));
+  }
+  .lena-world.is-approach .lena-world-entity.is-approached .lena-world-entity-figure {
+    filter: none;
+  }
+  .lena-continue:hover,
+  .lena-world-back:hover,
+  .lena-inner-entry:hover,
+  .lena-inner-exit:hover {
+    transform: none;
+  }
+}

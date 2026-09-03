@@ -144,7 +144,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
             <a
               className="lena-world-info-action"
               href={selected.detailPath}
-              onClick={(event) => enterPortal(event, selected.detailPath, selected.systemId)}
+              onClick={(event) => enterPortal(selected.detailPath, selected.systemId, event)}
             >
               <span>{locale === "ar" ? "افتح غرفة النظام" : "Open the system chamber"}</span>
               <span aria-hidden="true">→</span>

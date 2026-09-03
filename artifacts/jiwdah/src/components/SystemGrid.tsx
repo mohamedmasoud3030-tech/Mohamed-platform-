@@ -4,18 +4,36 @@ import { publicSystems } from "@/content/systems";
 import { usePreferences } from "@/providers/preferences";
 
 /** Industry-first entry points, as decided in PRODUCT_DECISIONS.md D4. */
-export default function SystemGrid({ limit }: { limit?: number }) {
+export default function SystemGrid({
+  limit,
+  visitedSystemId,
+}: {
+  limit?: number;
+  /** The system the visitor was last in, when world memory says so.
+   *  Renders a quiet "remembered" mark; no behavior change. */
+  visitedSystemId?: string | null;
+}) {
   const { locale } = usePreferences();
   const systems = limit ? publicSystems().slice(0, limit) : publicSystems();
 
   return (
     <div className="lena-bento lena-showcase-grid">
       {systems.map((system, index) => (
-        <article className={`lena-glass lena-service-card${index === 0 || index === 3 ? " wide" : ""}`} key={system.id}>
+        <article
+          className={`lena-glass lena-service-card${index === 0 || index === 3 ? " wide" : ""}${
+            system.id === visitedSystemId ? " is-visited" : ""
+          }`}
+          key={system.id}
+        >
           <i className="lena-card-glow" />
           <div className="lena-card-top">
             <small>{String(index + 1).padStart(2, "0")}</small>
           </div>
+          {system.id === visitedSystemId ? (
+            <span className="lena-visited-mark">
+              {locale === "ar" ? "آخر نظام زرتَه" : "LAST VISITED"}
+            </span>
+          ) : null}
           <h3>{system.name[locale]}</h3>
           {system.tagline ? <p className="lena-system-tagline">{system.tagline[locale]}</p> : null}
           <p className="lena-system-industry">{system.industry[locale]}</p>
