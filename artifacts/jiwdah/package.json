@@ -8,7 +8,7 @@
     "build": "vite build --config vite.config.ts && node ./scripts/generate-sitemap.mjs",
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run && node --experimental-strip-types --test src/features/world/signals/derive.test.ts src/features/world/command/command-route.test.ts"
+    "test": "vitest run && node --experimental-strip-types --test src/features/world/signals/derive.test.ts src/features/world/command/command-route.test.ts src/features/world/atlas/atlas-route.test.ts"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

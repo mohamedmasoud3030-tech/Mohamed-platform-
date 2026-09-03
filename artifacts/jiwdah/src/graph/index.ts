@@ -1,0 +1,43 @@
+export * from "./types";
+export {
+  buildWorldGraph,
+  defaultWorldGraphInput,
+  indexGraph,
+  resetWorldGraphCache,
+  WORLD_GRAPH_IDS,
+  worldGraph,
+  type WorldGraphInput,
+} from "./builder";
+export {
+  ancestorsOf,
+  canNavigate,
+  childrenOf,
+  commonRootsOf,
+  depthOf,
+  isNavigable,
+  neighborsOf,
+  nodeById,
+  nodesInWorld,
+  nodesOfType,
+  parentOf,
+  pathFromRoot,
+  relatedWorldsOf,
+  resolveDestination,
+  sharedRootsOf,
+  shortestPath,
+  structuralPathLabels,
+  worldsOf,
+  worldIdOf,
+  HIERARCHY_EDGE_KINDS,
+  TRAVERSAL_EDGE_KINDS,
+  type NeighborOptions,
+  type ShortestPathOptions,
+} from "./query";
+export {
+  assertWorldGraphIntegrity,
+  graphStats,
+  KNOWN_LENA_ROUTES,
+  requiredWorldIds,
+  validateWorldGraph,
+  type WorldGraphExpectations,
+} from "./validate";
