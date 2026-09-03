@@ -6,7 +6,7 @@ import type {
 } from "./types.ts";
 import { PRESENCE_RANK, SEVERITY_RANK } from "./types.ts";
 
-const OPEN: SignalLifecycle[] = ["new", "active"];
+const OPEN: SignalLifecycle[] = ["new", "active", "acknowledged"];
 
 export function isOpen(signal: WorldSignal): boolean {
   return OPEN.includes(signal.lifecycle);

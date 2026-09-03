@@ -65,18 +65,21 @@ test("acknowledge and resolve mutate lifecycle", () => {
   const open = sig({ lifecycle: "new", severity: "attention" });
   const ack = acknowledgeSignal(open, "2026-09-03T12:00:00.000Z");
   assert.equal(ack.lifecycle, "acknowledged");
+  assert.equal(presenceFromSignals([ack]), "attention");
+  assert.equal(attentionSignals([ack]).length, 1);
   const done = resolveSignal(ack, "2026-09-03T13:00:00.000Z");
   assert.equal(done.lifecycle, "resolved");
   assert.equal(done.kind, "resolved");
   assert.equal(attentionSignals([done]).length, 0);
 });
 
-test("store acknowledge/resolve is real mutation", () => {
+test("store acknowledge keeps presence until resolve", () => {
   const store = createSignalStore([
     sig({ id: "one", lifecycle: "new", severity: "critical", sourceWorld: "recycling" }),
   ]);
   store.acknowledge("one");
   assert.equal(store.getSnapshot()[0].lifecycle, "acknowledged");
+  assert.equal(presenceFromSignals(store.getSnapshot()), "critical");
   store.resolve("one");
   assert.equal(store.getSnapshot()[0].lifecycle, "resolved");
   assert.equal(presenceFromSignals(store.getSnapshot()), "quiet");

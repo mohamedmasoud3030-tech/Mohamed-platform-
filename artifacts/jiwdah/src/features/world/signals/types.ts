@@ -20,7 +20,7 @@ export type LocalizedText = Record<AppLocale, string>;
 
 export type WorldSignal = {
   id: string;
-  sourceWorld: string;
+  sourceWorld: SystemId;
   kind: SignalKind;
   severity: SignalSeverity;
   timestamp: string;
