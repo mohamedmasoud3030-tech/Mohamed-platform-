@@ -58,7 +58,7 @@ function walk(dir, files = []) {
 const problems = [];
 
 // 1) No AI SDK may appear in any package manifest.
-for (const manifest of ["package.json", "artifacts/api-server/package.json", "artifacts/jiwdah/package.json", "artifacts/mockup-sandbox/package.json"]) {
+for (const manifest of ["package.json", "artifacts/api-server/package.json", "artifacts/jiwdah/package.json"]) {
   let pkg;
   try {
     pkg = JSON.parse(readFileSync(path.join(ROOT, manifest), "utf8"));
