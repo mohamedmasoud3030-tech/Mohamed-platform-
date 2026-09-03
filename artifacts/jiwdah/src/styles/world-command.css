@@ -1,0 +1,264 @@
+/* World Command — a chamber inside LENA, not a dashboard. */
+
+.lena-command-page {
+  padding-bottom: 80px;
+}
+
+.lena-command {
+  --cmd-glow: rgba(130, 161, 255, 0.18);
+  position: relative;
+  padding: 28px 0 40px;
+}
+
+.lena-command.state-calm { --cmd-glow: rgba(130, 161, 255, 0.1); }
+.lena-command.state-active { --cmd-glow: rgba(231, 176, 73, 0.22); }
+.lena-command.state-attention { --cmd-glow: rgba(255, 168, 92, 0.34); }
+.lena-command.state-critical { --cmd-glow: rgba(255, 92, 110, 0.32); }
+
+.lena-command-pulse {
+  position: relative;
+  padding: 28px 24px 32px;
+  border-radius: 28px;
+  background:
+    radial-gradient(ellipse at 20% 0%, var(--cmd-glow), transparent 55%),
+    linear-gradient(180deg, rgba(12, 16, 36, 0.55), rgba(8, 10, 24, 0.2));
+  border: 1px solid rgba(231, 176, 73, 0.16);
+}
+
+.lena-command-pulse h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin: 6px 0 12px;
+}
+
+.lena-command-pulse-state {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  align-items: baseline;
+  font-size: 0.95rem;
+  opacity: 0.88;
+}
+
+.lena-command-pulse-state strong {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.82rem;
+}
+
+.lena-command-back {
+  display: inline-block;
+  margin-top: 16px;
+  color: inherit;
+  opacity: 0.75;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.lena-command-back:hover,
+.lena-command-back:focus-visible {
+  opacity: 1;
+  border-bottom-color: currentColor;
+}
+
+.lena-command-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.lena-command-zone {
+  padding: 18px 16px 12px;
+  border-radius: 22px;
+  border: 1px solid rgba(150, 101, 255, 0.14);
+  background: rgba(8, 12, 28, 0.35);
+  min-width: 0;
+}
+
+.lena-command-zone h2 {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin: 0 0 14px;
+  opacity: 0.72;
+}
+
+.lena-command-empty {
+  opacity: 0.6;
+  font-size: 0.92rem;
+}
+
+.lena-cmd-signal {
+  padding: 12px 4px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.lena-cmd-signal header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.lena-cmd-signal h3 {
+  margin: 6px 0 4px;
+  font-size: 1.02rem;
+}
+
+.lena-cmd-signal p {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  opacity: 0.82;
+}
+
+.lena-cmd-signal footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.lena-cmd-chip {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.lena-cmd-go {
+  margin-inline-start: auto;
+  font-size: 0.82rem;
+  color: inherit;
+}
+
+.lena-cmd-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.lena-cmd-actions button {
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(231, 176, 73, 0.35);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.lena-cmd-actions button:focus-visible {
+  outline: 2px solid #e7b049;
+  outline-offset: 2px;
+}
+
+.lena-cmd-signal.sev-critical {
+  box-shadow: inset 3px 0 0 rgba(255, 92, 110, 0.7);
+}
+.lena-cmd-signal.sev-attention {
+  box-shadow: inset 3px 0 0 rgba(255, 168, 92, 0.7);
+}
+.lena-cmd-signal.life-resolved {
+  opacity: 0.62;
+}
+
+.lena-command-worlds {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.lena-command-world {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  padding: 12px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 64px;
+}
+
+.lena-command-world-orb {
+  grid-row: 1 / span 2;
+  width: 14px;
+  height: 14px;
+  margin-top: 4px;
+  border-radius: 50%;
+  background: rgba(130, 161, 255, 0.45);
+  box-shadow: 0 0 12px rgba(130, 161, 255, 0.35);
+}
+
+.presence-active .lena-command-world-orb {
+  background: #e7b049;
+  box-shadow: 0 0 14px rgba(231, 176, 73, 0.55);
+}
+.presence-attention .lena-command-world-orb {
+  background: #ffa85c;
+  animation: lena-cmd-breathe 2.8s ease-in-out infinite;
+}
+.presence-critical .lena-command-world-orb {
+  background: #ff5c6e;
+  animation: lena-cmd-breathe 1.6s ease-in-out infinite;
+}
+
+.lena-command-world strong {
+  font-size: 0.95rem;
+}
+.lena-command-world em {
+  font-style: normal;
+  font-size: 0.75rem;
+  opacity: 0.65;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.lena-world-command-entry {
+  display: inline-flex;
+  margin: 18px 0 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  color: inherit;
+}
+
+@keyframes lena-cmd-breathe {
+  50% { transform: scale(1.25); opacity: 0.7; }
+}
+
+.light .lena-command-pulse,
+.light .lena-command-zone {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 900px) {
+  .lena-command-grid {
+    grid-template-columns: 1fr;
+  }
+  .lena-command-stream { order: 2; }
+  .lena-command-attention { order: 1; }
+  .lena-command-map { order: 3; }
+  .lena-command-resolved { order: 4; }
+  .lena-command-worlds {
+    grid-template-columns: 1fr 1fr;
+  }
+  .lena-cmd-actions button {
+    min-width: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .presence-attention .lena-command-world-orb,
+  .presence-critical .lena-command-world-orb {
+    animation: none;
+  }
+}
+
+[dir="rtl"] .lena-cmd-signal.sev-critical,
+[dir="rtl"] .lena-cmd-signal.sev-attention {
+  box-shadow: inset -3px 0 0 rgba(255, 168, 92, 0.7);
+}
