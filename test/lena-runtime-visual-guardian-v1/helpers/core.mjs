@@ -7,25 +7,18 @@ export const WORLD_CORE = ".lena-world-core";
  * Runtime probe of a Sacred Core element.
  *
  * 1. The element is rendered with non-zero dimensions and a background-image
- *    pointing at the canonical v3 artwork (never `none`, never a gradient
- *    stand-in, never a deprecated asset).
- * 2. The artwork bytes actually decode in the browser. The canonical asset is
- *    an SVG embedding a WebP data URI, so a truncated/empty payload surfaces
- *    here as an image `error` — this is exactly the regression where the eye
- *    glow (::after) stays visible while the artwork is missing.
- * 3. The decoded artwork paints real, identity-coloured pixels (guards against
- *    a blank-but-loadable asset or an animation leaving opacity at 0).
- * 4. The eye/glow pseudo-element may exist, but its presence never masks a
- *    missing artwork — test asserts both conditions independently.
+ *    pointing at the canonical Sacred Core WebP (never `none`, never a gradient
+ *    stand-in, never a retired inline/v2 asset).
+ * 2. The WebP is fetched from the built runtime and must decode in Chromium.
+ * 3. The decoded artwork must paint real LENA warm/amber identity pixels.
+ * 4. The eye/glow pseudo-element may exist, but it never masks a missing or
+ *    undecodable artwork — asset health and glow health are asserted separately.
  */
 export async function probeCore(page, selector = HOME_CORE, label = "home core") {
   const el = page.locator(selector);
   await expect(el, `${label} element present`).toHaveCount(1, { timeout: 20_000 });
   await expect(el, `${label} element visible`).toBeVisible({ timeout: 20_000 });
 
-  // The spatial scene mounts after the lazy chunk resolves; the IntersectionObserver
-  // then flips `.is-visible` and the core fades in over a few frames. Wait for the
-  // settled state rather than racing the entrance animation.
   await expect
     .poll(
       () => el.evaluate((node) => Number(getComputedStyle(node).opacity)),
@@ -59,16 +52,17 @@ export async function probeCore(page, selector = HOME_CORE, label = "home core")
   return { selector, label, ...info };
 }
 
-/** Assert the CSS contract for a core element (canonical asset, no stand-ins). */
-export function expectCoreCssContract(probe, page) {
+/** Assert the CSS contract for a core element (canonical WebP, no stand-ins). */
+export function expectCoreCssContract(probe) {
   const { css } = probe;
   expect(css.isBackgroundNone, `${probe.label}: background-image must exist`).toBe(false);
-  expect(css.backgroundImage, `${probe.label}: must reference canonical v3 artwork`).toMatch(
-    /lena-sacred-core-v3-inline/,
+  expect(css.backgroundImage, `${probe.label}: must reference canonical Sacred Core WebP`).toMatch(
+    /lena-sacred-core-[A-Za-z0-9_-]+\.webp/,
   );
-  expect(css.backgroundImage, `${probe.label}: must be the inline artwork (not a plain webp)`).not.toMatch(
-    /lena-sacred-core-[A-Za-z0-9-]*\.webp/,
+  expect(css.backgroundImage, `${probe.label}: retired inline/v2 artwork must not own the core`).not.toMatch(
+    /lena-sacred-core-v3-inline|lena-sacred-core-v2/,
   );
+  expect(css.backgroundImage, `${probe.label}: gradient stand-in is forbidden`).not.toMatch(/gradient\(/i);
   expect(css.backgroundColor, `${probe.label}: must stay transparent (no fake disk)`).toMatch(
     /rgba\(0, 0, 0, 0\)|transparent/,
   );
@@ -78,21 +72,39 @@ export function expectCoreCssContract(probe, page) {
   expect(probe.rect.height, `${probe.label}: height`).toBeGreaterThan(0);
 }
 
-/** In-browser decode + paint analysis of the artwork embedded in the core CSS. */
+/** In-browser fetch + decode + paint analysis of the canonical WebP. */
 export async function analyzeCoreArtwork(page, probe) {
   return page.evaluate(async (backgroundImage) => {
-    const urlMatch = /url\("([^"]+)"\)/.exec(backgroundImage);
+    const urlMatch = /url\(["']?([^"')]+)["']?\)/.exec(backgroundImage);
     if (!urlMatch) return { ok: false, reason: "no background url found" };
-    const svgUrl = urlMatch[1];
+    const assetUrl = urlMatch[1];
 
-    const response = await fetch(svgUrl);
+    let response;
+    try {
+      response = await fetch(assetUrl, { cache: "no-store" });
+    } catch (error) {
+      return { ok: false, reason: `asset fetch failed: ${String(error)}` };
+    }
     if (!response.ok) return { ok: false, reason: `asset fetch ${response.status}` };
-    const svg = await response.text();
 
-    const dataMatch = /data:image\/(webp|png|svg\+xml);base64,([A-Za-z0-9+/=]+)/.exec(svg);
-    if (!dataMatch) return { ok: false, reason: "canonical asset has no embedded raster data URI" };
+    const contentType = (response.headers.get("content-type") ?? "").toLowerCase();
+    if (!contentType.includes("image/webp")) {
+      return { ok: false, reason: `canonical asset content-type is ${contentType || "missing"}, expected image/webp` };
+    }
 
-    const dataUri = `data:image/${dataMatch[1]};base64,${dataMatch[2]}`;
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    if (bytes.length < 20) return { ok: false, reason: `canonical WebP is too small (${bytes.length} bytes)` };
+    const ascii = (start, end) => String.fromCharCode(...bytes.slice(start, end));
+    if (ascii(0, 4) !== "RIFF" || ascii(8, 12) !== "WEBP") {
+      return { ok: false, reason: "canonical asset is not a RIFF/WEBP container" };
+    }
+    const declared = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength).getUint32(4, true) + 8;
+    if (declared !== bytes.length) {
+      return { ok: false, reason: `canonical WebP RIFF declares ${declared} bytes but fetched ${bytes.length}` };
+    }
+
+    const blob = new Blob([bytes], { type: "image/webp" });
+    const objectUrl = URL.createObjectURL(blob);
     const image = new Image();
     let loaded = false;
     let decodeError = null;
@@ -100,28 +112,35 @@ export async function analyzeCoreArtwork(page, probe) {
       loaded = await new Promise((resolve) => {
         image.onload = () => resolve(true);
         image.onerror = () => resolve(false);
-        image.src = dataUri;
+        image.src = objectUrl;
       });
+      if (loaded && image.decode) await image.decode().catch((error) => { decodeError = String(error); });
     } catch (error) {
       decodeError = String(error);
     }
 
-    if (!loaded) {
+    if (!loaded || image.naturalWidth <= 0 || image.naturalHeight <= 0) {
+      URL.revokeObjectURL(objectUrl);
       return {
         ok: false,
-        reason: decodeError ?? "embedded artwork is undecodable (broken/truncated asset)",
-        dataUriBytes: dataMatch[2].length,
+        reason: decodeError ?? "canonical WebP is undecodable (broken/truncated asset)",
+        payloadBytes: bytes.length,
       };
     }
 
-    const width = image.naturalWidth || 160;
-    const height = image.naturalHeight || 160;
+    const width = image.naturalWidth;
+    const height = image.naturalHeight;
     const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    if (!ctx) {
+      URL.revokeObjectURL(objectUrl);
+      return { ok: false, reason: "2d canvas unavailable for paint probe" };
+    }
     ctx.drawImage(image, 0, 0);
     const data = ctx.getImageData(0, 0, width, height).data;
+    URL.revokeObjectURL(objectUrl);
 
     let painted = 0;
     let transparent = 0;
@@ -133,7 +152,6 @@ export async function analyzeCoreArtwork(page, probe) {
         const r = data[i];
         const g = data[i + 1];
         const b = data[i + 2];
-        // LENA identity is warm/amber: strong red channel, warm relative to blue.
         if (r > 70 && r > b + 14 && g > 40) identity += 1;
       } else {
         transparent += 1;
@@ -148,26 +166,17 @@ export async function analyzeCoreArtwork(page, probe) {
       total,
       painted,
       paintedRatio: painted / total,
+      transparent,
       identity,
       identityRatio: identity / total,
-      dataUriBytes: dataMatch[2].length,
+      payloadBytes: bytes.length,
+      contentType,
     };
   }, probe.css.backgroundImage);
 }
 
-/**
- * Wait until an element reaches a stable opacity — then assert it. Used by the
- * reduced-motion checks so a race with lazy-chunk mount / IntersectionObserver
- * never reports a false opacity: 0. The "animation removed → opacity stays 0"
- * regression still fails because the poll has a hard timeout.
- */
 export async function expectSettledOpacity(page, selector, threshold, label, timeout = 15_000) {
   await expect(page.locator(selector).first(), `${label} present`).toHaveCount(1, { timeout: 20_000 });
-
-  // Poll the element's settled animated value. The scene mounts lazily and the
-  // IntersectionObserver flips `.is-visible` a few frames later, so a single
-  // read races the entrance; this still fails if the value never settles above
-  // the threshold (the "animation removed → stuck opacity: 0" regression).
   const read = () =>
     page.locator(selector).first().evaluate(
       (node) => Number(getComputedStyle(node).opacity),
@@ -180,10 +189,7 @@ export async function expectSettledOpacity(page, selector, threshold, label, tim
     .toBeGreaterThan(threshold);
 }
 
-/**
- * Regression gate — exactly the failure mode "eye/glow visible while the main
- * Sacred Core artwork is missing" must fail CI.
- */
+/** Regression gate: glow may never survive without real, decodable artwork. */
 export async function expectCoreArtworkHealthy(page, probe, { minPaintedRatio = 0.05, minIdentityRatio = 0.004 } = {}) {
   const artwork = await analyzeCoreArtwork(page, probe);
 
@@ -197,6 +203,9 @@ export async function expectCoreArtworkHealthy(page, probe, { minPaintedRatio = 
     assetReason: artwork.reason ?? null,
     paint: artwork.ok
       ? {
+          width: artwork.width,
+          height: artwork.height,
+          payloadBytes: artwork.payloadBytes,
           paintedRatio: Number(artwork.paintedRatio.toFixed(4)),
           identityRatio: Number(artwork.identityRatio.toFixed(4)),
         }
