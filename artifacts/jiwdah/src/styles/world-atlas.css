@@ -1,0 +1,767 @@
+/* ==========================================================================
+   LENA Atlas — the structural field
+   --------------------------------------------------------------------------
+   A place inside LENA, not a dashboard. Rings mean depth, lines mean real
+   relationships, and emphasis is capped at three levels so the map stays calm.
+   Everything reads from the existing World tokens; no new brand values are
+   introduced here.
+   ========================================================================== */
+
+.lena-world-atlas {
+  --atlas-unit: 1.35px;
+  --atlas-line: var(--lena-line);
+  --atlas-soft: color-mix(in srgb, var(--lena-accent) 26%, transparent);
+  --atlas-mid: color-mix(in srgb, var(--lena-accent) 52%, transparent);
+  --atlas-strong: color-mix(in srgb, var(--lena-cyan) 86%, var(--lena-accent));
+  position: relative;
+  padding: clamp(26px, 5vw, 54px) 0 clamp(56px, 9vw, 96px);
+  min-height: 100dvh;
+  -webkit-text-size-adjust: 100%;
+}
+
+.lena-atlas-head {
+  max-width: 760px;
+}
+
+.lena-atlas-head h1 {
+  margin: 8px 0 12px;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  font-weight: 560;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+
+.lena-atlas-intro {
+  max-width: 62ch;
+  color: var(--lena-muted);
+  line-height: 1.62;
+}
+
+.lena-atlas-counts {
+  margin-top: 14px;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lena-muted);
+}
+
+/* ── toolbar: context, jump, release ─────────────────────────────────────── */
+
+.lena-atlas-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+  margin: clamp(20px, 3.4vw, 34px) 0 clamp(16px, 2.6vw, 26px);
+  padding: 14px 16px;
+  border: 1px solid var(--atlas-line);
+  border-radius: 18px;
+  background: var(--lena-card);
+}
+
+.lena-atlas-context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+  margin: 0;
+  min-width: 0;
+  flex: 1 1 260px;
+}
+
+.lena-atlas-context-kind {
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--atlas-line);
+  font-size: 0.68rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--lena-muted);
+}
+
+.lena-atlas-context-trail {
+  font-size: 0.95rem;
+  color: var(--lena-text);
+  overflow-wrap: anywhere;
+}
+
+.lena-atlas-clear,
+.lena-atlas-step,
+.lena-atlas-relation {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--atlas-line);
+  background: transparent;
+  color: var(--lena-text);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.lena-atlas-clear:hover,
+.lena-atlas-step:hover,
+.lena-atlas-relation:hover {
+  border-color: var(--lena-line-strong);
+  background: color-mix(in srgb, var(--lena-accent) 12%, transparent);
+}
+
+/* ── jump ─────────────────────────────────────────────────────────────────── */
+
+.lena-atlas-jump {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 1 300px;
+}
+
+.lena-atlas-jump > label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lena-muted);
+  white-space: nowrap;
+}
+
+.lena-atlas-jump input {
+  width: 100%;
+  min-width: 0;
+  padding: 9px 13px;
+  border-radius: 12px;
+  border: 1px solid var(--atlas-line);
+  background: var(--lena-glass);
+  color: var(--lena-text);
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.lena-atlas-jump input::placeholder {
+  color: color-mix(in srgb, var(--lena-muted) 76%, transparent);
+}
+
+.lena-atlas-jump ul {
+  position: absolute;
+  inset-block-start: calc(100% + 8px);
+  inset-inline: 0;
+  z-index: 6;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  display: grid;
+  gap: 2px;
+  border: 1px solid var(--lena-line-strong);
+  border-radius: 14px;
+  background: var(--lena-card-strong);
+  box-shadow: 0 18px 40px rgba(3, 6, 18, 0.4);
+}
+
+.lena-atlas-jump ul button {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--lena-text);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.lena-atlas-jump ul button[aria-selected="true"] {
+  background: color-mix(in srgb, var(--lena-accent) 22%, transparent);
+}
+
+.lena-atlas-jump-kind {
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lena-muted);
+}
+
+.lena-atlas-jump-name {
+  overflow-wrap: anywhere;
+}
+
+.lena-atlas-jump-empty {
+  padding: 9px 10px;
+  color: var(--lena-muted);
+  font-size: 0.86rem;
+}
+
+/* ── scene ────────────────────────────────────────────────────────────────── */
+
+.lena-atlas-scene {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  align-items: start;
+  gap: clamp(18px, 3vw, 38px);
+}
+
+.lena-atlas-field {
+  position: relative;
+  width: 100%;
+  max-width: min(74vh, 760px);
+  margin-inline: auto;
+  aspect-ratio: 1 / 1;
+}
+
+.lena-atlas-diagram {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.lena-atlas-ring {
+  fill: transparent;
+  stroke: var(--atlas-line);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.lena-atlas-ring--depth {
+  stroke: color-mix(in srgb, var(--lena-cyan) 30%, var(--lena-line));
+}
+
+.lena-atlas-ring--field {
+  stroke-dasharray: 2 6;
+}
+
+.lena-atlas-link {
+  stroke: var(--atlas-line);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  fill: none;
+}
+
+.lena-atlas-link.is-strong {
+  stroke: var(--atlas-strong);
+  stroke-width: 1.6;
+}
+
+.lena-atlas-link.is-medium {
+  stroke: var(--atlas-mid);
+}
+
+.lena-atlas-link.is-faint {
+  stroke: var(--atlas-soft);
+  stroke-dasharray: 3 5;
+}
+
+.lena-atlas-link--shares-root {
+  stroke-dasharray: 1 4;
+}
+
+.lena-atlas-nodes {
+  position: absolute;
+  inset: 0;
+}
+
+.lena-atlas-node {
+  --atlas-x: 50%;
+  --atlas-y: 50%;
+  --atlas-size: 10;
+  position: absolute;
+  inset-block-start: var(--atlas-y);
+  inset-inline-start: var(--atlas-x);
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--lena-text);
+  font: inherit;
+  cursor: pointer;
+  transition: transform 0.24s ease;
+}
+
+.lena-atlas-node:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.lena-atlas-node-dot {
+  display: block;
+  width: calc(var(--atlas-size) * var(--atlas-unit) * 6);
+  height: calc(var(--atlas-size) * var(--atlas-unit) * 6);
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--lena-cyan) 40%, transparent);
+  background:
+    radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--lena-cyan) 52%, transparent), transparent 62%),
+    var(--lena-card-strong);
+  box-shadow: 0 0 0 1px rgba(3, 6, 18, 0.5), 0 10px 26px rgba(3, 6, 18, 0.4);
+}
+
+.lena-atlas-node.is-center .lena-atlas-node-dot {
+  border-color: var(--lena-cyan);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--lena-accent) 16%, transparent), 0 14px 34px rgba(3, 6, 18, 0.5);
+}
+
+.lena-atlas-node.is-selected .lena-atlas-node-dot {
+  border-color: var(--lena-accent);
+}
+
+.lena-atlas-node--capability .lena-atlas-node-dot {
+  border-radius: 22%;
+  background: color-mix(in srgb, var(--lena-accent) 24%, var(--lena-card-strong));
+}
+
+.lena-atlas-node--operation .lena-atlas-node-dot {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--lena-muted) 60%, transparent);
+  background: var(--lena-card);
+}
+
+.lena-atlas-node--root .lena-atlas-node-dot {
+  border-color: color-mix(in srgb, #ffcf6f 60%, transparent);
+}
+
+.lena-atlas-node-label {
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  max-width: 132px;
+}
+
+.lena-atlas-node-kind {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lena-muted);
+}
+
+.lena-atlas-node-name {
+  font-size: 0.8rem;
+  line-height: 1.25;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.lena-atlas-node-rank {
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--lena-muted) 80%, transparent);
+}
+
+.lena-atlas-node-presence {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lena-muted);
+}
+
+.lena-atlas-node-presence > i {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--lena-accent);
+}
+
+/* ── focus panel ──────────────────────────────────────────────────────────── */
+
+.lena-atlas-panel {
+  display: grid;
+  gap: 12px;
+  padding: clamp(18px, 2.4vw, 26px);
+  border: 1px solid var(--atlas-line);
+  border-radius: 22px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lena-accent) 8%, transparent), transparent 55%),
+    var(--lena-card);
+}
+
+.lena-atlas-panel-kind {
+  margin: 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--lena-muted);
+}
+
+.lena-atlas-panel h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.3vw, 2rem);
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  line-height: 1.16;
+}
+
+.lena-atlas-panel-summary {
+  margin: 0;
+  color: var(--lena-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.lena-atlas-panel-group h3 {
+  margin: 0 0 6px;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lena-muted);
+}
+
+.lena-atlas-panel-group ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.lena-atlas-panel-group button {
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--atlas-line);
+  background: transparent;
+  color: var(--lena-text);
+  font: inherit;
+  font-size: 0.83rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.lena-atlas-panel-group button:hover {
+  border-color: var(--lena-line-strong);
+}
+
+.lena-atlas-destination {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: start;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--lena-cyan) 46%, transparent);
+  background: color-mix(in srgb, var(--lena-cyan) 14%, transparent);
+  color: var(--lena-text);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.lena-atlas-destination:hover {
+  background: color-mix(in srgb, var(--lena-cyan) 24%, transparent);
+}
+
+.lena-atlas-destination-path {
+  font-size: 0.76rem;
+  color: var(--lena-muted);
+}
+
+.lena-atlas-destination.is-none {
+  border-style: dashed;
+  border-color: var(--atlas-line);
+  background: transparent;
+  color: var(--lena-muted);
+  cursor: default;
+  font-size: 0.82rem;
+}
+
+.lena-atlas-hint {
+  margin: clamp(20px, 3vw, 32px) 0 0;
+  color: var(--lena-muted);
+  font-size: 0.86rem;
+}
+
+.lena-atlas-exit {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--lena-accent);
+  text-decoration: none;
+  border-block-end: 1px solid transparent;
+}
+
+.lena-atlas-exit:hover {
+  border-block-end-color: currentColor;
+}
+
+/* ── stepwise (mobile) ────────────────────────────────────────────────────── */
+/* No rings, no SVG, no blur: one node, its parent, its children. */
+
+.lena-world-atlas[data-atlas-mode="stepwise"] {
+  --atlas-unit: 1px;
+  padding-bottom: clamp(40px, 9vw, 64px);
+}
+
+.lena-atlas-depth {
+  display: grid;
+  gap: 16px;
+}
+
+.lena-atlas-spine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--atlas-line);
+  border-radius: 16px;
+  background: var(--lena-card);
+}
+
+.lena-atlas-spine-node {
+  display: grid;
+  justify-items: start;
+  gap: 1px;
+  padding: 4px 9px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--lena-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.lena-atlas-spine-node[aria-current="step"] {
+  border-color: var(--lena-line-strong);
+  background: color-mix(in srgb, var(--lena-accent) 18%, transparent);
+}
+
+.lena-atlas-spine-kind {
+  font-size: 0.56rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--lena-muted);
+}
+
+.lena-atlas-spine-name {
+  font-size: 0.86rem;
+}
+
+.lena-atlas-focus {
+  display: grid;
+  gap: 12px;
+  padding: clamp(16px, 5vw, 22px);
+  border: 1px solid color-mix(in srgb, var(--lena-cyan) 34%, var(--atlas-line));
+  border-radius: 22px;
+  background: var(--lena-card-strong);
+}
+
+.lena-atlas-focus .lena-atlas-node {
+  position: static;
+  transform: none;
+  justify-items: start;
+  gap: 10px;
+}
+
+.lena-atlas-focus .lena-atlas-node:hover {
+  transform: none;
+}
+
+.lena-atlas-focus .lena-atlas-node-label {
+  justify-items: start;
+  max-width: none;
+  text-align: start;
+}
+
+.lena-atlas-focus .lena-atlas-node-name {
+  font-size: 1.35rem;
+  text-align: start;
+}
+
+.lena-atlas-focus-summary,
+.lena-atlas-focus .sr-only {
+  color: var(--lena-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.lena-atlas-focus-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.lena-atlas-group h2 {
+  margin: 0 0 8px;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lena-muted);
+  font-weight: 500;
+}
+
+.lena-atlas-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.lena-atlas-list .lena-atlas-node {
+  position: static;
+  transform: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--atlas-line);
+  border-radius: 15px;
+  background: var(--lena-card);
+  text-align: start;
+}
+
+.lena-atlas-list .lena-atlas-node:hover {
+  transform: none;
+  border-color: var(--lena-line-strong);
+}
+
+.lena-atlas-list .lena-atlas-node-dot {
+  width: 11px;
+  height: 11px;
+  flex: 0 0 auto;
+}
+
+.lena-atlas-list .lena-atlas-node-name {
+  font-size: 0.95rem;
+  text-align: start;
+}
+
+.lena-atlas-list .lena-atlas-node-label {
+  justify-items: start;
+  text-align: start;
+  max-width: none;
+}
+
+.lena-atlas-relation {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  width: 100%;
+  text-align: start;
+}
+
+.lena-atlas-relation-kind {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lena-muted);
+}
+
+/* ── focus visibility ─────────────────────────────────────────────────────── */
+
+.lena-world-atlas :focus-visible {
+  outline: 2px solid var(--lena-focus);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* ── light theme ──────────────────────────────────────────────────────────── */
+
+.light .lena-atlas-node-dot {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 8px 20px rgba(16, 36, 88, 0.14);
+}
+
+.light .lena-atlas-jump ul {
+  box-shadow: 0 18px 40px rgba(16, 36, 88, 0.16);
+}
+
+/* ── narrow viewport: no horizontal overflow, no heavy effects ────────────── */
+
+@media (max-width: 767px) {
+  .lena-atlas-scene {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lena-atlas-toolbar {
+    border-radius: 16px;
+  }
+
+  .lena-atlas-jump {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .lena-world-atlas {
+    --atlas-unit: 1.05px;
+  }
+
+  .lena-atlas-scene {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lena-atlas-field {
+    max-width: min(62vh, 620px);
+  }
+}
+
+/* ── reduced motion: no travel, no fading emphasis ────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .lena-world-atlas *,
+  .lena-world-atlas *::before,
+  .lena-world-atlas *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .lena-atlas-node:hover,
+  .lena-atlas-list .lena-atlas-node:hover,
+  .lena-atlas-focus .lena-atlas-node:hover {
+    transform: none;
+  }
+}
+
+/* ── coarse pointers get real hit targets ─────────────────────────────────── */
+
+@media (pointer: coarse) {
+  .lena-atlas-node {
+    min-block-size: 44px;
+    min-inline-size: 44px;
+  }
+
+  .lena-atlas-panel-group button,
+  .lena-atlas-clear,
+  .lena-atlas-step,
+  .lena-atlas-destination {
+    min-block-size: 44px;
+  }
+}
+
+/* ==========================================================================
+   The World's entry to Atlas
+   --------------------------------------------------------------------------
+   One calm line beside World Command. The wrapper exists so both spatial
+   entries share a baseline without a sidebar or a card grid.
+   ========================================================================== */
+
+.lena-world-entries {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 24px;
+}
+
+.lena-world-atlas-entry {
+  display: inline-flex;
+  margin: 18px 0 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  color: inherit;
+  text-decoration: none;
+  border-block-end: 1px solid transparent;
+}
+
+.lena-world-atlas-entry:hover {
+  opacity: 1;
+  border-block-end-color: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lena-world-atlas-entry {
+    transition: none;
+  }
+}

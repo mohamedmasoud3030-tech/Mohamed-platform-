@@ -143,9 +143,12 @@ export default function WorldPage() {
               : "Choose a system: it approaches, the LENA core responds, then you can step into its details."}
         </p>
 
-        <p>
+        <p className="lena-world-entries">
           <Link className="lena-world-command-entry" to="/world/command">
             {locale === "ar" ? "ادخل غرفة قيادة العالم" : "Enter World Command"}
+          </Link>
+          <Link className="lena-world-atlas-entry" to="/world/atlas">
+            {locale === "ar" ? "افتح أطلس العالم" : "Open the World Atlas"}
           </Link>
         </p>
 
