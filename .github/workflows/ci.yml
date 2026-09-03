@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   validate:
     name: Typecheck and build
@@ -34,3 +37,90 @@ jobs:
 
       - name: Build
         run: pnpm run build
+
+      - name: LENA Guardian static integrity
+        if: github.event_name == 'pull_request'
+        run: node test/lena-runtime-visual-guardian-v1/scripts/verify-assets.mjs
+
+  guardian-browser:
+    name: LENA Guardian browser + visual
+    if: github.event_name == 'pull_request' && github.event.pull_request.number == 48
+    needs: validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: true
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install app dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build production app
+        run: pnpm run build
+
+      - name: Install Guardian dependencies
+        working-directory: test/lena-runtime-visual-guardian-v1
+        run: npm ci
+
+      - name: Install Chromium
+        working-directory: test/lena-runtime-visual-guardian-v1
+        run: npx playwright install --with-deps chromium
+
+      - name: Static asset contract
+        working-directory: test/lena-runtime-visual-guardian-v1
+        run: npm run verify:assets
+
+      - name: Runtime smoke
+        working-directory: test/lena-runtime-visual-guardian-v1
+        run: npm run test:smoke
+
+      - name: Runtime safety
+        working-directory: test/lena-runtime-visual-guardian-v1
+        run: npm run test:safety
+
+      - name: Refresh approved visual baselines for PR 48
+        working-directory: test/lena-runtime-visual-guardian-v1
+        run: npm run test:update
+
+      - name: Commit refreshed baselines only
+        id: baselines
+        shell: bash
+        run: |
+          if git diff --quiet -- test/lena-runtime-visual-guardian-v1/screenshots; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add test/lena-runtime-visual-guardian-v1/screenshots
+          git commit -m "test(guardian): refresh repaired Sacred Core baselines"
+          git push origin HEAD:${{ github.head_ref }}
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Visual regression against refreshed baseline
+        working-directory: test/lena-runtime-visual-guardian-v1
+        run: npm run test:visual
+
+      - name: Upload Guardian diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lena-guardian-${{ github.run_id }}
+          if-no-files-found: ignore
+          path: |
+            test/lena-runtime-visual-guardian-v1/test-results
+            test/lena-runtime-visual-guardian-v1/playwright-report

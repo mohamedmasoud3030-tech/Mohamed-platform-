@@ -26,6 +26,7 @@ const SUITES = [
   { name: "optional lena subpath contract", file: "tools/verify-subpath-contract.mjs" },
   { name: "malek product association", file: "tools/verify-malek-association.mjs" },
   { name: "lena sacred core identity", file: "tools/verify-sacred-core.mjs" },
+  { name: "lena guardian critical assets", file: "test/lena-runtime-visual-guardian-v1/scripts/verify-assets.mjs" },
   { name: "lena world portal", file: "tools/verify-world-portal.mjs" },
   { name: "lena world chambers", file: "tools/verify-world-chambers.mjs" },
   { name: "lena world real evidence", file: "tools/verify-world-evidence.mjs" },
