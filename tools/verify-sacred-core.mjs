@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const cssPath = resolve(ROOT, "artifacts/jiwdah/src/styles/sacred-core.css");
-const assetPath = resolve(ROOT, "artifacts/jiwdah/src/assets/lena-sacred-core.webp");
+const assetPath = resolve(ROOT, "artifacts/jiwdah/src/assets/lena-sacred-core-v3-inline.svg");
 const lenaCssPath = resolve(ROOT, "artifacts/jiwdah/src/lena.css");
 
 let failures = 0;
@@ -21,8 +21,10 @@ const check = (name, fn) => {
 
 console.log("\n== LENA Sacred Core identity contract ==");
 
-check("the authored Sacred Core asset exists", () => {
+check("the approved self-contained Sacred Core v3 asset exists", () => {
   assert.equal(existsSync(assetPath), true);
+  const asset = readFileSync(assetPath, "utf8");
+  assert.match(asset, /data:image\/webp;base64,/);
 });
 
 check("the Sacred Core stylesheet is loaded after World styles", () => {
@@ -35,9 +37,16 @@ check("the Sacred Core stylesheet is loaded after World styles", () => {
 
 const css = readFileSync(cssPath, "utf8");
 
-check("Orbit and World share the same authored center", () => {
+check("Orbit and World share the approved v3 center", () => {
   assert.match(css, /\.lena-house,\s*\n\.lena-world-core/);
-  assert.match(css, /lena-sacred-core\.webp/);
+  assert.match(css, /lena-sacred-core-v3-inline\.svg/);
+});
+
+check("no synthetic black sphere or retired v2 asset can own the core", () => {
+  assert.doesNotMatch(css, /lena-sacred-core-v2/);
+  assert.doesNotMatch(css, /radial-gradient\([^\n]*(?:#020202|#030303|#090705|#171009)/i);
+  assert.match(css, /background:\s*transparent\s+url\(/);
+  assert.match(css, /border-color:\s*transparent\s*!important/);
 });
 
 check("the eye has a rare blink and a living idle pulse", () => {
@@ -46,7 +55,7 @@ check("the eye has a rare blink and a living idle pulse", () => {
   assert.match(css, /13\.6s/);
 });
 
-check("the Enter LENA gateway awakens the eye instead of swapping identity", () => {
+check("the Enter LENA gateway awakens the real eye instead of swapping identity", () => {
   assert.match(css, /lena-gateway-quiet[\s\S]*\.lena-house/);
   assert.match(css, /lena-gateway-resolve[\s\S]*\.lena-house::after/);
   assert.match(css, /@keyframes\s+lena-sacred-awakening/);
