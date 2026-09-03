@@ -4,6 +4,7 @@ import { useSpatialScene } from "../spatial/useSpatialScene";
 import { buildStars } from "../spatial/ambientField";
 import { useWorldPortalTransition } from "../WorldPortalTransition";
 import { worldSystem, type WorldEntity } from "../content/world";
+import { useSignalRuntime } from "../signals";
 
 export type WorldSceneProps = {
   entities: WorldEntity[];
@@ -29,6 +30,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
   const { locale } = usePreferences();
   const { rootRef } = useSpatialScene();
   const enterPortal = useWorldPortalTransition();
+  const { presence, globalState } = useSignalRuntime();
 
   useLayoutEffect(() => {
     const field = rootRef.current?.querySelector<HTMLElement>(".lena-world-field");
@@ -44,7 +46,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
   }, [selectedId]);
 
   return (
-    <div className="lena-world lena-world-v2" ref={rootRef}>
+    <div className={`lena-world lena-world-v2 world-${globalState}`} ref={rootRef}>
       <div className="lena-world-field" />
       <div className="lena-world-halo" />
 
@@ -68,10 +70,11 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
           const pos = ENTITY_POS[i] ?? { x: 0, y: 0 };
           const len = Math.hypot(pos.x, pos.y);
           const angle = (Math.atan2(pos.y, pos.x) * 180) / Math.PI;
+          const pathPresence = presence[entity.systemId] ?? "quiet";
           return (
             <i
               key={`path-${entity.systemId}`}
-              className={`lena-world-path${selectedId === entity.systemId ? " is-active" : ""}`}
+              className={`lena-world-path presence-${pathPresence}${selectedId === entity.systemId ? " is-active" : ""}`}
               style={
                 {
                   "--path-l": `${len.toFixed(1)}px`,
@@ -89,11 +92,12 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
         if (!system) return null;
         const pos = ENTITY_POS[i] ?? { x: 0, y: 0 };
         const selected = selectedId === entity.systemId;
+        const entityPresence = presence[entity.systemId] ?? "quiet";
         return (
           <button
             key={entity.systemId}
             type="button"
-            className={`lena-world-entity dna-${entity.dna} state-${entity.state}${selected ? " is-selected" : ""}`}
+            className={`lena-world-entity dna-${entity.dna} state-${entity.state} presence-${entityPresence}${selected ? " is-selected" : ""}`}
             style={
               {
                 "--ex": `${pos.x}px`,

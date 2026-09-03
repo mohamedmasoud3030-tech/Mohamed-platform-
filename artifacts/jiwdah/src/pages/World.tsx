@@ -62,8 +62,6 @@ export default function WorldPage() {
     return remembered && worldRegistry.isKnownSystem(remembered) ? remembered : null;
   }, [navState, memory]);
 
-  // Did the focus come from this visit's memory (a fresh return), rather than
-  // from pinned navigation state? That is the moment for the approach beat.
   const restoredFromMemory =
     rememberedId !== null &&
     rememberedId === (memory?.lastSystemId ?? null) &&
@@ -71,9 +69,6 @@ export default function WorldPage() {
 
   const [selectedId, setSelectedId] = useState<string | null>(() => rememberedId ?? defaultId);
 
-  // Keep a deliberate stable anchor when the language changes; mobile never
-  // opens into an empty constellation and desktop starts from the live system.
-  // (Skipped on mount — the initial selection is the restored one.)
   const prevLocale = useRef(locale);
   useEffect(() => {
     if (prevLocale.current === locale) return;
@@ -81,10 +76,6 @@ export default function WorldPage() {
     setSelectedId(defaultId);
   }, [locale, defaultId]);
 
-  // Quiet emphasis on the remembered world when a returning visitor opens the
-  // field fresh. Plays once per visit — after the scene has assembled (the
-  // constellation reveal is already in flight), so it reads as a breath, not
-  // a flash. Later selections are the visitor's own moves, not memories.
   useEffect(() => {
     if (!restoredFromMemory || !selectedId || approachPlayed.current) return;
     approachPlayed.current = true;
@@ -109,8 +100,6 @@ export default function WorldPage() {
   const handleSelect = (systemId: string) => {
     setSelectedId(systemId);
     worldMemory.remember({ space: "world", systemId });
-    // Pin the choice onto this history entry: stepping back out later finds
-    // the same focus without the page guessing.
     pinContext({ systemId });
   };
 
@@ -152,6 +141,12 @@ export default function WorldPage() {
             : isReturning && rememberedName
               ? `Welcome back — ${rememberedName} is ready where you left off.`
               : "Choose a system: it approaches, the LENA core responds, then you can step into its details."}
+        </p>
+
+        <p>
+          <Link className="lena-world-command-entry" to="/world/command">
+            {locale === "ar" ? "ادخل غرفة قيادة العالم" : "Enter World Command"}
+          </Link>
         </p>
 
         <nav

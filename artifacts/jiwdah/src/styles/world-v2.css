@@ -85,6 +85,51 @@
   animation-duration: 3.4s;
 }
 
+/* Signal runtime drives path energy — quiet paths stay still. */
+.lena-world-path.presence-quiet::after {
+  animation: none;
+  opacity: 0;
+}
+.lena-world-path.presence-active {
+  opacity: .42;
+}
+.lena-world-path.presence-active::after {
+  animation-duration: 7s;
+  opacity: .7;
+}
+.lena-world-path.presence-attention {
+  opacity: .7;
+  filter: drop-shadow(0 0 6px rgba(255,168,92,.35));
+}
+.lena-world-path.presence-attention::after {
+  animation-duration: 3.6s;
+  width: 6px;
+  height: 6px;
+  opacity: .9;
+}
+.lena-world-path.presence-critical {
+  opacity: .88;
+  filter: drop-shadow(0 0 8px rgba(255,92,110,.4));
+}
+.lena-world-path.presence-critical::after {
+  animation-duration: 2.2s;
+  width: 7px;
+  height: 7px;
+  background: #ff8a96;
+  opacity: 1;
+}
+
+.lena-world-entity.presence-attention .lena-world-entity-figure,
+.lena-world-entity.presence-critical .lena-world-entity-figure {
+  box-shadow: 0 0 28px rgba(231,176,73,.28);
+}
+.lena-world-entity.presence-critical .lena-world-entity-figure {
+  box-shadow: 0 0 32px rgba(255,92,110,.32);
+}
+.lena-world.world-critical .lena-world-halo {
+  opacity: 1;
+}
+
 .light .lena-world-path {
   background: linear-gradient(90deg, rgba(162,104,22,.46), rgba(49,94,251,.22) 50%, rgba(122,84,214,.08));
 }
