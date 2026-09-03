@@ -1,0 +1,29 @@
+{
+  "$schema": "Single source of truth for the routes and assets the Guardian must protect. Add routes here (and in App.tsx) — both the static integrity verifier and the browser suites pick them up automatically. World Command and Atlas are canonical protected routes; the approved Sacred Core WebP is the single canonical artwork.",
+  "criticalRoutes": [
+    { "path": "/", "name": "home", "owner": "main h1", "core": ".lena-house", "locales": ["en", "ar"] },
+    { "path": "/world", "name": "world-portal", "owner": ".lena-world", "core": ".lena-world-core", "locales": ["en", "ar"] },
+    { "path": "/world/command", "name": "world-command", "owner": ".lena-command", "locales": ["en", "ar"] },
+    { "path": "/world/atlas", "name": "world-atlas", "owner": ".lena-world-atlas", "locales": ["en", "ar"] },
+    { "path": "/world/property", "name": "chamber-property", "owner": "main.lena-system-chamber", "core": ".lena-inner-constellation", "locales": ["en", "ar"] },
+    { "path": "/world/wellness", "name": "chamber-wellness", "owner": "main.lena-system-chamber", "core": ".lena-inner-constellation", "locales": ["en"] },
+    { "path": "/services", "name": "services", "owner": "main", "locales": ["en"] },
+    { "path": "/portfolio", "name": "portfolio", "owner": "main", "locales": ["en"] },
+    { "path": "/about", "name": "about", "owner": "main", "locales": ["en"] },
+    { "path": "/contact", "name": "contact", "owner": "main", "locales": ["en"] }
+  ],
+  "futureRoutes": [],
+  "spatialJourney": {
+    "home": "/",
+    "world": "/world",
+    "chamber": "/world/property",
+    "systemName": "MALEK",
+    "innerSpace": ".lena-inner-constellation"
+  },
+  "criticalAssets": [
+    { "name": "sacred-core-webp", "file": "artifacts/jiwdah/src/assets/lena-sacred-core.webp", "kind": "webp", "canonical": true },
+    { "name": "lena-favicon", "file": "artifacts/jiwdah/public/favicon.svg", "kind": "svg" },
+    { "name": "lena-og-image", "file": "artifacts/jiwdah/public/lena-og.jpg", "kind": "jpeg" },
+    { "name": "founder-image", "file": "artifacts/jiwdah/public/founder.jpg", "kind": "jpeg" }
+  ]
+}

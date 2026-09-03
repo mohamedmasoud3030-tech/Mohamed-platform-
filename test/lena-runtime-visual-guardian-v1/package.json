@@ -1,0 +1,21 @@
+{
+  "name": "lena-runtime-visual-guardian-v1",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "LENA runtime integrity + visual QA guardian (route smoke, Sacred Core contract, mobile/theme/RTL/reduced-motion safety, visual regression).",
+  "scripts": {
+    "serve": "node scripts/start-preview.mjs",
+    "verify:assets": "node scripts/verify-assets.mjs",
+    "verify": "node scripts/verify-assets.mjs",
+    "test": "playwright test",
+    "test:smoke": "playwright test --project=smoke",
+    "test:safety": "playwright test --project=safety",
+    "test:visual": "playwright test --project=visual",
+    "test:update": "playwright test --project=visual --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@sparticuz/chromium": "^149.0.0"
+  }
+}
