@@ -7,7 +7,7 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate:
@@ -39,21 +39,17 @@ jobs:
         run: pnpm run build
 
       - name: LENA Guardian static integrity
-        if: github.event_name == 'pull_request'
         run: node test/lena-runtime-visual-guardian-v1/scripts/verify-assets.mjs
 
   guardian-browser:
     name: LENA Guardian browser + visual
-    if: github.event_name == 'pull_request' && github.event.pull_request.number == 48
+    if: github.event_name == 'pull_request'
     needs: validate
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout PR branch
+      - name: Checkout tested PR merge
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-          persist-credentials: true
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -92,26 +88,7 @@ jobs:
         working-directory: test/lena-runtime-visual-guardian-v1
         run: npm run test:safety
 
-      - name: Refresh approved visual baselines for PR 48
-        working-directory: test/lena-runtime-visual-guardian-v1
-        run: npm run test:update
-
-      - name: Commit refreshed baselines only
-        id: baselines
-        shell: bash
-        run: |
-          if git diff --quiet -- test/lena-runtime-visual-guardian-v1/screenshots; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add test/lena-runtime-visual-guardian-v1/screenshots
-          git commit -m "test(guardian): refresh repaired Sacred Core baselines"
-          git push origin HEAD:${{ github.head_ref }}
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-
-      - name: Visual regression against refreshed baseline
+      - name: Visual regression
         working-directory: test/lena-runtime-visual-guardian-v1
         run: npm run test:visual
 
