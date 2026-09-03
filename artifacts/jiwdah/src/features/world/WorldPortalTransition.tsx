@@ -1,83 +1,89 @@
-import { useCallback, useRef, type MouseEvent } from "react";
+import { useCallback, type MouseEvent } from "react";
 import { useNavigate } from "react-router";
 import { track } from "@/lib/analytics";
+import {
+  buildSpatialState,
+  useReducedMotion,
+  worldMemory,
+  type SpatialElement,
+  type SpatialTargets,
+} from "@/lib/spatial";
+import { spatialRuntime } from "@/lib/spatial";
 
 /**
- * Cinematic exit from LENA World into one system.
+ * Cinematic exit from LENA World into one system — the `descend` intent on
+ * the canonical spatial runtime:
+ *
+ *   1. the world and the chosen system isolate together (is-portal),
+ *   2. the chosen system aligns with the Sacred Core (is-portal-resolve),
+ *   3. the cross fires into the system's calm chamber.
  *
  * Selection has already established meaning; this transition turns the final
- * action into spatial approach rather than a dead link:
- *   1. unrelated systems + page copy recede,
- *   2. the chosen signal path becomes a corridor,
- *   3. the chosen body approaches the Sacred Core / viewer,
- *   4. navigation lands in the system's calm World chamber.
+ * action into spatial approach rather than a dead link. Navigation remains
+ * deterministic and accessible: the runtime is single-flight (fast clicks
+ * cannot stack), cancellable, self-cleaning, and reduced-motion skips the
+ * choreography entirely.
  *
- * Navigation remains deterministic and accessible. Reduced-motion skips the
- * choreography entirely. View Transitions enhance the final hand-off when the
- * browser supports them; the CSS path is the authoritative fallback.
+ * The event is optional: the in-scene "open chamber" action passes its own
+ * anchor, while the world's system list calls the same transition from
+ * outside the scene — one owner, every exit.
  */
 export function useWorldPortalTransition() {
   const navigate = useNavigate();
-  const inFlight = useRef(false);
+  const reduced = useReducedMotion();
 
   return useCallback(
-    (event: MouseEvent<HTMLAnchorElement>, destination: string, systemId: string) => {
-      event.preventDefault();
-      if (inFlight.current) return;
+    (destination: string, systemId: string, event?: MouseEvent<HTMLElement>) => {
+      if (event) event.preventDefault();
 
-      const world = event.currentTarget.closest<HTMLElement>(".lena-world");
+      const world =
+        (event ? event.currentTarget.closest<HTMLElement>(".lena-world") : null) ??
+        document.querySelector<HTMLElement>(".lena-world");
       const page = world?.closest<HTMLElement>(".lena-world-page") ?? null;
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const arrivalState = { fromWorldPortal: true, systemId };
+      const selected = world?.querySelector<HTMLElement>(".lena-world-entity.is-selected") ?? null;
 
       track("primary_action_clicked", {
         surface: "world_portal",
         context: systemId,
       });
 
-      if (!world || reduce) {
-        navigate(destination, { state: arrivalState });
+      // The chamber is the first deep destination of the journey: this is
+      // where the first-time spatial introduction is considered experienced.
+      worldMemory.remember({ systemId });
+      worldMemory.markIntroSeen();
+
+      const fallback = () =>
+        navigate(destination, {
+          state: buildSpatialState({ origin: "/world", intent: "descend", systemId }),
+        });
+
+      if (!world) {
+        fallback();
         return;
       }
 
-      inFlight.current = true;
-      world.dataset.portal = systemId;
-      world.classList.add("is-portal");
-      page?.classList.add("is-portal");
+      if (selected) selected.setAttribute("aria-busy", "true");
 
-      const selected = world.querySelector<HTMLElement>(".lena-world-entity.is-selected");
-      selected?.setAttribute("aria-busy", "true");
-
-      const cleanup = () => {
-        world.classList.remove("is-portal", "is-portal-resolve");
-        delete world.dataset.portal;
-        page?.classList.remove("is-portal");
-        selected?.removeAttribute("aria-busy");
-        inFlight.current = false;
+      const targets: SpatialTargets = {
+        root: world as unknown as SpatialElement,
+        page: page as unknown as SpatialTargets["page"],
+        subject: selected as unknown as SpatialTargets["subject"],
       };
 
-      // First beat: isolate the chosen system. Second beat: approach / awaken.
-      window.setTimeout(() => {
-        world.classList.add("is-portal-resolve");
-      }, 190);
+      const handle = spatialRuntime.run({
+        intent: "descend",
+        scene: "world",
+        targets,
+        systemId,
+        reducedMotion: reduced,
+        action: fallback,
+      });
+      if (!handle) return; // a transition is already in flight — the click is absorbed
 
-      const canViewTransition = typeof document.startViewTransition === "function";
-      if (canViewTransition) {
-        window.setTimeout(() => {
-          const transition = document.startViewTransition(() => {
-            navigate(destination, { state: arrivalState });
-          });
-          transition.finished.then(cleanup).catch(cleanup);
-        }, 480);
-      } else {
-        window.setTimeout(() => {
-          navigate(destination, { state: arrivalState });
-          // Usually the World unmounts immediately. This is only a safety net
-          // for a prevented navigation or a same-document destination.
-          window.setTimeout(cleanup, 320);
-        }, 680);
-      }
+      handle.done.then(() => {
+        selected?.removeAttribute("aria-busy");
+      });
     },
-    [navigate],
+    [navigate, reduced],
   );
 }

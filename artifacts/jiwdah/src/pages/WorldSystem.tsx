@@ -1,4 +1,5 @@
-import { Link, Navigate, useLocation, useParams } from "react-router";
+import { useCallback, useEffect, useState } from "react";
+import { Link, Navigate, useParams } from "react-router";
 import SeoHead from "@/components/SeoHead";
 import type { OperatingPrimitiveId } from "@/content/systems";
 import InnerConstellation from "@/features/world/components/InnerConstellation";
@@ -6,36 +7,75 @@ import { OperatingSurfaces } from "@/features/world/components/OperatingSurfaces
 import { OPERATING_PRIMITIVES } from "@/features/world/content/operating-primitives";
 import { findWorldEntity, worldSystem } from "@/features/world/content/world";
 import PublicShell from "@/layouts/PublicShell";
+import { useSpatialContext, useSpatialNavigate, worldMemory } from "@/lib/spatial";
 import { usePreferences } from "@/providers/preferences";
-
-type PortalArrivalState = {
-  fromWorldPortal?: boolean;
-  systemId?: string;
-};
 
 /**
  * System Chamber — the calm landing surface after a spatial World portal.
  *
  * This page owns no product facts. Every meaningful sentence comes from the
  * canonical BusinessSystem record; World contributes only its explicit visual
- * state and Digital DNA. The Inner Constellation also resolves exclusively from
- * `system.does`, turning verified operating scope into spatial structure without
- * inventing workflow order, telemetry or capabilities.
+ * state and Digital DNA. The Inner Constellation also resolves exclusively
+ * from `system.does`, turning verified operating scope into spatial structure
+ * without inventing workflow order, telemetry or capabilities.
+ *
+ * Arrival is semantic, not a single animation:
+ *   - `descend` (from the World portal)   → the chamber arrival choreography
+ *   - a back move (browser or visible)    → an outward settle, no replay of
+ *                                           the entrance
+ *   - a direct URL entry                  → a calm neutral arrival
+ * The URL remains canonical in all three cases; spatial state only shapes
+ * how the chamber receives the visitor.
  */
+type ChamberArrival = "arrival" | "return" | "neutral";
+
 export default function WorldSystem() {
   const { systemId } = useParams();
   const { locale } = usePreferences();
-  const location = useLocation();
   const entity = findWorldEntity(systemId);
   const system = entity ? worldSystem(entity) : undefined;
+  const { navState, direction, isDirectEntry } = useSpatialContext();
+  const { back } = useSpatialNavigate();
+
+  // Inner space: the chamber's constellation can become the dominant object
+  // while the chamber context stays visible — a `focus` without a route
+  // change. Stepping back out is a `return`: depth reverses one level.
+  const [innerFocus, setInnerFocus] = useState(false);
+
+  const chamberPath = `/world/${systemId}`;
+
+  // A chamber reached by its own URL (or reloaded) still belongs to the
+  // journey: record it, and mark how the visitor got here.
+  useEffect(() => {
+    if (!entity) return;
+    worldMemory.remember({
+      space: "chamber",
+      systemId: entity.systemId,
+      chamberPath,
+      ...(isDirectEntry ? { entryContext: "deep-link" as const } : {}),
+    });
+  }, [entity, systemId, chamberPath, isDirectEntry]);
+
+  const releaseInnerFocus = useCallback(() => {
+    setInnerFocus(false);
+  }, []);
 
   if (!entity || !system) return <Navigate to="/world" replace />;
 
   const isArabic = locale === "ar";
-  const arrival = location.state as PortalArrivalState | null;
-  const arrivedThroughPortal = Boolean(
-    arrival?.fromWorldPortal && arrival.systemId === entity.systemId,
-  );
+
+  // Semantic arrival, resolved from the spatial context. Direction outranks
+  // everything: a back move is an outward settle, even when the entry was
+  // originally created by a portal descent.
+  const arrival: ChamberArrival =
+    direction === "back"
+      ? "return"
+      : navState?.spatial.intent === "descend" && navState.spatial.mode === "forward"
+        ? "arrival"
+        : navState?.spatial.intent === "emerge"
+          ? "return"
+          : "neutral";
+
   const description = system.tagline?.[locale] ?? system.problem[locale];
 
   return (
@@ -47,13 +87,24 @@ export default function WorldSystem() {
       />
 
       <main
-        className={`lena-system-chamber dna-${entity.dna} state-${entity.state}${arrivedThroughPortal ? " is-arrival" : ""}`}
+        className={`lena-system-chamber dna-${entity.dna} state-${entity.state}${
+          arrival === "arrival"
+            ? " is-arrival"
+            : arrival === "return"
+              ? " is-return"
+              : ""
+        }${innerFocus ? " is-inner-focus" : ""}`}
       >
         <div className="lena-container">
-          <Link className="lena-chamber-back" to="/world">
+          <button
+            type="button"
+            className="lena-chamber-back"
+            onClick={() => back()}
+            aria-label={isArabic ? "العودة إلى عالم LENA" : "Back to LENA World"}
+          >
             <span aria-hidden="true">←</span>
             <span>{isArabic ? "العودة إلى عالم LENA" : "Back to LENA World"}</span>
-          </Link>
+          </button>
 
           <section className="lena-chamber-hero">
             <div className="lena-chamber-copy">
@@ -80,15 +131,39 @@ export default function WorldSystem() {
               </div>
             </div>
 
-            <InnerConstellation
-              systemName={system.name[locale]}
-              operations={system.does[locale]}
-              ariaLabel={
-                isArabic
-                  ? `الخريطة التشغيلية لنظام ${system.name[locale]}`
-                  : `${system.name[locale]} operating constellation`
-              }
-            />
+            <div className={`lena-inner-stage${innerFocus ? " is-focused" : ""}`}>
+              <InnerConstellation
+                systemName={system.name[locale]}
+                operations={system.does[locale]}
+                ariaLabel={
+                  isArabic
+                    ? `الخريطة التشغيلية لنظام ${system.name[locale]}`
+                    : `${system.name[locale]} operating constellation`
+                }
+              />
+              {innerFocus ? (
+                <button
+                  type="button"
+                  className="lena-inner-exit"
+                  onClick={releaseInnerFocus}
+                >
+                  <span aria-hidden="true">↑</span>
+                  <span>{isArabic ? "العودة إلى الغرفة" : "Return to the chamber"}</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="lena-inner-entry"
+                  onClick={() => {
+                    setInnerFocus(true);
+                    worldMemory.remember({ inner: "constellation" });
+                  }}
+                >
+                  <span>{isArabic ? "ادخل الفضاء الداخلي" : "Enter the inner space"}</span>
+                  <span aria-hidden="true">↓</span>
+                </button>
+              )}
+            </div>
           </section>
 
           <section className="lena-chamber-truth" aria-label={isArabic ? "حقيقة النظام" : "System truth"}>

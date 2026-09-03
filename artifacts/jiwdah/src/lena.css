@@ -3,6 +3,7 @@
 @import "./styles/public.css";
 @import "./styles/orbit.css";
 @import "./styles/spatial-tokens.css";
+@import "./styles/spatial-continuity.css";
 @import "./styles/world.css";
 @import "./styles/sacred-core.css";
 @import "./styles/world-v2.css";

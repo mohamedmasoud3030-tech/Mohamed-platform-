@@ -1,7 +1,17 @@
 /* ---------------------------------------------------------------------------
-   LENA Spatial Language v1 — shared tokens.
+   LENA Spatial Language — shared tokens.
+
    The only contracts genuinely reused by both the homepage Orbit and the
    World scene. Everything else stays local to each surface.
+
+   v2 (Spatial Continuity): one small, coherent motion grammar.
+     durations  — five speeds, nothing else
+     easing     — settle (forward), emerge (backward), drift (ambient)
+     depth      — recede / rest / approach / dominant scale steps
+     presence   — three opacity tiers
+     stagger    — one item interval
+   The TypeScript twin of this file is `src/lib/spatial/tokens.ts`; keep the
+   two in agreement.
 --------------------------------------------------------------------------- */
 
 :root {
@@ -16,4 +26,25 @@
   --lena-depth-scale-near: 1.04;
   --lena-depth-opacity-far: 0.68;
   --lena-depth-opacity-near: 1;
+
+  /* Continuity grammar (v2). */
+  --lena-motion-fast: 0.28s;
+  --lena-motion-beat: 0.42s;
+  --lena-motion-standard: 0.62s;
+  --lena-motion-deep: 0.9s;
+  --lena-motion-settle: 1.1s;
+
+  --lena-ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+  --lena-ease-emerge: cubic-bezier(0.16, 0.84, 0.26, 1);
+  --lena-ease-drift: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --lena-depth-recede: 0.96;
+  --lena-depth-rest: 1;
+  --lena-depth-approach: 1.08;
+  --lena-depth-dominant: 1.5;
+
+  --lena-fade-far: 0.68;
+  --lena-fade-faded: 0.16;
+
+  --lena-stagger-item: 0.08s;
 }
