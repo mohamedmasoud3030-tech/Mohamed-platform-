@@ -60,6 +60,12 @@ export default function WorldPage() {
             : "Choose a system: it approaches, the LENA core responds, then you can step into its details."}
         </p>
 
+        <p>
+          <Link className="lena-world-command-entry" to="/world/command">
+            {locale === "ar" ? "ادخل غرفة قيادة العالم" : "Enter World Command"}
+          </Link>
+        </p>
+
         <nav
           className="lena-world-entities-list"
           aria-label={locale === "ar" ? "أنظمة LENA World" : "LENA World systems"}

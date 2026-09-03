@@ -5,6 +5,7 @@ import App from "./App";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { TRPCProvider } from "./providers/trpc";
 import { PreferencesProvider, usePreferences } from "./providers/preferences";
+import { SignalRuntimeProvider } from "./features/world/signals";
 import { bootstrapLocale, routerBasename } from "./lib/locale";
 import { configureAnalytics } from "./lib/analytics";
 import { firstPartySink } from "./lib/analytics/sink";
@@ -48,7 +49,9 @@ createRoot(document.getElementById("root")!).render(
     <ErrorBoundary>
       <PreferencesProvider initialLocale={locale}>
         <TRPCProvider>
-          <LocalizedRouter />
+          <SignalRuntimeProvider>
+            <LocalizedRouter />
+          </SignalRuntimeProvider>
         </TRPCProvider>
       </PreferencesProvider>
     </ErrorBoundary>
