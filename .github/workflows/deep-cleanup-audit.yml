@@ -1,4 +1,4 @@
-name: Deep cleanup audit
+name: Deep cleanup lock sync
 
 on:
   push:
@@ -6,16 +6,17 @@ on:
       - chore/deep-cleanup-20260903
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  knip:
+  sync-lock:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout cleanup branch
         uses: actions/checkout@v4
         with:
           ref: chore/deep-cleanup-20260903
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -28,21 +29,18 @@ jobs:
           node-version: 24
           cache: pnpm
 
-      - name: Synchronize lockfile and dependencies
+      - name: Synchronize lockfile
         run: pnpm install --no-frozen-lockfile
 
-      - name: Scan unused files, exports and dependencies
+      - name: Commit synchronized lockfile
         shell: bash
         run: |
-          pnpm dlx knip --reporter json > knip-report.json 2> knip-stderr.txt || true
-          test -s knip-report.json || echo '{}' > knip-report.json
-
-      - name: Upload audit report and synchronized lockfile
-        uses: actions/upload-artifact@v4
-        with:
-          name: deep-cleanup-audit
-          path: |
-            knip-report.json
-            knip-stderr.txt
-            pnpm-lock.yaml
-          if-no-files-found: error
+          if git diff --quiet -- pnpm-lock.yaml; then
+            echo "Lockfile already synchronized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pnpm-lock.yaml
+          git commit -m "chore(cleanup): synchronize pnpm lockfile"
+          git push origin HEAD:chore/deep-cleanup-20260903
