@@ -3,7 +3,7 @@ import { usePreferences } from "@/providers/preferences";
 const STEPS = [
   { ar: "نفهم سير العمل الحقيقي", en: "Understand the real workflow" },
   { ar: "نحدد الكيانات والقواعد ونقاط التعطل", en: "Map entities, rules, and friction" },
-  { ar: "نبني نظام التشغيل ونوصله بالعمل اليومي", en: "Build the operating system around daily work" },
+  { ar: "نبني نظام التشغيل حول العمل اليومي", en: "Build the operating system around daily work" },
   { ar: "نثبت الاستخدام ثم نستخرج ما يتكرر", en: "Prove usage, then extract what repeats" },
 ];
 
