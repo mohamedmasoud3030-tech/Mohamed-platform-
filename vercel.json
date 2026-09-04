@@ -2,6 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "pnpm install --frozen-lockfile",
+  "ignoreCommand": "node tools/vercel-project-guard.mjs",
   "buildCommand": "pnpm run build",
   "outputDirectory": "artifacts/jiwdah/dist/public",
   "rewrites": [
