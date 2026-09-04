@@ -6,10 +6,10 @@ import assert from "node:assert/strict";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (path) => readFileSync(resolve(ROOT, path), "utf8");
 
-const component = read("artifacts/jiwdah/src/features/world/components/InnerConstellation.tsx");
-const chamber = read("artifacts/jiwdah/src/pages/WorldSystem.tsx");
-const css = read("artifacts/jiwdah/src/styles/world-inner.css");
-const lenaCss = read("artifacts/jiwdah/src/lena.css");
+const component = read("artifacts/lena/src/features/world/components/InnerConstellation.tsx");
+const chamber = read("artifacts/lena/src/pages/WorldSystem.tsx");
+const css = read("artifacts/lena/src/styles/world-inner.css");
+const lenaCss = read("artifacts/lena/src/lena.css");
 
 let failures = 0;
 const check = (name, fn) => {

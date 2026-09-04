@@ -28,7 +28,7 @@ class FakeStorage {
 globalThis.window = { localStorage: new FakeStorage() };
 
 const out = await build({
-  entryPoints: [`${ROOT}/artifacts/jiwdah/src/lib/inquiryDraft.ts`],
+  entryPoints: [`${ROOT}/artifacts/lena/src/lib/inquiryDraft.ts`],
   bundle: true, write: false, format: "esm", platform: "neutral",
 });
 const mod = await import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));

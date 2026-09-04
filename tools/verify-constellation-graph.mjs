@@ -6,17 +6,17 @@ import assert from "node:assert/strict";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (path) => readFileSync(resolve(ROOT, path), "utf8");
 
-const systems = read("artifacts/jiwdah/src/content/systems.ts");
+const systems = read("artifacts/lena/src/content/systems.ts");
 const primitives = read(
-  "artifacts/jiwdah/src/features/world/content/operating-primitives.ts",
+  "artifacts/lena/src/features/world/content/operating-primitives.ts",
 );
 const graph = read(
-  "artifacts/jiwdah/src/features/world/components/ConstellationGraph.tsx",
+  "artifacts/lena/src/features/world/components/ConstellationGraph.tsx",
 );
-const worldPage = read("artifacts/jiwdah/src/pages/World.tsx");
-const atlasPage = read("artifacts/jiwdah/src/pages/WorldAtlas.tsx");
-const css = read("artifacts/jiwdah/src/styles/world-graph.css");
-const lenaCss = read("artifacts/jiwdah/src/lena.css");
+const worldPage = read("artifacts/lena/src/pages/World.tsx");
+const atlasPage = read("artifacts/lena/src/pages/WorldAtlas.tsx");
+const css = read("artifacts/lena/src/styles/world-graph.css");
+const lenaCss = read("artifacts/lena/src/lena.css");
 
 let failures = 0;
 const check = (name, fn) => {

@@ -37,7 +37,7 @@ const AI_PACKAGE_PATTERN =
 const AI_ENDPOINT_PATTERN =
   /(api\.openai\.com|api\.anthropic\.com|generativelanguage\.googleapis\.com|api\.mistral\.ai|api\.cohere\.|api\.groq\.com|api-inference\.huggingface\.co|api\.replicate\.com)/i;
 
-const SOURCE_DIRS = ["artifacts/api-server/src", "artifacts/jiwdah/src", "lib", "api"];
+const SOURCE_DIRS = ["artifacts/api-server/src", "artifacts/lena/src", "lib", "api"];
 const SKIP_DIRS = new Set(["node_modules", "dist", ".git", "build", "coverage"]);
 
 function walk(dir, files = []) {
@@ -59,7 +59,7 @@ function walk(dir, files = []) {
 const problems = [];
 
 // 1) No AI SDK may appear in any package manifest.
-for (const manifest of ["package.json", "artifacts/api-server/package.json", "artifacts/jiwdah/package.json"]) {
+for (const manifest of ["package.json", "artifacts/api-server/package.json", "artifacts/lena/package.json"]) {
   let pkg;
   try {
     pkg = JSON.parse(readFileSync(path.join(ROOT, manifest), "utf8"));

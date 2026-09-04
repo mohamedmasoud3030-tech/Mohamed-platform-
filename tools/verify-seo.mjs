@@ -16,7 +16,7 @@ const { build } = await import(resolveFrom("artifacts/api-server/package.json", 
 import path from "node:path";
 import assert from "node:assert/strict";
 
-const APP = `${ROOT}/artifacts/jiwdah`;
+const APP = `${ROOT}/artifacts/lena`;
 
 // ---------- minimal DOM ----------
 class El {

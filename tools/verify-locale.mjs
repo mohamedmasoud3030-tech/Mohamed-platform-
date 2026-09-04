@@ -22,9 +22,9 @@ class FakeStorage {
 globalThis.window = { localStorage: new FakeStorage() };
 
 const out = await build({
-  entryPoints: [`${ROOT}/artifacts/jiwdah/src/lib/locale.ts`],
+  entryPoints: [`${ROOT}/artifacts/lena/src/lib/locale.ts`],
   bundle: true, write: false, format: "esm", platform: "neutral",
-  alias: { "@": `${ROOT}/artifacts/jiwdah/src` },
+  alias: { "@": `${ROOT}/artifacts/lena/src` },
 });
 const L = await import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));
 

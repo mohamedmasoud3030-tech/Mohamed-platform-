@@ -7,10 +7,10 @@
 A digital house building operations systems for businesses, presented on a bilingual platform that
 captures and manages client inquiries.
 
-> **This file replaces an earlier version that described a different product entirely** ("Jiwdah
-> Hospitality", with tables and endpoints that do not exist). The hospitality application it referred
-> to is a real client project — see `docs/PROJECT_INVENTORY.md` §5 — but it is not what this
-> repository contains.
+> **This file replaces an earlier version that described a different product entirely** (the former
+> hospitality application, with tables and endpoints that do not exist). The hospitality application
+> it referred to is a real client project — see `docs/PROJECT_INVENTORY.md` §5 — but it is not what
+> this repository contains.
 
 ## Documents that matter
 
@@ -35,7 +35,7 @@ single admin.
 
 | Artifact | Path | Purpose |
 |---|---|---|
-| `artifacts/jiwdah` | `/` | Public site and admin dashboard |
+| `artifacts/lena` | `/` | Public site and admin dashboard |
 | `artifacts/api-server` | `/api` | API |
 | `artifacts/mockup-sandbox` | — | Component preview, development only |
 
@@ -56,7 +56,7 @@ pnpm run typecheck                                   # all packages
 pnpm run build                                       # egress guard, typecheck, then build
 pnpm run verify:egress                               # no AI SDKs, no undeclared outbound hosts
 pnpm --filter @workspace/api-server dev              # API
-pnpm --filter @workspace/jiwdah dev                  # site (proxies /api to localhost:8080)
+pnpm --filter @workspace/lena dev                  # site (proxies /api to localhost:8080)
 pnpm --filter @workspace/db migrate                  # apply migrations
 bash tools/prepare-founder-photo.sh <photo>          # portrait + social card, metadata stripped
 ```

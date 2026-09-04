@@ -6,16 +6,16 @@ import assert from "node:assert/strict";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (path) => readFileSync(resolve(ROOT, path), "utf8");
 
-const builder = read("artifacts/jiwdah/src/graph/builder.ts");
-const query = read("artifacts/jiwdah/src/graph/query.ts");
-const validate = read("artifacts/jiwdah/src/graph/validate.ts");
-const layout = read("artifacts/jiwdah/src/features/world/atlas/layout.ts");
-const page = read("artifacts/jiwdah/src/pages/WorldAtlas.tsx");
-const selectors = read("artifacts/jiwdah/src/features/world/atlas/selectors.ts");
-const app = read("artifacts/jiwdah/src/App.tsx");
-const worldPage = read("artifacts/jiwdah/src/pages/World.tsx");
-const lenaCss = read("artifacts/jiwdah/src/lena.css");
-const entities = read("artifacts/jiwdah/src/features/world/content/world.ts");
+const builder = read("artifacts/lena/src/graph/builder.ts");
+const query = read("artifacts/lena/src/graph/query.ts");
+const validate = read("artifacts/lena/src/graph/validate.ts");
+const layout = read("artifacts/lena/src/features/world/atlas/layout.ts");
+const page = read("artifacts/lena/src/pages/WorldAtlas.tsx");
+const selectors = read("artifacts/lena/src/features/world/atlas/selectors.ts");
+const app = read("artifacts/lena/src/App.tsx");
+const worldPage = read("artifacts/lena/src/pages/World.tsx");
+const lenaCss = read("artifacts/lena/src/lena.css");
+const entities = read("artifacts/lena/src/features/world/content/world.ts");
 
 let failures = 0;
 const check = (name, fn) => {
@@ -95,7 +95,7 @@ check("Atlas is a static route registered before the dynamic system route", () =
 
 check("Atlas is reachable from the World as a spatial entry, not a sidebar", () => {
   assert.match(worldPage, /className="lena-world-atlas-entry"\s+to="\/world\/atlas"/);
-  assert.doesNotMatch(read("artifacts/jiwdah/src/layouts/FloatingHeader.tsx"), /atlas/);
+  assert.doesNotMatch(read("artifacts/lena/src/layouts/FloatingHeader.tsx"), /atlas/);
 });
 
 check("the page consumes canonical systems instead of duplicating them", () => {
@@ -121,7 +121,7 @@ check("Atlas styling is registered once in the shared stylesheet", () => {
 });
 
 check("Atlas ships no second Sacred Core artwork and no fabricated branding", () => {
-  const css = read("artifacts/jiwdah/src/styles/world-atlas.css");
+  const css = read("artifacts/lena/src/styles/world-atlas.css");
   assert.doesNotMatch(css, /url\(/, "Atlas must not reference image assets directly");
   assert.doesNotMatch(css, /radial-gradient\([^)]*#(000|0a0a0a)/, "no synthetic black disk");
 });

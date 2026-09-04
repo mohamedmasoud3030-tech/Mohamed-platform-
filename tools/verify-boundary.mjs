@@ -19,11 +19,11 @@ globalThis.console = { ...console, error: (...a) => globalThis.__logged.push(a) 
 globalThis.__logged = [];
 
 const out = await build({
-  entryPoints: [`${ROOT}/artifacts/jiwdah/src/components/ErrorBoundary.tsx`],
+  entryPoints: [`${ROOT}/artifacts/lena/src/components/ErrorBoundary.tsx`],
   bundle: true, write: false, format: "esm", platform: "neutral",
   jsx: "transform", jsxFactory: "React.createElement", jsxFragment: "React.Fragment",
   inject: [`${ROOT}/tools/shim/inject.js`],
-  alias: { react: `${ROOT}/tools/shim/react.js`, "@": `${ROOT}/artifacts/jiwdah/src` },
+  alias: { react: `${ROOT}/tools/shim/react.js`, "@": `${ROOT}/artifacts/lena/src` },
   define: { __APP_BUILD__: JSON.stringify("abc1234.2026-08-20"), "import.meta.env": "{}" },
 });
 const mod = await import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));

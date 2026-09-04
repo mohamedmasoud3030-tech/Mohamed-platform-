@@ -4,7 +4,7 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import assert from "node:assert/strict";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const SRC = resolve(ROOT, "artifacts/jiwdah/src");
+const SRC = resolve(ROOT, "artifacts/lena/src");
 
 /**
  * Localization integrity.

@@ -1,6 +1,6 @@
 # Localization & Content System
 
-**Date:** 2026-08-20 · Applies to `artifacts/jiwdah` (public site and dashboard) and to server-generated
+**Date:** 2026-08-20 · Applies to `artifacts/lena` (public site and dashboard) and to server-generated
 copy in `artifacts/api-server`.
 
 ---

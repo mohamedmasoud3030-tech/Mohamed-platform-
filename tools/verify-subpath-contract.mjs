@@ -61,7 +61,7 @@ check("OAuth error redirects stay inside the LENA namespace", () => {
   assert.doesNotMatch(oauth, /redirect\("\/login\?error=/);
 });
 
-const app = readFileSync(resolve(ROOT, "artifacts/jiwdah/src/App.tsx"), "utf8");
+const app = readFileSync(resolve(ROOT, "artifacts/lena/src/App.tsx"), "utf8");
 console.log("\n== public company routes stay public; admin stays behind /login ==");
 check("company-public routes are registered", () => {
   for (const path of ["/services", "/portfolio", "/about", "/ai-solutions", "/contact", "/help", "/privacy", "/work/:projectId"]) {

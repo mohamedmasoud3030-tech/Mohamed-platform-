@@ -4,7 +4,7 @@
   "installCommand": "pnpm install --frozen-lockfile",
   "ignoreCommand": "node tools/vercel-project-guard.mjs",
   "buildCommand": "pnpm run build",
-  "outputDirectory": "artifacts/jiwdah/dist/public",
+  "outputDirectory": "artifacts/lena/dist/public",
   "rewrites": [
     {
       "source": "/lena/api",

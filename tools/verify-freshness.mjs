@@ -11,16 +11,16 @@ import assert from "node:assert/strict";
 const R = `${ROOT}`;
 const read = (p) => readFileSync(`${R}/${p}`, "utf8");
 
-const help = read("artifacts/jiwdah/src/content/help.ts");
-const app = read("artifacts/jiwdah/src/App.tsx");
+const help = read("artifacts/lena/src/content/help.ts");
+const app = read("artifacts/lena/src/App.tsx");
 const storage = read("artifacts/api-server/src/lib/project-media-storage.ts");
 const inquiries = read("artifacts/api-server/src/trpc/routers/inquiries.ts");
 const oauth = read("artifacts/api-server/src/auth/oauth.ts");
-const login = read("artifacts/jiwdah/src/pages/Login.tsx");
-const contact = read("artifacts/jiwdah/src/pages/Contact.tsx");
-const adminHelp = read("artifacts/jiwdah/src/components/AdminSupport.tsx");
+const login = read("artifacts/lena/src/pages/Login.tsx");
+const contact = read("artifacts/lena/src/pages/Contact.tsx");
+const adminHelp = read("artifacts/lena/src/components/AdminSupport.tsx");
 const enums = read("lib/api-zod/src/enums.ts");
-const support = read("artifacts/jiwdah/src/lib/support.ts");
+const support = read("artifacts/lena/src/lib/support.ts");
 
 let failures = 0;
 const check = (name, fn) => {
@@ -74,7 +74,7 @@ const allStatuses = /INQUIRY_STATUS_VALUES\s*=\s*\[([^\]]+)\]/.exec(enums)[1]
   .match(/"([a-z_]+)"/g).map((s) => s.replaceAll('"', ""));
 const legacyStatuses = allStatuses.filter((v) => !statuses.includes(v));
 check(`legacy statuses (${legacyStatuses.join(", ") || "none"}) are never offered as a choice`, () => {
-  const dashboard = read("artifacts/jiwdah/src/pages/Dashboard.tsx");
+  const dashboard = read("artifacts/lena/src/pages/Dashboard.tsx");
   const pipeline = /const PIPELINE: InquiryStatus\[\] = \[([^\]]+)\]/.exec(dashboard);
   assert.ok(pipeline, "the dashboard no longer declares an explicit pipeline");
   for (const legacy of legacyStatuses) {

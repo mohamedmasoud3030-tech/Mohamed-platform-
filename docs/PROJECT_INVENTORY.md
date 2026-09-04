@@ -4,8 +4,8 @@
 
 > **Current-state correction — 2026-09-04:** this document preserves the original intake history; it
 > is not the current publication/evidence authority. Runtime product truth lives in
-> `artifacts/jiwdah/src/content/systems.ts`, while publishable product evidence lives in
-> `artifacts/jiwdah/src/features/world/content/evidence.ts`. MALEK now has seven real operating
+> `artifacts/lena/src/content/systems.ts`, while publishable product evidence lives in
+> `artifacts/lena/src/features/world/content/evidence.ts`. MALEK now has seven real operating
 > surfaces committed under `public/world/evidence/malek/` and rendered in its World chamber.
 > Older statements below saying MALEK still needs interior screens are historical and superseded.
 
@@ -41,13 +41,13 @@ assets for other owners before building the tool.
 **Provenance:** built and owned by the founder.
 **Still needed:** problem, user, capabilities, screens.
 
-## 5. Hospitality app — for "مشاريع جودة الانطلاقة"
+## 5. Hospitality app — client project (name withheld pending written permission)
 **Industry:** events and hospitality services.
 **What it does:** runs an office that provides hospitality services for events and occasions.
 **Provenance:** **built for a named client.** The client's name, and any result, may only be published with
 **written permission** (`FEATURE_GAP_STRATEGY.md` §D1, `PRIVACY_DATA_GOVERNANCE.md` §9.5).
-**Note:** this explains the stale `replit.md` that described "Jiwdah Hospitality" — it was a real
-client project, not a leftover from an unrelated product.
+**Note:** this explains the stale `replit.md` that described the former hospitality application — it
+was a real client project, not a leftover from an unrelated product.
 **Current deployment evidence:** the repository does not establish a live Hospitality production
 instance. Until a current production deployment is independently evidenced, the public site must not
 label this product as "in real use".

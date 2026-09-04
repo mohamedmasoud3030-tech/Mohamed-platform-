@@ -19,9 +19,9 @@ globalThis.window = { location: { hostname: "lena.example", pathname: "/ar/conta
 // navigator is replaced per-scenario via defineProperty in setup()
 
 const out = await build({
-  entryPoints: [`${ROOT}/artifacts/jiwdah/src/lib/analytics/index.ts`],
+  entryPoints: [`${ROOT}/artifacts/lena/src/lib/analytics/index.ts`],
   bundle: true, write: false, format: "esm", platform: "neutral",
-  alias: { "@": `${ROOT}/artifacts/jiwdah/src` },
+  alias: { "@": `${ROOT}/artifacts/lena/src` },
 });
 const A = await import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));
 

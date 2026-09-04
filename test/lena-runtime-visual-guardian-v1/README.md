@@ -43,7 +43,7 @@ pnpm test:visual        # compare baselines
 pnpm test:update        # regenerate baselines (visual project)
 ```
 
-The config auto-starts `vite preview` on `127.0.0.1:4173` (see `scripts/start-preview.mjs`) and rebuilds the jiwdah workspace if `dist` is missing.
+The config auto-starts `vite preview` on `127.0.0.1:4173` (see `scripts/start-preview.mjs`) and rebuilds the lena workspace if `dist` is missing.
 
 ### Restricted sandbox (no system Chrome deps)
 
@@ -82,8 +82,8 @@ Static inventory check and all browser suites pick the route up automatically. `
 
 At `main` HEAD (`ca0288a`) **both Sacred Core artwork payloads are truncated/structurally invalid** and render as a broken-image placeholder in the browser:
 
-- `artifacts/jiwdah/src/assets/lena-sacred-core-v3-inline.svg` — embedded WebP declares RIFF size 23 560 bytes (and 11 456-byte ALPH chunk) but the file is only 7 506 bytes and has **no VP8/VP8L bitstream chunk** (alpha-only fragment).
-- `artifacts/jiwdah/src/assets/lena-sacred-core.webp` — RIFF/VP8 declares 35 186 bytes but the file is 7 497 bytes.
+- `artifacts/lena/src/assets/lena-sacred-core-v3-inline.svg` — embedded WebP declares RIFF size 23 560 bytes (and 11 456-byte ALPH chunk) but the file is only 7 506 bytes and has **no VP8/VP8L bitstream chunk** (alpha-only fragment).
+- `artifacts/lena/src/assets/lena-sacred-core.webp` — RIFF/VP8 declares 35 186 bytes but the file is 7 497 bytes.
 
 The runtime result is the exact regression this suite guards: the eye glow (`::after`) remains visible while the core artwork is missing. The guardian gates are **red at HEAD** (by design) until the owning branch replaces the artwork:
 - `verify:assets` — 2 fails (truncated payloads),

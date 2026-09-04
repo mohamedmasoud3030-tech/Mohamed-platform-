@@ -11,12 +11,12 @@
 #    and LinkedIn do not render SVG and currently show no image at all.
 #
 # After running, set FOUNDER.photo to "/founder.jpg" in
-# artifacts/jiwdah/src/content/founder.ts.
+# artifacts/lena/src/content/founder.ts.
 
 set -euo pipefail
 
 SOURCE="${1:-}"
-PUBLIC="$(cd "$(dirname "$0")/.." && pwd)/artifacts/jiwdah/public"
+PUBLIC="$(cd "$(dirname "$0")/.." && pwd)/artifacts/lena/public"
 
 if [ -z "$SOURCE" ] || [ ! -f "$SOURCE" ]; then
   echo "usage: bash tools/prepare-founder-photo.sh <path-to-photo>" >&2
@@ -68,5 +68,5 @@ convert -size 1200x630 \
 echo "wrote lena-og.jpg   $(identify -format '%wx%h, %b' "$PUBLIC/lena-og.jpg")"
 
 echo
-echo "Next: set FOUNDER.photo = \"/founder.jpg\" in artifacts/jiwdah/src/content/founder.ts"
-echo "      and DEFAULT_OG_IMAGE = \"/lena-og.jpg\" in artifacts/jiwdah/src/lib/seo.ts"
+echo "Next: set FOUNDER.photo = \"/founder.jpg\" in artifacts/lena/src/content/founder.ts"
+echo "      and DEFAULT_OG_IMAGE = \"/lena-og.jpg\" in artifacts/lena/src/lib/seo.ts"

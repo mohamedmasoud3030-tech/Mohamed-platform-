@@ -39,7 +39,7 @@ Nothing else is outstanding anywhere in the repository. This register supersedes
 | **B1** | **3 screenshots per product** (6 products) | The site now says the right thing and shows nothing. This is the single biggest gap |
 | **B2** | **One line per product: who exactly uses it** ("the warehouse owner and one worker at the weighbridge") | Turns a feature list into a recognisable person |
 | **B3** | **Stage for each product**: live / in pilot / built and available | Buyers of operational software buy evidence of real use |
-| **B4** | **Written permission** to name the hospitality client (مشاريع جودة الانطلاقة) | Third-party proof is the strongest asset you have; the name cannot be published without it |
+| **B4** | **Written permission** to name the hospitality client | Third-party proof is the strongest asset you have; the name cannot be published without it |
 | **B5** | Do you want your **nationality** shown on the site? | Recommendation: **no** — it does not help win a project. One word either way |
 
 ## C. Access, credentials, cost
