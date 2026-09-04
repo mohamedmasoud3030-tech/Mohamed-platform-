@@ -19,7 +19,7 @@ A full sweep of dependencies, source, and outbound calls found:
 | Structured model output, streaming, retries, moderation, fallbacks | **Not applicable** |
 | AI logs, analytics, evaluation, quotas | **Not applicable** |
 | User-facing AI disclosure | **Not required** — nothing to disclose |
-| Total outbound integrations | **Two**: the OAuth provider (admin sign-in only) and Supabase Storage (project media). Neither is AI, neither receives inquiry data |
+| Declared outbound integrations | OAuth provider (admin sign-in), Supabase Storage (project media), and the verified MALEK product destination opened by the visitor. None is AI; the MALEK link sends no inquiry payload or customer data |
 
 **The `/ai-solutions` page is a service offering sold to clients, not a feature of this product.**
 That distinction matters: the site may advertise building automation for others while containing none
@@ -198,5 +198,8 @@ No AI. Two things that protect the decision:
    have loaded third-party content into a site that otherwise ships **zero** third-party requests. It
    is deleted.
 
-**Declared outbound integrations (the complete list):** the OAuth provider for admin sign-in, and
-Supabase Storage for project media. Nothing else. No analytics, no fonts, no embeds, no AI.
+**Declared outbound integrations (the complete list):** the OAuth provider for admin sign-in,
+Supabase Storage for project media, the verified MALEK product destination (`malek-plus.vercel.app`)
+opened by explicit visitor navigation, and WhatsApp deep links. The MALEK connection is a plain product
+link: no API bridge, telemetry, inquiry payload, auth sharing, or customer data crosses that boundary.
+No analytics, no embeds, no AI.
