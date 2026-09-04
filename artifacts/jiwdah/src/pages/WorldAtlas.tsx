@@ -7,6 +7,8 @@ import {
 } from "react";
 import { Link } from "react-router";
 import SeoHead from "@/components/SeoHead";
+import { publicSystems } from "@/content/systems";
+import ConstellationGraph from "@/features/world/components/ConstellationGraph";
 import {
   WORLD_GRAPH_IDS,
   nodeById,
@@ -57,6 +59,7 @@ export default function WorldAtlas() {
   const { locale } = usePreferences();
   const ar = locale === "ar";
   const graph = worldGraph();
+  const systems = useMemo(() => publicSystems(), []);
   const isMobile = useIsMobile();
   const reduced = useReducedMotion();
   const memory = useWorldMemory();
@@ -255,6 +258,8 @@ export default function WorldAtlas() {
             ? "تنقّل بالأسهم بين العقد، وانزل للأعمق بالسهم السفلي، اصعد بالسهم العلوي، و Esc للخروج من التركيز."
             : "Move between nodes with the arrows, ArrowDown goes deeper, ArrowUp steps out, Escape releases focus."}
         </p>
+
+        <ConstellationGraph systems={systems} locale={locale} />
 
         <Link className="lena-atlas-exit" id={ATLAS_TEST_IDS.backToWorld} to="/world">
           {ATLAS_COPY.backToWorld[locale]}
