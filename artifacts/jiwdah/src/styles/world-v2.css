@@ -86,7 +86,21 @@
 }
 
 /* Signal runtime drives path energy — quiet paths stay still. */
+.lena-world-path.presence-unavailable {
+  opacity: .12;
+}
+.lena-world-path.presence-unavailable::after,
 .lena-world-path.presence-quiet::after {
+  animation: none;
+  opacity: 0;
+}
+/* Focus is navigation meaning, not product activity. An unavailable source
+   must stay visually quiet even when the visitor selects a body. */
+.lena-world-v2.is-focus .lena-world-path.presence-unavailable {
+  opacity: .12;
+  filter: none;
+}
+.lena-world-v2.is-focus .lena-world-path.presence-unavailable.is-active::after {
   animation: none;
   opacity: 0;
 }
@@ -130,6 +144,8 @@
   opacity: 1;
 }
 
+/* Core Intelligence state classes are consumed by the shared Sacred Core
+   sheet, where they tint the existing artwork's restrained halo. */
 .light .lena-world-path {
   background: linear-gradient(90deg, rgba(162,104,22,.46), rgba(49,94,251,.22) 50%, rgba(122,84,214,.08));
 }
@@ -257,6 +273,13 @@
     height: 108px;
     margin: -54px 0 0 -54px;
   }
+  /* Mobile has one readable focused body; the selector below remains the
+     accessible switcher for the other systems. Removing the inactive bodies
+     from layout prevents their desktop coordinates from colliding with the
+     selected information layer. */
+  .lena-world-v2 .lena-world-entity:not(.is-selected) {
+    display: none;
+  }
   .lena-world-v2 .lena-world-mobile-nav {
     justify-content: flex-start;
     overflow-x: auto;
@@ -282,5 +305,27 @@
   }
   .lena-world-v2.is-focus .lena-world-path.is-active {
     opacity: .62;
+  }
+}
+
+/* Selection is not observation: even reduced-motion focus styling cannot
+   brighten an unavailable source into an apparent live corridor. */
+.lena-world-v2.is-focus .lena-world-path.presence-unavailable.is-active {
+  opacity: .12;
+  filter: none;
+}
+
+/* The selected information layer follows the focused body on small screens;
+   it must not occupy the same band as the constellation or its caption. */
+@media (max-width: 720px) {
+  .lena-world-v2 {
+    contain: layout style;
+  }
+  .lena-world-v2 .lena-world-entity.is-selected {
+    transform: translate(0, -120px) scale(1.05);
+  }
+  .lena-world-v2 .lena-world-info {
+    box-sizing: border-box;
+    margin-top: 520px;
   }
 }

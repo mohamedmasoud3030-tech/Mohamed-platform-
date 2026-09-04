@@ -28,7 +28,28 @@ describe("LENA Intelligence runtime activation contract", () => {
     expect(scene).toContain("data-core-state={core.state}");
     expect(scene).toContain("data-core-pulse={core.pulse}");
     expect(scene).toContain("data-core-attention={core.attentionLevel}");
+    expect(scene).toContain("className={`lena-world-core core-${core.state} urgency-${core.urgency}`}");
     expect(scene).toContain("data-guidance-world={guidance.destination?.systemId ?? undefined}");
+    const worldStyles = read("src/styles/world-v2.css");
+    const coreStyles = read("src/styles/sacred-core.css");
+    expect(coreStyles).toContain(".lena-world-core.core-focused");
+    expect(coreStyles).toContain(".lena-world-core.core-critical");
+    expect(worldStyles).toContain(".lena-world-v2.is-focus .lena-world-path.presence-unavailable.is-active::after");
+  });
+
+  it("passes source authority into the intelligence snapshot", () => {
+    const hook = read("src/features/core-intelligence/useLenaIntelligence.ts");
+    const runtime = read("src/features/world/signals/runtime.ts");
+    const provider = read("src/features/world/signals/SignalRuntimeProvider.tsx");
+    const barrel = read("src/features/world/signals/index.ts");
+
+    expect(hook).toContain("signalSource: source");
+    expect(runtime).toContain("seed: WorldSignal[] = []");
+    expect(runtime).not.toContain("DEMO_SIGNALS");
+    expect(runtime).toContain("getSource");
+    expect(provider).toContain("unavailablePresence");
+    expect(provider).toContain("source.availability");
+    expect(barrel).not.toContain("export * from \"./fixtures.ts\"");
   });
 
   it("keeps intelligence read-only at the presentation seam", () => {

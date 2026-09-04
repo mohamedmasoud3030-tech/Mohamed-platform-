@@ -5,7 +5,7 @@ import type { OperatingPrimitiveId } from "@/content/systems";
 import InnerConstellation from "@/features/world/components/InnerConstellation";
 import { OperatingSurfaces } from "@/features/world/components/OperatingSurfaces";
 import { OPERATING_PRIMITIVES } from "@/features/world/content/operating-primitives";
-import { productConnectionFor } from "@/features/world/content/product-connections";
+import { productContractFor } from "@/features/world/content/product-contract";
 import { findWorldEntity, worldSystem } from "@/features/world/content/world";
 import PublicShell from "@/layouts/PublicShell";
 import { useSpatialContext, useSpatialNavigate, worldMemory } from "@/lib/spatial";
@@ -78,7 +78,7 @@ export default function WorldSystem() {
           : "neutral";
 
   const description = system.tagline?.[locale] ?? system.problem[locale];
-  const productConnection = productConnectionFor(system.id);
+  const productContract = productContractFor(system.id);
 
   return (
     <PublicShell>
@@ -225,19 +225,45 @@ export default function WorldSystem() {
           <OperatingSurfaces
             systemId={entity.systemId}
             brand={system.name[locale]}
+            evidence={productContract?.evidence}
           />
 
+          {productContract?.handoff ? (
+            <section
+              className="lena-chamber-boundary"
+              aria-label={isArabic ? "حدود اتصال المنتج" : "Product connection boundary"}
+            >
+              <small>{isArabic ? "اتصال المنتج" : "PRODUCT CONNECTION"}</small>
+              <p>
+                {isArabic
+                  ? "يفتح MALEK الفعلي في جلسة مستقلة. المصادقة تبقى لدى MALEK، ولا تشارك LENA أي بيانات تشغيلية أو بيانات عملاء."
+                  : "The real MALEK product opens in its own session. Authentication stays with MALEK; LENA shares no operational or customer data."}
+              </p>
+              <span>
+                {isArabic
+                  ? "المراقبة التشغيلية الحية غير متصلة بـ LENA حاليًا."
+                  : "Live operational observation is not connected to LENA yet."}
+              </span>
+            </section>
+          ) : null}
+
           <section className="lena-chamber-actions">
-            {productConnection ? (
+            {productContract?.handoff ? (
               <a
                 className="lena-primary"
-                href={productConnection.productUrl}
+                href={productContract.handoff.href}
                 target="_blank"
                 rel="noreferrer"
+                aria-label={
+                  isArabic
+                    ? `افتح ${system.name[locale]} الفعلي — سجّل الدخول لدى المنتج`
+                    : `Open the real ${system.name[locale]} product — sign in there`
+                }
+                data-testid="malek-product-handoff"
               >
                 {isArabic
-                  ? `افتح ${system.name[locale]} الفعلي`
-                  : `Open the real ${system.name[locale]} product`}
+                  ? `افتح ${system.name[locale]} الفعلي — سجّل الدخول هناك`
+                  : `Open the real ${system.name[locale]} product — sign in there`}
               </a>
             ) : (
               <Link className="lena-primary" to={`/services#${system.id}`}>

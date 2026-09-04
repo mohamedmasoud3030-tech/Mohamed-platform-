@@ -25,12 +25,14 @@ import type {
   SignalKind,
   SignalLifecycle,
   SignalSeverity,
+  SignalSourceState,
   WorldPresence,
   WorldSignal,
 } from "@/features/world/signals/types";
 import type {
   LenaSpace,
   SpatialIntent,
+  SpatialSpace,
   SpatialNavState,
   SpatialPhase,
   SpatialRoute,
@@ -64,8 +66,8 @@ export interface LenaWorldReference {
 export interface SpatialFacts {
   /** True when the visitor is on a LENA spatial route. */
   inLena: boolean;
-  space: LenaSpace | null;
-  /** Chamber system id when `space === "chamber"`. */
+  space: SpatialSpace | null;
+  /** Chamber system id when `space === "chamber"`; command and Atlas have none. */
   systemId: string | null;
   /** Router-relative path of the current route ("" when outside LENA). */
   path: string;
@@ -113,14 +115,18 @@ export interface WorldUnresolvedSummary {
 
 /** Signal facts — "what is happening across the worlds?" */
 export interface SignalFacts {
-  /** A signal snapshot was supplied (may be empty). */
+  /** True only when an authorized source supplied the snapshot. */
   present: boolean;
-  globalState: GlobalWorldState;
+  /** Availability, observation time and write authority from the source seam. */
+  source: SignalSourceState;
+  /** No global state is claimed while the source is unavailable. */
+  globalState: GlobalWorldState | null;
+  /** `unavailable` is distinct from a genuinely observed `quiet` state. */
   presence: WorldPresence;
-  /** Open signals of any severity. */
-  openCount: number;
-  /** Canonical attention pressure (severity + new-lifecycle weighting). */
-  attentionPressure: number;
+  /** Open signals of any severity, or null when no source exists. */
+  openCount: number | null;
+  /** Canonical attention pressure, or null when no source exists. */
+  attentionPressure: number | null;
   unresolved: {
     /** Open critical signals, urgency-ordered (canonical derivation). */
     critical: readonly WorldSignal[];
@@ -131,7 +137,7 @@ export interface SignalFacts {
   highestUnresolved: WorldSignal | null;
   /** Compact summaries of every unresolved signal (ranked, deterministic). */
   unresolvedSummaries: readonly WorldUnresolvedSummary[];
-  /** Per-world presence for the requested world ids. */
+  /** Per-world presence for the requested world ids; unavailable stays explicit. */
   byWorld: Readonly<Record<string, WorldPresence>>;
   /** Epoch ms of the newest open signal, when any. */
   newestOpenAt: number | null;
@@ -215,6 +221,8 @@ export interface LenaContextSituation {
   registry?: WorldRegistry | null;
   /** Canonical signal snapshot (read-only). */
   signals?: readonly WorldSignal[] | null;
+  /** Source authority for the snapshot. Missing means unavailable, never quiet. */
+  signalSource?: SignalSourceState | null;
   /** World ids considered for per-world presence and the catalog. */
   worldIds?: readonly string[];
   /** Connected graph adapter, when the World Graph runtime is available. */

@@ -4,6 +4,7 @@ import type { LenaContextSituation } from "../context/types";
 import { deriveCoreState } from "./state";
 import type { CoreState } from "./types";
 import {
+  AVAILABLE_SIGNAL_SOURCE,
   chamberRoute,
   FIXED_NOW,
   makeRegistry,
@@ -18,7 +19,13 @@ import {
 const REGISTRY = makeRegistry();
 
 function fuse(situation: LenaContextSituation) {
-  return fuseLenaContext({ now: FIXED_NOW, registry: REGISTRY, ...situation });
+  const hasSignals = situation.signals !== undefined && situation.signals !== null;
+  return fuseLenaContext({
+    now: FIXED_NOW,
+    registry: REGISTRY,
+    ...(hasSignals ? { signalSource: AVAILABLE_SIGNAL_SOURCE } : {}),
+    ...situation,
+  });
 }
 
 function calmWorld(situation: LenaContextSituation = {}) {

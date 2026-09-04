@@ -10,6 +10,7 @@ import type { AppLocale } from "@/providers/preferences";
  * component re-invents lifecycle wording.
  */
 const PRESENCE_WORDS: Record<WorldPresence, { ar: string; en: string }> = {
+  unavailable: { ar: "غير متاح", en: "unavailable" },
   quiet: { ar: "هادئ", en: "quiet" },
   active: { ar: "نشط", en: "active" },
   attention: { ar: "انتباه", en: "attention" },

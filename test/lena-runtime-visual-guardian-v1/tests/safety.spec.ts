@@ -69,6 +69,119 @@ for (const viewport of [VIEWPORTS.mobile, VIEWPORTS.narrow]) {
   }
 }
 
+for (const viewport of [VIEWPORTS.mobile, VIEWPORTS.narrow]) {
+  test(`Command unavailable state stays explicit and contained @ ${viewport.width}x${viewport.height}`, async ({
+    page,
+  }) => {
+    test.info().annotations.push(
+      { type: "route", description: "/en/world/command" },
+      { type: "viewport", description: `${viewport.width}x${viewport.height}` },
+      { type: "theme", description: "dark" },
+      { type: "locale", description: "en" },
+    );
+    await openApp(page, { route: "/world/command", locale: "en", theme: "dark", viewport });
+
+    const command = page.locator('[data-testid="world-command"]');
+    await expect(command).toHaveAttribute("data-signal-availability", "unavailable");
+    await expect(command.getByText("Live product signals are not connected yet.")).toBeVisible();
+    await expect(command.locator(".lena-command-unavailable-panel")).toBeVisible();
+    await expect(command.locator(".lena-command-grid")).toHaveCount(0);
+    await expect(command.locator("button")).toHaveCount(0);
+    await expect(command.locator(".lena-cmd-actions")).toHaveCount(0);
+
+    const overflow = await horizontalOverflow(page);
+    expect(overflow.documentWidth, `Command document overflow (${JSON.stringify(overflow)})`).toBeLessThanOrEqual(
+      overflow.viewportWidth + 1,
+    );
+    expect(overflow.bodyWidth, `Command body overflow (${JSON.stringify(overflow)})`).toBeLessThanOrEqual(
+      overflow.viewportWidth + 1,
+    );
+  });
+}
+
+for (const viewport of [VIEWPORTS.mobile, VIEWPORTS.narrow]) {
+  test(`selected World information clears the constellation @ ${viewport.width}x${viewport.height}`, async ({
+    page,
+  }) => {
+    test.info().annotations.push(
+      { type: "route", description: "/en/world (selected property)" },
+      { type: "viewport", description: `${viewport.width}x${viewport.height}` },
+      { type: "theme", description: "dark" },
+      { type: "locale", description: "en" },
+    );
+    await openApp(page, { route: "/world", locale: "en", theme: "dark", viewport });
+    await page.locator('.lena-world-entity[aria-label^="MALEK"]').first().click();
+    const info = page.locator(".lena-world-info");
+    await expect(info).toBeVisible();
+
+    const geometry = await page.evaluate(() => {
+      const read = (selector) =>
+        [...document.querySelectorAll(selector)].map((element) => {
+          const rect = element.getBoundingClientRect();
+          return {
+            left: rect.left,
+            right: rect.right,
+            top: rect.top + window.scrollY,
+            bottom: rect.bottom + window.scrollY,
+          };
+        });
+      return {
+        viewport: window.innerWidth,
+        info: read(".lena-world-info")[0],
+        constellation: read(".lena-world-entity, .lena-world-entity-caption, .lena-world-ring"),
+      };
+    });
+    expect(geometry.info.left, "selected info stays inside the viewport").toBeGreaterThanOrEqual(-1);
+    expect(geometry.info.right, "selected info does not overflow right").toBeLessThanOrEqual(geometry.viewport + 1);
+    const intersects = geometry.constellation.filter(
+      (rect) =>
+        geometry.info.left < rect.right &&
+        geometry.info.right > rect.left &&
+        geometry.info.top < rect.bottom &&
+        geometry.info.bottom > rect.top,
+    );
+    expect(intersects, "selected information must not overlap constellation bodies").toEqual([]);
+  });
+}
+
+test("unavailable World observation does not become a selected live signal", async ({ page }) => {
+  test.info().annotations.push(
+    { type: "route", description: "/en/world" },
+    { type: "viewport", description: "1280x800" },
+    { type: "theme", description: "dark" },
+    { type: "locale", description: "en" },
+  );
+  await openApp(page, { route: "/world", locale: "en", theme: "dark", viewport: VIEWPORTS.desktop });
+
+  await expect(page.locator('.lena-world[data-signal-availability="unavailable"]')).toHaveCount(1);
+  const signal = page.locator(".lena-world-path.is-active").first();
+  await expect(signal).toHaveCount(1);
+  const appearance = await signal.evaluate((element) => {
+    const style = getComputedStyle(element);
+    const dot = getComputedStyle(element, "::after");
+    return { opacity: Number(style.opacity), dotOpacity: Number(dot.opacity), animation: dot.animationName };
+  });
+  expect(appearance.opacity, `unavailable path opacity (${JSON.stringify(appearance)})`).toBeLessThan(0.2);
+  expect(appearance.dotOpacity, `unavailable signal dot (${JSON.stringify(appearance)})`).toBe(0);
+  expect(appearance.animation, `unavailable signal animation (${JSON.stringify(appearance)})`).toBe("none");
+});
+
+test("MALEK Chamber keeps the external auth boundary explicit", async ({ page }) => {
+  test.info().annotations.push(
+    { type: "route", description: "/en/world/property" },
+    { type: "viewport", description: "390x844" },
+    { type: "theme", description: "dark" },
+    { type: "locale", description: "en" },
+  );
+  await openApp(page, { route: "/world/property", locale: "en", theme: "dark", viewport: VIEWPORTS.mobile });
+
+  await expect(page.getByText(/Authentication stays with MALEK/)).toBeVisible();
+  const handoff = page.locator('[data-testid="malek-product-handoff"]');
+  await expect(handoff).toHaveAttribute("href", "https://malek-plus.vercel.app/");
+  await expect(handoff).toHaveAttribute("target", "_blank");
+  await expect(page.locator("iframe")).toHaveCount(0);
+});
+
 test("mobile (390x844): primary CTA and Sacred Core are visible and not clipped", async ({ page }) => {
   test.info().annotations.push(
     { type: "route", description: "/en" },

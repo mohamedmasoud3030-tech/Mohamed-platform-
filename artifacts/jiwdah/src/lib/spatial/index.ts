@@ -15,6 +15,7 @@ export type {
   SpatialPhase,
   SpatialRoute,
   SpatialScene,
+  SpatialSpace,
   SpatialTargets,
 } from "./types";
 

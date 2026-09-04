@@ -112,6 +112,7 @@ function classify(
   // 6. aware — ordinary open activity.
   if (
     snapshot.signals.present &&
+    snapshot.signals.openCount !== null &&
     snapshot.signals.openCount > 0 &&
     snapshot.signals.presence === "active"
   ) {

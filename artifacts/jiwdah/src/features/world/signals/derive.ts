@@ -4,6 +4,8 @@ import type {
   WorldPresence,
   WorldSignal,
 } from "./types.ts";
+
+type ObservedWorldPresence = Exclude<WorldPresence, "unavailable">;
 import { PRESENCE_RANK, SEVERITY_RANK } from "./types.ts";
 
 const OPEN: SignalLifecycle[] = ["new", "active", "acknowledged"];
@@ -17,7 +19,7 @@ export function needsAttention(signal: WorldSignal): boolean {
   return signal.severity === "attention" || signal.severity === "critical";
 }
 
-export function presenceFromSignals(signals: WorldSignal[]): WorldPresence {
+export function presenceFromSignals(signals: WorldSignal[]): ObservedWorldPresence {
   const open = signals.filter(isOpen);
   if (open.some((s) => s.severity === "critical")) return "critical";
   if (open.some((s) => s.severity === "attention")) return "attention";
@@ -61,7 +63,9 @@ export function resolvedSignals(signals: WorldSignal[], limit = 6): WorldSignal[
 export function activeWorldCount(
   presence: Record<string, WorldPresence>,
 ): number {
-  return Object.values(presence).filter((p) => p !== "quiet").length;
+  return Object.values(presence).filter(
+    (p) => p !== "quiet" && p !== "unavailable",
+  ).length;
 }
 
 export function attentionPressure(signals: WorldSignal[]): number {
@@ -72,6 +76,9 @@ export function attentionPressure(signals: WorldSignal[]): number {
 }
 
 export function strongestPresence(values: WorldPresence[]): WorldPresence {
+  if (values.length > 0 && values.every((value) => value === "unavailable")) {
+    return "unavailable";
+  }
   return values.reduce<WorldPresence>(
     (acc, next) => (PRESENCE_RANK[next] > PRESENCE_RANK[acc] ? next : acc),
     "quiet",

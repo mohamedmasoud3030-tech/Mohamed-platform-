@@ -19,7 +19,7 @@ import {
 export function useLenaIntelligence(): LenaIntelligence {
   const spatial = useSpatialContext();
   const memory = useWorldMemory();
-  const { signals } = useSignalRuntime();
+  const { signals, source } = useSignalRuntime();
   const previousCoreState = useRef<CoreState | undefined>(undefined);
 
   const routePath = spatial.route?.path ?? "";
@@ -42,6 +42,7 @@ export function useLenaIntelligence(): LenaIntelligence {
           memory,
           registry: worldRegistry,
           signals,
+          signalSource: source,
           worldIds: WORLD_ENTITIES.map((entity) => entity.systemId),
           graph: canonicalWorldGraphAdapter,
         },
@@ -60,6 +61,7 @@ export function useLenaIntelligence(): LenaIntelligence {
       routeSpace,
       routeSystemId,
       signals,
+      source,
       spatial.direction,
     ],
   );

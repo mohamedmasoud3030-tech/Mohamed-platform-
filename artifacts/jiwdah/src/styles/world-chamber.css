@@ -362,11 +362,36 @@
 }
 .light .lena-chamber-roots li { background: rgba(255,255,255,.5); }
 
+.lena-chamber-boundary {
+  display: grid;
+  gap: 7px;
+  margin-top: 34px;
+  padding: 18px 20px;
+  border: 1px solid rgba(var(--chamber-a), .2);
+  border-radius: 17px;
+  background: rgba(var(--chamber-a), .045);
+}
+.lena-chamber-boundary small {
+  color: rgb(var(--chamber-a));
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.lena-chamber-boundary p,
+.lena-chamber-boundary span {
+  margin: 0;
+  color: var(--lena-muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+.lena-chamber-boundary p { color: var(--lena-text); }
+
 .lena-chamber-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 11px;
-  margin-top: 30px;
+  margin-top: 20px;
   padding-top: 24px;
   border-top: 1px solid var(--lena-line);
 }
@@ -421,9 +446,15 @@
   .lena-system-chamber { padding-top: 18px; }
   .lena-chamber-hero { min-height: 0; }
   .lena-chamber-visual { width: min(310px, 88vw); }
+  .lena-chamber-copy h1 {
+    font-size: clamp(2.7rem, 16vw, 4.6rem);
+    overflow-wrap: anywhere;
+  }
+  .lena-chamber-tagline { font-size: 1rem; line-height: 1.7; }
   .lena-chamber-truth { grid-template-columns: 1fr; }
   .lena-chamber-panel { min-height: auto; padding: 20px; }
   .lena-chamber-roots ul { grid-template-columns: 1fr; }
+  .lena-chamber-boundary { padding: 16px; }
   .lena-chamber-actions > a { width: 100%; }
 }
 

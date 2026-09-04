@@ -2,7 +2,12 @@ import { Link } from "react-router";
 import { usePreferences } from "@/providers/preferences";
 import { findSystem } from "@/content/systems";
 import { WORLD_ENTITIES, worldSystem } from "../content/world";
-import { useSignalRuntime, type WorldSignal, type GlobalWorldState, type WorldPresence } from "../signals";
+import {
+  useSignalRuntime,
+  type WorldSignal,
+  type GlobalWorldState,
+  type WorldPresence,
+} from "../signals";
 
 function stateLabel(state: GlobalWorldState, ar: boolean): string {
   if (ar) {
@@ -16,6 +21,7 @@ function stateLabel(state: GlobalWorldState, ar: boolean): string {
 
 function presenceLabel(p: WorldPresence, ar: boolean): string {
   if (ar) {
+    if (p === "unavailable") return "غير متاح";
     if (p === "quiet") return "هادئ";
     if (p === "active") return "نشط";
     if (p === "attention") return "انتباه";
@@ -42,7 +48,7 @@ function SignalRow({
   actions?: boolean;
 }) {
   const { locale } = usePreferences();
-  const { acknowledge, resolve } = useSignalRuntime();
+  const { acknowledge, resolve, canMutate } = useSignalRuntime();
   const system = findSystem(signal.sourceWorld);
   const ar = locale === "ar";
   if (!system) return null;
@@ -63,7 +69,7 @@ function SignalRow({
             {ar ? "ادخل العالم" : "Enter world"}
           </Link>
         ) : null}
-        {actions && signal.lifecycle !== "resolved" ? (
+        {actions && canMutate && signal.lifecycle !== "resolved" ? (
           <span className="lena-cmd-actions">
             {signal.lifecycle !== "acknowledged" ? (
               <button type="button" onClick={() => acknowledge(signal.id)}>
@@ -85,13 +91,64 @@ export default function WorldCommand() {
   const runtime = useSignalRuntime();
   const ar = locale === "ar";
 
+  // Command remains a public route, but it must not turn an empty production
+  // store into a quiet-looking operational dashboard. No counts, pressure,
+  // state, signals, or mutation authority are rendered before a source exists.
+  if (runtime.source.availability === "unavailable") {
+    return (
+      <div
+        className="lena-command state-unavailable"
+        data-testid="world-command"
+        data-signal-availability="unavailable"
+      >
+        <header className="lena-command-pulse lena-command-unavailable-pulse">
+          <p className="lena-kicker">{ar ? "غرفة القيادة · عالم LENA" : "WORLD COMMAND · LENA"}</p>
+          <h1>{ar ? "نبض العالم" : "World Pulse"}</h1>
+          <p className="lena-command-unavailable-message" role="status" aria-live="polite">
+            <strong>
+              {ar
+                ? "الإشارات الحية للمنتجات غير متصلة بعد."
+                : "Live product signals are not connected yet."}
+            </strong>
+            <span>
+              {ar
+                ? "لا يوجد مصدر منتج مصرح به للمراقبة. تبقى هذه الغرفة للعرض فقط حتى يتصل مصدر معتمد."
+                : "No authorized product source is available for observation. This room stays read-only until one is connected."}
+            </span>
+          </p>
+          <Link className="lena-command-back" to="/world">
+            {ar ? "العودة إلى الكوكبة" : "Back to the constellation"}
+          </Link>
+        </header>
+        <section
+          className="lena-command-unavailable-panel"
+          aria-label={ar ? "حالة مصدر الإشارات" : "Signal source status"}
+        >
+          <span className="lena-command-unavailable-mark" aria-hidden="true" />
+          <p>
+            {ar
+              ? "لن نعرض أرقامًا أو حالات تشغيلية غير موثقة."
+              : "No counts or operational states are shown without a verified source."}
+          </p>
+        </section>
+      </div>
+    );
+  }
+
+  const globalState = runtime.globalState;
+  if (globalState === null) return null;
+
   return (
-    <div className={`lena-command state-${runtime.globalState}`} data-testid="world-command">
+    <div
+      className={`lena-command state-${globalState}`}
+      data-testid="world-command"
+      data-signal-availability={runtime.source.availability}
+    >
       <header className="lena-command-pulse">
         <p className="lena-kicker">{ar ? "غرفة القيادة · عالم LENA" : "WORLD COMMAND · LENA"}</p>
         <h1>{ar ? "نبض العالم" : "World Pulse"}</h1>
         <p className="lena-command-pulse-state" aria-live="polite">
-          <strong>{stateLabel(runtime.globalState, ar)}</strong>
+          <strong>{stateLabel(globalState, ar)}</strong>
           <span>
             {runtime.activeWorlds} {ar ? "عوالم نشطة" : "active worlds"}
           </span>
@@ -127,7 +184,7 @@ export default function WorldCommand() {
             {WORLD_ENTITIES.map((entity) => {
               const system = worldSystem(entity);
               if (!system) return null;
-              const presence = runtime.presence[entity.systemId] ?? "quiet";
+              const presence = runtime.presence[entity.systemId] ?? "unavailable";
               return (
                 <li key={entity.systemId}>
                   <Link
