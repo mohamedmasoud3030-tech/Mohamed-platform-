@@ -1,3 +1,34 @@
 import { usePreferences } from "@/providers/preferences";
-const STEPS = [{ ar: "نسمع الفكرة ونحدد الهدف", en: "Hear the idea and define the goal" }, { ar: "نرسم الاتجاه والمسار", en: "Shape direction and journey" }, { ar: "نبني التجربة والنظام", en: "Build experience and system" }, { ar: "نطلق ثم نحسّن", en: "Launch, then improve" }];
-export default function ProcessSection() { const { locale } = usePreferences(); return <section className="lena-section"><div className="lena-container"><p className="lena-kicker">{locale === "ar" ? "من الفكرة إلى الإطلاق" : "From idea to launch"}</p><h2 className="lena-section-title">{locale === "ar" ? "رحلة واضحة، هادئة، وقابلة للتطوير" : "A clear, calm, and scalable journey"}</h2><div className="lena-process">{STEPS.map((step, index) => <article className="lena-glass" key={step.en}><small>{String(index + 1).padStart(2, "0")}</small><h3>{step[locale]}</h3></article>)}</div></div></section>; }
+
+const STEPS = [
+  { ar: "نفهم سير العمل الحقيقي", en: "Understand the real workflow" },
+  { ar: "نحدد الكيانات والقواعد ونقاط التعطل", en: "Map entities, rules, and friction" },
+  { ar: "نبني نظام التشغيل ونوصله بالعمل اليومي", en: "Build the operating system around daily work" },
+  { ar: "نثبت الاستخدام ثم نستخرج ما يتكرر", en: "Prove usage, then extract what repeats" },
+];
+
+export default function ProcessSection() {
+  const { locale } = usePreferences();
+  return (
+    <section className="lena-section">
+      <div className="lena-container">
+        <p className="lena-kicker">
+          {locale === "ar" ? "من العمل الحقيقي إلى النظام" : "From real work to operating system"}
+        </p>
+        <h2 className="lena-section-title">
+          {locale === "ar"
+            ? "لا نبدأ بالشكل. نبدأ بكيف يعمل العمل فعلًا."
+            : "We do not start with the surface. We start with how the work actually runs."}
+        </h2>
+        <div className="lena-process">
+          {STEPS.map((step, index) => (
+            <article className="lena-glass" key={step.en}>
+              <small>{String(index + 1).padStart(2, "0")}</small>
+              <h3>{step[locale]}</h3>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
