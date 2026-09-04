@@ -1,0 +1,60 @@
+name: Refresh World Role Baselines
+
+on:
+  push:
+    branches:
+      - refactor/experience-role-contract-v1
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    if: contains(github.event.head_commit.message, '[refresh-world-role-baselines]') && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: refactor/experience-role-contract-v1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install app dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build production app
+        run: pnpm run build
+
+      - name: Install Guardian dependencies
+        working-directory: test/lena-runtime-visual-guardian-v1
+        run: npm ci
+
+      - name: Install Chromium
+        working-directory: test/lena-runtime-visual-guardian-v1
+        run: npx playwright install --with-deps chromium
+
+      - name: Refresh reviewed visual baselines
+        working-directory: test/lena-runtime-visual-guardian-v1
+        run: npm run test:update
+
+      - name: Commit refreshed baselines
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add test/lena-runtime-visual-guardian-v1/screenshots
+          if git diff --cached --quiet; then
+            echo "No baseline changes."
+            exit 0
+          fi
+          git commit -m "test(guardian): refresh reviewed World role baselines"
+          git push origin HEAD:refactor/experience-role-contract-v1
