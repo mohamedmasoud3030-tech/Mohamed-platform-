@@ -14,6 +14,7 @@ const graph = read(
   "artifacts/jiwdah/src/features/world/components/ConstellationGraph.tsx",
 );
 const worldPage = read("artifacts/jiwdah/src/pages/World.tsx");
+const atlasPage = read("artifacts/jiwdah/src/pages/WorldAtlas.tsx");
 const css = read("artifacts/jiwdah/src/styles/world-graph.css");
 const lenaCss = read("artifacts/jiwdah/src/lena.css");
 
@@ -81,18 +82,19 @@ check(
 );
 
 check(
-  "World passes the complete canonical public family into the graph",
+  "Atlas owns the complete canonical public family and shared-root graph",
   () => {
+    assert.doesNotMatch(worldPage, /ConstellationGraph/);
     assert.match(
-      worldPage,
+      atlasPage,
       /import \{ publicSystems \} from "@\/content\/systems"/,
     );
     assert.match(
-      worldPage,
+      atlasPage,
       /const systems = useMemo\(\(\) => publicSystems\(\), \[\]\)/,
     );
     assert.match(
-      worldPage,
+      atlasPage,
       /<ConstellationGraph systems=\{systems\} locale=\{locale\} \/>/,
     );
   },
