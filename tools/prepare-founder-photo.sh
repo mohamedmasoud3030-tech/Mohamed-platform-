@@ -61,8 +61,8 @@ convert -size 1200x630 \
   ${FONT_REG:+-font "$FONT_REG"} -pointsize 28 -fill '#e8eeff' \
   -gravity northwest -annotate +522+288 'Mohamed Masoud' \
   ${FONT_REG:+-font "$FONT_REG"} -pointsize 23 -fill '#8fa3cf' \
-  -gravity northwest -annotate +522+336 'Creative systems and' \
-  -gravity northwest -annotate +522+368 'digital experiences' \
+  -gravity northwest -annotate +522+336 'Operating systems for' \
+  -gravity northwest -annotate +522+368 'real businesses' \
   -strip -quality 86 \
   "$PUBLIC/lena-og.jpg"
 echo "wrote lena-og.jpg   $(identify -format '%wx%h, %b' "$PUBLIC/lena-og.jpg")"
