@@ -1,14 +1,13 @@
-import type { AppLocale } from "@/providers/preferences";
-import { findSystem, type SystemId } from "@/content/systems";
+import { findSystem, publicSystems, type SystemId } from "@/content/systems";
 
 /**
  * LENA World presentation model.
  *
- * The World is a curated entrance into the LENA ecosystem. Everything factual
- * (names, industries, problems, destinations) is read from canonical
- * `content/systems.ts`; this file owns presentation metadata only: visual state,
- * Digital DNA and the calm exit path. These are explicit world-building choices,
- * never runtime inference or invented telemetry.
+ * Factual product truth and public membership/order are owned by
+ * `content/systems.ts`. This file owns presentation metadata only:
+ * visual state and Digital DNA. Routes are deterministically derived from the
+ * canonical system id, so World/Atlas/Signals cannot drift into a second
+ * portfolio registry.
  */
 
 /** Visual state vocabulary for World entities (LENA_WORLD_FOUNDATION.md §6). */
@@ -24,7 +23,7 @@ export type DigitalDNA =
   | "industrial";
 
 export type WorldEntity = {
-  /** Stable canonical id — the single source of truth for every fact. */
+  /** Stable canonical id — factual truth stays in content/systems.ts. */
   systemId: SystemId;
   state: WorldState;
   dna: DigitalDNA;
@@ -32,21 +31,53 @@ export type WorldEntity = {
   detailPath: string;
 };
 
+type WorldPresentation = Pick<WorldEntity, "state" | "dna">;
+
 /**
- * Full public constellation v2+.
+ * Founder-controlled presentation metadata only.
  *
- * Presentation order follows the canonical public family rather than creating a
- * second portfolio taxonomy. State/DNA are explicit founder-controlled visual
- * metadata. The underlying product stage remains owned by `content/systems.ts`.
+ * This is intentionally NOT a membership registry. A system appears in the
+ * World only when `publicSystems()` says it is public. Adding a new public
+ * system therefore requires presentation metadata, but never a second
+ * membership/order/route declaration.
  */
-export const WORLD_ENTITIES: WorldEntity[] = [
-  { systemId: "wellness", state: "beta", dna: "organic", detailPath: "/world/wellness" },
-  { systemId: "rental", state: "beta", dna: "crafted", detailPath: "/world/rental" },
-  { systemId: "property", state: "live", dna: "architectural", detailPath: "/world/property" },
-  { systemId: "hospitality", state: "forming", dna: "ceremonial", detailPath: "/world/hospitality" },
-  { systemId: "investment", state: "beta", dna: "systemic", detailPath: "/world/investment" },
-  { systemId: "recycling", state: "forming", dna: "industrial", detailPath: "/world/recycling" },
-];
+const WORLD_PRESENTATION: Partial<Record<SystemId, WorldPresentation>> = {
+  wellness: { state: "beta", dna: "organic" },
+  rental: { state: "beta", dna: "crafted" },
+  property: { state: "live", dna: "architectural" },
+  hospitality: { state: "forming", dna: "ceremonial" },
+  investment: { state: "beta", dna: "systemic" },
+  recycling: { state: "forming", dna: "industrial" },
+};
+
+export function worldPathFor(systemId: SystemId): string {
+  return `/world/${systemId}`;
+}
+
+function buildWorldEntities(): WorldEntity[] {
+  return publicSystems().map((system) => {
+    const presentation = WORLD_PRESENTATION[system.id];
+    if (!presentation) {
+      throw new Error(
+        `Missing LENA World presentation metadata for public system "${system.id}"`,
+      );
+    }
+
+    return {
+      systemId: system.id,
+      ...presentation,
+      detailPath: worldPathFor(system.id),
+    };
+  });
+}
+
+/**
+ * Canonical public constellation.
+ *
+ * Membership + order come from `publicSystems()`; state/DNA come from the
+ * presentation map above; route comes from the stable system id.
+ */
+export const WORLD_ENTITIES: WorldEntity[] = buildWorldEntities();
 
 /**
  * World state is internal canonical truth (evidence of operating depth), never
