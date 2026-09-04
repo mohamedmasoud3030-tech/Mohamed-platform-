@@ -1,4 +1,3 @@
-import type { AppLocale } from "@/providers/preferences";
 import { findSystem, publicSystems, type SystemId } from "@/content/systems";
 
 /**
