@@ -2,8 +2,8 @@
 /**
  * Egress and AI-provider guard.
  *
- * This product deliberately has no AI features and exactly two outbound
- * integrations. The realistic risk is not a bad model choice — it is that a
+ * This product deliberately has no AI features and only explicitly declared
+ * outbound integrations. The realistic risk is not a bad model choice — it is that a
  * future change quietly adds an AI provider or a new outbound call that ships
  * client inquiries to a third party with no review, no budget cap and no
  * disclosure.
@@ -22,6 +22,7 @@ const ALLOWED_HOSTS = [
   "KIMI_AUTH_URL", // OAuth provider — admin sign-in only
   "KIMI_OPEN_URL", // OAuth provider profile — admin sign-in only
   "SUPABASE_URL", // Object storage for project media — no personal data
+  "malek-plus.vercel.app", // Verified MALEK product destination — browser navigation only
   "wa.me", // WhatsApp deep link, opened by the user's own browser
   "schema.org", // Structured-data vocabulary URL, never requested at runtime
   "www.sitemaps.org", // XML namespace, never requested
