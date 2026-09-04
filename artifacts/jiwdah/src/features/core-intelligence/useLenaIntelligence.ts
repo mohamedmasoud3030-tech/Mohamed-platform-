@@ -20,7 +20,7 @@ export function useLenaIntelligence(): LenaIntelligence {
   const spatial = useSpatialContext();
   const memory = useWorldMemory();
   const { signals } = useSignalRuntime();
-  const previousCoreState = useRef<CoreState>();
+  const previousCoreState = useRef<CoreState | undefined>(undefined);
 
   const routePath = spatial.route?.path ?? "";
   const routeSpace = spatial.route?.space ?? null;
@@ -31,55 +31,38 @@ export function useLenaIntelligence(): LenaIntelligence {
   const arrivalMode = spatial.navState?.spatial.mode ?? null;
   const arrivalSystemId = spatial.navState?.spatial.systemId ?? null;
 
-  const result = useMemo(() => {
-    const route =
-      routeSpace === null
-        ? null
-        : routeSpace === "chamber"
-          ? { space: "chamber" as const, systemId: routeSystemId ?? "", path: routePath }
-          : { space: routeSpace, path: routePath };
-
-    const arrival =
-      arrivalOrigin && arrivalIntent && arrivalMode
-        ? {
-            spatial: {
-              origin: arrivalOrigin,
-              intent: arrivalIntent,
-              mode: arrivalMode,
-              ...(arrivalSystemId ? { systemId: arrivalSystemId } : {}),
-            },
-          }
-        : null;
-
-    return deriveLenaIntelligence(
-      {
-        now: Date.now(),
-        route,
-        arrival,
-        direction: spatial.direction,
-        memory,
-        registry: worldRegistry,
-        signals,
-        worldIds: WORLD_ENTITIES.map((entity) => entity.systemId),
-        graph: canonicalWorldGraphAdapter,
-      },
-      {
-        graph: canonicalWorldGraphAdapter,
-        previousCoreState: previousCoreState.current,
-      },
-    );
-  }, [
-    arrivalIntent,
-    arrivalMode,
-    arrivalOrigin,
-    arrivalSystemId,
-    memory,
-    routePath,
-    routeSpace,
-    routeSystemId,
-    signals,
-    spatial.direction,
-  ]);
+  const result = useMemo(
+    () =>
+      deriveLenaIntelligence(
+        {
+          now: Date.now(),
+          route: spatial.route,
+          arrival: spatial.navState,
+          direction: spatial.direction,
+          memory,
+          registry: worldRegistry,
+          signals,
+          worldIds: WORLD_ENTITIES.map((entity) => entity.systemId),
+          graph: canonicalWorldGraphAdapter,
+        },
+        {
+          graph: canonicalWorldGraphAdapter,
+          previousCoreState: previousCoreState.current,
+        },
+      ),
+    [
+      arrivalIntent,
+      arrivalMode,
+      arrivalOrigin,
+      arrivalSystemId,
+      memory,
+      routePath,
+      routeSpace,
+      routeSystemId,
+      signals,
+      spatial.direction,
+    ],
+  );
 
   useEffect(() => {
     previousCoreState.current = result.core.state;
