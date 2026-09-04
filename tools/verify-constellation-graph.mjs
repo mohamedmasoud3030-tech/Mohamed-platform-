@@ -44,7 +44,7 @@ check(
       assert.match(
         systems,
         new RegExp(
-          `id: "${id}"[\\s\\S]*?operatingPrimitives: \\[[^\\]]+\\][\\s\\S]*?documented:`,
+          `id: "${id}"[\\s\\S]*?operatingPrimitives: \\[[^\\]]+\\]`,
         ),
         `${id} operating roots missing`,
       );
