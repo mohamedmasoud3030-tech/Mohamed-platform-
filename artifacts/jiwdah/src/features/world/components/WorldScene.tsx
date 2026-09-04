@@ -5,6 +5,7 @@ import { buildStars } from "../spatial/ambientField";
 import { useWorldPortalTransition } from "../WorldPortalTransition";
 import { worldSystem, type WorldEntity } from "../content/world";
 import { useSignalRuntime } from "../signals";
+import { useLenaIntelligence } from "@/features/core-intelligence/useLenaIntelligence";
 
 export type WorldSceneProps = {
   entities: WorldEntity[];
@@ -31,6 +32,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
   const { rootRef } = useSpatialScene();
   const enterPortal = useWorldPortalTransition();
   const { presence, globalState } = useSignalRuntime();
+  const { core, guidance } = useLenaIntelligence();
 
   useLayoutEffect(() => {
     const field = rootRef.current?.querySelector<HTMLElement>(".lena-world-field");
@@ -46,12 +48,24 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
   }, [selectedId]);
 
   return (
-    <div className={`lena-world lena-world-v2 world-${globalState}`} ref={rootRef}>
+    <div
+      className={`lena-world lena-world-v2 world-${globalState}`}
+      ref={rootRef}
+      data-core-state={core.state}
+      data-core-urgency={core.urgency}
+      data-guidance-world={guidance.destination?.systemId ?? undefined}
+    >
       <div className="lena-world-field" />
       <div className="lena-world-halo" />
 
       {/* Shared Sacred Core: the same gravitational identity used on Home. */}
-      <div className="lena-world-core" aria-hidden="true">
+      <div
+        className="lena-world-core"
+        aria-hidden="true"
+        data-core-state={core.state}
+        data-core-pulse={core.pulse}
+        data-core-attention={core.attentionLevel}
+      >
         <span className="lena-world-core-orb" />
         <strong>LENA</strong>
         <small>{locale === "ar" ? "عالم واحد" : "One world"}</small>
