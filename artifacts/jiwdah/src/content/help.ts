@@ -51,22 +51,22 @@ export const HELP_ARTICLES: HelpArticle[] = [
       en: "What is useful to include in a first message?",
     },
     answer: {
-      ar: "الهدف من المشروع، والجمهور الذي تخاطبه، وما هو موجود لديك اليوم (اسم، هوية، موقع، حسابات)، وأي موعد مهم. لا تحتاج إلى مواصفات تقنية أو مستندات جاهزة — وصف واضح للاحتياج يكفي لتحديد الخطوة التالية.",
-      en: "The goal of the project, who it speaks to, what already exists today (name, identity, website, accounts), and any date that matters. You do not need technical specifications or prepared documents — a clear description of the need is enough to define the next step.",
+      ar: "نوع العمل، ومن يستخدمه يوميًا، وكيف تُدار العملية الآن، وأين يحدث التكرار أو التأخير أو فقدان المتابعة. لا تحتاج إلى مواصفات تقنية جاهزة — وصف صادق لسير العمل الحالي يكفي لتحديد نقطة البداية.",
+      en: "The type of business, who uses it daily, how the workflow runs today, and where repetition, delay, or lost follow-up happens. You do not need prepared technical specifications — an honest description of the current workflow is enough to identify the starting point.",
     },
   },
   {
     id: "tracks",
     topic: "work",
     question: {
-      ar: "ما الفرق بين المسارات المعروضة في «الحلول»؟",
-      en: "What is the difference between the tracks under “Solutions”?",
+      ar: "ما الفرق بين الأنظمة المعروضة في «الأنظمة»؟",
+      en: "What is the difference between the systems under “Systems”?",
     },
     answer: {
-      ar: "كل مسار يعرض قيمته ومخرجاته وخطوات العمل الخاصة به في صفحته. المسارات مصممة لتُدمج معًا: مشروع واحد قد يجمع الهوية والمحتوى والموقع والأتمتة. إن لم تكن متأكدًا من المسار الأنسب، اترك الحقل فارغًا في النموذج واشرح احتياجك بكلماتك.",
-      en: "Each track lists its own value, deliverables and process on its page. Tracks are designed to combine: one project may include identity, content, a website and automation. If you are not sure which track fits, leave the field empty in the form and describe the need in your own words.",
+      ar: "كل نظام مبني لقطاع وسير عمل مختلف: العقارات ليست الصالونات، والضيافة ليست إعادة التدوير. LENA تربط الجذور التشغيلية المشتركة، لكن كل منتج يحتفظ بمنطق قطاعه. إن لم تجد قطاعك، اشرح طريقة عملك الحالية في النموذج.",
+      en: "Each system is built for a different industry and workflow: property is not beauty, and hospitality is not recycling. LENA connects shared operating roots while each product keeps its own domain logic. If your industry is not shown, describe how your work runs today.",
     },
-    link: { to: "/services", label: { ar: "استعراض المسارات", en: "Browse the tracks" } },
+    link: { to: "/services", label: { ar: "استعراض الأنظمة", en: "Browse the systems" } },
   },
   {
     id: "case-studies",
@@ -76,8 +76,8 @@ export const HELP_ARTICLES: HelpArticle[] = [
       en: "Can I see previous work before reaching out?",
     },
     answer: {
-      ar: "نعم. صفحة «الأعمال» تعرض دراسات حالة كاملة: المشكلة، الاتجاه الإبداعي، الحل، والمخرجات. كل دراسة لها رابط مستقل يمكنك مشاركته مع فريقك.",
-      en: "Yes. The “Work” page presents full case studies: the challenge, the creative direction, the solution and the deliverables. Each case study has its own link you can share with your team.",
+      ar: "يمكنك استعراض الأنظمة والمعلومات الموثقة المتاحة عنها قبل التواصل. لا ننسب عميلًا أو نتيجة أو دراسة حالة إلى منتج ما لم تكن موثقة فعلًا، وتُضاف الأدلة والصور لكل نظام عندما تصبح جاهزة للنشر.",
+      en: "You can review the systems and the verified information currently available before reaching out. We do not attribute a client, result, or case study to a product unless it is genuinely documented; evidence and screens are added as each system becomes publishable.",
     },
     link: { to: "/portfolio", label: { ar: "فتح الأعمال", en: "Open the work" } },
   },
