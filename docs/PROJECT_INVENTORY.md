@@ -1,9 +1,13 @@
 # Project inventory — raw input from the founder
 
-**Captured:** 2026-08-20 · **Status:** founder's own account, recorded verbatim in substance.
-**Not yet published.** Each entry needs the fields required by `PRODUCT_DEFINITION.md` FR-4
-(industry, business problem, intended user, 3–6 capabilities, ≥3 screens, provenance label) before it
-appears on the site. This file exists so nothing is lost between now and then.
+**Captured:** 2026-08-20 · **Status:** historical founder-input baseline, recorded verbatim in substance.
+
+> **Current-state correction — 2026-09-04:** this document preserves the original intake history; it
+> is not the current publication/evidence authority. Runtime product truth lives in
+> `artifacts/jiwdah/src/content/systems.ts`, while publishable product evidence lives in
+> `artifacts/jiwdah/src/features/world/content/evidence.ts`. MALEK now has seven real operating
+> surfaces committed under `public/world/evidence/malek/` and rendered in its World chamber.
+> Older statements below saying MALEK still needs interior screens are historical and superseded.
 
 > **Correction to the product definition:** the plan assumed **five** applications. There are **six**,
 > and one of them was built for a named client rather than self-initiated. `PRODUCT_DEFINITION.md`
@@ -17,7 +21,7 @@ appears on the site. This file exists so nothing is lost between now and then.
 **Why it is credible:** this is the founder's own former job. He ran an office operating real-estate
 assets for other owners before building the tool.
 **Provenance:** built and owned by the founder.
-**Still needed:** the business problem in two sentences, intended user, 3–6 capabilities, ≥3 screens.
+**Current evidence:** seven real operating surfaces are now committed and shown in LENA World; the original screen requirement is satisfied for MALEK.
 
 ## 2. LenaBeauty — health centres and spa management
 **Industry:** wellness / personal care.
@@ -117,17 +121,13 @@ read from them and applied to `src/content/systems.ts`:
 2. **Hospitality stage:** a live production deployment is **not established by the repository**. The
    screenshot with the environment-configuration error is not evidence of a live production instance,
    so the public site keeps Hospitality at **trial** until current production use is evidenced.
-3. **Interior screenshots:** no interior product screenshots are currently committed in the inspected
-   product repositories. Login/configuration screens must not be used as substitutes or represented as
-   evidence of operational use.
+3. **Interior screenshots (superseded 2026-09-04):** MALEK now has real runtime captures for dashboard,
+   properties, contracts, financials, maintenance and mobile operation, plus the sign-in surface.
+   Other products still require independently verified interior evidence before LENA presents it as real.
 
-### Why the screenshots are not yet on the site
+### Evidence publication rule — current
 
-They are **sign-in screens**. They prove the products exist and are branded, which is worth something,
-but a login form shows nothing about what the system does. Interior screens — the appointment day, the
-weighbridge entry, the owner's daily summary — are what convince a buyer. Both are welcome; interiors
-matter more.
-
-**To get them into the repository:** commit them exactly as the founder photograph was committed. The
-image pipeline (`tools/prepare-founder-photo.sh`) already strips metadata and resizes, and the same
-approach will be extended to product screens once the files land.
+A sign-in screen proves identity, not operating depth. LENA therefore publishes interior product evidence
+only when it has been captured from the real application and committed into the canonical evidence layer.
+MALEK satisfies that rule today. Products without verified interior evidence remain evidence-free in the
+World chamber; LENA does not generate substitute mockups or imply evidence that does not exist.
