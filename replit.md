@@ -17,7 +17,7 @@ captures and manages client inquiries.
 | Document | What it answers |
 |---|---|
 | `PRODUCT_DEFINITION.md` | What the product is, who it serves, what is in and out of scope |
-| `FEATURE_GAP_STRATEGY.md` | What is missing, what should be removed, in what order |
+| `FEATURE_GAP_STRATEGY.md` | Historical 2026-08-20 strategy baseline; use current runtime authorities for present truth |
 | `ONBOARDING_ACTIVATION_PLAN.md` | First visit through first value |
 | `HELP_SUPPORT_SYSTEM.md` | Help content map, support intake, escalation |
 | `ADMIN_SUPPORT_OPERATIONS_SPEC.md` | Roles, capabilities, audit, risk controls |
@@ -25,7 +25,18 @@ captures and manages client inquiries.
 | `PRODUCT_MEASUREMENT_PLAN.md` | North star, event dictionary, dashboards |
 | `AI_FEATURE_SYSTEM.md` | Why there is no AI, and the policy if that changes |
 | `docs/RUNBOOK.md` | Operating procedures, severity, escalation |
-| `docs/PROJECT_INVENTORY.md` | The six applications and what each still needs |
+| `docs/PROJECT_INVENTORY.md` | Historical intake inventory; current publishable evidence is owned by the World evidence registry |
+
+## Current runtime authorities
+
+For current product/runtime truth, prefer the code contracts over historical planning documents:
+
+- `artifacts/lena/src/content/systems.ts` — canonical product identity and public membership.
+- `artifacts/lena/src/features/world/content/evidence.ts` — publishable real product evidence.
+- `artifacts/lena/src/features/world/content/product-contract.ts` — derived product/integration boundary.
+- `artifacts/lena/src/graph/` — canonical World structure consumed by Atlas.
+
+Historical audits and owner-decision registers remain useful for provenance, but they do not override these authorities.
 
 ## Stack
 
@@ -37,7 +48,6 @@ single admin.
 |---|---|---|
 | `artifacts/lena` | `/` | Public site and admin dashboard |
 | `artifacts/api-server` | `/api` | API |
-| `artifacts/mockup-sandbox` | — | Component preview, development only |
 
 ## Routes
 
@@ -56,7 +66,7 @@ pnpm run typecheck                                   # all packages
 pnpm run build                                       # egress guard, typecheck, then build
 pnpm run verify:egress                               # no AI SDKs, no undeclared outbound hosts
 pnpm --filter @workspace/api-server dev              # API
-pnpm --filter @workspace/lena dev                  # site (proxies /api to localhost:8080)
+pnpm --filter @workspace/lena dev                    # site (proxies /api to localhost:8080)
 pnpm --filter @workspace/db migrate                  # apply migrations
 bash tools/prepare-founder-photo.sh <photo>          # portrait + social card, metadata stripped
 ```

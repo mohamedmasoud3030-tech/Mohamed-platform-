@@ -1,5 +1,14 @@
 # LENA Digital House — Feature Gap & Product Strategy
 
+> **Historical baseline — not current product/runtime authority.** This document records the
+> 2026-08-20 audit and the product assumptions that existed at that time. Since then LENA moved to
+> the operating-systems / World architecture and several findings below were completed, removed, or
+> superseded. Current truth is owned by `artifacts/lena/src/content/systems.ts`,
+> `artifacts/lena/src/features/world/content/evidence.ts`,
+> `artifacts/lena/src/features/world/content/product-contract.ts`, and the canonical World Graph.
+> If this document conflicts with those contracts or with later merged architecture, treat the
+> conflicting statement below as historical only.
+
 **Owner:** non-technical product owner
 **Author:** Arena orchestration agent (single-agent mode with separated plan / build / adversarial-review phases)
 **Date:** 2026-08-20
@@ -7,7 +16,7 @@
 
 ---
 
-## 1. Product read (inferred from repository + running application)
+## 1. Product read (historical 2026-08-20 baseline)
 
 | Dimension | Finding | Evidence |
 |---|---|---|

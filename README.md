@@ -1,12 +1,12 @@
 # LENA Digital House
 
-منصة رقمية ثنائية اللغة لعرض الحلول الإبداعية والتجارب والمشاريع واستقبال استفسارات العملاء وإدارتها من لوحة تحكم.
+بيت رقمي ثنائي اللغة يبني ويعرض أنظمة تشغيل للأعمال، ويربط الزائر بأدلة المنتجات الحقيقية، ويستقبل استفسارات العملاء ويديرها من لوحة تحكم.
 
 ## Project structure
 
 ```text
 api/[...path].ts                 Vercel API entry
-artifacts/lena/                    React + Vite frontend
+artifacts/lena/                  React + Vite frontend
 artifacts/api-server/            Express + tRPC API
 lib/db/                          Drizzle schema and migrations
 lib/api-zod/                     Shared validation types

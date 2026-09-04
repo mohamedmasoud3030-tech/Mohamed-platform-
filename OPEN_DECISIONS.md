@@ -1,5 +1,12 @@
 # Open Decisions & Pending Tasks — complete register
 
+> **Historical owner-decision register — not a current work queue.** It records the 2026-08-20
+> intake and owner answers. Current product/runtime truth is owned by the canonical product,
+> evidence, ProductContract, graph, and merged role-contract code. Old technical tasks below may
+> already be completed or superseded and must be checked against `main` before execution. The two
+> owner-controlled values still intentionally unresolved here are the second admin identity value
+> and written permission to name the hospitality client.
+
 > **ALL ANSWERED by the owner on 2026-08-20.** The register below is kept for traceability; the
 > answers and what each one changed are recorded in §Answers at the end. Only two items remain open,
 > both because the owner does not yet have the value: a second admin account id (C1, approved in
@@ -15,8 +22,8 @@ Two lists, deliberately separated:
 - **Part B — mine to do.** Technical work needing no owner input. Listed for visibility, not approval.
   These proceed on the next pass unless the owner says otherwise.
 
-Nothing else is outstanding anywhere in the repository. This register supersedes the scattered
-"pending" markers in the other documents.
+At the time of the 2026-08-20 intake, this register consolidated the known pending items. It does
+not claim that the current repository has no later work, and it does not supersede later merged contracts.
 
 ---
 
