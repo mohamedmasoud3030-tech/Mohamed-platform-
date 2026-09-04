@@ -2,6 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "pnpm install --frozen-lockfile",
+  "ignoreCommand": "node -e \"const expected='prj_rtqhzCOdiPlf7yOPAjGvAhhwN6nF';const actual=process.env.VERCEL_PROJECT_ID;if(!actual){console.log('VERCEL_PROJECT_ID unavailable; continuing build');process.exit(1)}if(actual!==expected){console.log('Ignoring deployment: this repository belongs to lena-digital-house only');process.exit(0)}process.exit(1)\"",
   "buildCommand": "pnpm run build",
   "outputDirectory": "artifacts/jiwdah/dist/public",
   "rewrites": [
