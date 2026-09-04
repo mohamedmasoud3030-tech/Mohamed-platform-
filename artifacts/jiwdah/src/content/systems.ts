@@ -72,8 +72,6 @@ export type BusinessSystem = {
   entities: Record<AppLocale, string[]>;
   /** Explicit links to cross-system operating roots; never inferred from copy. */
   operatingPrimitives: OperatingPrimitiveId[];
-  /** Whether a documented case study with screens exists yet. */
-  documented: boolean;
 };
 
 /** Stage is internal canonical truth (verified evidence), never rendered as
@@ -111,7 +109,6 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Properties and units", "Owners and tenants", "Contracts and renewals", "Maintenance requests", "Collections and arrears", "Payments and settlements"],
     },
     operatingPrimitives: ["relationships", "time", "money", "assets", "workflow", "documents", "insight"],
-    documented: false,
   },
   {
     id: "wellness",
@@ -141,7 +138,6 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Appointments and bookings", "Clients and their records", "Services", "Staff and scheduling", "Inventory", "Point of sale"],
     },
     operatingPrimitives: ["relationships", "time", "money", "assets", "workflow", "people", "insight"],
-    documented: false,
   },
   {
     id: "rental",
@@ -171,7 +167,6 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Pieces and their condition", "Date-based reservations", "Check-out and return", "Deposits and payments"],
     },
     operatingPrimitives: ["relationships", "time", "money", "assets", "workflow"],
-    documented: false,
   },
   {
     id: "investment",
@@ -201,7 +196,6 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Divisions (livestock, agriculture, real estate)", "Assets", "Operations", "Costs and revenue", "Reports"],
     },
     operatingPrimitives: ["money", "assets", "workflow", "insight"],
-    documented: false,
   },
   {
     id: "hospitality",
@@ -231,7 +225,6 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Occasions and events", "Requests and quotes", "Crew", "Equipment", "Cost and profit"],
     },
     operatingPrimitives: ["relationships", "time", "money", "assets", "workflow", "people"],
-    documented: false,
   },
   {
     id: "recycling",
@@ -275,7 +268,6 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Items by type and grade", "Suppliers and counterparties", "Purchases and sales", "Cash box", "Numbered receipts"],
     },
     operatingPrimitives: ["relationships", "money", "assets", "workflow", "documents", "insight", "integrity"],
-    documented: false,
   },
 
   {
@@ -313,7 +305,6 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Materials", "Inventory", "Purchase requests", "Purchases and receiving", "Suppliers", "Payments", "Attachments"],
     },
     operatingPrimitives: ["assets", "money", "relationships", "workflow", "documents", "insight"],
-    documented: false,
   },
 ];
 
