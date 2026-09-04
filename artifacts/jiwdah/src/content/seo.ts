@@ -22,86 +22,86 @@ export type PageSeoKey =
 export const PAGE_SEO: Record<PageSeoKey, Record<AppLocale, LocalizedSeo>> = {
   home: {
     ar: {
-      title: "LENA Digital House — بيت الحلول الرقمية الإبداعية",
+      title: "LENA Digital House — أنظمة تشغيل للأعمال الحقيقية",
       description:
-        "نبني الهوية والمحتوى والمواقع والمنتجات الرقمية والأتمتة كنظام واحد متكامل — لعملاء في المنطقة العربية وخارجها.",
+        "بيت رقمي يجمع أنظمة تشغيل للعقارات والجمال والتأجير والضيافة والاستثمار وإعادة التدوير داخل عالم LENA واحد.",
     },
     en: {
-      title: "LENA Digital House — Creative Systems & Digital Experiences",
+      title: "LENA Digital House — Operating Systems for Real Businesses",
       description:
-        "A digital house building identity, content, websites, digital products, and automation as one connected system — for clients across the Arab region and beyond.",
+        "A digital house connecting operating systems for property, beauty, rental, hospitality, investment, and recycling inside one LENA World.",
     },
   },
   world: {
     ar: {
-      title: "عالم LENA",
+      title: "عالم LENA — أنظمة تشغيل مترابطة",
       description:
-        "عالم LENA يجمع أنظمة العقارات والجمال وتأجير الفساتين والضيافة والاستثمار وإعادة التدوير داخل منظومة تشغيلية واحدة ذات هوية مشتركة.",
+        "استكشف أنظمة LENA وعملياتها وجذورها التشغيلية المشتركة داخل World Graph واحد، بدون طمس منطق كل قطاع.",
     },
     en: {
-      title: "LENA World",
+      title: "LENA World — Connected Operating Systems",
       description:
-        "LENA World brings property, beauty, dress rental, hospitality, investment and recycling systems into one connected operating world with a shared identity.",
+        "Explore LENA systems, their operations, and shared operating roots inside one World Graph without flattening each industry's own logic.",
     },
   },
   services: {
     ar: {
-      title: "الحلول",
+      title: "أنظمة التشغيل حسب القطاع",
       description:
-        "ثمانية مسارات متكاملة: التسويق الرقمي، الهوية البصرية، المحتوى، المواقع والمنصات، تجربة المستخدم، بناء العلامة، الأتمتة، وإطلاق المشاريع.",
+        "ابدأ من طبيعة عملك لترى أنظمة تشغيل مبنية للعقارات والجمال والتأجير والضيافة والاستثمار وإعادة التدوير.",
     },
     en: {
-      title: "Solutions",
+      title: "Operating Systems by Industry",
       description:
-        "Eight connected tracks: digital marketing, visual identity, content design, web platforms, UI/UX, brand building, AI automation, and launch projects.",
+        "Start from how your business works and explore operating systems built for property, beauty, rental, hospitality, investment, and recycling.",
     },
   },
   portfolio: {
     ar: {
-      title: "الأعمال المختارة",
+      title: "الأنظمة والمنتجات",
       description:
-        "دراسات مشاريع تُعرض كأنظمة متكاملة تجمع الهوية والمحتوى والواجهات والأنظمة الرقمية.",
+        "منتجات LENA التشغيلية: المشكلة، المستخدمون، العمليات والأدلة المتاحة لكل نظام.",
     },
     en: {
-      title: "Selected Work",
+      title: "Systems and Product Evidence",
       description:
-        "Case studies presented as complete systems connecting identity, content, interfaces, and digital operations.",
+        "LENA operating products presented through their problem, users, workflows, and available product evidence.",
     },
   },
   about: {
     ar: {
-      title: "عالم LENA",
+      title: "داخل LENA — كيف نبني أنظمة التشغيل",
       description:
-        "كيف نعمل داخل LENA: منهج واضح يبدأ من الهدف وينتهي بتجربة رقمية متماسكة قابلة للنمو.",
+        "كيف تبني LENA أنظمة مستقلة لقطاعات مختلفة ثم تربط الجذور التشغيلية والذاكرة والإشارات والذكاء بينها تدريجيًا.",
     },
     en: {
-      title: "Inside LENA",
+      title: "Inside LENA — How We Build Operating Systems",
       description:
-        "How LENA works: a clear method that starts from the goal and ends with a coherent digital experience built to grow.",
+        "How LENA builds independent industry systems and progressively connects their operating roots, memory, signals, and intelligence.",
     },
   },
   ai: {
     ar: {
-      title: "الأنظمة الذكية والأتمتة",
+      title: "الذكاء التشغيلي في LENA",
       description:
-        "أنظمة وأتمتة تربط أدوات العمل وتقلل الخطوات اليدوية وتحوّل العمليات المتكررة إلى مسارات واضحة.",
+        "طبقة ذكاء حتمية تقرأ السياق والذاكرة والإشارات وبنية العالم لتحدد الحالة وما يستحق الانتباه والخطوة التالية.",
     },
     en: {
-      title: "Smart Systems & Automation",
+      title: "LENA Operating Intelligence",
       description:
-        "Systems and automation that connect tools, remove manual steps, and turn repetitive operations into clear workflows.",
+        "A deterministic intelligence layer reading context, memory, signals, and World structure to identify state, attention, and the next useful place.",
     },
   },
   contact: {
     ar: {
-      title: "ابدأ مشروعك",
+      title: "ابدأ نظام تشغيل لعملك",
       description:
-        "تواصل مع LENA عبر واتساب أو البريد أو نموذج الاستفسار، وسنراجع فكرتك ونحدد أوضح خطوة تالية.",
+        "شارك طريقة عملك الحالية أو المشكلة التشغيلية مع LENA عبر واتساب أو البريد أو نموذج الاستفسار.",
     },
     en: {
-      title: "Start a Project",
+      title: "Start an Operating System for Your Business",
       description:
-        "Reach LENA on WhatsApp, by email, or through the inquiry form. We review the idea and define the clearest next step.",
+        "Share your current workflow or operational problem with LENA through WhatsApp, email, or the inquiry form.",
     },
   },
   help: {
@@ -139,11 +139,11 @@ export const PAGE_SEO: Record<PageSeoKey, Record<AppLocale, LocalizedSeo>> = {
   notFound: {
     ar: {
       title: "الصفحة غير موجودة",
-      description: "الرابط الذي فتحته غير متاح. عد إلى الصفحة الرئيسية أو تصفّح الأعمال.",
+      description: "الرابط الذي فتحته غير متاح. عد إلى الصفحة الرئيسية أو استكشف أنظمة LENA.",
     },
     en: {
       title: "Page not found",
-      description: "This link is not available. Return to the home page or browse the work.",
+      description: "This link is not available. Return home or explore LENA operating systems.",
     },
   },
 };
