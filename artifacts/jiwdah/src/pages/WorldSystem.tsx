@@ -5,6 +5,7 @@ import type { OperatingPrimitiveId } from "@/content/systems";
 import InnerConstellation from "@/features/world/components/InnerConstellation";
 import { OperatingSurfaces } from "@/features/world/components/OperatingSurfaces";
 import { OPERATING_PRIMITIVES } from "@/features/world/content/operating-primitives";
+import { productConnectionFor } from "@/features/world/content/product-connections";
 import { findWorldEntity, worldSystem } from "@/features/world/content/world";
 import PublicShell from "@/layouts/PublicShell";
 import { useSpatialContext, useSpatialNavigate, worldMemory } from "@/lib/spatial";
@@ -77,6 +78,7 @@ export default function WorldSystem() {
           : "neutral";
 
   const description = system.tagline?.[locale] ?? system.problem[locale];
+  const productConnection = productConnectionFor(system.id);
 
   return (
     <PublicShell>
@@ -226,9 +228,22 @@ export default function WorldSystem() {
           />
 
           <section className="lena-chamber-actions">
-            <Link className="lena-primary" to={`/services#${system.id}`}>
-              {isArabic ? "افتح التفاصيل التشغيلية" : "Open operating detail"}
-            </Link>
+            {productConnection ? (
+              <a
+                className="lena-primary"
+                href={productConnection.productUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {isArabic
+                  ? `افتح ${system.name[locale]} الفعلي`
+                  : `Open the real ${system.name[locale]} product`}
+              </a>
+            ) : (
+              <Link className="lena-primary" to={`/services#${system.id}`}>
+                {isArabic ? "افتح التفاصيل التشغيلية" : "Open operating detail"}
+              </Link>
+            )}
             <Link className="lena-secondary" to={`/contact?service=${system.id}`}>
               {isArabic ? "تحدث معنا عن هذا النظام" : "Talk to us about this system"}
             </Link>
