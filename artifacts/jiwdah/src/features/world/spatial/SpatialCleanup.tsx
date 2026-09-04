@@ -51,7 +51,14 @@ export default function SpatialCleanup() {
       // the doorway — so it records nothing: a home-only visit has no journey
       // to continue, and creating a memory record would turn a first-time
       // visitor into a "returning" one mid-visit.
-      if (route && route.space !== "home" && !readSpatialState(location.state)) {
+      if (
+        route &&
+        route.space !== "home" &&
+        route.space !== "other" &&
+        route.space !== "command" &&
+        route.space !== "atlas" &&
+        !readSpatialState(location.state)
+      ) {
         worldMemory.remember({
           space: route.space,
           systemId: route.systemId ?? undefined,

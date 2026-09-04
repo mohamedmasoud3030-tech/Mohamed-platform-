@@ -4,6 +4,7 @@ import type { LenaContextSituation } from "../context/types";
 import { planNextBestPlace, recencyPoints } from "./planner";
 import type { GuidanceResult } from "./types";
 import {
+  AVAILABLE_SIGNAL_SOURCE,
   chamberRoute,
   FIXED_NOW,
   homeRoute,
@@ -21,7 +22,13 @@ import { InMemoryGraphContextAdapter } from "../graph/GraphContextAdapter";
 const REGISTRY = makeRegistry();
 
 function fuse(situation: LenaContextSituation) {
-  return fuseLenaContext({ now: FIXED_NOW, registry: REGISTRY, ...situation });
+  const hasSignals = situation.signals !== undefined && situation.signals !== null;
+  return fuseLenaContext({
+    now: FIXED_NOW,
+    registry: REGISTRY,
+    ...(hasSignals ? { signalSource: AVAILABLE_SIGNAL_SOURCE } : {}),
+    ...situation,
+  });
 }
 
 function plan(situation: LenaContextSituation, graph = makeGraph()) {

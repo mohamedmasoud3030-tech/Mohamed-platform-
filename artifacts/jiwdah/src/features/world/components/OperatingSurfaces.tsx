@@ -25,19 +25,22 @@ const motionQuery = () =>
 export function OperatingSurfaces({
   systemId,
   brand,
+  evidence,
 }: {
   systemId: SystemId;
   /** Canonical product brand shown in the window chrome, e.g. "MALEK". */
   brand?: string;
+  /** Optional ProductContractV1 projection; the authority remains evidence.ts. */
+  evidence?: readonly EvidenceSurface[];
 }) {
   const { locale } = usePreferences();
   const [active, setActive] = useState(0);
   const [reduced, setReduced] = useState(motionQuery());
 
-  const surfaces = evidenceFor(systemId) ?? [];
+  const surfaces = evidence ?? evidenceFor(systemId) ?? [];
   if (surfaces.length === 0) return null;
 
-  const current = surfaces[active] as EvidenceSurface;
+  const current = (surfaces[active] ?? surfaces[0]) as EvidenceSurface;
 
   const step = (dir: 1 | -1) => {
     if (reduced !== motionQuery()) setReduced(motionQuery());

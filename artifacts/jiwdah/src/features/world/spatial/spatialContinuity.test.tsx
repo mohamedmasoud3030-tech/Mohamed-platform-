@@ -4,6 +4,7 @@ import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import { StrictMode } from "react";
 import { createMemoryRouter, RouterProvider } from "react-router";
 import { PreferencesProvider } from "@/providers/preferences";
+import { SignalRuntimeProvider } from "@/features/world/signals";
 import { publicSystems } from "@/content/systems";
 import WorldSystem from "@/pages/WorldSystem";
 import WorldPage from "@/pages/World";
@@ -67,7 +68,9 @@ function renderRoutes(
     <StrictMode>
       {/* English locale so assertions can read the English labels. */}
       <PreferencesProvider initialLocale="en">
-        <RouterProvider router={router} />
+        <SignalRuntimeProvider>
+          <RouterProvider router={router} />
+        </SignalRuntimeProvider>
       </PreferencesProvider>
     </StrictMode>,
   );
@@ -88,6 +91,10 @@ describe("chamber arrival semantics", () => {
     expect(chamber?.classList.contains("is-return")).toBe(false);
     // The back control is present and usable even on a deep link.
     expect(screen.getByText("Back to LENA World")).toBeTruthy();
+    expect(screen.getByText(/Authentication stays with MALEK/)).toBeTruthy();
+    expect(screen.getByTestId("malek-product-handoff").getAttribute("href")).toBe(
+      "https://malek-plus.vercel.app/",
+    );
   });
 
   it("a portal descent receives the full arrival choreography", async () => {

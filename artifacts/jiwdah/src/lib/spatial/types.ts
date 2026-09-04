@@ -22,15 +22,22 @@ export type SpatialPhase = "idle" | "preparing" | "moving" | "resolving";
 /** Direction of movement in the world, independent of browser history. */
 export type SpatialDirection = "forward" | "back";
 
-/** The three route-level LENA spaces. The home gateway is the threshold. */
+/** The three route-level LENA spaces remembered by the journey. */
 export type LenaSpace = "home" | "world" | "chamber";
+
+/**
+ * Complete route taxonomy. Command and Atlas are LENA World surfaces, not
+ * chambers; `other` makes non-LENA routes explicit instead of letting them
+ * accidentally inherit chamber semantics.
+ */
+export type SpatialSpace = LenaSpace | "command" | "atlas" | "other";
 
 /** Which surface the transition choreography runs on. */
 export type SpatialScene = "home" | "world" | "chamber";
 
-/** A LENA route, resolved from the router-relative pathname. */
+/** A route resolved from the router-relative pathname. */
 export interface SpatialRoute {
-  space: LenaSpace;
+  space: SpatialSpace;
   /** Present for chambers only. */
   systemId?: string;
   /** Router-relative path, e.g. "/world/property". */

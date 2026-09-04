@@ -20,15 +20,22 @@ const KNOWN_INTENTS: readonly string[] = [
   "emerge",
 ];
 
-/** Resolve a LENA space from a router-relative pathname. Null when the path
- *  is outside LENA's spatial routes (services, contact, dashboard, …). */
-export function parseSpatialRoute(pathname: string): SpatialRoute | null {
-  const path = pathname || "/";
+/**
+ * Resolve the complete route taxonomy from a router-relative pathname.
+ *
+ * Ordering is intentional: Atlas and Command must be classified before the
+ * generic `/world/:segment` chamber shape. Non-LENA paths remain explicit
+ * `other` so the intelligence layer cannot mistake them for a chamber.
+ */
+export function parseSpatialRoute(pathname: string): SpatialRoute {
+  const path = (pathname || "/").replace(/\/+$/, "") || "/";
   if (path === "/") return { space: "home", path: "/" };
   if (path === "/world") return { space: "world", path: "/world" };
+  if (path === "/world/command") return { space: "command", path };
+  if (path === "/world/atlas") return { space: "atlas", path };
   const chamber = /^\/world\/([^/]+)$/.exec(path);
   if (chamber) return { space: "chamber", systemId: chamber[1], path };
-  return null;
+  return { space: "other", path };
 }
 
 /**
@@ -155,8 +162,8 @@ export function useReducedMotion(): boolean {
 }
 
 export interface SpatialContext {
-  /** The resolved LENA route, or null when outside spatial routes. */
-  route: SpatialRoute | null;
+  /** The resolved route taxonomy; `space === "other"` means outside LENA. */
+  route: SpatialRoute;
   /** The typed spatial state on this history entry, when present. */
   navState: SpatialNavState | null;
   /** Which way the visitor just moved. */
@@ -209,7 +216,13 @@ export function buildSpatialState(input: {
 /** The canonical parent of a LENA route. */
 export function parentPathOf(route: SpatialRoute | null): string | null {
   if (!route) return null;
-  if (route.space === "chamber") return "/world";
+  if (
+    route.space === "chamber" ||
+    route.space === "command" ||
+    route.space === "atlas"
+  ) {
+    return "/world";
+  }
   if (route.space === "world") return "/";
   return null;
 }

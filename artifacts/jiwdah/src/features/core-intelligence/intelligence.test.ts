@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { deriveLenaIntelligence } from "./index";
 import type { LenaContextSituation } from "./context/types";
 import {
+  AVAILABLE_SIGNAL_SOURCE,
   chamberRoute,
   FIXED_NOW,
   makeGraph,
@@ -24,6 +25,7 @@ function situation(
     route: worldFieldRoute(),
     registry: REGISTRY,
     signals: [],
+    signalSource: AVAILABLE_SIGNAL_SOURCE,
     worldIds: [...PUB_WORLD_IDS],
     ...overrides,
   };

@@ -31,7 +31,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
   const { locale } = usePreferences();
   const { rootRef } = useSpatialScene();
   const enterPortal = useWorldPortalTransition();
-  const { presence, globalState } = useSignalRuntime();
+  const { presence, globalState, source } = useSignalRuntime();
   const { core, guidance } = useLenaIntelligence();
 
   useLayoutEffect(() => {
@@ -49,22 +49,24 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
 
   return (
     <div
-      className={`lena-world lena-world-v2 world-${globalState}`}
+      className={`lena-world lena-world-v2 world-${globalState ?? "unavailable"}`}
       ref={rootRef}
       data-core-state={core.state}
       data-core-urgency={core.urgency}
       data-guidance-world={guidance.destination?.systemId ?? undefined}
+      data-signal-availability={source.availability}
     >
       <div className="lena-world-field" />
       <div className="lena-world-halo" />
 
       {/* Shared Sacred Core: the same gravitational identity used on Home. */}
       <div
-        className="lena-world-core"
+        className={`lena-world-core core-${core.state} urgency-${core.urgency}`}
         aria-hidden="true"
         data-core-state={core.state}
         data-core-pulse={core.pulse}
         data-core-attention={core.attentionLevel}
+        data-core-intensity={core.intensity}
       >
         <span className="lena-world-core-orb" />
         <strong>LENA</strong>
@@ -84,7 +86,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
           const pos = ENTITY_POS[i] ?? { x: 0, y: 0 };
           const len = Math.hypot(pos.x, pos.y);
           const angle = (Math.atan2(pos.y, pos.x) * 180) / Math.PI;
-          const pathPresence = presence[entity.systemId] ?? "quiet";
+          const pathPresence = presence[entity.systemId] ?? "unavailable";
           return (
             <i
               key={`path-${entity.systemId}`}
@@ -106,7 +108,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
         if (!system) return null;
         const pos = ENTITY_POS[i] ?? { x: 0, y: 0 };
         const selected = selectedId === entity.systemId;
-        const entityPresence = presence[entity.systemId] ?? "quiet";
+        const entityPresence = presence[entity.systemId] ?? "unavailable";
         return (
           <button
             key={entity.systemId}

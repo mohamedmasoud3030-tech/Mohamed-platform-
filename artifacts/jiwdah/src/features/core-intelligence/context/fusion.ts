@@ -22,7 +22,11 @@ import {
   presenceByWorld,
   presenceFromSignals,
 } from "@/features/world/signals/derive";
-import type { WorldSignal } from "@/features/world/signals/types";
+import {
+  UNAVAILABLE_SIGNAL_SOURCE,
+  type SignalSourceState,
+  type WorldSignal,
+} from "@/features/world/signals/types";
 import {
   resolveContinuation,
   resolveRememberedFocus,
@@ -48,7 +52,7 @@ const HOME_SPACE = "home";
 /** Route-level depth ladder. */
 export function spatialDepthOf(space: string | null | undefined): 0 | 1 | 2 {
   if (space === HOME_SPACE) return 0;
-  if (space === WORLD_SPACE) return 1;
+  if (space === WORLD_SPACE || space === "command" || space === "atlas") return 1;
   if (space === CHAMBER_SPACE) return 2;
   return 0;
 }
@@ -131,12 +135,16 @@ function continuityFacts(
 
 function signalFacts(
   signals: readonly WorldSignal[] | null | undefined,
+  sourceInput: SignalSourceState | null | undefined,
   worldIds: readonly string[] | undefined,
 ): SignalFacts {
-  // Defensive mutable copy: canonical helpers accept mutable arrays; the
-  // kernel itself never mutates the caller's snapshot.
-  const list: WorldSignal[] = signals ? [...signals] : [];
-  const present = signals !== undefined && signals !== null;
+  // Missing source authority is not an empty observation. Ignore any stray
+  // signal list when the source explicitly says unavailable so fabricated or
+  // stale data cannot become live intelligence by accident.
+  const source = sourceInput ?? UNAVAILABLE_SIGNAL_SOURCE;
+  const available = source.availability === "available";
+  const list: WorldSignal[] = available && signals ? [...signals] : [];
+  const present = available;
 
   const openList = list.filter(isOpen);
   // Canonical urgency-ordered attention set (critical first, then recency).
@@ -164,15 +172,18 @@ function signalFacts(
 
   const byWorld =
     worldIds && worldIds.length > 0
-      ? presenceByWorld(list, [...worldIds])
+      ? available
+        ? presenceByWorld(list, [...worldIds])
+        : Object.fromEntries(worldIds.map((id) => [id, "unavailable" as const]))
       : {};
 
   return {
     present,
-    globalState: globalStateFromSignals(list),
-    presence: presenceFromSignals(list),
-    openCount: openList.length,
-    attentionPressure: canonicalAttentionPressure(list),
+    source,
+    globalState: available ? globalStateFromSignals(list) : null,
+    presence: available ? presenceFromSignals(list) : "unavailable",
+    openCount: available ? openList.length : null,
+    attentionPressure: available ? canonicalAttentionPressure(list) : null,
     unresolved: { critical, attention },
     highestUnresolved: rankedAttention[0] ?? null,
     unresolvedSummaries: summaries,
@@ -217,7 +228,7 @@ export function fuseLenaContext(
   const registry = situation.registry ?? null;
 
   const spatial: SpatialFacts = {
-    inLena: route !== null,
+    inLena: route !== null && space !== "other",
     space,
     systemId,
     path: route?.path ?? "",
@@ -229,13 +240,18 @@ export function fuseLenaContext(
     transitionPhase: phase,
     transitioning:
       route !== null &&
+      space !== "other" &&
       phase !== null &&
       phase !== "idle",
   };
 
   const memory = memoryFacts(situation.memory, registry);
   const continuity = continuityFacts(situation.memory, registry);
-  const signals = signalFacts(situation.signals, situation.worldIds);
+  const signals = signalFacts(
+    situation.signals,
+    situation.signalSource,
+    situation.worldIds,
+  );
   const catalog = catalogFacts(situation.worldIds, registry);
 
   const inChamber = space === CHAMBER_SPACE;
@@ -263,7 +279,9 @@ export function fuseLenaContext(
     engagementIntent,
     deepEngaged,
     currentWorldPresence:
-      systemId !== null ? (signals.byWorld[systemId] ?? "quiet") : null,
+      systemId !== null
+        ? (signals.byWorld[systemId] ?? signals.presence)
+        : null,
     rememberedSystemId,
   };
 

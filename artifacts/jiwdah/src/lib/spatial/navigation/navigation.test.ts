@@ -9,23 +9,30 @@ import {
 import { planBack, planGo } from "./plan";
 
 describe("spatial navigation — route parsing", () => {
-  it("resolves the three LENA spaces and nothing else", () => {
+  it("resolves every route space without collapsing Command or Atlas into chambers", () => {
     expect(parseSpatialRoute("/")).toEqual({ space: "home", path: "/" });
     expect(parseSpatialRoute("/world")).toEqual({ space: "world", path: "/world" });
+    expect(parseSpatialRoute("/world/command")).toEqual({ space: "command", path: "/world/command" });
+    expect(parseSpatialRoute("/world/atlas")).toEqual({ space: "atlas", path: "/world/atlas" });
     expect(parseSpatialRoute("/world/property")).toEqual({
       space: "chamber",
       systemId: "property",
       path: "/world/property",
     });
-    // Non-LENA routes are not spatial: the layer simply does not apply.
-    expect(parseSpatialRoute("/services")).toBeNull();
-    expect(parseSpatialRoute("/world/property/extra")).toBeNull();
+    expect(parseSpatialRoute("/services")).toEqual({ space: "other", path: "/services" });
+    expect(parseSpatialRoute("/world/property/extra")).toEqual({
+      space: "other",
+      path: "/world/property/extra",
+    });
   });
 
   it("derives the canonical parent of each space", () => {
     expect(parentPathOf(parseSpatialRoute("/world/rental"))).toBe("/world");
+    expect(parentPathOf(parseSpatialRoute("/world/command"))).toBe("/world");
+    expect(parentPathOf(parseSpatialRoute("/world/atlas"))).toBe("/world");
     expect(parentPathOf(parseSpatialRoute("/world"))).toBe("/");
     expect(parentPathOf(parseSpatialRoute("/"))).toBeNull();
+    expect(parentPathOf(parseSpatialRoute("/services"))).toBeNull();
     expect(parentPathOf(null)).toBeNull();
   });
 });
@@ -75,6 +82,29 @@ describe("spatial navigation — forward intent", () => {
       expect(plan.state).toEqual({
         spatial: { origin: "/world", intent: "descend", systemId: "property", mode: "forward" },
       });
+    }
+  });
+
+  it("keeps Command and Atlas out of chamber navigation memory", () => {
+    const command = planGo({
+      currentPath: "/world",
+      currentHash: "",
+      to: "/world/command",
+      intent: "enter",
+    });
+    const atlas = planGo({
+      currentPath: "/world",
+      currentHash: "",
+      to: "/world/atlas",
+      intent: "enter",
+    });
+    expect(command.kind).toBe("go");
+    expect(atlas.kind).toBe("go");
+    if (command.kind === "go" && atlas.kind === "go") {
+      expect(command.scene).toBe("world");
+      expect(atlas.scene).toBe("world");
+      expect(command.memory).toBeNull();
+      expect(atlas.memory).toBeNull();
     }
   });
 

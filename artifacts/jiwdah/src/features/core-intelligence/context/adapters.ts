@@ -24,7 +24,10 @@ import type {
 import type { NavigationDirection } from "@/lib/spatial/navigation/context";
 import type { SpatialMemory } from "@/lib/spatial/memory/types";
 import type { WorldRegistry } from "@/lib/spatial/continuation";
-import type { WorldSignal } from "@/features/world/signals/types";
+import type {
+  SignalSourceState,
+  WorldSignal,
+} from "@/features/world/signals/types";
 import type { LenaContextSituation } from "./types";
 
 /** Spatial contribution: route + arrival state + transition phase. */
@@ -55,10 +58,11 @@ export function situationFromMemory(
   return { memory, registry };
 }
 
-/** Signals contribution: canonical store snapshot + requested world ids. */
+/** Signals contribution: canonical store snapshot + source authority + world ids. */
 export function situationFromSignals(
   signals: readonly WorldSignal[],
   worldIds: readonly string[],
-): Pick<LenaContextSituation, "signals" | "worldIds"> {
-  return { signals, worldIds };
+  source?: SignalSourceState | null,
+): Pick<LenaContextSituation, "signals" | "signalSource" | "worldIds"> {
+  return { signals, signalSource: source ?? null, worldIds };
 }

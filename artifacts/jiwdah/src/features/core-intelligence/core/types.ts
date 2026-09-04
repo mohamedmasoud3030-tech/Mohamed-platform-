@@ -102,8 +102,8 @@ export interface CoreView {
   attentionOwner: CoreAttentionOwner | null;
   /** Unresolved critical + attention signals. */
   activeThreats: number;
-  /** Open signals of any severity. */
-  openSignals: number;
+  /** Open signals of any severity, or null when no source is available. */
+  openSignals: number | null;
   continuationAvailable: boolean;
   graphAvailable: boolean;
   /** True when the previous-state stability rule held the state. */

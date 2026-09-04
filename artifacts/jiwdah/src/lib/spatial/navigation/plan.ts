@@ -16,8 +16,13 @@ import type {
   SpatialIntent,
   SpatialNavState,
   SpatialScene,
+  SpatialSpace,
 } from "../types";
 import { buildSpatialState, parentPathOf, parseSpatialRoute } from "./context";
+
+function isJourneySpace(space: SpatialSpace | undefined): space is LenaSpace {
+  return space === "home" || space === "world" || space === "chamber";
+}
 
 export interface GoPlanArgs {
   /** Router-relative path we are on now. */
@@ -63,8 +68,12 @@ export function planGo(args: GoPlanArgs): GoPlan {
   }
 
   const destination = parseSpatialRoute(toPath);
-  const systemId = args.systemId ?? destination?.systemId;
-  const scene: SpatialScene = destination?.space ?? "home";
+  const systemId = args.systemId ?? destination.systemId;
+  const journeySpace = isJourneySpace(destination.space) ? destination.space : null;
+  const scene: SpatialScene =
+    destination.space === "command" || destination.space === "atlas"
+      ? "world"
+      : journeySpace ?? "home";
 
   return {
     kind: "go",
@@ -76,14 +85,13 @@ export function planGo(args: GoPlanArgs): GoPlan {
       systemId,
     }),
     scene,
-    memory:
-      destination || systemId
-        ? {
-            space: destination?.space ?? "home",
-            systemId: systemId ?? null,
-            chamberPath: destination?.space === "chamber" ? toPath : null,
-          }
-        : null,
+    memory: journeySpace
+      ? {
+          space: journeySpace,
+          systemId: systemId ?? null,
+          chamberPath: journeySpace === "chamber" ? toPath : null,
+        }
+      : null,
   };
 }
 

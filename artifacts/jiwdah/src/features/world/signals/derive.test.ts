@@ -10,7 +10,17 @@ import {
 } from "./derive.ts";
 import { DEMO_SIGNALS } from "./fixtures.ts";
 import { createSignalStore } from "./runtime.ts";
-import type { WorldSignal } from "./types.ts";
+import {
+  UNAVAILABLE_SIGNAL_SOURCE,
+  type SignalSourceState,
+  type WorldSignal,
+} from "./types.ts";
+
+const WRITABLE_SOURCE: SignalSourceState = {
+  availability: "available",
+  observedAt: "2026-09-03T09:00:00.000Z",
+  writable: true,
+};
 
 function sig(partial: Partial<WorldSignal>): WorldSignal {
   return {
@@ -74,13 +84,37 @@ test("acknowledge and resolve mutate lifecycle", () => {
 });
 
 test("store acknowledge keeps presence until resolve", () => {
-  const store = createSignalStore([
-    sig({ id: "one", lifecycle: "new", severity: "critical", sourceWorld: "recycling" }),
-  ]);
+  const store = createSignalStore(
+    [sig({ id: "one", lifecycle: "new", severity: "critical", sourceWorld: "recycling" })],
+    WRITABLE_SOURCE,
+  );
   store.acknowledge("one");
   assert.equal(store.getSnapshot()[0].lifecycle, "acknowledged");
   assert.equal(presenceFromSignals(store.getSnapshot()), "critical");
   store.resolve("one");
   assert.equal(store.getSnapshot()[0].lifecycle, "resolved");
   assert.equal(presenceFromSignals(store.getSnapshot()), "quiet");
+});
+
+test("production store starts empty and unavailable, while fixtures opt into a source", () => {
+  const production = createSignalStore();
+  assert.deepEqual(production.getSnapshot(), []);
+  assert.deepEqual(production.getSource(), UNAVAILABLE_SIGNAL_SOURCE);
+  production.emit(sig({ id: "blocked" }));
+  production.acknowledge("blocked");
+  assert.deepEqual(production.getSnapshot(), []);
+
+  const fixture = createSignalStore([sig({ id: "fixture" })], WRITABLE_SOURCE);
+  assert.equal(fixture.getSnapshot()[0].id, "fixture");
+  assert.deepEqual(fixture.getSource(), WRITABLE_SOURCE);
+
+  const readOnly = createSignalStore([sig({ id: "read-only" })], {
+    ...WRITABLE_SOURCE,
+    writable: false,
+  });
+  readOnly.acknowledge("read-only");
+  readOnly.resolve("read-only");
+  readOnly.emit(sig({ id: "blocked" }));
+  assert.equal(readOnly.getSnapshot()[0].lifecycle, "active");
+  assert.equal(readOnly.getSnapshot().length, 1);
 });

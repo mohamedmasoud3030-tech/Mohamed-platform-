@@ -11,7 +11,10 @@
  * fixed clock so derivations are reproducible.
  */
 
-import type { WorldSignal } from "@/features/world/signals/types";
+import type {
+  SignalSourceState,
+  WorldSignal,
+} from "@/features/world/signals/types";
 import type { SpatialMemory } from "@/lib/spatial/memory/types";
 import type { WorldRegistry } from "@/lib/spatial/continuation";
 import type { SpatialIntent } from "@/lib/spatial/types";
@@ -29,6 +32,13 @@ export const PUB_WORLD_IDS = [
 
 /** Fixed clock shared by all fixtures (2026-09-03T09:00:00.000Z). */
 export const FIXED_NOW = Date.parse("2026-09-03T09:00:00.000Z");
+
+/** Explicitly authorized fixture source; never used by production composition. */
+export const AVAILABLE_SIGNAL_SOURCE: SignalSourceState = {
+  availability: "available",
+  observedAt: "2026-09-03T09:00:00.000Z",
+  writable: true,
+};
 
 /** Deterministic ISO timestamp offset from FIXED_NOW, in minutes. */
 export function stamp(minutesBeforeNow: number): string {

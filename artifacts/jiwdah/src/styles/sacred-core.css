@@ -121,6 +121,35 @@
   animation: lena-sacred-ack-forming 1.05s cubic-bezier(.18,.72,.2,1), lena-sacred-eye-breathe 5.8s ease-in-out 1.05s infinite alternate !important;
 }
 
+/* Core Intelligence changes the existing Sacred Core halo only. The approved
+   artwork remains the identity; state adds a restrained, data-owned cue. */
+.lena-world-core.core-aware {
+  filter:
+    drop-shadow(0 0 14px rgba(231, 176, 73, .34))
+    drop-shadow(0 0 32px rgba(223, 137, 35, .18));
+}
+.lena-world-core.core-focused,
+.lena-world-core.core-guiding {
+  filter:
+    drop-shadow(0 0 14px rgba(130, 161, 255, .42))
+    drop-shadow(0 0 34px rgba(223, 137, 35, .18));
+}
+.lena-world-core.core-transitioning {
+  filter:
+    drop-shadow(0 0 16px rgba(81, 225, 255, .44))
+    drop-shadow(0 0 36px rgba(223, 137, 35, .18));
+}
+.lena-world-core.core-attention {
+  filter:
+    drop-shadow(0 0 16px rgba(255, 168, 92, .5))
+    drop-shadow(0 0 38px rgba(223, 137, 35, .2));
+}
+.lena-world-core.core-critical {
+  filter:
+    drop-shadow(0 0 18px rgba(255, 92, 110, .58))
+    drop-shadow(0 0 42px rgba(223, 137, 35, .22));
+}
+
 .lena-public.lena-gateway-quiet .lena-house {
   filter:
     drop-shadow(0 0 17px rgba(255, 220, 145, .38))

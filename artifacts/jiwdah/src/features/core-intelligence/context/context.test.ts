@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { fuseLenaContext } from "./fusion";
 import type { LenaContextSituation } from "./types";
 import {
+  AVAILABLE_SIGNAL_SOURCE,
   FIXED_NOW,
   chamberRoute,
   homeRoute,
@@ -19,7 +20,13 @@ import { situationFromSignals, situationFromSpatial } from "./adapters";
 const REGISTRY = makeRegistry();
 
 function fuse(situation: LenaContextSituation) {
-  return fuseLenaContext({ now: FIXED_NOW, registry: REGISTRY, ...situation });
+  const hasSignals = situation.signals !== undefined && situation.signals !== null;
+  return fuseLenaContext({
+    now: FIXED_NOW,
+    registry: REGISTRY,
+    ...(hasSignals ? { signalSource: AVAILABLE_SIGNAL_SOURCE } : {}),
+    ...situation,
+  });
 }
 
 describe("context fusion — calm context", () => {
@@ -57,6 +64,56 @@ describe("context fusion — calm context", () => {
       currentNode: "/world",
     });
     expect(snapshot.graph.currentNeighbors).toEqual(["/", ...PUB_WORLD_IDS]);
+  });
+});
+
+describe("context fusion — source authority", () => {
+  it("keeps unavailable distinct from quiet and ignores stray signal data", () => {
+    const snapshot = fuseLenaContext({
+      now: FIXED_NOW,
+      route: worldFieldRoute(),
+      signals: [makeSignal({ id: "stray", severity: "critical" })],
+      worldIds: [...PUB_WORLD_IDS],
+    });
+
+    expect(snapshot.signals.present).toBe(false);
+    expect(snapshot.signals.source.availability).toBe("unavailable");
+    expect(snapshot.signals.globalState).toBeNull();
+    expect(snapshot.signals.presence).toBe("unavailable");
+    expect(snapshot.signals.openCount).toBeNull();
+    expect(snapshot.signals.attentionPressure).toBeNull();
+    expect(snapshot.signals.highestUnresolved).toBeNull();
+    expect(snapshot.signals.byWorld.property).toBe("unavailable");
+    expect(snapshot.focus.currentWorldPresence).toBeNull();
+  });
+
+  it("classifies Command and Atlas as world-level surfaces", () => {
+    const command = fuse({ route: { space: "command", path: "/world/command" } });
+    const atlas = fuse({ route: { space: "atlas", path: "/world/atlas" } });
+
+    expect(command.spatial).toMatchObject({
+      inLena: true,
+      space: "command",
+      systemId: null,
+      depth: 1,
+    });
+    expect(command.graph.currentNode).toBe("/world");
+    expect(atlas.spatial).toMatchObject({
+      inLena: true,
+      space: "atlas",
+      systemId: null,
+      depth: 1,
+    });
+    expect(atlas.graph.currentNode).toBe("/world");
+
+    const outside = fuse({ route: { space: "other", path: "/services" } });
+    expect(outside.spatial).toMatchObject({
+      inLena: false,
+      space: "other",
+      systemId: null,
+      depth: 0,
+    });
+    expect(outside.graph.currentNode).toBeNull();
   });
 });
 
@@ -310,7 +367,12 @@ describe("context fusion — incomplete optional data", () => {
     });
     expect(snapshot.memory.present).toBe(false);
     expect(snapshot.signals.present).toBe(false);
-    expect(snapshot.signals.globalState).toBe("calm");
+    expect(snapshot.signals.source).toMatchObject({
+      availability: "unavailable",
+      reason: "no-authorized-product-source",
+    });
+    expect(snapshot.signals.globalState).toBeNull();
+    expect(snapshot.signals.presence).toBe("unavailable");
     expect(snapshot.catalog.worlds).toEqual([]);
     expect(snapshot.continuity.available).toBe(false);
     expect(snapshot.graph.available).toBe(false);
@@ -431,7 +493,11 @@ describe("context adapters (canonical mappers)", () => {
     const signals = [
       makeSignal({ id: "a1", sourceWorld: "rental", severity: "attention" }),
     ];
-    const mapped = situationFromSignals(signals, [...PUB_WORLD_IDS]);
+    const mapped = situationFromSignals(
+      signals,
+      [...PUB_WORLD_IDS],
+      AVAILABLE_SIGNAL_SOURCE,
+    );
     const snapshot = fuse({
       route: worldFieldRoute(),
       registry: REGISTRY,

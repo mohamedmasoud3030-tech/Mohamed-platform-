@@ -17,7 +17,8 @@
  *   - "/"          — the home threshold
  *   - "/world"     — the world field
  *   - <systemId>   — a world chamber node, e.g. "property", "wellness"
- *   (mirrors `LenaSpace` / route semantics without importing the runtime)
+ *   Command and Atlas resolve to the "/world" structural node; "other" has
+ *   no LENA graph node. This mirrors route semantics without importing React.
  */
 
 /** Node identifier inside the structural graph. */
@@ -123,15 +124,21 @@ export class InMemoryGraphContextAdapter implements GraphContextAdapter {
 }
 
 /**
- * Resolve the graph node for the current LENA route facts. Returns null when
- * the current space has no structural node (outside LENA).
+ * Resolve the graph node for the current route facts. Command and Atlas are
+ * world-level structural surfaces, while `other` has no LENA node.
  */
 export function graphNodeFor(
-  space: "home" | "world" | "chamber" | null | undefined,
+  space: "home" | "world" | "chamber" | "command" | "atlas" | "other" | null | undefined,
   systemId?: string | null,
 ): GraphNodeId | null {
   if (space === "home") return GRAPH_HOME_NODE;
-  if (space === "world") return GRAPH_WORLD_NODE;
+  if (
+    space === "world" ||
+    space === "command" ||
+    space === "atlas"
+  ) {
+    return GRAPH_WORLD_NODE;
+  }
   if (space === "chamber") return systemId ?? null;
   return null;
 }
