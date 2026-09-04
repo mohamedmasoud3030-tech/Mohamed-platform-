@@ -47,7 +47,7 @@ check("the named product family keeps independent brands", () => {
 check("the homepage is a normal LENA company page, not an app chooser or support flow", () => {
   const home = readFileSync(resolve(ROOT, "artifacts/jiwdah/src/pages/Home.tsx"), "utf8");
   const app = readFileSync(resolve(ROOT, "artifacts/jiwdah/src/App.tsx"), "utf8");
-  assert.match(home, /LENA DIGITAL HOUSE — CREATIVE SYSTEMS/);
+  assert.match(home, /Real operating worlds/);\n  assert.doesNotMatch(home, /CREATIVE SYSTEMS|digital presence|الحضور الرقمي/i);
   assert.doesNotMatch(home, /useSearchParams/);
   assert.doesNotMatch(home, /from=malek/);
   assert.doesNotMatch(home, /choose your app/i);
