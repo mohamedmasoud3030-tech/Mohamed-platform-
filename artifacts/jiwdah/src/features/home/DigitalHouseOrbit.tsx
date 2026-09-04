@@ -320,7 +320,7 @@ export default function DigitalHouseOrbit() {
           <br />
           HOUSE
         </strong>
-        <span>{locale === "ar" ? "أنظمة إبداعية" : "Creative systems"}</span>
+        <span>{locale === "ar" ? "أنظمة تشغيل" : "Operating systems"}</span>
       </div>
       <i className="lena-pulse" />
     </div>
