@@ -11,9 +11,9 @@
 ## 1. Repeatable baseline
 
 ```bash
-rm -rf artifacts/jiwdah/dist
+rm -rf artifacts/lena/dist
 SITE_URL=https://example.com pnpm run build      # full production build
-cd artifacts/jiwdah/dist/public/assets && for f in *.js; do gzip -c $f | wc -c; done
+cd artifacts/lena/dist/public/assets && for f in *.js; do gzip -c $f | wc -c; done
 pnpm audit                                        # advisories
 pnpm run verify                                   # 10 suites, 206 assertions
 ```
@@ -59,9 +59,9 @@ advisories and a large share of the 516 installed packages.
 
 - **Evidence:** `grep` for `api-spec` and `@workspace/api-client-react` outside their own directories returns **0 matches**; advisory paths all read `lib__api-spec>orval>…`.
 - **Impact:** no user impact — build tooling only. The cost is install time, audit noise, and a maintenance surface that makes real advisories harder to see.
-- **Smallest remediation:** remove the two workspace packages and the `@workspace/api-client-react` dependency from `artifacts/jiwdah/package.json`.
+- **Smallest remediation:** remove the two workspace packages and the `@workspace/api-client-react` dependency from `artifacts/lena/package.json`.
 - **Expected benefit:** roughly a third of all advisories disappear; fewer packages to install.
-- **Regression risk:** low — but `jiwdah/tsconfig.json` references `api-client-react` as a project reference, so removal must be done in one coherent change with a typecheck.
+- **Regression risk:** low — but `lena/tsconfig.json` references `api-client-react` as a project reference, so removal must be done in one coherent change with a typecheck.
 - **Tests:** `pnpm run typecheck`, `pnpm run build`, `pnpm run verify`.
 - **Rollback:** revert one commit.
 
@@ -80,7 +80,7 @@ production dependencies, with a DoS advisory fixed in 2.2.0.
 
 | Package | Installed path | Fixed in | Reachable here? |
 |---|---|---|---|
-| `react-router` | `artifacts/jiwdah` | ≥ 7.15.0 (high), ≥ 7.18.0 (moderate) | The DoS is in the `__manifest` endpoint, a framework-mode server feature. This app is a client-side SPA with no such endpoint, so **the advisory is real but likely not reachable**. Upgrade anyway — it is a patch bump. |
+| `react-router` | `artifacts/lena` | ≥ 7.15.0 (high), ≥ 7.18.0 (moderate) | The DoS is in the `__manifest` endpoint, a framework-mode server feature. This app is a client-side SPA with no such endpoint, so **the advisory is real but likely not reachable**. Upgrade anyway — it is a patch bump. |
 | `nodemailer` | `artifacts/api-server` | ≥ 9.0.1 | The advisory concerns the message-level `raw` option; this code never uses it. **Not reachable as written**, but it sends mail from a public path. Upgrade. |
 | `qs`, `body-parser` | via `express` | ≥ 6.15.2 / ≥ 2.3.0 | Transitive through Express, which is production. Moderate/low. |
 

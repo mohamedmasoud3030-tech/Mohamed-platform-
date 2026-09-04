@@ -6,10 +6,10 @@ import assert from "node:assert/strict";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (path) => readFileSync(resolve(ROOT, path), "utf8");
 
-const evidence = read("artifacts/jiwdah/src/features/world/content/evidence.ts");
-const systems = read("artifacts/jiwdah/src/content/systems.ts");
-const primitives = read("artifacts/jiwdah/src/features/world/content/operating-primitives.ts");
-const publicDir = resolve(ROOT, "artifacts/jiwdah/public");
+const evidence = read("artifacts/lena/src/features/world/content/evidence.ts");
+const systems = read("artifacts/lena/src/content/systems.ts");
+const primitives = read("artifacts/lena/src/features/world/content/operating-primitives.ts");
+const publicDir = resolve(ROOT, "artifacts/lena/public");
 
 let failures = 0;
 const check = (name, fn) => {
@@ -80,7 +80,7 @@ check("evidence never claims traction, customers or lifecycle", () => {
 });
 
 check("the Operating Surfaces component derives from canonical data", () => {
-  const component = read("artifacts/jiwdah/src/features/world/components/OperatingSurfaces.tsx");
+  const component = read("artifacts/lena/src/features/world/components/OperatingSurfaces.tsx");
   assert.match(component, /evidenceFor\(systemId\)/);
   assert.doesNotMatch(component, /systemId === "property"/);
   assert.doesNotMatch(component, /\.src\s*[:=]\s*["']\/world\/evidence/);

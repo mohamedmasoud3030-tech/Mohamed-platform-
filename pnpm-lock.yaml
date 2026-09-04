@@ -236,7 +236,7 @@ importers:
         specifier: 'catalog:'
         version: 4.21.0
 
-  artifacts/jiwdah:
+  artifacts/lena:
     dependencies:
       '@trpc/client':
         specifier: ^11.17.0

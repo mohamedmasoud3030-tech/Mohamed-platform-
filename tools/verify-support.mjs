@@ -22,7 +22,7 @@ globalThis.document = { documentElement: { lang: "ar" } };
 // navigator is read-only in Node; the module reads window.navigator
 
 const out = await build({
-  entryPoints: [`${ROOT}/artifacts/jiwdah/src/lib/support.ts`],
+  entryPoints: [`${ROOT}/artifacts/lena/src/lib/support.ts`],
   bundle: true, write: false, format: "esm", platform: "neutral",
   define: { __APP_BUILD__: JSON.stringify("abc1234.2026-08-20") },
 });

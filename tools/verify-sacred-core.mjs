@@ -4,10 +4,10 @@ import { fileURLToPath } from "node:url";
 import assert from "node:assert/strict";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const cssPath = resolve(ROOT, "artifacts/jiwdah/src/styles/sacred-core.css");
-const assetPath = resolve(ROOT, "artifacts/jiwdah/src/assets/lena-sacred-core.webp");
-const retiredInlinePath = resolve(ROOT, "artifacts/jiwdah/src/assets/lena-sacred-core-v3-inline.svg");
-const lenaCssPath = resolve(ROOT, "artifacts/jiwdah/src/lena.css");
+const cssPath = resolve(ROOT, "artifacts/lena/src/styles/sacred-core.css");
+const assetPath = resolve(ROOT, "artifacts/lena/src/assets/lena-sacred-core.webp");
+const retiredInlinePath = resolve(ROOT, "artifacts/lena/src/assets/lena-sacred-core-v3-inline.svg");
+const lenaCssPath = resolve(ROOT, "artifacts/lena/src/lena.css");
 
 let failures = 0;
 const check = (name, fn) => {

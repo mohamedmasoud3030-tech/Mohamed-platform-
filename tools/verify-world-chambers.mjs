@@ -6,15 +6,15 @@ import assert from "node:assert/strict";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (path) => readFileSync(resolve(ROOT, path), "utf8");
 
-const app = read("artifacts/jiwdah/src/App.tsx");
-const page = read("artifacts/jiwdah/src/pages/WorldSystem.tsx");
-const world = read("artifacts/jiwdah/src/features/world/content/world.ts");
-const systems = read("artifacts/jiwdah/src/content/systems.ts");
-const css = read("artifacts/jiwdah/src/styles/world-chamber.css");
-const evidenceCss = read("artifacts/jiwdah/src/styles/world-evidence.css");
-const lenaCss = read("artifacts/jiwdah/src/lena.css");
-const sitemap = read("artifacts/jiwdah/scripts/generate-sitemap.mjs");
-const analytics = read("artifacts/jiwdah/src/lib/analytics/events.ts");
+const app = read("artifacts/lena/src/App.tsx");
+const page = read("artifacts/lena/src/pages/WorldSystem.tsx");
+const world = read("artifacts/lena/src/features/world/content/world.ts");
+const systems = read("artifacts/lena/src/content/systems.ts");
+const css = read("artifacts/lena/src/styles/world-chamber.css");
+const evidenceCss = read("artifacts/lena/src/styles/world-evidence.css");
+const lenaCss = read("artifacts/lena/src/lena.css");
+const sitemap = read("artifacts/lena/scripts/generate-sitemap.mjs");
+const analytics = read("artifacts/lena/src/lib/analytics/events.ts");
 
 const FORBIDDEN_LIFECYCLE = [
   // English lifecycle vocabulary that must not appear on public surfaces.
@@ -106,7 +106,7 @@ check("Operating Surfaces is real-evidence only, never a gallery", () => {
 });
 
 check("Operating Surfaces renders nothing when a system has no evidence", () => {
-  const component = read("artifacts/jiwdah/src/features/world/components/OperatingSurfaces.tsx");
+  const component = read("artifacts/lena/src/features/world/components/OperatingSurfaces.tsx");
   assert.match(component, /if \(surfaces\.length === 0\) return null/);
 });
 
@@ -152,8 +152,8 @@ check("analytics records a route shape, never the chamber system id", () => {
 });
 
 check("real evidence assets exist under the canonical system folder", () => {
-  const evidence = read("artifacts/jiwdah/src/features/world/content/evidence.ts");
-  const publicDir = resolve(ROOT, "artifacts/jiwdah/public");
+  const evidence = read("artifacts/lena/src/features/world/content/evidence.ts");
+  const publicDir = resolve(ROOT, "artifacts/lena/public");
   const matches = evidence.matchAll(/src:\s*"(\/world\/evidence\/([a-z0-9-]+)\/([^"]+))"/g);
   let count = 0;
   for (const match of matches) {
@@ -169,7 +169,7 @@ check("real evidence assets exist under the canonical system folder", () => {
 });
 
 check("evidence ids are unique and every surface is alt + capability labelled", () => {
-  const evidence = read("artifacts/jiwdah/src/features/world/content/evidence.ts");
+  const evidence = read("artifacts/lena/src/features/world/content/evidence.ts");
   const ids = [...evidence.matchAll(/id:\s*"([^"]+)"/g)].map((m) => m[1]);
   assert.equal(new Set(ids).size, ids.length, "duplicate evidence surface ids");
   assert.ok(evidence.includes("alt: {"), "surfaces need alt text");
@@ -178,10 +178,10 @@ check("evidence ids are unique and every surface is alt + capability labelled", 
 
 check("no public render site still references stage labels", () => {
   for (const file of [
-    "artifacts/jiwdah/src/components/SystemGrid.tsx",
-    "artifacts/jiwdah/src/pages/Portfolio.tsx",
-    "artifacts/jiwdah/src/pages/Services.tsx",
-    "artifacts/jiwdah/src/features/world/components/WorldScene.tsx",
+    "artifacts/lena/src/components/SystemGrid.tsx",
+    "artifacts/lena/src/pages/Portfolio.tsx",
+    "artifacts/lena/src/pages/Services.tsx",
+    "artifacts/lena/src/features/world/components/WorldScene.tsx",
   ]) {
     const source = read(file);
     assert.doesNotMatch(source, /STAGE_LABEL|STAGE_NOTE|WORLD_STATE_LABEL|WORLD_STATE_NOTE|WORLD_ACTION_LABEL/);

@@ -21,7 +21,7 @@ import { fileURLToPath } from "node:url";
 
 const GUARD_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const ROOT = resolve(GUARD_DIR, "..", "..");
-const JIWDHA = resolve(ROOT, "artifacts", "jiwdah");
+const LENA = resolve(ROOT, "artifacts", "lena");
 
 const config = JSON.parse(readFileSync(resolve(GUARD_DIR, "routes.config.json"), "utf8"));
 
@@ -75,9 +75,9 @@ function validateWebP(buffer, label) {
 const CRITICAL_ASSETS = [
   ...config.criticalAssets,
   // Every world evidence screenshot doubles as a world identity asset.
-  ...readdirSync(resolve(JIWDHA, "public/world/evidence/malek"))
+  ...readdirSync(resolve(LENA, "public/world/evidence/malek"))
     .filter((name) => /\.(png|webp)$/i.test(name))
-    .map((name) => ({ name: `evidence-${name}`, file: `artifacts/jiwdah/public/world/evidence/malek/${name}`, kind: name.endsWith(".png") ? "png" : "webp" })),
+    .map((name) => ({ name: `evidence-${name}`, file: `artifacts/lena/public/world/evidence/malek/${name}`, kind: name.endsWith(".png") ? "png" : "webp" })),
 ];
 
 console.log("\n== Guardian: critical asset integrity ==\n");
@@ -121,9 +121,9 @@ for (const asset of CRITICAL_ASSETS) {
 
 /* --------------------------- Sacred Core contract -------------------------- */
 
-const lenaCss = readFileSync(resolve(JIWDHA, "src/lena.css"), "utf8");
-const sacredCss = readFileSync(resolve(JIWDHA, "src/styles/sacred-core.css"), "utf8");
-const retiredInline = resolve(JIWDHA, "src/assets/lena-sacred-core-v3-inline.svg");
+const lenaCss = readFileSync(resolve(LENA, "src/lena.css"), "utf8");
+const sacredCss = readFileSync(resolve(LENA, "src/styles/sacred-core.css"), "utf8");
+const retiredInline = resolve(LENA, "src/assets/lena-sacred-core-v3-inline.svg");
 
 console.log("\n== Guardian: Sacred Core source contract ==\n");
 
@@ -152,22 +152,22 @@ check("sacred-core.css still loads after World styles (cascade priority)", () =>
 });
 
 check("chamber/inner watermarks still reference the canonical WebP", () => {
-  const chamber = readFileSync(resolve(JIWDHA, "src/styles/world-chamber.css"), "utf8");
-  const inner = readFileSync(resolve(JIWDHA, "src/styles/world-inner.css"), "utf8");
+  const chamber = readFileSync(resolve(LENA, "src/styles/world-chamber.css"), "utf8");
+  const inner = readFileSync(resolve(LENA, "src/styles/world-inner.css"), "utf8");
   assert(chamber.includes("lena-sacred-core.webp"), "chamber watermark reference missing");
   assert(inner.includes("lena-sacred-core.webp"), "inner watermark reference missing");
 });
 
 check("primary logo/identity is present in the app", () => {
-  const logo = readFileSync(resolve(JIWDHA, "src/design-system/brand/LenaLogo.tsx"), "utf8");
+  const logo = readFileSync(resolve(LENA, "src/design-system/brand/LenaLogo.tsx"), "utf8");
   assert(logo.includes("lena-logo-mark") && logo.includes("<svg"), "LenaLogo must render the SVG mark");
-  const favicon = readFileSync(resolve(JIWDHA, "public/favicon.svg"), "utf8");
+  const favicon = readFileSync(resolve(LENA, "public/favicon.svg"), "utf8");
   assert(favicon.trimStart().startsWith("<svg"), "favicon must be an SVG");
 });
 
 /* ------------------------- built output resolution ------------------------ */
 
-const DIST = resolve(JIWDHA, "dist/public");
+const DIST = resolve(LENA, "dist/public");
 if (existsSync(DIST)) {
   console.log("\n== Guardian: built output asset resolution ==\n");
   const assetsDir = resolve(DIST, "assets");
@@ -194,7 +194,7 @@ if (existsSync(DIST)) {
 
 console.log("\n== Guardian: critical route inventory ==\n");
 
-const appSource = readFileSync(resolve(JIWDHA, "src/App.tsx"), "utf8");
+const appSource = readFileSync(resolve(LENA, "src/App.tsx"), "utf8");
 const dynamicRoutes = appSource.match(/path="([^"]+)"/g) ?? [];
 
 check("every critical route exists in the router", () => {

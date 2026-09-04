@@ -21,9 +21,9 @@
     "innerSpace": ".lena-inner-constellation"
   },
   "criticalAssets": [
-    { "name": "sacred-core-webp", "file": "artifacts/jiwdah/src/assets/lena-sacred-core.webp", "kind": "webp", "canonical": true },
-    { "name": "lena-favicon", "file": "artifacts/jiwdah/public/favicon.svg", "kind": "svg" },
-    { "name": "lena-og-image", "file": "artifacts/jiwdah/public/lena-og.jpg", "kind": "jpeg" },
-    { "name": "founder-image", "file": "artifacts/jiwdah/public/founder.jpg", "kind": "jpeg" }
+    { "name": "sacred-core-webp", "file": "artifacts/lena/src/assets/lena-sacred-core.webp", "kind": "webp", "canonical": true },
+    { "name": "lena-favicon", "file": "artifacts/lena/public/favicon.svg", "kind": "svg" },
+    { "name": "lena-og-image", "file": "artifacts/lena/public/lena-og.jpg", "kind": "jpeg" },
+    { "name": "founder-image", "file": "artifacts/lena/public/founder.jpg", "kind": "jpeg" }
   ]
 }

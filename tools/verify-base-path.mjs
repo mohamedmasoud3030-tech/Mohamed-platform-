@@ -12,7 +12,7 @@ function resolveFrom(pkgPath, name) {
 const { build } = await import(resolveFrom("artifacts/api-server/package.json", "esbuild"));
 import assert from "node:assert/strict";
 
-const alias = { "@": `${ROOT}/artifacts/jiwdah/src` };
+const alias = { "@": `${ROOT}/artifacts/lena/src` };
 
 async function load(entry) {
   const out = await build({
@@ -26,8 +26,8 @@ async function load(entry) {
   return import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));
 }
 
-const B = await load(`${ROOT}/artifacts/jiwdah/src/lib/base-path.ts`);
-const E = await load(`${ROOT}/artifacts/jiwdah/src/lib/analytics/events.ts`);
+const B = await load(`${ROOT}/artifacts/lena/src/lib/base-path.ts`);
+const E = await load(`${ROOT}/artifacts/lena/src/lib/analytics/events.ts`);
 
 let failures = 0;
 const check = (name, fn) => {
@@ -84,7 +84,7 @@ if (typeof E.setBasePathForTests === "function") {
   // events.ts imports stripBase; the test bundle of events.ts also exports setBasePathForTests
   // if the helper is re-exported. If not, drive stripBase via a known default of "".
   check("events module is base-path aware (stripBase is used)", () => {
-    const source = readFileSync(`${ROOT}/artifacts/jiwdah/src/lib/analytics/events.ts`, "utf8");
+    const source = readFileSync(`${ROOT}/artifacts/lena/src/lib/analytics/events.ts`, "utf8");
     assert.match(source, /stripBase/);
     assert.match(source, /from "@\/lib\/base-path"/);
   });
@@ -92,12 +92,12 @@ if (typeof E.setBasePathForTests === "function") {
 
 console.log("\n== API client, OAuth and assets go through withBase ==");
 const files = {
-  trpc: readFileSync(`${ROOT}/artifacts/jiwdah/src/providers/trpc.tsx`, "utf8"),
-  sink: readFileSync(`${ROOT}/artifacts/jiwdah/src/lib/analytics/sink.ts`, "utf8"),
-  upload: readFileSync(`${ROOT}/artifacts/jiwdah/src/lib/uploadProjectMedia.ts`, "utf8"),
-  login: readFileSync(`${ROOT}/artifacts/jiwdah/src/pages/Login.tsx`, "utf8"),
-  html: readFileSync(`${ROOT}/artifacts/jiwdah/index.html`, "utf8"),
-  router: readFileSync(`${ROOT}/artifacts/jiwdah/src/main.tsx`, "utf8"),
+  trpc: readFileSync(`${ROOT}/artifacts/lena/src/providers/trpc.tsx`, "utf8"),
+  sink: readFileSync(`${ROOT}/artifacts/lena/src/lib/analytics/sink.ts`, "utf8"),
+  upload: readFileSync(`${ROOT}/artifacts/lena/src/lib/uploadProjectMedia.ts`, "utf8"),
+  login: readFileSync(`${ROOT}/artifacts/lena/src/pages/Login.tsx`, "utf8"),
+  html: readFileSync(`${ROOT}/artifacts/lena/index.html`, "utf8"),
+  router: readFileSync(`${ROOT}/artifacts/lena/src/main.tsx`, "utf8"),
 };
 check("tRPC client uses withBase('/api/trpc')", () => {
   assert.match(files.trpc, /withBase\("\/api\/trpc"\)/);

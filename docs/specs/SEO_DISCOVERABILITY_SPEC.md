@@ -9,7 +9,7 @@
 ## 1. Problem
 
 All 11 frontend routes share a single `<title>`, a single description, and a single Open Graph card
-defined statically in `artifacts/jiwdah/index.html`. There is no `robots.txt`, no `sitemap.xml`, and
+defined statically in `artifacts/lena/index.html`. There is no `robots.txt`, no `sitemap.xml`, and
 no structured data. Unknown URLs are redirected to `/` with HTTP 200 (a soft 404).
 
 Consequences:
@@ -102,10 +102,10 @@ duplicate `src/pages/not-found.tsx` is deleted; `src/pages/NotFound.tsx` becomes
 
 ### 4.5 `robots.txt` and `sitemap.xml`
 
-`artifacts/jiwdah/public/robots.txt` is the development/committed fallback (allow all, disallow
+`artifacts/lena/public/robots.txt` is the development/committed fallback (allow all, disallow
 `/dashboard` and `/login`).
 
-`artifacts/jiwdah/scripts/generate-sitemap.mjs` runs **after** `vite build` and writes both
+`artifacts/lena/scripts/generate-sitemap.mjs` runs **after** `vite build` and writes both
 `dist/public/robots.txt` (with an absolute `Sitemap:` line) and `dist/public/sitemap.xml`.
 
 Base-URL resolution order, no hard-coded domain:
@@ -140,7 +140,7 @@ at build time) — covered by Phase 2.
    and a `WebSite` node.
 8. An unknown URL renders the branded 404 page — no redirect to `/` — and is `noindex`.
 9. Switching language updates the metadata of the current route without a reload.
-10. No new runtime dependency is added to `artifacts/jiwdah/package.json`.
+10. No new runtime dependency is added to `artifacts/lena/package.json`.
 
 ## 6. Verification performed
 
@@ -156,7 +156,7 @@ Executed on branch `arena/01a01ef6-platform` at implementation time:
 
 Delete `src/lib/seo.ts`, `src/hooks/useSeo.ts`, `src/components/SeoHead.tsx`,
 `src/content/seo.ts`, `public/robots.txt`, `scripts/generate-sitemap.mjs`; revert the `<SeoHead />`
-lines in the page components, the `build` script in `artifacts/jiwdah/package.json`, and the `*`
+lines in the page components, the `build` script in `artifacts/lena/package.json`, and the `*`
 route in `App.tsx`. No database, no environment, and no external service is affected.
 
 ---

@@ -1,8 +1,8 @@
 kind = "web"
 previewPath = "/"
-title = "مشاريع جودة الإنطلاقة"
+title = "LENA Digital House"
 version = "1.0.0"
-id = "artifacts/jiwdah"
+id = "artifacts/lena"
 router = "path"
 
 [[integratedSkills]]
@@ -15,11 +15,11 @@ paths = [ "/" ]
 localPort = 20063
 
 [services.development]
-run = "pnpm --filter @workspace/jiwdah run dev"
+run = "pnpm --filter @workspace/lena run dev"
 
 [services.production]
-build = [ "pnpm", "--filter", "@workspace/jiwdah", "run", "build" ]
-publicDir = "artifacts/jiwdah/dist/public"
+build = [ "pnpm", "--filter", "@workspace/lena", "run", "build" ]
+publicDir = "artifacts/lena/dist/public"
 serve = "static"
 
 [[services.production.rewrites]]

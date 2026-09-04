@@ -11,7 +11,7 @@
 
 | Dimension | Finding | Evidence |
 |---|---|---|
-| **Category** | Bilingual (AR/EN, RTL-first) creative-studio / digital-agency marketing website with a lead capture form and a lightweight admin back office. Not a SaaS, not a marketplace. | `artifacts/jiwdah` routes, `src/content/services.ts` (8 service tracks), `src/content/caseStudies.ts` |
+| **Category** | Bilingual (AR/EN, RTL-first) creative-studio / digital-agency marketing website with a lead capture form and a lightweight admin back office. Not a SaaS, not a marketplace. | `artifacts/lena` routes, `src/content/services.ts` (8 service tracks), `src/content/caseStudies.ts` |
 | **Target users** | (a) Prospective clients in Oman / Gulf — SMEs, founders, F&B and retail brands looking for identity, web, content, automation. (b) The studio owner (single admin). | `SITE_CONFIG.locationLabel = "سلطنة عمان"`, `+968` phone, Arabic-first `index.html` (`lang="ar" dir="rtl"`) |
 | **Primary outcome** | A qualified stranger discovers LENA, trusts it via case studies, and starts a conversation (WhatsApp, email, or the inquiry form). Everything else is supporting. | Every page ends in `LenaCta`; `WhatsAppFAB` is global; `inquiries.create` is the only public write endpoint |
 | **Roles** | `user` and `admin` only. Admin = owner, granted through `OWNER_UNION_ID`. No team/multi-seat concept. | `lib/db/src/schema/enums.ts`, `artifacts/api-server/src/auth/oauth.ts` |
@@ -40,7 +40,7 @@ Each item: evidence → affected users → domain rationale → value → depend
 
 #### A1. The site is invisible and unshareable — no per-page SEO metadata, no `robots.txt`, no `sitemap.xml`, no structured data, soft-404s
 
-- **Evidence:** `artifacts/jiwdah/index.html` contains one hard-coded `<title>LENA Digital House</title>` and one description for **all 11 routes**. No component anywhere sets `document.title`, canonical, or per-route Open Graph tags (`grep` over `artifacts/jiwdah/src` returns zero hits for `title`, `canonical`, `og:` outside `index.html`). `artifacts/jiwdah/public/` contains only `favicon.svg` and `lena-og.svg` — no `robots.txt`, no `sitemap.xml`. `App.tsx` routes `*` to `<Navigate to="/" replace />`, so every wrong URL becomes a **soft 404** (HTTP 200 + home page), which search engines treat as a quality defect and users experience as silent teleportation.
+- **Evidence:** `artifacts/lena/index.html` contains one hard-coded `<title>LENA Digital House</title>` and one description for **all 11 routes**. No component anywhere sets `document.title`, canonical, or per-route Open Graph tags (`grep` over `artifacts/lena/src` returns zero hits for `title`, `canonical`, `og:` outside `index.html`). `artifacts/lena/public/` contains only `favicon.svg` and `lena-og.svg` — no `robots.txt`, no `sitemap.xml`. `App.tsx` routes `*` to `<Navigate to="/" replace />`, so every wrong URL becomes a **soft 404** (HTTP 200 + home page), which search engines treat as a quality defect and users experience as silent teleportation.
 - **Affected users:** every prospective client who searches for a studio, and anyone who pastes a LENA link into WhatsApp/LinkedIn (all previews show the same generic card).
 - **Domain rationale:** for an agency with no paid-media budget in the repo and no outbound tooling, organic search + link sharing *is* the acquisition channel. Eight service pages and eight case studies are eight+eight indexable assets currently collapsed into one.
 - **Expected value:** unlocks the compounding inbound channel; makes every case study a shareable sales asset (the 78% case-study effect only works if the link renders a real title and summary).
@@ -134,7 +134,7 @@ Each item: evidence → affected users → domain rationale → value → depend
 - **Affected users:** every future maintainer (a real, recurring cost).
 - **SVV:** add a `/api` dev proxy to `http://localhost:8080`.
 - **Risk:** none (dev-only config).
-- **Success measure:** `pnpm --filter @workspace/jiwdah dev` renders dashboard data without extra steps.
+- **Success measure:** `pnpm --filter @workspace/lena dev` renders dashboard data without extra steps.
 
 #### C4. The Open Graph image is an SVG
 - **Evidence:** `index.html` → `og:image = /lena-og.svg`; `public/` has no raster image. WhatsApp, LinkedIn, X and Facebook do not render SVG previews — shared links currently show **no image at all**.
@@ -186,7 +186,7 @@ Each item: evidence → affected users → domain rationale → value → depend
 | F4 | **Duplicated `use-mobile` hook** | `hooks/use-mobile.ts` and `hooks/use-mobile.tsx` are both present; two different consumers import `@/hooks/use-mobile`, resolution depends on extension order. | Delete the `.ts` duplicate, keep one. Low risk, removes ambiguity. |
 | F5 | **`lib/api-spec` (orval) is scaffolding for an API style this project does not use** | The project is tRPC end-to-end; `orval.config.ts` generates a REST client into `lib/api-client-react`, which the frontend declares as a dependency but never imports. | Keep the packages (they are inert and cheap) but **do not extend them**. Reject any future work that maintains two API paradigms. |
 | F6 | **`artifacts/mockup-sandbox`** | A full second Vite app with a duplicated `components/ui` tree, built on every `pnpm run build`. | Keep as a dev tool but **exclude from the production build** to cut build time; it ships nothing to users. |
-| F7 | **`replit.md` describes a different product** | It documents "Jiwdah Hospitality", tables `leads`/`portfolio`/`instagram_posts` that do not exist, and endpoints that were removed. | **Rewrite or delete.** A stale handoff document is how the next agent breaks production. |
+| F7 | **`replit.md` describes a different product** | It documents the former hospitality application, tables `leads`/`portfolio`/`instagram_posts` that do not exist, and endpoints that were removed. | **Rewrite or delete.** A stale handoff document is how the next agent breaks production. |
 | F8 | **Hard-coded owner contact details as code fallbacks** | `src/config/site.ts` falls back to a literal personal phone number and Outlook address when env vars are missing; `mailer.ts` hard-codes the same address as `NOTIFY_EMAIL` default. | Keep the fallbacks (they prevent a blank site) but **fail loudly in production logs** when the env vars are absent, so a misconfigured deploy is visible. |
 
 ---

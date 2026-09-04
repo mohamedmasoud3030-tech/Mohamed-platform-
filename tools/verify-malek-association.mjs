@@ -16,8 +16,8 @@ const check = (name, fn) => {
   }
 };
 
-const systems = readFileSync(resolve(ROOT, "artifacts/jiwdah/src/content/systems.ts"), "utf8");
-const grid = readFileSync(resolve(ROOT, "artifacts/jiwdah/src/components/SystemGrid.tsx"), "utf8");
+const systems = readFileSync(resolve(ROOT, "artifacts/lena/src/content/systems.ts"), "utf8");
+const grid = readFileSync(resolve(ROOT, "artifacts/lena/src/components/SystemGrid.tsx"), "utf8");
 
 console.log("\n== LENA surfaces MALEK as a product, not as LENA support ==");
 check("the property system is a public named product MALEK", () => {
@@ -34,7 +34,7 @@ check("the existing industry-system grid renders the tagline rather than a paral
   assert.match(grid, /lena-system-tagline/);
 });
 check("LENA is not described as MALEK support", () => {
-  const home = readFileSync(resolve(ROOT, "artifacts/jiwdah/src/pages/Home.tsx"), "utf8");
+  const home = readFileSync(resolve(ROOT, "artifacts/lena/src/pages/Home.tsx"), "utf8");
   assert.doesNotMatch(home, /MALEK support/i);
   assert.doesNotMatch(home, /مركز دعم MALEK/);
   assert.doesNotMatch(systems, /LENA MALEK/);
@@ -45,8 +45,8 @@ check("the named product family keeps independent brands", () => {
   assert.match(systems, /en:\s*"Terranex"/);
 });
 check("the homepage is a normal LENA company page, not an app chooser or support flow", () => {
-  const home = readFileSync(resolve(ROOT, "artifacts/jiwdah/src/pages/Home.tsx"), "utf8");
-  const app = readFileSync(resolve(ROOT, "artifacts/jiwdah/src/App.tsx"), "utf8");
+  const home = readFileSync(resolve(ROOT, "artifacts/lena/src/pages/Home.tsx"), "utf8");
+  const app = readFileSync(resolve(ROOT, "artifacts/lena/src/App.tsx"), "utf8");
   assert.match(home, /Real operating worlds/);\n  assert.doesNotMatch(home, /CREATIVE SYSTEMS|digital presence|الحضور الرقمي/i);
   assert.doesNotMatch(home, /useSearchParams/);
   assert.doesNotMatch(home, /from=malek/);
