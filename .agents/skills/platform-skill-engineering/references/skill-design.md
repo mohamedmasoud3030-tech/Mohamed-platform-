@@ -65,7 +65,7 @@ Agent Skills description optimization:
 https://agentskills.io/skill-creation/optimizing-descriptions
 
 Trail of Bits designing-workflow-skills:
-https://github.com/trailofbits/skills/blob/main/plugins/workflow-skill-design/skills/designing-workflow-skills/SKILL.md
+https://github.com/trailofbits/skills/blob/5c15f4f5644b4bd3d48882a802a7232d501852b6/plugins/workflow-skill-design/skills/designing-workflow-skills/SKILL.md
 
 Trail of Bits workflow anti-patterns:
 https://github.com/trailofbits/skills/blob/main/plugins/workflow-skill-design/skills/designing-workflow-skills/references/anti-patterns.md
