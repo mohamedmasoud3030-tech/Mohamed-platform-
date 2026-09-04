@@ -46,7 +46,7 @@ Current repository support for plain PostgreSQL means migrations must not requir
 ## Upstream sources studied
 
 Supabase Postgres best practices:
-https://github.com/supabase/agent-skills
+https://github.com/supabase/agent-skills/blob/main/skills/supabase-postgres-best-practices/SKILL.md
 
 Supabase RLS performance guidance:
 https://github.com/supabase/agent-skills/blob/main/skills/supabase-postgres-best-practices/references/security-rls-performance.md

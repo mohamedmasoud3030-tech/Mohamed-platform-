@@ -52,8 +52,10 @@ Define measurable checks that prove the decision works after implementation.
 
 ## Upstream sources studied
 
-- Anthropic knowledge-work-plugins engineering architecture/system-design patterns:
-  https://github.com/anthropics/knowledge-work-plugins
+- Anthropic architecture:
+  https://github.com/anthropics/knowledge-work-plugins/blob/main/engineering/skills/architecture/SKILL.md
+- Anthropic system-design:
+  https://github.com/anthropics/knowledge-work-plugins/blob/main/engineering/skills/system-design/SKILL.md
 - Agent Skills open standard:
   https://agentskills.io/specification
 

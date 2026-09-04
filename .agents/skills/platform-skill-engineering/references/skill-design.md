@@ -64,10 +64,10 @@ https://agentskills.io/skill-creation/best-practices
 Agent Skills description optimization:
 https://agentskills.io/skill-creation/optimizing-descriptions
 
-Trail of Bits workflow skill design:
-https://github.com/trailofbits/skills
+Trail of Bits designing-workflow-skills:
+https://github.com/trailofbits/skills/blob/main/plugins/workflow-skill-design/skills/designing-workflow-skills/SKILL.md
 
-Trail of Bits repository authoring guidance:
-https://github.com/trailofbits/skills
+Trail of Bits workflow anti-patterns:
+https://github.com/trailofbits/skills/blob/main/plugins/workflow-skill-design/skills/designing-workflow-skills/references/anti-patterns.md
 
 The project follows the open .agents/skills convention for cross-client interoperability.

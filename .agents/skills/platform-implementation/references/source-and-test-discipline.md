@@ -46,8 +46,11 @@ Remove confirmed residue in the same change.
 
 ## Upstream sources studied
 
-Addy Osmani source-driven-development and test-driven-development:
-https://github.com/addyosmani/agent-skills
+Addy Osmani source-driven-development:
+https://github.com/addyosmani/agent-skills/blob/main/skills/source-driven-development/SKILL.md
+
+Addy Osmani test-driven-development:
+https://github.com/addyosmani/agent-skills/blob/main/skills/test-driven-development/SKILL.md
 
 Agent Skills best practices:
 https://agentskills.io/skill-creation/best-practices
