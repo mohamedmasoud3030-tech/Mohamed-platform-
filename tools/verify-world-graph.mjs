@@ -42,12 +42,23 @@ check("the graph derives from the canonical registries and owns no product data"
 });
 
 check("no world identity is restated as a literal list", () => {
-  const ids = [...entities.matchAll(/systemId: "([a-z]+)"/g)].map((match) => match[1]);
-  assert.ok(ids.length >= 1, "world entities not found");
-  for (const id of ids) {
-    const literal = new RegExp(`(?:chamber|world|inner):"${id}"`);
-    assert.doesNotMatch(builder, literal, `builder hardcodes a node id for "${id}"`);
+  // Membership is derived from publicSystems(); World holds presentation keys only.
+  assert.match(entities, /return publicSystems\(\)\.map/);
+  assert.doesNotMatch(
+    entities,
+    /systemId:\s*"(property|wellness|rental|hospitality|investment|recycling)"/,
+  );
+  const publicIds = ["property", "wellness", "rental", "hospitality", "investment", "recycling"];
+  for (const id of publicIds) {
+    assert.doesNotMatch(
+      builder,
+      new RegExp(`(?:chamber|world|inner):"${id}"`),
+      `builder hardcodes a node id for "${id}"`,
+    );
   }
+  assert.match(builder, /WORLD_GRAPH_IDS\.world\(entity\.systemId\)/);
+  assert.match(builder, /WORLD_GRAPH_IDS\.chamber\(entity\.systemId\)/);
+  assert.match(builder, /WORLD_GRAPH_IDS\.inner\(entity\.systemId\)/);
 });
 
 check("construction is deterministic: no randomness, clock, fetch or React", () => {

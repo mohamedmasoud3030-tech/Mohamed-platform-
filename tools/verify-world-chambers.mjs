@@ -57,9 +57,20 @@ check("a lazy dynamic World chamber route exists", () => {
 
 check("all six World exits now land in canonical chambers", () => {
   for (const id of ["wellness", "rental", "property", "hospitality", "investment", "recycling"]) {
-    assert.match(world, new RegExp(`systemId: "${id}"[\\s\\S]*?detailPath: "/world/${id}"`));
+    assert.match(world, new RegExp(`${id}: \\{ state:`));
   }
+  assert.match(
+    world,
+    /export function worldPathFor\(systemId: SystemId\): string \{\s*return `\/world\/\$\{systemId\}`;/s,
+  );
+  assert.match(world, /return publicSystems\(\)\.map/);
+  assert.match(world, /detailPath: worldPathFor\(system\.id\)/);
   assert.doesNotMatch(world, /detailPath:\s*"\/services#/);
+  // Chamber routes are derived, never restated per world.
+  assert.doesNotMatch(
+    world,
+    /detailPath:\s*"\/world\/(property|wellness|rental|investment|hospitality|recycling)"/,
+  );
 });
 
 check("the Chamber resolves facts from the canonical system record", () => {
@@ -95,7 +106,11 @@ check("the Chamber exposes operating roots as Layer B intelligence", () => {
 });
 
 check("the Chamber mounts the Operating Surfaces evidence layer", () => {
-  assert.match(page, /<OperatingSurfaces\s+systemId=\{entity\.systemId\}\s+brand=\{system\.name\[locale\]\}\s*\/>/);
+  assert.match(page, /productContractFor\(system\.id\)/);
+  assert.match(page, /<OperatingSurfaces/);
+  assert.match(page, /systemId=\{entity\.systemId\}/);
+  assert.match(page, /brand=\{system\.name\[locale\]\}/);
+  assert.match(page, /evidence=\{productContract\?\.evidence\}/);
   assert.match(page, /import \{ OperatingSurfaces \} from "@\/features\/world\/components\/OperatingSurfaces"/);
 });
 
@@ -116,10 +131,14 @@ check("the Chamber keeps a calm exit into operating detail and contact", () => {
 });
 
 check("portal arrival is one-shot visual settling, not continuous motion", () => {
-  assert.match(page, /fromWorldPortal/);
+  assert.match(page, /navState\?\.spatial\.intent === "descend"/);
+  assert.match(page, /navState\?\.spatial\.intent === "emerge"/);
   assert.match(page, /is-arrival/);
+  assert.match(page, /is-return/);
   assert.match(css, /lena-chamber-body-arrive/);
   assert.doesNotMatch(css, /\binfinite\b/);
+  // Current write path is typed spatial state. The legacy flag is not produced here.
+  assert.doesNotMatch(page, /fromWorldPortal/);
 });
 
 check("all six Digital DNA families have chamber material rules", () => {

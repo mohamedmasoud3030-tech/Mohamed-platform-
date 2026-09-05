@@ -8,6 +8,9 @@ const read = (path) => readFileSync(resolve(ROOT, path), "utf8");
 
 const transition = read("artifacts/lena/src/features/world/WorldPortalTransition.tsx");
 const scene = read("artifacts/lena/src/features/world/components/WorldScene.tsx");
+const worldPage = read("artifacts/lena/src/pages/World.tsx");
+const runtime = read("artifacts/lena/src/lib/spatial/runtime.ts");
+const tokens = read("artifacts/lena/src/lib/spatial/tokens.ts");
 const css = read("artifacts/lena/src/styles/world-portal.css");
 const lenaCss = read("artifacts/lena/src/lena.css");
 const analytics = read("artifacts/lena/src/lib/analytics/events.ts");
@@ -27,34 +30,61 @@ console.log("\n== LENA World portal / approach contract ==");
 
 check("the selected-system action is owned by the portal transition", () => {
   assert.match(scene, /useWorldPortalTransition/);
-  assert.match(scene, /onClick=\{\(event\) => enterPortal\(event, selected\.detailPath, selected\.systemId\)\}/);
+  assert.match(
+    scene,
+    /onClick=\{\(event\) => enterPortal\(selected\.detailPath, selected\.systemId, event\)\}/,
+  );
+  // The World list is a second exit, not a second owner.
+  assert.match(worldPage, /useWorldPortalTransition/);
+  assert.match(
+    worldPage,
+    /onClick=\{\(event\) => enterPortal\(entity\.detailPath, entity\.systemId, event\)\}/,
+  );
 });
 
 check("native navigation is prevented so choreography has one owner", () => {
-  assert.match(transition, /event\.preventDefault\(\)/);
-  assert.match(transition, /inFlight\.current/);
+  assert.match(transition, /if \(event\) event\.preventDefault\(\)/);
+  assert.match(transition, /spatialRuntime\.run/);
+  assert.match(transition, /if \(!handle\) return/);
+  assert.doesNotMatch(transition, /inFlight\.current/);
+  // Single-flight lives in the shared spatial runtime, not a local ref.
+  assert.match(runtime, /if \(active\) return null/);
 });
 
 check("reduced motion navigates without cinematic delay", () => {
-  assert.match(transition, /prefers-reduced-motion:\s*reduce/);
-  assert.match(transition, /if \(!world \|\| reduce\)\s*\{\s*navigate\(destination, \{ state: arrivalState \}\)/s);
+  assert.match(transition, /reducedMotion: reduced/);
+  assert.match(runtime, /prefers-reduced-motion:\s*reduce/);
+  assert.match(runtime, /if \(reduced && options\.action\)/);
+  assert.match(tokens, /export const reducedBeat = 90/);
+  // Reduced path must return before movement classes are applied.
+  const reducedBlock = runtime.slice(runtime.indexOf("if (reduced && options.action)"));
+  assert.match(reducedBlock, /return handle/);
+  assert.doesNotMatch(
+    reducedBlock.slice(0, reducedBlock.indexOf("return handle")),
+    /enterPhase\("preparing"\)/,
+  );
 });
 
 check("portal arrival context is canonical and bounded", () => {
-  assert.match(transition, /const arrivalState = \{ fromWorldPortal: true, systemId \}/);
-  assert.match(transition, /navigate\(destination, \{ state: arrivalState \}\)/);
+  assert.match(
+    transition,
+    /buildSpatialState\(\{\s*origin: "\/world", intent: "descend", systemId \}\)/s,
+  );
+  assert.match(transition, /navigate\(destination, \{\s*state: buildSpatialState/s);
+  assert.doesNotMatch(transition, /fromWorldPortal:\s*true/);
 });
 
 check("the portal uses a two-beat isolate then resolve choreography", () => {
-  assert.match(transition, /classList\.add\("is-portal"\)/);
-  assert.match(transition, /classList\.add\("is-portal-resolve"\)/);
-  assert.match(transition, /190/);
+  assert.match(runtime, /scene === "world" && intent === "descend"/);
+  assert.match(runtime, /add: \["is-portal"\]/);
+  assert.match(runtime, /add: \["is-portal-resolve"\]/);
+  assert.match(tokens, /descend: \{ preparing: 190, moving: 290 \}/);
 });
 
 check("View Transitions enhance the final handoff with a CSS fallback", () => {
-  assert.match(transition, /document\.startViewTransition/);
-  assert.match(transition, /680/);
-  assert.match(transition, /navigate\(destination, \{ state: arrivalState \}\)/);
+  assert.match(runtime, /doc\.startViewTransition/);
+  assert.match(runtime, /if \(vt\.supported\)/);
+  assert.match(runtime, /promise\.finished/);
 });
 
 check("World v3 CSS loads after World v2", () => {
