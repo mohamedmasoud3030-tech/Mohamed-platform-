@@ -1,5 +1,6 @@
 import { SITE_CONFIG } from "@/config/site";
 import { FOUNDER } from "@/content/founder";
+import { SITE_COPY } from "@/content/site-copy";
 import { withBase } from "@/lib/base-path";
 import type { AppLocale } from "@/providers/preferences";
 
@@ -50,10 +51,7 @@ export function clampDescription(value: string, max = 165): string {
 export function organizationJsonLd(locale: AppLocale): Record<string, unknown> {
   const origin = resolveSiteOrigin();
   const siteUrl = origin ? `${origin}${withBase("/") === "/" ? "" : withBase("/")}` : undefined;
-  const description =
-    locale === "ar"
-      ? "بيت الحلول الرقمية الإبداعية: استراتيجية وتصميم ومحتوى ومواقع ومنتجات رقمية وأتمتة."
-      : "A creative digital house for strategy, design, content, websites, digital products, and automation.";
+  const description = SITE_COPY[locale].footer.description;
 
   return {
     "@context": "https://schema.org",

@@ -65,7 +65,7 @@ if (import.meta.env.PROD) {
 }
 
 const message =
-  "مرحبًا بفريق LENA Digital House، لدي فكرة مشروع وأرغب في استكشاف كيف يمكن تحويلها إلى تجربة رقمية متكاملة. يسعدني معرفة المزيد عن خدماتكم والخطوات المناسبة للبدء. / Hello LENA Digital House, I have a project idea and would love to explore how it could be shaped into a complete digital experience. I’d like to learn more about your services and the best way to get started.";
+  "مرحبًا LENA Digital House، أريد أن أصف كيف يعمل عملي اليوم وأستكشف أين يمكن لنظام تشغيل أن يوضح العمل. / Hello LENA Digital House, I would like to describe how my work runs today and explore where an operating system could make it clearer.";
 
 export function whatsappUrlFor(channel: ContactChannel): string {
   return `https://wa.me/${channel.whatsapp}?text=${encodeURIComponent(message)}`;
@@ -78,7 +78,7 @@ export const SITE_CONFIG = {
   ownerName: "Mohamed Masoud",
   brandName: "LENA",
   brandFullName: "LENA Digital House",
-  brandSubtitle: "بيت الحلول الرقمية الإبداعية",
+  brandSubtitle: "بيت رقمي يبني أنظمة تشغيل للأعمال",
 
   channels: CHANNELS,
   phone: { display: primary.display, tel: primary.tel, whatsapp: primary.whatsapp },
