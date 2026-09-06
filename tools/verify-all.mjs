@@ -19,6 +19,7 @@ import net from "node:net";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
 const SUITES = [
+  { name: "agent skills", file: "tools/verify-agent-skills.mjs" },
   { name: "egress guard", file: "tools/check-egress.mjs" },
   { name: "seo metadata & hreflang", file: "tools/verify-seo.mjs" },
   { name: "locale routing", file: "tools/verify-locale.mjs" },
