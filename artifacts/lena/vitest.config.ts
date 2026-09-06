@@ -15,7 +15,9 @@ export default defineConfig({
     },
   },
   test: {
-    environment: "node",
+    // Custom jsdom restores Node AbortController so React Router navigation
+    // works on CI Node 24 (jsdom AbortSignal is a different realm).
+    environment: "./src/test/jsdom-environment.ts",
     include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
     setupFiles: ["./src/test/spatialSetup.ts"],
   },

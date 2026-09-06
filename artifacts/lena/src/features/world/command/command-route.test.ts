@@ -22,6 +22,15 @@ test("World Command navigates into existing world chambers", () => {
   assert.match(cmd, /resolve\(signal\.id\)/);
 });
 
+test("World Command reads fused observation from intelligence and mutates only through the signal adapter", () => {
+  const cmd = readFileSync(join(root, "features/world/command/WorldCommand.tsx"), "utf8");
+  assert.match(cmd, /useLenaIntelligence/);
+  assert.match(cmd, /context\.signals\.source/);
+  assert.match(cmd, /useSignalRuntime/);
+  assert.doesNotMatch(cmd, /DEMO_SIGNALS/);
+  assert.doesNotMatch(cmd, /publicProjects/);
+});
+
 test("World constellation offers a calm entrance to command", () => {
   const world = readFileSync(join(root, "pages/World.tsx"), "utf8");
   assert.match(world, /to="\/world\/command"/);

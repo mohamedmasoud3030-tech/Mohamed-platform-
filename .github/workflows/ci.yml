@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   validate:
-    name: Typecheck and build
+    name: Typecheck, test, build, and verify
     runs-on: ubuntu-latest
 
     steps:
@@ -35,8 +35,17 @@ jobs:
       - name: Typecheck
         run: pnpm run typecheck
 
+      - name: Test
+        run: pnpm test
+
       - name: Build
         run: pnpm run build
+
+      - name: Verify
+        # Typecheck and build cannot detect a metadata regression, a locale
+        # routing mistake, personal data leaking into an event or a support
+        # report, an authorization hole, or a World Command authority drift.
+        run: pnpm run verify
 
       - name: LENA Guardian static integrity
         run: node test/lena-runtime-visual-guardian-v1/scripts/verify-assets.mjs

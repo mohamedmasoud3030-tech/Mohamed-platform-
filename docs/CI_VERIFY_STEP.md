@@ -1,31 +1,23 @@
-# Pending CI change — one step, blocked on a permission
+# CI verification contract
 
-`pnpm run verify` exists, passes, and can be run by anyone at any time. What is **not** yet wired is
-CI running it automatically.
+The `validate` job on `pull_request` and `push` to `main` runs the same
+critical verification developers are expected to trust locally:
 
-**Why it is not wired:** pushing a change to `.github/workflows/ci.yml` was rejected by GitHub:
+1. `pnpm run typecheck`
+2. `pnpm test`
+3. `pnpm run build`
+4. `pnpm run verify`
+5. Guardian static asset integrity
 
-```
-refusing to allow a GitHub App to create or update workflow `.github/workflows/ci.yml`
-without `workflows` permission
-```
+`pnpm test` runs the LENA package tests. CI uses Node 24, which is required
+for the `--experimental-strip-types` suite.
 
-The agent's GitHub connection does not carry the `workflows` scope. This is an access limitation, not
-a technical one.
+`pnpm run verify` runs the architecture suites in `tools/verify-all.mjs`.
+The admin-authorization suite reports SKIPPED when no API is listening on
+`127.0.0.1:8080`. That skip is intentional: CI must not turn a missing
+database into a false pass, and it must not fail the public contract because
+a private API is absent.
 
-**The exact change required**, appended to the `validate` job in `.github/workflows/ci.yml`, after the
-existing `Build` step:
-
-```yaml
-      - name: Verify
-        # Typecheck and build cannot detect a metadata regression, a locale
-        # routing mistake, personal data leaking into an event or a support
-        # report, or an authorization hole. These suites can.
-        run: pnpm run verify
-```
-
-**Either** grant the connection the `workflows` permission and ask the agent to apply it, **or** paste
-those four lines into the file on GitHub directly. Nothing else changes.
-
-**Until then:** the suites are not automated. Run `pnpm run verify` before any deployment. It exits
-non-zero on failure, so it can also be attached to a pre-push hook locally.
+Guardian browser + visual remains a `pull_request` job after `validate`.
+Do not refresh visual baselines unless the rendered result is the intended
+canonical UI.

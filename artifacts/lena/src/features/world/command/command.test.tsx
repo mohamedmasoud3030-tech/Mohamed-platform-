@@ -1,4 +1,3 @@
-// @vitest-environment jsdom
 import { afterEach, describe, expect, it } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router";
@@ -27,6 +26,8 @@ describe("World Command unavailable source", () => {
     renderCommand();
     const command = screen.getByTestId("world-command");
     expect(command.getAttribute("data-signal-availability")).toBe("unavailable");
+    expect(command.getAttribute("data-graph-available")).toBe("true");
+    expect(command.getAttribute("data-core-state")).toBeTruthy();
     expect(screen.getByText("Live product signals are not connected yet.")).toBeTruthy();
     expect(command.textContent).not.toContain("active worlds");
     expect(command.textContent).not.toContain("attention pressure");

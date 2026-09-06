@@ -31,8 +31,14 @@ pnpm --filter @workspace/lena dev
 
 ```bash
 pnpm run typecheck
+pnpm test
 pnpm run build
+pnpm run verify
 ```
+
+CI runs the same four commands, then Guardian static integrity. The
+admin-authorization verifier skips when no API is listening on
+`127.0.0.1:8080`. Guardian browser + visual runs on pull requests.
 
 ## Database
 

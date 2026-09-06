@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useLenaIntelligence } from "@/features/core-intelligence/useLenaIntelligence";
 import { usePreferences } from "@/providers/preferences";
 import { findSystem } from "@/content/systems";
 import { WORLD_ENTITIES, worldSystem } from "../content/world";
@@ -86,20 +87,33 @@ function SignalRow({
   );
 }
 
+/**
+ * World Command — operating chamber.
+ *
+ * Read path: `useLenaIntelligence` is the fused observation authority
+ * (source availability, global state, presence, pressure). Signal runtime
+ * remains the mutation adapter (ack/resolve) and the operator list view
+ * when an authorized source exists. Intelligence is read-only and must
+ * not grow a second mutation path or invent live activity.
+ */
 export default function WorldCommand() {
   const { locale } = usePreferences();
   const runtime = useSignalRuntime();
+  const { context, core } = useLenaIntelligence();
   const ar = locale === "ar";
+  const source = context.signals.source;
 
   // Command remains a public route, but it must not turn an empty production
   // store into a quiet-looking operational dashboard. No counts, pressure,
   // state, signals, or mutation authority are rendered before a source exists.
-  if (runtime.source.availability === "unavailable") {
+  if (source.availability === "unavailable") {
     return (
       <div
         className="lena-command state-unavailable"
         data-testid="world-command"
         data-signal-availability="unavailable"
+        data-core-state={core.state}
+        data-graph-available={context.graph.available ? "true" : "false"}
       >
         <header className="lena-command-pulse lena-command-unavailable-pulse">
           <p className="lena-kicker">{ar ? "غرفة القيادة · عالم LENA" : "WORLD COMMAND · LENA"}</p>
@@ -135,14 +149,16 @@ export default function WorldCommand() {
     );
   }
 
-  const globalState = runtime.globalState;
+  const globalState = context.signals.globalState;
   if (globalState === null) return null;
 
   return (
     <div
       className={`lena-command state-${globalState}`}
       data-testid="world-command"
-      data-signal-availability={runtime.source.availability}
+      data-signal-availability={source.availability}
+      data-core-state={core.state}
+      data-graph-available={context.graph.available ? "true" : "false"}
     >
       <header className="lena-command-pulse">
         <p className="lena-kicker">{ar ? "غرفة القيادة · عالم LENA" : "WORLD COMMAND · LENA"}</p>
@@ -153,7 +169,7 @@ export default function WorldCommand() {
             {runtime.activeWorlds} {ar ? "عوالم نشطة" : "active worlds"}
           </span>
           <span>
-            {ar ? "ضغط الانتباه" : "attention pressure"} {runtime.pressure}
+            {ar ? "ضغط الانتباه" : "attention pressure"} {context.signals.attentionPressure}
           </span>
         </p>
         <Link className="lena-command-back" to="/world">
@@ -184,7 +200,7 @@ export default function WorldCommand() {
             {WORLD_ENTITIES.map((entity) => {
               const system = worldSystem(entity);
               if (!system) return null;
-              const presence = runtime.presence[entity.systemId] ?? "unavailable";
+              const presence = context.signals.byWorld[entity.systemId] ?? "unavailable";
               return (
                 <li key={entity.systemId}>
                   <Link

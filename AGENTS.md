@@ -25,6 +25,8 @@ Current product/runtime authorities:
 - artifacts/lena/src/features/world/content/evidence.ts — publishable product evidence
 - artifacts/lena/src/features/world/content/product-contract.ts — derived product contract, not a second registry
 - artifacts/lena/src/graph/ — World Graph; Atlas and World remain distinct surfaces
+- artifacts/lena/src/features/core-intelligence/ — derived read-only intelligence; not a second product registry. Production graph seam is CanonicalWorldGraphAdapter.
+- artifacts/lena/src/features/world/signals/ — observation and mutation adapter. Production source stays unavailable until an authorized product source exists.
 
 Hidden `LENA_SERVICES` and `STUDIO_PROJECTS` records stay in the repository unpublished. Do not restore them as a public catalog.
 
@@ -49,7 +51,7 @@ Historical planning documents are provenance, not runtime authority when they co
 6. Database isolation must be enforced at the correct boundary. Application filtering alone is not a substitute for database-enforced tenant isolation when multi-tenancy is introduced.
 7. Every implementation pass must remove obsolete files, tests, contracts, helpers, or duplicated authorities made redundant by the change, after proving they are no longer referenced. Do not leave dead residue for a later cleanup pass.
 8. Use pnpm only. Do not introduce package-lock.json or yarn.lock.
-9. Before declaring completion, run the narrowest relevant tests, then the repository verification gates appropriate to the change. At minimum, code changes should consider pnpm run typecheck, pnpm run build, and pnpm run verify.
+9. Before declaring completion, run the narrowest relevant tests, then the repository verification gates appropriate to the change. At minimum, code changes should consider pnpm run typecheck, pnpm test, pnpm run build, and pnpm run verify.
 10. Do not blindly rebaseline Guardian visual snapshots. Inspect the actual diff first and refresh a baseline only when the new output is the intended canonical UI.
 
 ## Skill maintenance

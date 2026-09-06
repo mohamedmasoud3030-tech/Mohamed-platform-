@@ -73,4 +73,16 @@ describe("LENA Intelligence runtime activation contract", () => {
     expect(adapter).not.toContain("future integration seam tomorrow");
     expect(canonical).toContain('from "@/graph"');
   });
+
+  it("World Command reads source authority from intelligence and mutates only through the signal adapter", () => {
+    const cmd = read("src/features/world/command/WorldCommand.tsx");
+
+    expect(cmd).toContain("useLenaIntelligence");
+    expect(cmd).toContain("context.signals.source");
+    expect(cmd).toContain("useSignalRuntime");
+    expect(cmd).toMatch(/acknowledge\(signal\.id\)/);
+    expect(cmd).not.toContain("DEMO_SIGNALS");
+    expect(cmd).not.toContain("publicProjects");
+    expect(cmd).not.toMatch(/worldMemory\.remember/);
+  });
 });

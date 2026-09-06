@@ -34,6 +34,7 @@ const SUITES = [
   { name: "lena inner constellations", file: "tools/verify-inner-constellations.mjs" },
   { name: "lena constellation graph", file: "tools/verify-constellation-graph.mjs" },
   { name: "lena world graph + atlas", file: "tools/verify-world-graph.mjs" },
+  { name: "lena world command authority", file: "tools/verify-world-command.mjs" },
   { name: "inquiry draft recovery", file: "tools/verify-draft.mjs" },
   { name: "support report privacy", file: "tools/verify-support.mjs" },
   { name: "crash boundary", file: "tools/verify-boundary.mjs" },
