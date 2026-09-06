@@ -60,4 +60,17 @@ describe("LENA Intelligence runtime activation contract", () => {
     expect(hook).not.toMatch(/navigate\s*\(/);
     expect(hook).not.toMatch(/worldMemory\.remember/);
   });
+
+  it("treats CanonicalWorldGraphAdapter as the live graph seam, not a future landing", () => {
+    const readme = read("src/features/core-intelligence/README.md");
+    const adapter = read("src/features/core-intelligence/graph/GraphContextAdapter.ts");
+    const canonical = read("src/features/core-intelligence/graph/CanonicalWorldGraphAdapter.ts");
+
+    expect(readme).toContain("CanonicalWorldGraphAdapter");
+    expect(readme).toContain("@/graph");
+    expect(readme).not.toContain("When the real World Graph lands");
+    expect(adapter).not.toContain("later integration connects the real World Graph");
+    expect(adapter).not.toContain("future integration seam tomorrow");
+    expect(canonical).toContain('from "@/graph"');
+  });
 });

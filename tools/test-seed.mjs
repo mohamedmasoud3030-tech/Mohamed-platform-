@@ -22,8 +22,8 @@ await c.query(`insert into users (union_id, name, email, role) values
   on conflict (union_id) do update set role = excluded.role`);
 
 await c.query(`insert into inquiries (name, email, phone, service, message, source, status) values
-  ('سارة الحارثي','sara.alharthi@example.com','+96891234567','visual-identity','أحتاج هوية بصرية لمقهى','service:visual-identity','new'),
-  ('John Carter','john.carter@example.com','+441632960111','web-platforms','Need a booking app','work:riwaq','new')
+  ('سارة الحارثي','sara.alharthi@example.com','+96891234567','property','أحتاج نظام تشغيل للعقارات','service:property','new'),
+  ('John Carter','john.carter@example.com','+441632960111','rental','Need a dress-rental operating system','service:rental','new')
   on conflict do nothing`);
 
 const sign = (unionId) => new jose.SignJWT({ unionId, clientId: "test-app" })

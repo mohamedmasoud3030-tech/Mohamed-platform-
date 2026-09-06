@@ -42,7 +42,7 @@ import type { GuidanceResult } from "./guidance/types";
 
 /** Options accepted by the canonical façade. */
 export interface LenaIntelligenceOptions {
-  /** Connected World Graph adapter, when the runtime is available. */
+  /** World Graph adapter. Production React seam supplies CanonicalWorldGraphAdapter. */
   graph?: GraphContextAdapter;
   /** Previous core state — enables the focused-hold stability rule. */
   previousCoreState?: CoreState;
