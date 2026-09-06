@@ -1,8 +1,14 @@
+/**
+ * Public route inventory. Labels are owned by SITE_COPY.nav so header, footer
+ * and page copy cannot drift into a second slogan set.
+ */
 export const PUBLIC_NAVIGATION = [
-  { to: "/", ar: "البداية", en: "Opening" },
-  { to: "/services", ar: "الحلول", en: "Solutions" },
-  { to: "/portfolio", ar: "الأعمال", en: "Selected Work" },
-  { to: "/about", ar: "عالم LENA", en: "Inside LENA" },
-  { to: "/ai-solutions", ar: "الأنظمة الذكية", en: "Smart Systems" },
-  { to: "/contact", ar: "ابدأ مشروعك", en: "Start a Project" },
+  { to: "/", copyKey: "home" },
+  { to: "/services", copyKey: "services" },
+  { to: "/portfolio", copyKey: "portfolio" },
+  { to: "/about", copyKey: "about" },
+  { to: "/ai-solutions", copyKey: "ai" },
+  { to: "/contact", copyKey: "contact" },
 ] as const;
+
+export type PublicNavCopyKey = (typeof PUBLIC_NAVIGATION)[number]["copyKey"];

@@ -87,10 +87,10 @@ function check(name, fn) {
 
 console.log("\n== AC5/AC6/AC7: per-route head application ==");
 
-apply({ title: "LENA Digital House — بيت الحلول الرقمية الإبداعية", description: "وصف الصفحة الرئيسية للاستوديو الرقمي في سلطنة عمان.", path: "/", locale: "ar", jsonLd: { "@context": "https://schema.org", "@graph": [{ "@type": "Organization" }, { "@type": "WebSite" }] } });
+apply({ title: "LENA Digital House — أنظمة تشغيل للأعمال الحقيقية", description: "بيت رقمي يجمع أنظمة تشغيل للعقارات والجمال والتأجير والضيافة والاستثمار وإعادة التدوير داخل عالم LENA واحد.", path: "/", locale: "ar", jsonLd: { "@context": "https://schema.org", "@graph": [{ "@type": "Organization" }, { "@type": "WebSite" }] } });
 
 check("home title has no duplicated brand suffix", () => {
-  assert.equal(document.title, "LENA Digital House — بيت الحلول الرقمية الإبداعية");
+  assert.equal(document.title, "LENA Digital House — أنظمة تشغيل للأعمال الحقيقية");
 });
 check("home emits index,follow", () => assert.equal(meta("name", "robots"), "index,follow"));
 check("home canonical is absolute and language-prefixed", () => assert.equal(head.querySelector('link[rel="canonical"]').getAttribute("href"), "https://lena.example/ar"));

@@ -46,6 +46,7 @@ export function publicServices() {
   return LENA_SERVICES.filter((service) => service.visibility === "public");
 }
 
+/** Public lookup. Hidden tracks stay in the catalog but are not addressable. */
 export function findService(id?: string) {
-  return LENA_SERVICES.find((service) => service.id === id);
+  return publicServices().find((service) => service.id === id);
 }

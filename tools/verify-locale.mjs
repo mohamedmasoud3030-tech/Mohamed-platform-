@@ -37,7 +37,7 @@ console.log("\n== a shared link always opens in the language it was shared in ==
 reset();
 window.localStorage.setItem(L.LOCALE_STORAGE_KEY, "ar");
 check("English link wins over an Arabic stored preference", () => {
-  const r = L.bootstrapLocale(url("/en/services/ui-ux"), ["ar"]);
+  const r = L.bootstrapLocale(url("/en/world/property"), ["ar"]);
   assert.equal(r.locale, "en");
   assert.equal(r.redirectTo, null, "a prefixed URL must never redirect");
 });
@@ -66,12 +66,12 @@ reset();
 check("/services → /en/services for an English visitor", () => {
   assert.equal(L.bootstrapLocale(url("/services"), ["en"]).redirectTo, "/en/services");
 });
-check("/work/riwaq → /ar/work/riwaq for an Arabic visitor", () => {
-  assert.equal(L.bootstrapLocale(url("/work/riwaq"), ["ar"]).redirectTo, "/ar/work/riwaq");
+check("/world/property → /ar/world/property for an Arabic visitor", () => {
+  assert.equal(L.bootstrapLocale(url("/world/property"), ["ar"]).redirectTo, "/ar/world/property");
 });
 check("query string and hash survive the move", () => {
-  const r = L.bootstrapLocale(url("/contact", "?service=ui-ux", "#form"), ["en"]);
-  assert.equal(r.redirectTo, "/en/contact?service=ui-ux#form");
+  const r = L.bootstrapLocale(url("/contact", "?service=property", "#form"), ["en"]);
+  assert.equal(r.redirectTo, "/en/contact?service=property#form");
 });
 check("root becomes a bare language root, not /en/", () => {
   assert.equal(L.bootstrapLocale(url("/"), ["en"]).redirectTo, "/en");
@@ -84,7 +84,7 @@ for (const p of ["/api/trpc/ping", "/api/oauth/callback", "/robots.txt", "/sitem
 }
 
 console.log("\n== switching language keeps the page ==");
-check("/ar/services/ui-ux → /en/services/ui-ux", () => assert.equal(L.withLocale("en", "/ar/services/ui-ux"), "/en/services/ui-ux"));
+check("/ar/world/property → /en/world/property", () => assert.equal(L.withLocale("en", "/ar/world/property"), "/en/world/property"));
 check("/en/help → /ar/help", () => assert.equal(L.withLocale("ar", "/en/help"), "/ar/help"));
 check("language root stays a root, never a trailing slash", () => assert.equal(L.withLocale("en", "/ar"), "/en"));
 check("an unprefixed path gains the prefix", () => assert.equal(L.withLocale("ar", "/contact"), "/ar/contact"));
@@ -99,7 +99,7 @@ check("a route that merely starts with the letters is not a language", () => {
 });
 
 console.log("\n== round trip is stable ==");
-for (const path of ["/", "/services", "/services/ui-ux", "/work/riwaq", "/contact", "/help", "/dashboard/projects-editor"]) {
+for (const path of ["/", "/services", "/world/property", "/world/atlas", "/contact", "/help", "/dashboard/projects-editor"]) {
   check(`${path} survives ar→en→ar unchanged`, () => {
     assert.equal(L.stripLocale(L.withLocale("ar", L.withLocale("en", L.withLocale("ar", path)))), path);
   });

@@ -8,9 +8,11 @@ const read = (path: string) => readFileSync(resolve(root, path), "utf8");
 const PUBLIC_POSITIONING_FILES = [
   "src/content/site-copy.ts",
   "src/content/seo.ts",
+  "src/content/navigation.ts",
   "src/lib/seo.ts",
   "src/config/site.ts",
   "src/layouts/PublicFooter.tsx",
+  "src/layouts/FloatingHeader.tsx",
   "src/components/LenaCta.tsx",
   "src/features/home/DigitalHouseOrbit.tsx",
   "src/features/home/ProcessSection.tsx",
@@ -50,6 +52,18 @@ describe("LENA public positioning contract", () => {
     expect(footer).toContain("useSiteCopy");
     expect(footer).toContain("copy.footer.description");
     expect(structured).toContain("SITE_COPY[locale].footer.description");
+  });
+
+  it("takes public navigation labels from SITE_COPY rather than a second slogan set", () => {
+    const nav = read("src/content/navigation.ts");
+    const header = read("src/layouts/FloatingHeader.tsx");
+    const footer = read("src/layouts/PublicFooter.tsx");
+
+    expect(nav).toContain('copyKey: "services"');
+    expect(nav).not.toMatch(/Solutions|Smart Systems|Selected Work|الحلول|الأنظمة الذكية/);
+    expect(header).toContain("copy.nav[item.copyKey]");
+    expect(header).toContain("copy.nav.start");
+    expect(footer).toContain("copy.nav[item.copyKey]");
   });
 
   it("keeps the public process operations-first", () => {
