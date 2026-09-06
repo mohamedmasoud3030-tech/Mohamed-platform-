@@ -20,10 +20,13 @@ Current stack:
 - Vitest plus the repository verification and Guardian checks
 
 Current product/runtime authorities:
-- artifacts/lena/src/content/systems.ts
-- artifacts/lena/src/features/world/content/evidence.ts
-- artifacts/lena/src/features/world/content/product-contract.ts
-- artifacts/lena/src/graph/
+- artifacts/lena/src/content/systems.ts — public product facts; `publicSystems()` is the publication filter
+- artifacts/lena/src/content/site-copy.ts — public copy and navigation labels
+- artifacts/lena/src/features/world/content/evidence.ts — publishable product evidence
+- artifacts/lena/src/features/world/content/product-contract.ts — derived product contract, not a second registry
+- artifacts/lena/src/graph/ — World Graph; Atlas and World remain distinct surfaces
+
+Hidden `LENA_SERVICES` and `STUDIO_PROJECTS` records stay in the repository unpublished. Do not restore them as a public catalog.
 
 Historical planning documents are provenance, not runtime authority when they conflict with current code contracts.
 
@@ -42,11 +45,12 @@ Historical planning documents are provenance, not runtime authority when they co
 2. For version-sensitive framework or library decisions, verify the installed version and consult official documentation before implementation. If official documentation cannot be reached, label the decision unverified rather than inventing an API or pattern.
 3. Do not introduce Nx, NestJS, Better Auth, or any other future stack choice merely because it appears in planning discussions. Such adoption requires an explicit architecture decision first.
 4. Keep planning, implementation, and review logically separated. Review is not proof that the authoring pass is correct.
-5. Never invent live operational data, product evidence, tenant boundaries, permissions, or owner decisions.
+5. Never invent live operational data, product evidence, tenant boundaries, permissions, or owner decisions. Do not reintroduce Jiwdah or production `DEMO_SIGNALS`. Demo signals may exist only as explicit test fixtures.
 6. Database isolation must be enforced at the correct boundary. Application filtering alone is not a substitute for database-enforced tenant isolation when multi-tenancy is introduced.
 7. Every implementation pass must remove obsolete files, tests, contracts, helpers, or duplicated authorities made redundant by the change, after proving they are no longer referenced. Do not leave dead residue for a later cleanup pass.
 8. Use pnpm only. Do not introduce package-lock.json or yarn.lock.
 9. Before declaring completion, run the narrowest relevant tests, then the repository verification gates appropriate to the change. At minimum, code changes should consider pnpm run typecheck, pnpm run build, and pnpm run verify.
+10. Do not blindly rebaseline Guardian visual snapshots. Inspect the actual diff first and refresh a baseline only when the new output is the intended canonical UI.
 
 ## Skill maintenance
 
