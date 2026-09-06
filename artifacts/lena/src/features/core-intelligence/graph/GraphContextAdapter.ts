@@ -1,16 +1,11 @@
 /**
  * LENA Intelligence — Graph Context Adapter (seam).
  *
- * The LENA World Graph runtime is a concurrently developed program (Atlas /
- * World Graph session). The intelligence kernel must NEVER import that
- * implementation, wait for it, or duplicate it. Instead, the kernel depends
- * on this small interface — the *structural* face of the world graph that
- * intelligence needs — and later integration connects the real World Graph
- * to this adapter.
- *
- * This module is dependency-free on purpose: no canonical feature imports,
- * no React, no Atlas. Deterministic and pure so the kernel stays testable
- * with the in-memory implementation provided here.
+ * The intelligence kernel must NEVER import Atlas, React, or a second World
+ * Graph topology. It depends on this small interface — the structural face
+ * intelligence needs. Production wiring is `CanonicalWorldGraphAdapter` over
+ * the live `@/graph` World Graph. This module stays dependency-free so the
+ * kernel remains testable with the in-memory double below.
  *
  * # Node addressing contract
  * Graph nodes are canonical strings:
@@ -61,9 +56,8 @@ export const emptyGraphContextAdapter: GraphContextAdapter = {
 };
 
 /**
- * Deterministic in-memory graph. Used by intelligence tests today and by the
- * future integration seam tomorrow: the real World Graph can be wrapped by
- * an adapter exposing the same two queries.
+ * Deterministic in-memory graph for intelligence tests. Production uses
+ * CanonicalWorldGraphAdapter; this double exposes the same two queries.
  */
 export class InMemoryGraphContextAdapter implements GraphContextAdapter {
   readonly available = true;

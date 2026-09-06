@@ -103,14 +103,14 @@ check("home JSON-LD present, single, valid", () => {
 });
 check("og:locale maps ar -> ar_OM", () => assert.equal(meta("property", "og:locale"), "ar_OM"));
 
-apply({ title: "تجربة المستخدم", description: "  وصف   فيه   مسافات   زائدة  ", path: "/services/ui-ux", locale: "ar" });
+apply({ title: "تجربة المستخدم", description: "  وصف   فيه   مسافات   زائدة  ", path: "/world/property", locale: "ar" });
 
 check("AC5 title switches and gains brand suffix", () => assert.equal(document.title, "تجربة المستخدم | LENA Digital House"));
-check("AC5 canonical follows the route and the language", () => assert.equal(head.querySelector('link[rel="canonical"]').getAttribute("href"), "https://lena.example/ar/services/ui-ux"));
+check("AC5 canonical follows the route and the language", () => assert.equal(head.querySelector('link[rel="canonical"]').getAttribute("href"), "https://lena.example/ar/world/property"));
 check("description whitespace is collapsed", () => assert.equal(meta("name", "description"), "وصف فيه مسافات زائدة"));
 check("AC7 JSON-LD removed on routes that do not supply it", () => assert.equal(head.children.filter((c) => c.tagName === "SCRIPT").length, 0));
 
-apply({ title: "Riwaq", description: "A contemporary café brand launch.", path: "/work/riwaq", locale: "en", type: "article" });
+apply({ title: "Product evidence", description: "A verified operating surface.", path: "/world/property", locale: "en", type: "article" });
 check("og:type article on case studies", () => assert.equal(meta("property", "og:type"), "article"));
 check("og:locale maps en -> en_US", () => assert.equal(meta("property", "og:locale"), "en_US"));
 

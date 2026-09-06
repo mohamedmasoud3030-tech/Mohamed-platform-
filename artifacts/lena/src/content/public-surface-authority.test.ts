@@ -46,4 +46,18 @@ describe("LENA public surface authority", () => {
     expect(sitemap).toContain('path: "/world/atlas"');
     expect(sitemap).not.toMatch(/function extractIds\(/);
   });
+
+  it("keeps the operating-intelligence page off the unpublished creative catalog", () => {
+    const ai = read("src/pages/AiSolutions.tsx");
+
+    expect(ai).not.toContain("publicProjects");
+    expect(ai).not.toContain("ProjectCard");
+    expect(ai).not.toContain("findStudioProject");
+    expect(ai).not.toContain("DEMO_SIGNALS");
+    expect(ai).toContain("publicSystems");
+    expect(ai).toContain("useSiteCopy");
+    expect(ai).toContain("to={`/world/${system.id}`}");
+    expect(ai).toContain('to="/world/command"');
+    expect(ai).toContain('to="/world/atlas"');
+  });
 });

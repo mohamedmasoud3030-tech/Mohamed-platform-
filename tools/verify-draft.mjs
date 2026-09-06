@@ -44,13 +44,13 @@ console.log("\n== abandoned progress / refresh recovery ==");
 
 check("nothing stored means nothing to restore", () => assert.equal(readDraft(), null));
 
-const typed = { ...emptyDraft(), name: "سارة", message: "أحتاج هوية بصرية", service: "visual-identity" };
+const typed = { ...emptyDraft(), name: "سارة", message: "أحتاج نظام تشغيل للعقارات", service: "property" };
 writeDraft(typed);
 check("what the visitor typed survives a refresh", () => {
   const restored = readDraft();
   assert.equal(restored.name, "سارة");
-  assert.equal(restored.message, "أحتاج هوية بصرية");
-  assert.equal(restored.service, "visual-identity");
+  assert.equal(restored.message, "أحتاج نظام تشغيل للعقارات");
+  assert.equal(restored.service, "property");
 });
 check("untouched fields stay empty, never undefined", () => {
   const restored = readDraft();

@@ -51,10 +51,12 @@ Rules enforced by architecture:
 
 ## Graph rule (collision safety)
 
-The World Graph / Atlas runtime is a concurrent program. The kernel depends
-on `graph/GraphContextAdapter.ts` (a small interface + deterministic
-in-memory adapter). When the real World Graph lands, integration connects it
-to this adapter; the kernel code does not change.
+The kernel never imports Atlas or React. It depends on
+`graph/GraphContextAdapter.ts` (a small interface). Production wiring is
+`CanonicalWorldGraphAdapter` over the live `@/graph` World Graph.
+`InMemoryGraphContextAdapter` remains the deterministic test double;
+`emptyGraphContextAdapter` is the fail-closed default when no graph is
+supplied. The kernel does not own a second topology.
 
 ## Out of scope (later phases)
 
