@@ -225,6 +225,6 @@ export interface LenaContextSituation {
   signalSource?: SignalSourceState | null;
   /** World ids considered for per-world presence and the catalog. */
   worldIds?: readonly string[];
-  /** Connected graph adapter, when the World Graph runtime is available. */
+  /** Live World Graph adapter. Production supplies CanonicalWorldGraphAdapter. */
   graph?: GraphContextAdapter | null;
 }
