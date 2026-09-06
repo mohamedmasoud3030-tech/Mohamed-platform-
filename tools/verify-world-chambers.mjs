@@ -162,12 +162,16 @@ check("reduced-motion removes arrival animation", () => {
 });
 
 check("public systems generate indexable Chamber sitemap entries", () => {
-  assert.match(sitemap, /extractPublicIds\("content\/systems\.ts", "system"\)/);
+  assert.match(sitemap, /extractPublicIds\("content\/systems\.ts"\)/);
   assert.match(sitemap, /path: `\/world\/\$\{id\}`/);
+  assert.match(sitemap, /path: "\/world\/command"/);
+  assert.match(sitemap, /path: "\/world\/atlas"/);
 });
 
 check("analytics records a route shape, never the chamber system id", () => {
-  assert.match(analytics, /case "world":\s*\n\s*return second \? "\/world\/:system" : "\/world"/);
+  assert.match(analytics, /case "world":/);
+  assert.match(analytics, /if \(second === "command" \|\| second === "atlas"\) return `\/world\/\$\{second\}`/);
+  assert.match(analytics, /return "\/world\/:system"/);
 });
 
 check("real evidence assets exist under the canonical system folder", () => {

@@ -77,7 +77,7 @@ console.log("\n== analytics routes under /lena collapse to the same shapes ==");
 E.setBasePathForTests?.("/lena");
 if (typeof E.setBasePathForTests === "function") {
   check("/lena/ar/services → /services", () => assert.equal(E.normaliseRoute("/lena/ar/services"), "/services"));
-  check("/lena/en/work/riwaq → /work/:project", () => assert.equal(E.normaliseRoute("/lena/en/work/riwaq"), "/work/:project"));
+  check("/lena/en/work/sample → /work/:project", () => assert.equal(E.normaliseRoute("/lena/en/work/sample"), "/work/:project"));
   check("/lena/ar → /", () => assert.equal(E.normaliseRoute("/lena/ar"), "/"));
   E.setBasePathForTests(null);
 } else {

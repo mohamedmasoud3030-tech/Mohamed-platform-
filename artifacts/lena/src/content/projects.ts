@@ -54,11 +54,12 @@ export const STUDIO_PROJECTS: StudioProject[] = [
   { id: "oman-routes", visibility: "hidden", provenance: "concept", tone: "orange", services: ["digital-marketing", "content-design", "visual-identity", "web-platforms"], title: { ar: "مسارات عُمان — حملة سياحية قصصية", en: "Oman Routes — Tourism Story Campaign" }, category: { ar: "Marketing + Content + Identity", en: "Marketing + Content + Identity" }, summary: { ar: "حملة تستخدم القصص والخرائط والتدرج البصري لتحويل الصور إلى فضول ثم تخطيط ثم تواصل.", en: "A campaign using stories, maps, and visual pacing to turn imagery into curiosity, planning, and contact." }, direction: { ar: "فصول بصرية واضحة وخرائط خفيفة وCarousels قصصية وصفحة هبوط مريحة.", en: "Clear visual chapters, lightweight maps, story carousels, and a comfortable landing page." }, deliverables: { ar: ["Campaign Idea", "Visual System", "Carousels", "Discovery Flow"], en: ["Campaign idea", "Visual system", "Carousels", "Discovery flow"] }, tags: ["Storytelling", "Maps", "Campaign"] },
 ];
 
-export function findStudioProject(id?: string) {
-  return STUDIO_PROJECTS.find((project) => project.id === id);
-}
-
 /** Concept work stays in the repository but off the public surface until real case studies replace it. */
 export function publicProjects() {
   return STUDIO_PROJECTS.filter((project) => project.visibility === "public");
+}
+
+/** Public lookup. Hidden concept work is not addressable at /work/:id. */
+export function findStudioProject(id?: string) {
+  return publicProjects().find((project) => project.id === id);
 }

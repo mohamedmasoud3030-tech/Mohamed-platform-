@@ -69,13 +69,16 @@ check("the search query length is kept but the query itself has no field to live
 
 console.log("\n== route shapes only, never real paths ==");
 const routes = [
-  ["/ar/work/riwaq", "/work/:project"],
-  ["/en/services/ui-ux", "/services/:service"],
-  ["/ar/contact?service=ui-ux&token=SECRET", "/contact"],
+  ["/ar/work/sample", "/work/:project"],
+  ["/en/services/property", "/services/:service"],
+  ["/ar/contact?service=property&token=SECRET", "/contact"],
   ["/en/dashboard/projects-editor", "/dashboard/:section"],
   ["/ar", "/"],
   ["/en/privacy", "/privacy"],
   ["/en/world", "/world"],
+  ["/en/world/command", "/world/command"],
+  ["/ar/world/atlas", "/world/atlas"],
+  ["/en/world/property", "/world/:system"],
   ["/ar/some-unknown-thing", "/other"],
 ];
 for (const [input, expected] of routes) {

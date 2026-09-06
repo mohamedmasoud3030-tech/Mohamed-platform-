@@ -5,7 +5,7 @@ import SeoHead from "@/components/SeoHead";
 import { SITE_CONFIG, whatsappUrlFor } from "@/config/site";
 import { pageSeo } from "@/content/seo";
 import { findService } from "@/content/services";
-import { publicSystems } from "@/content/systems";
+import { findSystem, publicSystems } from "@/content/systems";
 import PublicShell from "@/layouts/PublicShell";
 import { useSiteCopy } from "@/hooks/useSiteCopy";
 import { usePreferences } from "@/providers/preferences";
@@ -30,7 +30,7 @@ const FORM = {
     name: "الاسم",
     email: "البريد الإلكتروني",
     phone: "رقم الهاتف",
-    service: "المسار الأقرب للمشروع",
+    service: "القطاع الأقرب",
     message: "تفاصيل الفكرة",
     optional: "اختياري",
     choose: "اختر عند الحاجة",
@@ -59,7 +59,7 @@ const FORM = {
     name: "Name",
     email: "Email",
     phone: "Phone number",
-    service: "Closest project track",
+    service: "Closest industry",
     message: "Project details",
     optional: "Optional",
     choose: "Choose when relevant",
@@ -101,13 +101,17 @@ export default function Contact() {
   const seo = pageSeo("contact", locale);
 
   const params = new URLSearchParams(search);
-  const requestedService = findService(params.get("service") ?? undefined);
+  const serviceParam = params.get("service") ?? undefined;
+  const requestedSystem = findSystem(serviceParam);
+  const requestedService = requestedSystem ? undefined : findService(serviceParam);
   const requestedWork = (params.get("work") ?? "").match(/^[a-z0-9-]{1,40}$/)?.[0];
-  const entrySource = requestedService
-    ? `service:${requestedService.id}`
-    : requestedWork
-      ? `work:${requestedWork}`
-      : "contact";
+  const entrySource = requestedSystem
+    ? `service:${requestedSystem.id}`
+    : requestedService
+      ? `service:${requestedService.id}`
+      : requestedWork
+        ? `work:${requestedWork}`
+        : "contact";
 
   const [form, setForm] = useState<Inquiry>(createEmptyInquiry);
   const [draftRestored, setDraftRestored] = useState(false);
@@ -130,14 +134,14 @@ export default function Contact() {
     setForm((current) => ({
       ...current,
       ...(draft ?? {}),
-      service: draft?.service || requestedService?.id || current.service,
+      service: draft?.service || requestedSystem?.id || requestedService?.id || current.service,
       submittedAt: Date.now(),
     }));
     if (draft) {
       setDraftRestored(true);
       trackOnce("draft-restored", "inquiry_draft_restored", { locale });
     }
-  }, [requestedService?.id]);
+  }, [requestedSystem?.id, requestedService?.id]);
 
   useEffect(() => {
     if (reference !== null) successRef.current?.focus();

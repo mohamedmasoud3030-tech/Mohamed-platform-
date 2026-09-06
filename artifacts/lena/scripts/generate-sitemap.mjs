@@ -25,6 +25,8 @@ const LOCALES = ["ar", "en"];
 const STATIC_ROUTES = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/world", changefreq: "monthly", priority: "0.9" },
+  { path: "/world/command", changefreq: "monthly", priority: "0.7" },
+  { path: "/world/atlas", changefreq: "monthly", priority: "0.8" },
   { path: "/services", changefreq: "monthly", priority: "0.9" },
   { path: "/portfolio", changefreq: "weekly", priority: "0.9" },
   { path: "/about", changefreq: "yearly", priority: "0.6" },
@@ -67,19 +69,11 @@ function publicPath(locale, routePath) {
   return publicBasePath ? `${publicBasePath}${rest}` : rest;
 }
 
-function extractPublicIds(relativeFile, label) {
+function extractPublicIds(relativeFile) {
   const file = path.join(srcDir, relativeFile);
   const source = readFileSync(file, "utf8");
   const ids = [...source.matchAll(/\bid:\s*"([a-z0-9][a-z0-9-]*)",\s*visibility:\s*"public"/g)].map((m) => m[1]);
   return [...new Set(ids)];
-}
-
-function extractIds(relativeFile, label) {
-  const file = path.join(srcDir, relativeFile);
-  const source = readFileSync(file, "utf8");
-  const ids = [...source.matchAll(/\bid:\s*"([a-z0-9][a-z0-9-]*)"/g)].map((match) => match[1]);
-  const unique = [...new Set(ids)];
-  return unique;
 }
 
 function xmlEscape(value) {
@@ -133,9 +127,9 @@ function main() {
   const baseUrl = resolveBaseUrl();
   // Hidden entries are excluded: the sitemap must never advertise a page the
   // owner has taken off the public surface.
-  const systemIds = extractPublicIds("content/systems.ts", "system");
-  const serviceIds = extractPublicIds("content/services.ts", "service");
-  const projectIds = extractPublicIds("content/projects.ts", "project");
+  const systemIds = extractPublicIds("content/systems.ts");
+  const serviceIds = extractPublicIds("content/services.ts");
+  const projectIds = extractPublicIds("content/projects.ts");
 
   const entries = [
     ...STATIC_ROUTES,
