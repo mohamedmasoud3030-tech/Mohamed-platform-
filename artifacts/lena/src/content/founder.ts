@@ -26,8 +26,8 @@ export type Founder = {
 export const FOUNDER: Founder = {
   name: { ar: "محمد مسعود", en: "Mohamed Masoud" },
   role: {
-    ar: "مؤسس LENA Digital House — أبني أنظمة تشغيل من داخل المشكلة",
-    en: "Founder, LENA Digital House — building operations systems from inside the problem",
+    ar: "مؤسس ومطور LENA Digital House — أبني أنظمة تشغيل للشركات والأعمال",
+    en: "Founder & Software Engineer, LENA Digital House — building operating systems for real businesses",
   },
   initials: "MM",
   // Produced by tools/prepare-founder-photo.sh: 440x440, metadata stripped.
@@ -37,13 +37,11 @@ export const FOUNDER: Founder = {
     en: "Mohamed Masoud, founder of LENA Digital House",
   },
   /**
-   * Written from the founder's own account of his background, in his own facts.
-   * Deliberately excluded: date of birth and age — sensitive personal data that
-   * adds nothing to a purchase decision and is a known identity-theft vector.
+   * Written clearly as a software engineer and platform founder.
    */
   bio: {
-    ar: "محمد مسعود، خريج حاسبات ونظم معلومات إدارية. قبل أن أكتب أول سطر برمجي كنت أدير مكتبًا لتشغيل الأصول العقارية للغير: عقود وتحصيل وصيانة وتقارير آخر الشهر. من هناك عرفت أين يضيع المال والوقت فعلًا — ليس في نقص الأفكار، بل في عمليات يومية تُدار على الورق وفي مجموعات واتساب. ومنذ ثلاث سنوات أبني أنظمة تحلّ ما عشته بنفسي: إدارة العقارات، والمراكز الصحية والسبا، وصالات عرض الفساتين، وشركات الاستثمار، وخدمات الضيافة، والآن مخازن إعادة التدوير. كل نظام بدأ من مشكلة تشغيلية حقيقية، لا من فكرة على ورقة. أعمل مع صاحب العمل مباشرة: أفهم يومه، ثم أبني ما يختصره.",
-    en: "Mohamed Masoud, a computers and management information systems graduate. Before I wrote my first line of code I managed an office operating real-estate assets for other owners: contracts, collections, maintenance, and month-end reports. That is where I learned where money and time actually leak — not from a shortage of ideas, but from daily operations run on paper and in WhatsApp groups. For three years I have been building systems for the problems I lived myself: property management, health and spa centres, dress showrooms, investment firms, hospitality services, and now recycling warehouses. Every one started from a real operational problem, not a concept on a page. I work directly with the owner: understand the day, then build what shortens it.",
+    ar: "محمد مسعود، مهندس برمجيات ومؤسس LENA Digital House. أركز على بناء وتطوير أنظمة تشغيل سحابية وبرمجيات متكاملة تساعد أصحاب الأعمال على أتمتة وإدارة عملياتهم اليومية بكفاءة وموثوقية عالية. أعمل مع أصحاب المشاريع والشركات مباشرة لتحويل متطلبات العمل وسير العمليات إلى أنظمة ذكية، انسيابية، وسهلة الاستخدام.",
+    en: "Mohamed Masoud, software engineer and founder of LENA Digital House. I focus on building robust cloud operating systems and software solutions that help business owners automate and manage their daily operations with high reliability and efficiency. I work directly with business owners to transform operational workflows into clean, intuitive, and intelligent software.",
   },
 };
 
