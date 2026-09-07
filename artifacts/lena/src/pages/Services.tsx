@@ -4,6 +4,7 @@ import LenaCta from "@/components/LenaCta";
 import SeoHead from "@/components/SeoHead";
 import { pageSeo } from "@/content/seo";
 import { publicSystems } from "@/content/systems";
+import { SystemLogo } from "@/design-system/brand/SystemLogo";
 import PublicShell from "@/layouts/PublicShell";
 import { usePreferences } from "@/providers/preferences";
 
@@ -46,6 +47,7 @@ export default function Services() {
 
               <div className="lena-system-top">
                 <small>{String(index + 1).padStart(2, "0")}</small>
+                <SystemLogo systemId={system.id} size={36} />
                 <span className="lena-roots-chip">
                   {system.operatingPrimitives.length}{" "}
                   {isAr ? "جذور تشغيل" : "operating roots"}

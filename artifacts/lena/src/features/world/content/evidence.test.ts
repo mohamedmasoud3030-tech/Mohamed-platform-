@@ -4,7 +4,7 @@ import { evidenceFor, SYSTEM_EVIDENCE } from "./evidence";
 describe("product evidence authority", () => {
   it("uses the evidence registry itself as the publication truth", () => {
     expect(evidenceFor("property")).toBe(SYSTEM_EVIDENCE.property);
-    expect(evidenceFor("wellness")).toBeUndefined();
+    expect(evidenceFor("wellness")).toBe(SYSTEM_EVIDENCE.wellness);
     expect(evidenceFor("rental")).toBeUndefined();
   });
 
@@ -20,6 +20,25 @@ describe("product evidence authority", () => {
         "financials",
         "maintenance",
         "mobile",
+      ]),
+    );
+  });
+
+  it("has substantive real Wellness operating evidence", () => {
+    const wellness = evidenceFor("wellness") ?? [];
+    expect(wellness.length).toBeGreaterThanOrEqual(10);
+    expect(wellness.map((surface) => surface.id)).toEqual(
+      expect.arrayContaining([
+        "wellness-entry",
+        "wellness-dashboard",
+        "wellness-appointments",
+        "wellness-pos",
+        "wellness-records",
+        "wellness-services",
+        "wellness-reports",
+        "wellness-mobile-dashboard",
+        "wellness-mobile-appointments",
+        "wellness-mobile-pos",
       ]),
     );
   });

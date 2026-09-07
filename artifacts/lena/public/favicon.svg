@@ -1,1 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="t" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse"><stop stop-color="#101E45"/><stop offset="1" stop-color="#04081A"/></linearGradient><linearGradient id="g" x1="17.5" y1="12" x2="42" y2="46" gradientUnits="userSpaceOnUse"><stop stop-color="#72A5FF"/><stop offset=".48" stop-color="#9D7CFF"/><stop offset="1" stop-color="#FF83C3"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#t)"/><rect x="2.5" y="2.5" width="59" height="59" rx="13" fill="none" stroke="#FFFFFF" stroke-opacity=".08" stroke-width=".6"/><g fill="none" stroke="url(#g)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 14v22.5c0 2.75 2.25 5 5 5h15"/><path d="M19.5 23.75c6.75 0 12.25 5.5 12.25 12.25"/></g><circle cx="19.5" cy="14" r="3.9" fill="url(#g)"/><circle cx="28.1" cy="27.4" r="2" fill="#51E1FF"/><circle cx="31.75" cy="36" r="3.1" fill="url(#g)"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <path d="M14 10.5v20.2c0 3.75 3.04 6.8 6.8 6.8H36" stroke="#82a1ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M14 17.5c7.15 0 12.95 5.8 12.95 12.95" stroke="#82a1ff" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="14" cy="10.5" r="2.5" fill="#82a1ff"/>
+</svg>

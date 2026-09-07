@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router";
 import SeoHead from "@/components/SeoHead";
 import type { OperatingPrimitiveId } from "@/content/systems";
+import { SystemLogo } from "@/design-system/brand/SystemLogo";
 import InnerConstellation from "@/features/world/components/InnerConstellation";
 import { OperatingSurfaces } from "@/features/world/components/OperatingSurfaces";
 import { OPERATING_PRIMITIVES } from "@/features/world/content/operating-primitives";
@@ -113,7 +114,10 @@ export default function WorldSystem() {
               <p className="lena-kicker">
                 {isArabic ? "غرفة النظام · عالم LENA" : "SYSTEM CHAMBER · LENA WORLD"}
               </p>
-              <h1>{system.name[locale]}</h1>
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.5rem" }}>
+                <SystemLogo systemId={system.id} size={48} />
+                <h1 style={{ margin: 0 }}>{system.name[locale]}</h1>
+              </div>
               <p className="lena-chamber-industry">{system.industry[locale]}</p>
               {system.tagline ? (
                 <p className="lena-chamber-tagline">{system.tagline[locale]}</p>
@@ -248,11 +252,6 @@ export default function WorldSystem() {
           ) : null}
 
           <section className="lena-chamber-actions">
-            {system.id === "wellness" && (
-              <Link className="lena-primary" to="/lara-beauty">
-                {isArabic ? "شوف شاشات Lara Beauty الحقيقية" : "See real Lara Beauty screens"}
-              </Link>
-            )}
             {productContract?.handoff ? (
               <a
                 className="lena-primary"

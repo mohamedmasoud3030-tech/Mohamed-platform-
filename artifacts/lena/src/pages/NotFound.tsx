@@ -47,7 +47,12 @@ export default function NotFound() {
               {isArabic ? "الأنظمة الذكية" : "Smart systems"}
             </Link>
           </article>
-          {/* About link hidden temporarily */}
+          <article className="lena-glass lena-principle">
+            <Link className="lena-more" to="/about">
+              {isArabic ? "عالم LENA" : "Inside LENA"}
+              <ArrowUpRight size={15} />
+            </Link>
+          </article>
         </div>
       </section>
     </PublicShell>
