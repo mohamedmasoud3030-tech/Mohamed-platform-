@@ -105,7 +105,7 @@ export default function WorldSystem() {
             onClick={() => back()}
             aria-label={isArabic ? "العودة إلى عالم LENA" : "Back to LENA World"}
           >
-            <span aria-hidden="true">←</span>
+            <span aria-hidden="true">{isArabic ? "→" : "←"}</span>
             <span>{isArabic ? "العودة إلى عالم LENA" : "Back to LENA World"}</span>
           </button>
 

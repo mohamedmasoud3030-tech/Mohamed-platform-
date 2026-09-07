@@ -6,7 +6,7 @@ export const PUBLIC_NAVIGATION = [
   { to: "/", copyKey: "home" },
   { to: "/services", copyKey: "services" },
   { to: "/portfolio", copyKey: "portfolio" },
-  { to: "/lara-beauty", copyKey: "lara" },
+  { to: "/about", copyKey: "about" },
   { to: "/contact", copyKey: "contact" },
 ] as const;
 

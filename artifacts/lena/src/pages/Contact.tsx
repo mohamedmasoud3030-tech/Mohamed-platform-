@@ -349,7 +349,7 @@ export default function Contact() {
                     <option value="">{text.choose}</option>
                     {publicSystems().map((system) => (
                       <option value={system.id} key={system.id}>
-                        {system.industry[locale]}
+                        {system.name[locale]} — {system.industry[locale]}
                       </option>
                     ))}
                   </select>

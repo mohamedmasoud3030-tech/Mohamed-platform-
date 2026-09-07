@@ -128,7 +128,7 @@ export const SYSTEM_EVIDENCE: Partial<Record<SystemId, EvidenceSurface[]>> = {
   ],
 
   /**
-   * Wellness (LenaBeauty / Lara Beauty) — real application surfaces captured from
+   * Wellness (Lara Beauty) — real application surfaces captured from
    * the running centre system: sign-in, daily dashboard, appointment
    * scheduling, point of sale, records, services, reports, and mobile flows.
    */

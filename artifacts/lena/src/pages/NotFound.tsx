@@ -38,18 +38,19 @@ export default function NotFound() {
           </article>
           <article className="lena-glass lena-principle">
             <Link className="lena-more" to="/services">
-              {isArabic ? "الحلول" : "Solutions"}
+              {isArabic ? "الأنظمة" : "Systems"}
               <ArrowUpRight size={15} />
             </Link>
           </article>
           <article className="lena-glass lena-principle">
             <Link className="lena-more" to="/ai-solutions">
-              {isArabic ? "الأنظمة الذكية" : "Smart systems"}
+              {isArabic ? "الذكاء التشغيلي" : "Operating intelligence"}
+              <ArrowUpRight size={15} />
             </Link>
           </article>
           <article className="lena-glass lena-principle">
             <Link className="lena-more" to="/about">
-              {isArabic ? "عالم LENA" : "Inside LENA"}
+              {isArabic ? "عن LENA" : "About LENA"}
               <ArrowUpRight size={15} />
             </Link>
           </article>
