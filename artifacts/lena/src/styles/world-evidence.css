@@ -154,9 +154,10 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 10.3;
-  object-fit: cover;
-  object-position: top center;
+  max-height: 520px;
+  object-fit: contain;
+  object-position: center;
+  background: rgba(3, 8, 22, 0.4);
 }
 .lena-surface-frame img.is-missing {
   display: grid;
@@ -243,7 +244,7 @@
 
 @media (max-width: 480px) {
   .lena-surface-marker { flex: 1 1 calc(50% - 8px); }
-  .lena-surface-frame img { aspect-ratio: 9 / 16; }
+  .lena-surface-frame img { max-height: 380px; }
 }
 
 /* --- Reduced motion: calm, no dimensional tilt ----------------------------- */
