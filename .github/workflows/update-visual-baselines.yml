@@ -10,6 +10,9 @@ name: Update visual baselines
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - arena/01a07bc1-platform
 
 permissions:
   contents: write
