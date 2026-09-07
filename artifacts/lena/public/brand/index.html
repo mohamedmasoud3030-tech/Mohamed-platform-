@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LENA — هوية المنصة</title>
+    <style>
+      :root {
+        --bg: #030612;
+        --card: rgba(10, 18, 42, 0.62);
+        --line: rgba(167, 188, 255, 0.17);
+        --text: #f5f8ff;
+        --muted: #a8b5d0;
+        --accent: #82a1ff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 40px 20px 72px;
+        background: radial-gradient(circle at 50% -8%, rgba(79, 108, 255, 0.17), transparent 34rem), var(--bg);
+        color: var(--text);
+        font-family: "Noto Sans Arabic", "Inter", "Segoe UI", Tahoma, sans-serif;
+        line-height: 1.7;
+      }
+      .wrap { width: min(1080px, 100%); margin: auto; }
+      h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0 0 6px; font-weight: 600; letter-spacing: -0.02em; }
+      .lede { margin: 0 0 34px; color: var(--muted); max-width: 68ch; }
+      h2 { font-size: 1.05rem; margin: 0 0 14px; font-weight: 700; letter-spacing: 0.02em; }
+      section {
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: var(--card);
+        padding: 24px;
+        margin-bottom: 18px;
+      }
+      .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      .cell {
+        display: grid; gap: 12px; place-items: center;
+        border: 1px solid var(--line); border-radius: 16px;
+        padding: 26px 18px; background: rgba(4, 10, 27, 0.45);
+      }
+      .cell.light { background: #f4f7ff; border-color: rgba(38, 72, 152, 0.15); }
+      .cell small { color: var(--muted); font-size: 11px; letter-spacing: 0.08em; }
+      .cell.light small { color: #596987; }
+      .row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+      .label { font-size: 11px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; }
+      img { display: block; }
+      .sizes img { border-radius: 10px; }
+      .palette { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+      .swatch { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+      .swatch i { display: block; height: 56px; }
+      .swatch span { display: block; padding: 8px 10px; font-size: 11px; color: var(--muted); }
+      code { color: var(--accent); font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>هوية LENA Digital House</h1>
+      <p class="lede">
+        مفهومان للشعار، بصيغ متجهة (SVG) تعمل على أي خلفية. المفهوم الأول يطوّر أيقونة L الحالية،
+        والثاني يبني «بيتًا رقميًا» من عقد مترابطة تعبّر عن الأنظمة المتعددة داخل منصة واحدة.
+      </p>
+
+      <section>
+        <h2>المفهوم الأول — الأيقونة (تطوير الشعار الحالي)</h2>
+        <div class="grid">
+          <div class="cell"><img src="lena-mark.svg" width="150" alt="LENA mark" /><small>lena-mark.svg</small></div>
+          <div class="cell"><img src="lena-mark.svg" width="96" alt="" /><small>96px</small></div>
+          <div class="cell"><img src="lena-mark.svg" width="48" alt="" /><small>48px</small></div>
+          <div class="cell light"><img src="lena-mark.svg" width="96" alt="" /><small>على خلفية فاتحة</small></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>المفهوم الثاني — البيت الرقمي (كوكبة الأنظمة)</h2>
+        <div class="grid">
+          <div class="cell"><img src="lena-mark-alt.svg" width="150" alt="LENA house mark" /><small>lena-mark-alt.svg</small></div>
+          <div class="cell"><img src="lena-mark-alt.svg" width="96" alt="" /><small>96px</small></div>
+          <div class="cell"><img src="lena-mark-alt.svg" width="48" alt="" /><small>48px</small></div>
+          <div class="cell light"><img src="lena-mark-alt.svg" width="96" alt="" /><small>على خلفية فاتحة</small></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>التركيب الأفقي (أيقونة + اسم)</h2>
+        <div class="grid">
+          <div class="cell"><img src="lena-lockup-dark.svg" width="300" alt="LENA lockup dark" /><small>lena-lockup-dark.svg</small></div>
+          <div class="cell light"><img src="lena-lockup-light.svg" width="300" alt="LENA lockup light" /><small>lena-lockup-light.svg</small></div>
+          <div class="cell"><img src="lena-lockup-alt-dark.svg" width="300" alt="LENA alt lockup" /><small>lena-lockup-alt-dark.svg</small></div>
+          <div class="cell"><img src="lena-lockup-ar.svg" width="300" alt="لينا" /><small>lena-lockup-ar.svg — النسخة العربية</small></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>نسخة بلون واحد + اختبار الأحجام الصغيرة</h2>
+        <div class="row">
+          <div class="cell" style="width: 150px"><img src="lena-mark-mono.svg" width="90" alt="mono" /><small>mono — أبيض</small></div>
+          <div class="sizes row">
+            <span class="label">64</span><img src="lena-mark.svg" width="64" alt="" />
+            <span class="label">48</span><img src="lena-mark.svg" width="48" alt="" />
+            <span class="label">32</span><img src="lena-mark.svg" width="32" alt="" />
+            <span class="label">16</span><img src="lena-mark.svg" width="16" alt="" />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>لوحة الألوان</h2>
+        <div class="palette">
+          <div class="swatch"><i style="background: #030612"></i><span>Deep Navy — #030612</span></div>
+          <div class="swatch"><i style="background: #101E45"></i><span>Tile Top — #101E45</span></div>
+          <div class="swatch"><i style="background: #72A5FF"></i><span>Blue — #72A5FF</span></div>
+          <div class="swatch"><i style="background: #9D7CFF"></i><span>Violet — #9D7CFF</span></div>
+          <div class="swatch"><i style="background: #FF83C3"></i><span>Pink — #FF83C3</span></div>
+          <div class="swatch"><i style="background: #51E1FF"></i><span>Cyan node — #51E1FF</span></div>
+          <div class="swatch"><i style="background: #FFC76A"></i><span>Gold — #FFC76A</span></div>
+          <div class="swatch"><i style="background: #F5F8FF"></i><span>Text — #F5F8FF</span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>الملفات</h2>
+        <p style="margin: 0; color: var(--muted); font-size: 13px">
+          <code>lena-mark.svg</code> · <code>lena-mark-alt.svg</code> · <code>lena-mark-mono.svg</code> ·
+          <code>lena-lockup-dark.svg</code> · <code>lena-lockup-light.svg</code> · <code>lena-lockup-alt-dark.svg</code> ·
+          <code>lena-lockup-ar.svg</code> — إضافة إلى صادرات PNG بمقاسات 64 / 192 / 512 ونسخة maskable.
+        </p>
+      </section>
+    </div>
+  </body>
+</html>
