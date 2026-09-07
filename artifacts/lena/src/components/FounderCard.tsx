@@ -39,11 +39,17 @@ export default function FounderCard() {
       </div>
 
       <div className="lena-founder-body">
-        <p className="lena-kicker">{locale === "ar" ? "من يقف خلف LENA" : "The person behind LENA"}</p>
+        <p className="lena-kicker">
+          {locale === "ar" ? "من يقف خلف LENA" : "The person behind LENA"}
+        </p>
+
         <h2>{FOUNDER.name[locale]}</h2>
+
         <p className="lena-founder-role">{FOUNDER.role[locale]}</p>
 
-        {hasFounderBio(locale) && <p className="lena-founder-bio">{FOUNDER.bio[locale]}</p>}
+        {hasFounderBio(locale) && (
+          <p className="lena-founder-bio">{FOUNDER.bio[locale]}</p>
+        )}
 
         <p className="lena-founder-note">
           {locale === "ar"
@@ -56,7 +62,12 @@ export default function FounderCard() {
             {locale === "ar" ? "ابدأ محادثة" : "Start a conversation"}
             <ArrowUpRight size={16} />
           </Link>
-          <a className="lena-secondary" href={SITE_CONFIG.whatsappUrl} target="_blank" rel="noreferrer">
+          <a
+            className="lena-secondary"
+            href={SITE_CONFIG.whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
             <MessageCircle size={15} />
             WhatsApp
           </a>

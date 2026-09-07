@@ -1,1 +1,42 @@
-:root,.dark{--lena-bg:#030612;--lena-card:rgba(10,18,42,.62);--lena-card-strong:rgba(10,18,42,.84);--lena-text:#f5f8ff;--lena-muted:#a8b5d0;--lena-line:rgba(167,188,255,.17);--lena-line-strong:rgba(167,188,255,.34);--lena-accent:#82a1ff;--lena-cyan:#51e1ff;--lena-glass:rgba(4,10,27,.72);--lena-focus:#9cb5ff;color-scheme:dark}.light{--lena-bg:#f4f7ff;--lena-card:rgba(255,255,255,.76);--lena-card-strong:rgba(255,255,255,.94);--lena-text:#0a1430;--lena-muted:#596987;--lena-line:rgba(38,72,152,.15);--lena-line-strong:rgba(38,72,152,.3);--lena-accent:#315efb;--lena-cyan:#087ea4;--lena-glass:rgba(250,252,255,.86);--lena-focus:#244ee9;color-scheme:light}
+:root,
+.dark {
+  --lena-bg: #030612;
+  --lena-card: rgba(10, 18, 42, 0.62);
+  --lena-card-strong: rgba(10, 18, 42, 0.84);
+  --lena-text: #f5f8ff;
+  --lena-muted: #a8b5d0;
+  --lena-line: rgba(167, 188, 255, 0.17);
+  --lena-line-strong: rgba(167, 188, 255, 0.34);
+  --lena-accent: #82a1ff;
+  --lena-accent-strong: #a8c0ff;
+  --lena-cyan: #51e1ff;
+  --lena-gold: #ffc76a;
+  --lena-gold-strong: #ffe0a0;
+  --lena-glass: rgba(4, 10, 27, 0.72);
+  --lena-focus: #9cb5ff;
+  --lena-gradient-hero: linear-gradient(90deg, #72a5ff, #9d7cff 48%, #ff83c3);
+  --lena-gradient-gold: linear-gradient(135deg, #ffc76a, #ff9d4a);
+  --lena-gradient-primary: linear-gradient(135deg, #416fff, #724dff);
+  color-scheme: dark;
+}
+
+.light {
+  --lena-bg: #f4f7ff;
+  --lena-card: rgba(255, 255, 255, 0.76);
+  --lena-card-strong: rgba(255, 255, 255, 0.94);
+  --lena-text: #0a1430;
+  --lena-muted: #596987;
+  --lena-line: rgba(38, 72, 152, 0.15);
+  --lena-line-strong: rgba(38, 72, 152, 0.3);
+  --lena-accent: #315efb;
+  --lena-accent-strong: #1e4cd6;
+  --lena-cyan: #087ea4;
+  --lena-gold: #d98a1a;
+  --lena-gold-strong: #b87312;
+  --lena-glass: rgba(250, 252, 255, 0.86);
+  --lena-focus: #244ee9;
+  --lena-gradient-hero: linear-gradient(90deg, #2452d8, #6b3cc7 48%, #c42f8a);
+  --lena-gradient-gold: linear-gradient(135deg, #d98a1a, #b87312);
+  --lena-gradient-primary: linear-gradient(135deg, #315efb, #6b3cc7);
+  color-scheme: light;
+}

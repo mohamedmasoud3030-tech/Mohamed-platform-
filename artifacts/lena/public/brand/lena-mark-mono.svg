@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="lena-mono-title">
+  <title id="lena-mono-title">LENA</title>
+  <g fill="none" stroke="#F5F8FF" stroke-width="44" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M156 112V292c0 22 18 40 40 40h120"/>
+    <path d="M156 190c54 0 98 44 98 98"/>
+  </g>
+  <g fill="#F5F8FF">
+    <circle cx="156" cy="112" r="30"/><circle cx="225" cy="219" r="15"/><circle cx="254" cy="288" r="24"/>
+  </g>
+</svg>

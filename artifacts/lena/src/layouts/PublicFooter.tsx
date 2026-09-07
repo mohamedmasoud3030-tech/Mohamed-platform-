@@ -25,12 +25,62 @@ export default function PublicFooter() {
   return (
     <footer className="lena-footer">
       <div className="lena-footer-grid">
-        <div><Link to="/" className="lena-brand-link"><LenaLogo /></Link><p>{copy.footer.description}</p></div>
-        <div><h2>{copy.footer.links}</h2><div className="lena-footer-links">{PUBLIC_NAVIGATION.map((item) => <Link key={item.to} to={item.to}>{copy.nav[item.copyKey]}</Link>)}<Link to="/help">{locale === "ar" ? "المساعدة" : "Help"}</Link><Link to="/privacy">{locale === "ar" ? "بياناتك وخصوصيتك" : "Your data and privacy"}</Link></div></div>
-        <div><h2>{copy.footer.contact}</h2><div className="lena-footer-links">{SITE_CONFIG.channels.map((channel) => <a key={channel.id} href={whatsappUrlFor(channel)} target="_blank" rel="noreferrer"><MessageCircle size={15} /><span dir="ltr">{channel.display}</span><small>{channel.region[locale]}</small></a>)}<a href={SITE_CONFIG.emailUrl}><Mail size={15} /><span dir="ltr">{SITE_CONFIG.email}</span></a></div></div>
+        {/* Brand & Description */}
+        <div>
+          <Link to="/" className="lena-brand-link">
+            <LenaLogo />
+          </Link>
+          <p>{copy.footer.description}</p>
+        </div>
+
+        {/* Quick Links */}
+        <div>
+          <h2>{copy.footer.links}</h2>
+          <div className="lena-footer-links">
+            {PUBLIC_NAVIGATION.map((item) => (
+              <Link key={item.to} to={item.to}>
+                {copy.nav[item.copyKey]}
+              </Link>
+            ))}
+            <Link to="/help">
+              {locale === "ar" ? "المساعدة" : "Help"}
+            </Link>
+            <Link to="/privacy">
+              {locale === "ar" ? "بياناتك وخصوصيتك" : "Your data and privacy"}
+            </Link>
+          </div>
+        </div>
+
+        {/* Contact */}
+        <div>
+          <h2>{copy.footer.contact}</h2>
+          <div className="lena-footer-links">
+            {SITE_CONFIG.channels.map((channel) => (
+              <a
+                key={channel.id}
+                href={whatsappUrlFor(channel)}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <MessageCircle size={15} />
+                <span dir="ltr">{channel.display}</span>
+                <small>{channel.region[locale]}</small>
+              </a>
+            ))}
+            <a href={SITE_CONFIG.emailUrl}>
+              <Mail size={15} />
+              <span dir="ltr">{SITE_CONFIG.email}</span>
+            </a>
+          </div>
+        </div>
       </div>
+
+      {/* Footer Base */}
       <div className="lena-footer-base">
-        <small>© {new Date().getFullYear()} LENA Digital House — {SITE_CONFIG.servesLabel[locale]}</small>
+        <small>
+          © {new Date().getFullYear()} LENA Digital House —{" "}
+          {SITE_CONFIG.servesLabel[locale]}
+        </small>
         <button
           type="button"
           className="lena-memory-reset"

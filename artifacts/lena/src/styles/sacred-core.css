@@ -249,3 +249,14 @@
     animation: none !important;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   System entity logos (added with the system-logo brand component).
+   The Sacred Core artwork above stays the single canonical center; these rules
+   only seat each product mark above the entity figure behind it.
+   ───────────────────────────────────────────────────────────────────────────── */
+.lena-world-entity-figure svg {
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
