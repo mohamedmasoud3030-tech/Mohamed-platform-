@@ -1,1 +1,2 @@
+/** Application-wide constants */
 export const LOGIN_PATH = "/login";

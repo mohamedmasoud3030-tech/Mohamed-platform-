@@ -1,0 +1,358 @@
+/* ==========================================================================
+   LENA World Pages — Enhanced styles
+   World · WorldSystem · Atlas · AiSolutions
+============================================================================ */
+
+/* ─── World page entrance links ─── */
+.lena-world-entries {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.lena-world-command-entry,
+.lena-world-atlas-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 13px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+}
+
+.lena-world-command-entry {
+  border: 1px solid rgba(181, 201, 255, 0.25);
+  background: var(--lena-gradient-primary);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(66, 91, 255, 0.2);
+}
+
+.lena-world-atlas-entry {
+  border: 1px solid var(--lena-line);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--lena-text);
+}
+
+.lena-world-command-entry:hover,
+.lena-world-atlas-entry:hover {
+  transform: translateY(-2px);
+  border-color: var(--lena-line-strong);
+}
+
+/* ─── World entities list ─── */
+.lena-world-entities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.lena-world-list-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  border-radius: 99px;
+  border: 1px solid var(--lena-line);
+  background: rgba(79, 108, 255, 0.06);
+  color: var(--lena-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.lena-world-list-link:hover,
+.lena-world-list-link.is-remembered {
+  border-color: var(--lena-accent);
+  color: var(--lena-accent);
+  background: rgba(79, 108, 255, 0.12);
+}
+
+/* ─── World back button ─── */
+.lena-world-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--lena-line);
+  background: transparent;
+  color: var(--lena-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.lena-world-back:hover {
+  border-color: var(--lena-line-strong);
+  color: var(--lena-text);
+}
+
+/* ─── System chamber polish ─── */
+.lena-chamber-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+.lena-chamber-copy h1 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-top: 0.75rem;
+}
+
+.lena-chamber-industry {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--lena-muted);
+  margin-top: 0.5rem;
+}
+
+.lena-chamber-tagline {
+  font-size: 1rem;
+  color: var(--lena-gold);
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+.lena-chamber-signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.lena-chamber-signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 99px;
+  border: 1px solid var(--lena-line);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--lena-muted);
+}
+
+.lena-chamber-signal i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lena-accent);
+  box-shadow: 0 0 6px rgba(130, 161, 255, 0.5);
+}
+
+/* ─── Chamber truth panels ─── */
+.lena-chamber-truth {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+
+.lena-chamber-panel {
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--lena-line);
+  background: linear-gradient(145deg, var(--lena-card), rgba(7, 14, 34, 0.5));
+}
+
+.lena-chamber-panel small {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lena-accent);
+  margin-bottom: 0.75rem;
+}
+
+.lena-chamber-panel h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.lena-chamber-panel p {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--lena-muted);
+}
+
+.lena-chamber-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.lena-chamber-panel li {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--lena-muted);
+  padding-left: 1rem;
+  position: relative;
+}
+
+.lena-chamber-panel li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--lena-accent);
+}
+
+/* RTL */
+[dir="rtl"] .lena-chamber-panel li {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+[dir="rtl"] .lena-chamber-panel li::before {
+  left: auto;
+  right: 0;
+}
+
+/* ─── Chamber roots section ─── */
+.lena-chamber-roots {
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 20px;
+  border: 1px solid var(--lena-line);
+  background: linear-gradient(145deg, var(--lena-card), rgba(7, 14, 34, 0.4));
+}
+
+.lena-chamber-roots header small {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lena-accent);
+  margin-bottom: 0.5rem;
+}
+
+.lena-chamber-roots header h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+
+.lena-chamber-roots ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.25rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lena-chamber-roots li strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.lena-chamber-roots li p {
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--lena-muted);
+}
+
+.lena-chamber-roots-note {
+  margin-top: 1.5rem;
+  font-size: 0.82rem;
+  color: var(--lena-muted);
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* ─── Chamber actions ─── */
+.lena-chamber-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--lena-line);
+}
+
+/* ─── Chamber boundary ─── */
+.lena-chamber-boundary {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px dashed var(--lena-line-strong);
+  background: rgba(79, 108, 255, 0.03);
+}
+
+.lena-chamber-boundary small {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lena-accent);
+  margin-bottom: 0.75rem;
+}
+
+.lena-chamber-boundary p {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--lena-muted);
+}
+
+.lena-chamber-boundary span {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--lena-muted);
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .lena-chamber-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .lena-chamber-truth {
+    grid-template-columns: 1fr;
+  }
+
+  .lena-chamber-roots ul {
+    grid-template-columns: 1fr;
+  }
+
+  .lena-world-entries {
+    flex-direction: column;
+  }
+
+  .lena-world-command-entry,
+  .lena-world-atlas-entry {
+    width: 100%;
+    justify-content: center;
+  }
+}

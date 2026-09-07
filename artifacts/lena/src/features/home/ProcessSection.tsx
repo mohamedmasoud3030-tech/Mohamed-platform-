@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { usePreferences } from "@/providers/preferences";
 
 const STEPS = [
@@ -9,8 +10,32 @@ const STEPS = [
 
 export default function ProcessSection() {
   const { locale } = usePreferences();
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = sectionRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(element);
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="lena-section">
+    <section
+      ref={sectionRef}
+      className={`lena-section scroll-animate ${isVisible ? "is-visible" : ""}`}
+    >
       <div className="lena-container">
         <p className="lena-kicker">
           {locale === "ar" ? "من العمل الحقيقي إلى النظام" : "From real work to operating system"}
@@ -20,7 +45,7 @@ export default function ProcessSection() {
             ? "لا نبدأ بالشكل. نبدأ بكيف يعمل العمل فعلًا."
             : "We do not start with the surface. We start with how the work actually runs."}
         </h2>
-        <div className="lena-process">
+        <div className="lena-process scroll-stagger">
           {STEPS.map((step, index) => (
             <article className="lena-glass" key={step.en}>
               <small>{String(index + 1).padStart(2, "0")}</small>

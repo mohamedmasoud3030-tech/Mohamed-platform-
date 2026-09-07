@@ -248,6 +248,11 @@ export default function WorldSystem() {
           ) : null}
 
           <section className="lena-chamber-actions">
+            {system.id === "wellness" && (
+              <Link className="lena-primary" to="/lara-beauty">
+                {isArabic ? "شوف شاشات Lara Beauty الحقيقية" : "See real Lara Beauty screens"}
+              </Link>
+            )}
             {productContract?.handoff ? (
               <a
                 className="lena-primary"

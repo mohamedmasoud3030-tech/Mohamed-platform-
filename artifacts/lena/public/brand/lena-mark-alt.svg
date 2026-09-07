@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="lena-alt-title">
+  <title id="lena-alt-title">LENA — Digital House</title>
+  <defs>
+    <linearGradient id="tileB" x1="64" y1="32" x2="448" y2="480" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101E45"/><stop offset="1" stop-color="#04081A"/>
+    </linearGradient>
+    <radialGradient id="tileGlowB" cx="30%" cy="16%" r="82%">
+      <stop stop-color="#7FA0FF" stop-opacity=".22"/><stop offset="1" stop-color="#7FA0FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="strokeB" x1="120" y1="110" x2="392" y2="386" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#72A5FF"/><stop offset=".48" stop-color="#9D7CFF"/><stop offset="1" stop-color="#FF83C3"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#tileB)"/>
+  <rect width="512" height="512" rx="120" fill="url(#tileGlowB)"/>
+  <rect x="16" y="16" width="480" height="480" rx="106" fill="none" stroke="#FFFFFF" stroke-opacity=".07" stroke-width="2"/>
+  <path d="M256 116 128 236v140h256V236Z" fill="none" stroke="url(#strokeB)" stroke-width="26" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="256" cy="300" r="54" fill="none" stroke="#51E1FF" stroke-opacity=".38" stroke-width="6"/>
+  <circle cx="256" cy="300" r="34" fill="url(#strokeB)"/>
+  <g fill="url(#strokeB)">
+    <circle cx="256" cy="116" r="22"/><circle cx="128" cy="236" r="22"/><circle cx="384" cy="236" r="22"/>
+    <circle cx="128" cy="376" r="22"/><circle cx="384" cy="376" r="22"/>
+  </g>
+</svg>
