@@ -37,6 +37,11 @@ yarn-error.log
 testem.log
 /typings
 
+# Local environment — secrets never enter Git (.env.example is the template)
+.env
+.env.local
+.env.*.local
+
 # System Files
 .DS_Store
 Thumbs.db
