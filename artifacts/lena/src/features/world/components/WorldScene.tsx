@@ -1,4 +1,6 @@
 import { useLayoutEffect, type CSSProperties } from "react";
+import { SystemLogo } from "@/design-system/brand/SystemLogo";
+import type { SystemId } from "@/content/systems";
 import { usePreferences } from "@/providers/preferences";
 import { useSpatialScene } from "../spatial/useSpatialScene";
 import { buildStars } from "../spatial/ambientField";
@@ -128,6 +130,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
             aria-label={`${system.name[locale]} — ${system.industry[locale]}`}
           >
             <span className="lena-world-entity-figure" aria-hidden="true">
+              <SystemLogo systemId={entity.systemId as SystemId} size={40} />
               <span className="lena-world-entity-marks" />
             </span>
             <span className="lena-world-entity-caption">

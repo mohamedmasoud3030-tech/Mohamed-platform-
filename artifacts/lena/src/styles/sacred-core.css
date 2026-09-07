@@ -1,116 +1,189 @@
-/* ========================================================================== 
-   LENA Sacred Core v3 — approved living sigil
-   The approved transparent WebP is the single canonical artwork used by the
-   public runtime, World watermarks, and the Guardian integrity contract.
+/* ==========================================================================
+   LENA Core Identity — Home & World
+   Home: LENA logo badge · World: gradient orb · Entities: system logos
 ============================================================================ */
 
-.lena-house,
+/* ─── Home: LENA logo badge ─── */
+.lena-house {
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  z-index: 3;
+  width: 244px !important;
+  height: 244px !important;
+  border-radius: 50% !important;
+  overflow: visible !important;
+  isolation: auto !important;
+  border: 2px solid var(--lena-line-strong, rgba(167, 188, 255, 0.34)) !important;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(130, 161, 255, 0.15),
+    rgba(79, 108, 255, 0.08) 50%,
+    rgba(10, 18, 42, 0.95) 90%
+  ) !important;
+  box-shadow:
+    0 0 40px rgba(79, 108, 255, 0.12),
+    inset 0 0 30px rgba(79, 108, 255, 0.05) !important;
+  text-align: center;
+  animation: lena-breathe 6.5s ease-in-out .85s infinite alternate !important;
+}
+
+/* LENA logo SVG inside the badge */
+.lena-house-logo {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 0.5rem;
+}
+
+.lena-house-logo path,
+.lena-house-logo circle {
+  fill: none;
+  stroke: var(--lena-accent, #82a1ff);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Text inside the badge */
+.lena-house small {
+  color: var(--lena-accent, #82a1ff) !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.4em !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.lena-house strong {
+  color: var(--lena-text, #f5f8ff) !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.15 !important;
+  margin-top: 0 !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.lena-house span {
+  color: var(--lena-muted, #a8b5d0) !important;
+  font-size: 8px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  margin-top: 0.35rem !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* No ::after or ::before effects */
+.lena-house::after,
+.lena-house::before {
+  display: none !important;
+}
+
+/* Focus state */
+.lena-orbit.is-focus .lena-house {
+  border-color: var(--lena-accent, #82a1ff) !important;
+  box-shadow:
+    0 0 50px rgba(79, 108, 255, 0.2),
+    inset 0 0 30px rgba(79, 108, 255, 0.08) !important;
+}
+
+/* Gateway states */
+.lena-public.lena-gateway-quiet .lena-house {
+  border-color: var(--lena-accent, #82a1ff) !important;
+  box-shadow:
+    0 0 60px rgba(79, 108, 255, 0.25),
+    inset 0 0 40px rgba(79, 108, 255, 0.1) !important;
+}
+
+.lena-public.lena-gateway-resolve .lena-house {
+  animation: lena-sacred-gateway-core .42s cubic-bezier(.16,.84,.28,1) both !important;
+}
+
+/* ─── Light mode ─── */
+.light .lena-house {
+  border-color: rgba(38, 72, 152, 0.3) !important;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(49, 94, 251, 0.1),
+    rgba(49, 94, 251, 0.05) 50%,
+    rgba(226, 235, 255, 0.95) 90%
+  ) !important;
+  box-shadow:
+    0 0 40px rgba(49, 94, 251, 0.1),
+    inset 0 0 30px rgba(49, 94, 251, 0.04) !important;
+}
+
+.light .lena-house-logo path,
+.light .lena-house-logo circle {
+  stroke: #315efb;
+}
+
+.light .lena-house small { color: #315efb !important; }
+.light .lena-house strong { color: #172750 !important; }
+.light .lena-house span { color: #4661a5 !important; }
+
+/* ─── World: Gradient orb ─── */
 .lena-world-core {
   isolation: isolate;
-  overflow: visible;
-  background: transparent url("../assets/lena-sacred-core.webp") center / contain no-repeat !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-  filter:
-    drop-shadow(0 0 11px rgba(255, 207, 111, .26))
-    drop-shadow(0 0 30px rgba(223, 137, 35, .18));
+  overflow: hidden;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(130, 161, 255, 0.4),
+    rgba(79, 108, 255, 0.2) 40%,
+    rgba(10, 18, 42, 0.95) 80%
+  ) !important;
+  border: 2px solid rgba(130, 161, 255, 0.25) !important;
+  box-shadow:
+    0 0 30px rgba(79, 108, 255, 0.15),
+    inset 0 0 40px rgba(79, 108, 255, 0.1) !important;
+  filter: none !important;
+  width: 204px !important;
+  height: 204px !important;
 }
 
-/* Any quiet Sacred Core watermark inside deeper LENA spaces uses the same
-   approved identity. This override intentionally loads after World styles. */
-.lena-inner-origin,
-.lena-chamber-origin {
-  background-image: url("../assets/lena-sacred-core.webp") !important;
-  background-position: center !important;
-  background-size: contain !important;
-  background-repeat: no-repeat !important;
+.light .lena-world-core {
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(49, 94, 251, 0.25),
+    rgba(49, 94, 251, 0.1) 40%,
+    rgba(226, 235, 255, 0.95) 80%
+  ) !important;
+  border-color: rgba(38, 72, 152, 0.2) !important;
 }
 
-.lena-house > small,
-.lena-house > strong,
-.lena-house > span,
 .lena-world-core > strong,
 .lena-world-core > small {
   opacity: 0 !important;
   pointer-events: none;
 }
 
-/* Give the actual sigil enough optical mass to remain legible on phone screens. */
-.lena-house {
-  width: 244px !important;
-  height: 244px !important;
-}
-
-.lena-world-core {
-  width: 204px !important;
-  height: 204px !important;
-}
-
-/* The approved artwork's real eye is at the optical centre. Runtime light is
-   attached to that eye only; it never creates a replacement core. */
-.lena-house::after,
 .lena-world-core::after {
-  content: "";
-  display: block !important;
-  position: absolute;
+  content: "" !important;
+  position: absolute !important;
   left: 50%;
   top: 47.2%;
-  inset: auto !important;
   width: 16%;
   height: 16%;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(
-    circle,
-    rgba(255,255,255,.96) 0 7%,
-    rgba(255,239,188,.92) 15%,
-    rgba(255,190,67,.68) 32%,
-    rgba(255,146,24,.18) 56%,
-    transparent 74%
-  );
-  box-shadow:
-    0 0 7px rgba(255, 244, 213, .86),
-    0 0 19px rgba(255, 183, 55, .48),
-    0 0 42px rgba(255, 139, 18, .18);
+  background: radial-gradient(circle, rgba(255,255,255,.96) 0 7%, rgba(255,239,188,.92) 15%, rgba(255,190,67,.68) 32%, rgba(255,146,24,.18) 56%, transparent 74%);
+  box-shadow: 0 0 7px rgba(255, 244, 213, .86), 0 0 19px rgba(255, 183, 55, .48);
   opacity: .48;
   z-index: 3;
   pointer-events: none;
   animation: lena-sacred-eye-breathe 5.8s ease-in-out infinite alternate !important;
 }
 
-/* Blink crosses only the artwork's eye and is invisible outside the blink. */
-.lena-house::before,
-.lena-world-core::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 47.2%;
-  width: 27%;
-  height: 9.5%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(13,8,3,.90) 0 52%, rgba(13,8,3,.65) 70%, transparent 100%);
-  transform: translate(-50%, -50%) scaleY(0);
-  transform-origin: center;
-  opacity: 0;
-  z-index: 4;
-  pointer-events: none;
-  animation: lena-sacred-blink 13.6s cubic-bezier(.4,0,.2,1) infinite;
-}
+.lena-world-core::before { display: none !important; }
 
-.lena-orbit.is-focus .lena-house {
-  filter:
-    drop-shadow(0 0 14px rgba(255, 220, 145, .34))
-    drop-shadow(0 0 40px rgba(223, 137, 35, .24));
-}
-
-.lena-orbit.is-focus .lena-house::after {
-  opacity: .82;
-  box-shadow:
-    0 0 10px rgba(255,245,220,.94),
-    0 0 27px rgba(255,191,67,.68),
-    0 0 60px rgba(255,141,16,.26);
-}
-
+/* World core state animations */
 .lena-world:has(.state-live.is-selected) .lena-world-core::after {
   animation: lena-sacred-ack-live .78s cubic-bezier(.18,.72,.2,1), lena-sacred-eye-breathe 5.8s ease-in-out .78s infinite alternate !important;
 }
@@ -121,57 +194,46 @@
   animation: lena-sacred-ack-forming 1.05s cubic-bezier(.18,.72,.2,1), lena-sacred-eye-breathe 5.8s ease-in-out 1.05s infinite alternate !important;
 }
 
-/* Core Intelligence changes the existing Sacred Core halo only. The approved
-   artwork remains the identity; state adds a restrained, data-owned cue. */
-.lena-world-core.core-aware {
-  filter:
-    drop-shadow(0 0 14px rgba(231, 176, 73, .34))
-    drop-shadow(0 0 32px rgba(223, 137, 35, .18));
-}
+/* Core Intelligence states */
+.lena-world-core.core-aware { filter: drop-shadow(0 0 14px rgba(231, 176, 73, .34)) !important; }
 .lena-world-core.core-focused,
-.lena-world-core.core-guiding {
-  filter:
-    drop-shadow(0 0 14px rgba(130, 161, 255, .42))
-    drop-shadow(0 0 34px rgba(223, 137, 35, .18));
-}
-.lena-world-core.core-transitioning {
-  filter:
-    drop-shadow(0 0 16px rgba(81, 225, 255, .44))
-    drop-shadow(0 0 36px rgba(223, 137, 35, .18));
-}
-.lena-world-core.core-attention {
-  filter:
-    drop-shadow(0 0 16px rgba(255, 168, 92, .5))
-    drop-shadow(0 0 38px rgba(223, 137, 35, .2));
-}
-.lena-world-core.core-critical {
-  filter:
-    drop-shadow(0 0 18px rgba(255, 92, 110, .58))
-    drop-shadow(0 0 42px rgba(223, 137, 35, .22));
+.lena-world-core.core-guiding { filter: drop-shadow(0 0 14px rgba(130, 161, 255, .42)) !important; }
+.lena-world-core.core-transitioning { filter: drop-shadow(0 0 16px rgba(81, 225, 255, .44)) !important; }
+.lena-world-core.core-attention { filter: drop-shadow(0 0 16px rgba(255, 168, 92, .5)) !important; }
+.lena-world-core.core-critical { filter: drop-shadow(0 0 18px rgba(255, 92, 110, .58)) !important; }
+
+/* ─── System entity logos ─── */
+.lena-world-entity-figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-.lena-public.lena-gateway-quiet .lena-house {
-  filter:
-    drop-shadow(0 0 17px rgba(255, 220, 145, .38))
-    drop-shadow(0 0 48px rgba(223, 137, 35, .27));
+.lena-world-entity-figure svg {
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
-.lena-public.lena-gateway-resolve .lena-house {
-  animation: lena-sacred-gateway-core .42s cubic-bezier(.16,.84,.28,1) both !important;
+.lena-world-entity-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 4px;
+  border: 1px solid var(--lena-line);
 }
 
-.lena-public.lena-gateway-resolve .lena-house::after {
-  animation: lena-sacred-awakening .42s cubic-bezier(.16,.84,.28,1) both !important;
-}
+/* No watermarks in deeper spaces */
+.lena-inner-origin,
+.lena-chamber-origin { background-image: none !important; }
 
+/* ─── Animations ─── */
 @keyframes lena-sacred-eye-breathe {
   from { opacity: .38; transform: translate(-50%, -50%) scale(.92); }
   to { opacity: .66; transform: translate(-50%, -50%) scale(1.08); }
-}
-
-@keyframes lena-sacred-blink {
-  0%, 91.7%, 95.5%, 100% { opacity: 0; transform: translate(-50%, -50%) scaleY(0); }
-  93.05%, 94.05% { opacity: .94; transform: translate(-50%, -50%) scaleY(1); }
 }
 
 @keyframes lena-sacred-ack-live {
@@ -194,58 +256,30 @@
   100% { opacity: .58; transform: translate(-50%,-50%) scale(1); }
 }
 
-@keyframes lena-sacred-awakening {
-  0% { opacity: .54; transform: translate(-50%,-50%) scale(1); }
-  56% {
-    opacity: .96;
-    transform: translate(-50%,-50%) scale(1.56);
-    box-shadow:
-      0 0 12px rgba(255,245,220,.96),
-      0 0 34px rgba(255,187,61,.82),
-      0 0 76px rgba(255,143,16,.38);
-  }
-  100% { opacity: .76; transform: translate(-50%,-50%) scale(1.20); }
-}
-
 @keyframes lena-sacred-gateway-core {
   from { scale: 1; }
   to { scale: 1.04; }
 }
 
+/* ─── Responsive ─── */
 @media (max-width: 900px) {
-  .lena-house {
-    width: 224px !important;
-    height: 224px !important;
-  }
-  .lena-world-core {
-    width: 184px !important;
-    height: 184px !important;
-  }
+  .lena-house { width: 224px !important; height: 224px !important; }
+  .lena-house-logo { width: 48px; height: 48px; }
+  .lena-house strong { font-size: 18px !important; }
+  .lena-world-core { width: 184px !important; height: 184px !important; }
 }
 
 @media (max-width: 640px) {
-  .lena-house {
-    width: 210px !important;
-    height: 210px !important;
-  }
+  .lena-house { width: 200px !important; height: 200px !important; }
+  .lena-house-logo { width: 42px; height: 42px; }
+  .lena-house strong { font-size: 16px !important; }
+  .lena-house small { font-size: 9px !important; }
 }
 
+/* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
-  .lena-house::before,
-  .lena-world-core::before {
-    animation: none !important;
-    opacity: 0 !important;
-    transform: translate(-50%, -50%) scaleY(0) !important;
-  }
-  .lena-house::after,
-  .lena-world-core::after,
+  .lena-house,
+  .lena-world-core::after { animation: none !important; }
   .lena-world:has(.is-selected) .lena-world-core::after,
-  .lena-public.lena-gateway-resolve .lena-house::after {
-    animation: none !important;
-    opacity: .52 !important;
-    transform: translate(-50%, -50%) !important;
-  }
-  .lena-public.lena-gateway-resolve .lena-house {
-    animation: none !important;
-  }
+  .lena-public.lena-gateway-resolve .lena-house { animation: none !important; }
 }

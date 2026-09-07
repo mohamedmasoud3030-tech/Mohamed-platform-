@@ -48,7 +48,7 @@ export default function AiSolutions() {
         </div>
       </section>
 
-      <section className="lena-section">
+      <section className={`lena-section scroll-animate is-visible`}>
         <div className="lena-container lena-bento">
           {principles.map((principle, index) => (
             <article className={`lena-glass lena-principle${index === 0 ? " wide" : ""}`} key={principle.title}>
@@ -61,7 +61,7 @@ export default function AiSolutions() {
         </div>
       </section>
 
-      <section className="lena-section">
+      <section className={`lena-section scroll-animate is-visible`}>
         <div className="lena-container">
           <p className="lena-kicker">{copy.ai.empty}</p>
           <h2 className="lena-section-title">{copy.ai.worldsTitle}</h2>
