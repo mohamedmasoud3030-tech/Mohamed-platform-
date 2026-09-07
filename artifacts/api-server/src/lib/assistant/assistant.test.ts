@@ -88,6 +88,11 @@ describe("prompt", () => {
     expect(ASSISTANT_SYSTEM_PROMPT).toMatch(/واتساب/);
   });
 
+  it("system contract asks for a warm, welcoming tone", () => {
+    expect(ASSISTANT_SYSTEM_PROMPT).toMatch(/ودودة/);
+    expect(ASSISTANT_SYSTEM_PROMPT).toMatch(/ترحيب/);
+  });
+
   it("fallback quotes the verified answer verbatim with sources", () => {
     const { answer, sources } = composeFallbackAnswer("ar", retrieveArticles("متى أتوقع الرد؟", "ar"));
     expect(answer).toContain(HELP_ARTICLES.find((a) => a.id === "response-time")!.answer.ar);

@@ -26,8 +26,11 @@ const COPY = {
     closeLabel: "أغلق مساعد لينا",
     title: "مساعد لينا",
     subtitle: "يجيب من صفحات المساعدة الموثقة",
+    greetingTime: { morning: "صباح الخير ☀️", afternoon: "مساء الخير 👋", evening: "مساء الخير 🌙" },
     greeting:
-      "مرحبًا! أنا مساعد لينا الآلي. أجيب عن الأسئلة العامة من محتوى المساعدة الموثق فقط — اسألني عن طريقة البدء، الرد، بياناتك، أو قنوات التواصل.",
+      "أنا مساعد لينا الآلي، ويسعدني وجودك هنا. اسألني عن طريقة البدء، التكلفة، موعد الرد، أو بياناتك — وسأجيبك من المحتوى الموثق. جرّب أحد الأسئلة التالية أو اكتب سؤالك:",
+    teaser: "أهلاً بك في LENA 👋\nأنا المساعد الآلي — تفضل اسألني عن أي شيء عن أنظمتنا وطريقة العمل.",
+    teaserClose: "إخفاء الترحيب",
     inputLabel: "اكتب سؤالك",
     inputPlaceholder: "اكتب سؤالك هنا…",
     send: "إرسال",
@@ -42,8 +45,11 @@ const COPY = {
     closeLabel: "Close the LENA assistant",
     title: "LENA assistant",
     subtitle: "Answers from the verified help pages",
+    greetingTime: { morning: "Good morning ☀️", afternoon: "Good afternoon 👋", evening: "Good evening 🌙" },
     greeting:
-      "Welcome! I am LENA's automated assistant. I answer general questions from the verified help content only — ask me about getting started, replies, your data, or contact channels.",
+      "I am LENA's automated assistant, and I am glad you are here. Ask me about getting started, cost, reply times, or your data — I answer from the verified content. Try one of these or write your own question:",
+    teaser: "Welcome to LENA 👋\nI'm the automated assistant — ask me anything about our systems and how we work.",
+    teaserClose: "Dismiss the welcome",
     inputLabel: "Write your question",
     inputPlaceholder: "Type your question…",
     send: "Send",
@@ -54,6 +60,18 @@ const COPY = {
     sourceLabel: "From the help pages:",
   },
 } as const;
+
+/** Time-of-day opening line — the visitor's local clock: morning / afternoon / evening. */
+function greetingTime(copy: (typeof COPY)["ar" | "en"]): string {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) return copy.greetingTime.morning;
+  if (hour >= 12 && hour < 17) return copy.greetingTime.afternoon;
+  return copy.greetingTime.evening;
+}
+
+/** Welcome teaser: once per browser session, a few seconds after arrival. */
+const TEASER_DELAY_MS = 2_600;
+const TEASER_SESSION_KEY = "lena-digital-house.assistant-teaser";
 
 /** Curated starter questions — the ones the help page organises its answers around. */
 const SUGGESTED_IDS = ["how-to-start", "pricing", "response-time", "languages"] as const;
@@ -70,18 +88,60 @@ export default function LenaAssistant() {
   const { locale } = usePreferences();
   const copy = COPY[locale];
   const [open, setOpen] = useState(false);
+  const [teaserVisible, setTeaserVisible] = useState(false);
+
+  // Proactive welcome: a short, dismissible greeting a few seconds after
+  // arrival — once per browser session, never while the panel is open.
+  useEffect(() => {
+    let shown = false;
+    try {
+      shown = sessionStorage.getItem(TEASER_SESSION_KEY) === "1";
+    } catch {
+      shown = false;
+    }
+    if (shown) return;
+    const timer = setTimeout(() => {
+      setTeaserVisible(true);
+      trackOnce("assistant_teaser_shown", "assistant_teaser_shown", { locale });
+    }, TEASER_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [locale]);
+
+  function dismissTeaser() {
+    setTeaserVisible(false);
+    try {
+      sessionStorage.setItem(TEASER_SESSION_KEY, "1");
+    } catch {
+      /* storage unavailable — the teaser simply may reappear next render */
+    }
+  }
+
+  function openPanel() {
+    setOpen(true);
+    dismissTeaser();
+  }
 
   return (
     <>
       <button
         type="button"
         className="lena-assistant-fab"
-        onClick={() => setOpen((current) => !current)}
+        onClick={() => (open ? setOpen(false) : openPanel())}
         aria-label={open ? copy.closeLabel : copy.fabLabel}
         aria-expanded={open}
       >
         {open ? <X size={20} /> : <Sparkles size={20} />}
       </button>
+      {!open && teaserVisible && (
+        <div className="lena-assistant-teaser" dir={locale === "ar" ? "rtl" : "ltr"} role="status">
+          <button type="button" className="lena-assistant-teaser-close" onClick={dismissTeaser} aria-label={copy.teaserClose}>
+            <X size={13} />
+          </button>
+          <button type="button" className="lena-assistant-teaser-body" onClick={openPanel}>
+            {copy.teaser}
+          </button>
+        </div>
+      )}
       {open && <AssistantPanel locale={locale} onClose={() => setOpen(false)} />}
     </>
   );
@@ -89,7 +149,9 @@ export default function LenaAssistant() {
 
 function AssistantPanel({ locale, onClose }: { locale: "ar" | "en"; onClose: () => void }) {
   const copy = COPY[locale];
-  const [messages, setMessages] = useState<ChatMessage[]>([{ role: "assistant", text: copy.greeting }]);
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { role: "assistant", text: `${greetingTime(copy)} ${copy.greeting}` },
+  ]);
   const [draft, setDraft] = useState("");
   const logRef = useRef<HTMLDivElement>(null);
 

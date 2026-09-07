@@ -30,6 +30,78 @@
   left: max(18px, env(safe-area-inset-left));
 }
 
+/* Proactive welcome bubble — a short invitation, once per session. */
+
+.lena-assistant-teaser {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: calc(max(18px, env(safe-area-inset-bottom)) + 132px);
+  z-index: 50;
+  width: min(252px, calc(100vw - 40px));
+  animation: lena-assistant-pop 0.24s cubic-bezier(0.16, 0.84, 0.28, 1) both;
+}
+
+[dir="rtl"] .lena-assistant-teaser {
+  right: auto;
+  left: max(18px, env(safe-area-inset-left));
+}
+
+.lena-assistant-teaser-body {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--lena-line-strong);
+  border-radius: 16px;
+  border-end-start-radius: 4px;
+  background: linear-gradient(145deg, var(--lena-card-strong), rgba(7, 14, 34, 0.94));
+  padding: 11px 13px;
+  color: var(--lena-text);
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.75;
+  text-align: start;
+  white-space: pre-line;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px) saturate(1.1);
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.light .lena-assistant-teaser-body {
+  background: linear-gradient(145deg, var(--lena-card-strong), rgba(237, 243, 255, 0.97));
+  box-shadow: 0 14px 40px rgba(42, 67, 130, 0.2);
+}
+
+.lena-assistant-teaser-body:hover {
+  border-color: var(--lena-accent);
+  transform: translateY(-1px);
+}
+
+[dir="rtl"] .lena-assistant-teaser-body {
+  border-end-start-radius: 16px;
+  border-end-end-radius: 4px;
+}
+
+.lena-assistant-teaser-close {
+  position: absolute;
+  top: -10px;
+  inset-inline-end: -6px;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 1px solid var(--lena-line-strong);
+  border-radius: 50%;
+  background: var(--lena-glass);
+  color: var(--lena-muted);
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.lena-assistant-teaser-close:hover {
+  border-color: var(--lena-accent);
+  color: var(--lena-text);
+}
+
 .lena-assistant-panel {
   position: fixed;
   right: max(14px, env(safe-area-inset-right));
@@ -141,6 +213,29 @@
   padding: 10px 12px;
   font-size: 13px;
   line-height: 1.75;
+  animation: lena-assistant-msg-in 0.18s ease both;
+}
+
+@keyframes lena-assistant-msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lena-assistant-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .lena-assistant-msg p {
