@@ -3,14 +3,15 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
     "build": "pnpm run verify:skills && pnpm run verify:egress && pnpm run typecheck && pnpm -r --if-present run build",
-    "typecheck:libs": "tsc --build",
+    "doctor:gemini": "node ./tools/verify-gemini.mjs",
+    "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
+    "test": "pnpm -r --if-present run test",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --if-present run typecheck",
-    "verify:egress": "node ./tools/check-egress.mjs",
-    "verify:skills": "node ./tools/verify-agent-skills.mjs",
+    "typecheck:libs": "tsc --build",
     "verify": "node ./tools/verify-all.mjs",
-    "test": "pnpm -r --if-present run test"
+    "verify:egress": "node ./tools/check-egress.mjs",
+    "verify:skills": "node ./tools/verify-agent-skills.mjs"
   },
   "private": true,
   "devDependencies": {

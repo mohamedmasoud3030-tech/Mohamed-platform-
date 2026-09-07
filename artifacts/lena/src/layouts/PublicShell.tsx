@@ -4,6 +4,7 @@ import AmbientBackdrop from "./AmbientBackdrop";
 import FloatingHeader from "./FloatingHeader";
 import PublicFooter from "./PublicFooter";
 import WhatsAppFAB from "./WhatsAppFAB";
+import LenaAssistant from "@/features/assistant/LenaAssistant";
 
 export default function PublicShell({ children }: { children: ReactNode }) {
   const { locale } = usePreferences();
@@ -24,6 +25,7 @@ export default function PublicShell({ children }: { children: ReactNode }) {
 
       <PublicFooter />
       <WhatsAppFAB />
+      <LenaAssistant />
     </div>
   );
 }

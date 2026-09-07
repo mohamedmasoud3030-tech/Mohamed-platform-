@@ -203,3 +203,73 @@ Supabase Storage for project media, the verified MALEK product destination (`mal
 opened by explicit visitor navigation, and WhatsApp deep links. The MALEK connection is a plain product
 link: no API bridge, telemetry, inquiry payload, auth sharing, or customer data crosses that boundary.
 No analytics, no embeds, no AI.
+
+---
+
+## 11. Amendment (2026-09-07): LENA Assistant — approved and shipped
+
+**Owner decision.** The owner directed building a help bot for the platform using Gemini. That
+direction is the owner approval §9 required. This section is the decision record; §1–§10 above are
+preserved as provenance of the prior no-AI state.
+
+### Context and scope
+
+The strongest historical objection to a chatbot was hallucination on scope, price and timelines.
+That objection shapes the design rather than blocking it: the assistant answers from the verified
+help corpus only, and degrades to quoting it verbatim.
+
+**In scope:** a visitor-facing help assistant ("مساعد لينا") on public pages, bilingual AR/EN,
+answering general questions (how to start, reply times, data handling, contact channels).
+
+**Out of scope (unchanged):** auto-replying to inquiries, anything that sends inquiry records or
+customer personal data to a provider, lead scoring, content generation, pricing negotiation.
+
+### Decision
+
+1. **Ground truth is `@workspace/content`** (the verified help articles — the same authority the
+   help page renders). The model receives the full corpus in both languages; it may rephrase, never
+   introduce. Its system contract forbids prices/deadlines/clients beyond the corpus, forbids
+   accepting personal data, forbids posing as a human, and hands unresolved questions to
+   WhatsApp / the contact form with the published one-business-day promise.
+2. **Deterministic fallback is the default state.** Without `GEMINI_API_KEY` — or on any failure
+   (invalid key, quota, timeout, safety refusal, outage) — the endpoint composes the answer from
+   retrieval over the same corpus. `mode: "gemini" | "fallback"` in the response records which path
+   served the turn. The feature cannot break; the worst state is the help page's own behaviour.
+3. **One adapter, no SDK.** `artifacts/api-server/src/lib/assistant/gemini.ts` is the only file that
+   calls `generativelanguage.googleapis.com`, with plain `fetch`. No provider SDK is added (the
+   egress guard still bans them). Model identifier is configuration (`GEMINI_MODEL`,
+   default `gemini-2.5-flash`); failures are classified, never thrown to visitors, never include
+   the key.
+4. **Server-side key only.** `GEMINI_API_KEY` lives in server environment variables. No
+   `VITE_`-prefixed mirror exists; the browser sees only the tRPC surface
+   (`assistant.status`, `assistant.ask`). `tools/verify-gemini.mjs` is a manual key doctor that
+   diagnoses invalid/restricted/quota/region failures — it is not a build gate.
+5. **Privacy.** Visitor questions are sent to the provider to answer one turn and are never
+   persisted, never logged, and never linked to inquiries. Logs carry shape only
+   (mode, failure kind, locale, latency). Rate limiting uses a hashed IP held in memory for minutes
+   (20 turns / 10 min / IP) — the paid key is the real budget bound. The assistant cannot accept
+   inquiries: it explicitly redirects them to the form and WhatsApp.
+6. **Declared in the guard.** `tools/check-egress.mjs` now carries
+   `generativelanguage.googleapis.com` in its host allowlist and in `DECLARED_AI_ENDPOINTS`,
+   pointing at this section. The SDK ban stays.
+
+### Alternatives considered
+
+- **Keep zero AI (status quo).** Rejected by the owner; the help page alone was not converting
+  visitors with general questions into conversations.
+- **Gemini SDK (`@google/genai`).** Rejected: the repository policy allows only a narrow adapter,
+  and plain `fetch` keeps the dependency surface zero and the egress guard simple.
+- **RAG with embeddings.** Rejected: 17 short articles fit in one prompt; a vector store would add
+  infrastructure with no measurable quality gain at this size.
+- **Client-side key / direct browser calls.** Rejected outright: key exposure and undeclared
+  browser egress.
+
+### Consequences, rollback, validation
+
+- **Cost:** only turns served in `gemini` mode bill. The free-tier key is sufficient for current
+  traffic; unset `GEMINI_API_KEY` to stop all spend with no deployment change.
+- **Rollback:** unset `GEMINI_API_KEY` (kill switch, §11.2's fallback becomes the product) — or
+  remove `GEMINI_*` env vars and the router entry to remove the surface entirely.
+- **Validation:** unit tests cover retrieval scoring (Arabic normalisation), prompt construction,
+  adapter failure classification (mocked fetch), the fallback composer, and the rate limiter. The
+  build gates (`typecheck`, `verify`, `test`, `build`) must pass with the guard's new declaration.
