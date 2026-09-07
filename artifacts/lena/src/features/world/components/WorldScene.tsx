@@ -125,7 +125,14 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
                 "--i": `${i * 0.09}s`,
               } as CSSProperties
             }
-            onClick={() => onSelect(entity.systemId)}
+            onClick={(e) => {
+              if (selected) {
+                enterPortal(entity.detailPath, entity.systemId, e);
+              } else {
+                onSelect(entity.systemId);
+              }
+            }}
+            onDoubleClick={(e) => enterPortal(entity.detailPath, entity.systemId, e)}
             aria-pressed={selected}
             aria-label={`${system.name[locale]} — ${system.industry[locale]}`}
           >

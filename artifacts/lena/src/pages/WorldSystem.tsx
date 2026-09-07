@@ -302,10 +302,13 @@ export default function WorldSystem() {
                   : `Open the real ${system.name[locale]} product — sign in there`}
               </a>
             ) : (
-              <Link className="lena-primary" to={`/services#${system.id}`}>
-                {isArabic ? "افتح التفاصيل التشغيلية" : "Open operating detail"}
+              <Link className="lena-primary" to={`/contact?service=${system.id}`}>
+                {isArabic ? "طلب تشغيل هذا النظام" : "Request this system"}
               </Link>
             )}
+            <Link className="lena-secondary" to={`/services#${system.id}`}>
+              {isArabic ? "المواصفات والخدمات" : "Specs & services"}
+            </Link>
             <Link className="lena-secondary" to={`/contact?service=${system.id}`}>
               {isArabic ? "تحدث معنا عن هذا النظام" : "Talk to us about this system"}
             </Link>

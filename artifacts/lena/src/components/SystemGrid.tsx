@@ -57,10 +57,15 @@ export default function SystemGrid({
             </div>
           ) : null}
 
-          <Link className="lena-more" to={`/services#${system.id}`}>
-            {locale === "ar" ? "تعرّف على النظام" : "See how it runs"}
-            <ArrowUpRight size={15} />
-          </Link>
+          <div style={{ display: "flex", gap: "12px", marginTop: "auto", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between" }}>
+            <Link className="lena-more" to={`/world/${system.id}`}>
+              {locale === "ar" ? "افتح غرفة النظام" : "Open system chamber"}
+              <ArrowUpRight size={15} />
+            </Link>
+            <Link style={{ fontSize: "11px", color: "var(--lena-muted)", textDecoration: "none" }} to={`/services#${system.id}`}>
+              {locale === "ar" ? "المواصفات" : "Specs"}
+            </Link>
+          </div>
         </article>
       ))}
     </div>
