@@ -89,11 +89,94 @@
   line-height: 1.8;
 }
 
-.lena-chamber-signals {
+.lena-chamber-trust-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 24px;
+  gap: 7px;
+  margin-top: 14px;
+}
+.lena-chamber-trust-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(var(--chamber-a), .28);
+  border-radius: 99px;
+  background: rgba(var(--chamber-a), .09);
+  padding: 5px 11px;
+  color: var(--lena-text);
+  font-size: 11px;
+  font-weight: 750;
+}
+.lena-chamber-trust-chip svg {
+  color: rgb(var(--chamber-a));
+  flex-shrink: 0;
+}
+
+/* --- Workflow Cycle ------------------------------------------------------ */
+.lena-chamber-workflow {
+  margin-top: 34px;
+  border-top: 1px solid var(--lena-line);
+  padding-top: 28px;
+}
+.lena-chamber-workflow header small {
+  color: rgb(var(--chamber-a));
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .16em;
+}
+.lena-chamber-workflow h2 {
+  max-width: 720px;
+  margin: 9px 0 0;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+.lena-workflow-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+.lena-workflow-step {
+  border: 1px solid var(--lena-line);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(255,255,255,.025), rgba(7,14,34,.5));
+  padding: 18px;
+  position: relative;
+  transition: transform .18s ease, border-color .18s ease;
+}
+.lena-workflow-step:hover {
+  transform: translateY(-2px);
+  border-color: rgba(var(--chamber-a), .4);
+}
+.lena-workflow-step-num {
+  display: inline-grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid rgba(var(--chamber-a), .35);
+  border-radius: 10px;
+  background: rgba(var(--chamber-a), .12);
+  color: rgb(var(--chamber-a));
+  font-size: 12px;
+  font-weight: 850;
+  margin-bottom: 12px;
+}
+.lena-workflow-step h3 {
+  margin: 0;
+  color: var(--lena-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.lena-workflow-step p {
+  margin: 8px 0 0;
+  color: var(--lena-muted);
+  font-size: 12px;
+  line-height: 1.75;
+}
+.light .lena-workflow-step {
+  background: linear-gradient(145deg, rgba(255,255,255,.85), rgba(235,242,255,.7));
 }
 .lena-chamber-signal {
   display: inline-flex;

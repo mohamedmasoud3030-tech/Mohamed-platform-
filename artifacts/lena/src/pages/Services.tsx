@@ -73,6 +73,20 @@ export default function Services() {
                 </div>
               </dl>
 
+              {system.trustHighlights ? (
+                <div className="lena-system-trust-bar">
+                  <h4>{isAr ? "ضمانات التشغيل" : "Operational guarantees"}</h4>
+                  <ul>
+                    {system.trustHighlights[locale].map((point) => (
+                      <li key={point}>
+                        <CheckCircle2 size={13} />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
               <div className="lena-system-lists">
                 <div>
                   <h3>{isAr ? "من المستفيد" : "Who benefits"}</h3>
@@ -98,15 +112,24 @@ export default function Services() {
                 </div>
               </div>
 
-              <Link
-                className="lena-more"
-                to={`/contact?service=${system.id}`}
-              >
-                {isAr
-                  ? "تحدث عن نظام لقطاعك"
-                  : "Talk about a system for your trade"}
-                <ArrowUpRight size={15} />
-              </Link>
+              <div className="lena-system-actions">
+                <Link
+                  className="lena-secondary"
+                  to={`/world/${system.id}`}
+                >
+                  {isAr ? "استكشف غرفة النظام" : "Explore system chamber"}
+                  <ArrowUpRight size={14} />
+                </Link>
+                <Link
+                  className="lena-primary"
+                  to={`/contact?service=${system.id}`}
+                >
+                  {isAr
+                    ? "تحدث عن نظام لقطاعك"
+                    : "Talk about a system for your trade"}
+                  <ArrowUpRight size={14} />
+                </Link>
+              </div>
             </article>
           ))}
         </div>

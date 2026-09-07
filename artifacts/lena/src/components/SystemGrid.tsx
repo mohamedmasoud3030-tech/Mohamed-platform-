@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import { Link } from "react-router";
 import { publicSystems } from "@/content/systems";
 import { SystemLogo } from "@/design-system/brand/SystemLogo";
@@ -45,6 +45,18 @@ export default function SystemGrid({
             {locale === "ar" ? "جذور تشغيل" : "operating roots"}
           </span>
           <p>{system.problem[locale]}</p>
+
+          {system.trustHighlights ? (
+            <div className="lena-system-highlights" aria-label={locale === "ar" ? "ضمانات التشغيل" : "Operational highlights"}>
+              {system.trustHighlights[locale].slice(0, 3).map((item) => (
+                <span key={item} className="lena-trust-chip">
+                  <ShieldCheck size={12} aria-hidden="true" />
+                  {item}
+                </span>
+              ))}
+            </div>
+          ) : null}
+
           <Link className="lena-more" to={`/services#${system.id}`}>
             {locale === "ar" ? "تعرّف على النظام" : "See how it runs"}
             <ArrowUpRight size={15} />

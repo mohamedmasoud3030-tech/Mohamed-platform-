@@ -48,6 +48,11 @@ export type OperatingPrimitiveId =
   | "insight"
   | "integrity";
 
+export type WorkflowStep = {
+  label: Record<AppLocale, string>;
+  detail: Record<AppLocale, string>;
+};
+
 export type BusinessSystem = {
   id: SystemId;
   visibility: Visibility;
@@ -72,6 +77,10 @@ export type BusinessSystem = {
   entities: Record<AppLocale, string[]>;
   /** Explicit links to cross-system operating roots; never inferred from copy. */
   operatingPrimitives: OperatingPrimitiveId[];
+  /** Practical operational guarantees that build maximum B2B trust. */
+  trustHighlights?: Record<AppLocale, string[]>;
+  /** The step-by-step practical operational cycle. */
+  workflowCycle?: WorkflowStep[];
 };
 
 /** Stage is internal canonical truth (verified evidence), never rendered as
@@ -109,6 +118,28 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Properties and units", "Owners and tenants", "Contracts and renewals", "Maintenance requests", "Collections and arrears", "Payments and settlements"],
     },
     operatingPrimitives: ["relationships", "time", "money", "assets", "workflow", "documents", "insight"],
+    trustHighlights: {
+      ar: ["قاعدة بيانات مستقلة لكل محفظة", "محاسبة إيجار دقيقة", "تقارير ملّاك فورية", "تتبع صيانة شامل"],
+      en: ["Isolated database per portfolio", "Accurate rent accounting", "Instant owner reports", "End-to-end maintenance"],
+    },
+    workflowCycle: [
+      {
+        label: { ar: "تسجيل العقد والوحدة", en: "Unit & contract intake" },
+        detail: { ar: "حفظ العقود والوحدات وتواريخ التجديد في سجل مركزي", en: "Centralize units, terms, and renewal milestones" },
+      },
+      {
+        label: { ar: "متابعة الاستحقاقات", en: "Due date tracking" },
+        detail: { ar: "تنبيهات تلقائية بدفعات الإيجار ومواعيد السداد", en: "Automated rent payment schedules and alerts" },
+      },
+      {
+        label: { ar: "إدارة التحصيل والصيانة", en: "Collection & repairs" },
+        detail: { ar: "تسجيل المدفوعات وتوجيه طلبات الصيانة للفنيين", en: "Log collections and route repair requests to technicians" },
+      },
+      {
+        label: { ar: "إغلاق التقرير المالي", en: "Owner financial close" },
+        detail: { ar: "تصدير كشف حساب وإيرادات جاهز لكل مالك نهاية الشهر", en: "Ready-to-send month-end statements and revenue reports" },
+      },
+    ],
   },
   {
     id: "wellness",
@@ -138,6 +169,28 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Appointments and bookings", "Clients and their records", "Services", "Staff and scheduling", "Inventory", "Point of sale"],
     },
     operatingPrimitives: ["relationships", "time", "money", "assets", "workflow", "people", "insight"],
+    trustHighlights: {
+      ar: ["بيانات المركز معزولة تمامًا", "نقطة بيع سريعة للموظفين", "جدولة ومخزون لحظي", "خصوصية تامة لملفات الزائرات"],
+      en: ["Fully isolated centre database", "Fast staff point of sale", "Real-time bookings & inventory", "Total client record privacy"],
+    },
+    workflowCycle: [
+      {
+        label: { ar: "حجز وتأكيد الموعد", en: "Appointment scheduling" },
+        detail: { ar: "تحديد المعالجة والوقت والخدمات المطلوبة", en: "Assign therapist, time slot, and chosen treatments" },
+      },
+      {
+        label: { ar: "تقديم الخدمة والمخزون", en: "Treatment & supplies" },
+        detail: { ar: "تحديث ملف الزائرة والمواد المستهلكة من المخزون", en: "Update client profile and deduct used products from stock" },
+      },
+      {
+        label: { ar: "نقطة البيع والدفع", en: "Checkout & POS" },
+        detail: { ar: "إصدار الفاتورة وتطبيق الباقات وطرق الدفع", en: "Issue invoice, apply packages, process payment" },
+      },
+      {
+        label: { ar: "ملخص الإيراد اليومي", en: "Daily revenue close" },
+        detail: { ar: "مراجعة إجمالي دخل اليوم ومبيعات كل موظفة فور الإغلاق", en: "Instant review of day revenue and staff sales" },
+      },
+    ],
   },
   {
     id: "rental",
@@ -167,6 +220,28 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Pieces and their condition", "Date-based reservations", "Check-out and return", "Deposits and payments"],
     },
     operatingPrimitives: ["relationships", "time", "money", "assets", "workflow"],
+    trustHighlights: {
+      ar: ["حجز بالتواريخ الحقيقية", "منع الحجز المزدوج نهائيًا", "تتبع خروج وإرجاع القطع", "سجل تأمينات ومدفوعات"],
+      en: ["True calendar reservations", "Zero double bookings", "Out/return piece tracking", "Deposit & payment ledger"],
+    },
+    workflowCycle: [
+      {
+        label: { ar: "حجز القطعة بالمناسبة", en: "Occasion reservation" },
+        detail: { ar: "تثبيت الفستان لتاريخ المناسبة ومنع تكرار حجزه", en: "Lock dress for the event date and block duplicate bookings" },
+      },
+      {
+        label: { ar: "التسليم واستلام التأمين", en: "Dispatch & deposit" },
+        detail: { ar: "فحص حالة القطعة وتسليمها مع توثيق التأمين المستلم", en: "Inspect piece condition and record received security deposit" },
+      },
+      {
+        label: { ar: "استلام القطعة والتنظيف", en: "Return & care" },
+        detail: { ar: "تسجيل عودة القطعة وتحويلها لجدول التنظيف والكي", en: "Log returned item and queue for cleaning and pressing" },
+      },
+      {
+        label: { ar: "تسوية التأمين وتحديث التوفر", en: "Settlement & availability" },
+        detail: { ar: "إرجاع التأمين وإتاحة القطعة فورًا للحجوزات القادمة", en: "Refund deposit and mark piece available for next bookings" },
+      },
+    ],
   },
   {
     id: "investment",
@@ -196,6 +271,28 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Divisions (livestock, agriculture, real estate)", "Assets", "Operations", "Costs and revenue", "Reports"],
     },
     operatingPrimitives: ["money", "assets", "workflow", "insight"],
+    trustHighlights: {
+      ar: ["إدارة أقسام متعددة في نظام واحد", "تتبع الأصول والعمليات", "سجل مصروفات وإيرادات موحد", "تقارير مالية شفافة"],
+      en: ["Multi-division single system", "Asset & operation logs", "Unified income & costs", "Clear financial reporting"],
+    },
+    workflowCycle: [
+      {
+        label: { ar: "توزيع الأصول والعمليات", en: "Asset & workflow allocation" },
+        detail: { ar: "تسجيل أصول كل قسم ومسؤولياته التشغيلية", en: "Log division assets and operational responsibilities" },
+      },
+      {
+        label: { ar: "تسجيل المصروفات والحركة", en: "Cost & activity logging" },
+        detail: { ar: "توثيق النفقات والمشتريات وحركة الإنتاج الميداني", en: "Record field expenses, supplies, and production runs" },
+      },
+      {
+        label: { ar: "متابعة العوائد والمبيعات", en: "Yield & revenue monitoring" },
+        detail: { ar: "حساب إيرادات كل قطاع ومقارنتها بالمستهدف", en: "Calculate divisional revenue vs operational targets" },
+      },
+      {
+        label: { ar: "إصدار الميزانية الموحدة", en: "Consolidated balance" },
+        detail: { ar: "عرض صورة مالية مجمعة للشركة بدل ملفات متفرقة", en: "Consolidate whole-company performance into one clear dashboard" },
+      },
+    ],
   },
   {
     id: "hospitality",
@@ -225,6 +322,28 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Occasions and events", "Requests and quotes", "Crew", "Equipment", "Cost and profit"],
     },
     operatingPrimitives: ["relationships", "time", "money", "assets", "workflow", "people"],
+    trustHighlights: {
+      ar: ["تسعير وتكلفة قبل التنفيذ", "تنسيق طاقم وتجهيزات المناسبة", "إدارة عروض الأسعار والطلبات", "جدولة دقيقة لكل حدث"],
+      en: ["Pre-event cost calculation", "Crew & equipment allocation", "Quote & order workflow", "Precise event timeline"],
+    },
+    workflowCycle: [
+      {
+        label: { ar: "استلام طلب المناسبة", en: "Event request intake" },
+        detail: { ar: "تحديد نوع المناسبة والموقع وتاريخ وساعات التنفيذ", en: "Capture occasion type, location, date, and schedule" },
+      },
+      {
+        label: { ar: "حساب التكلفة وعرض السعر", en: "Costing & quote" },
+        detail: { ar: "تجميع تكاليف الطاقم والضيافة والتجهيزات وإصدار العرض", en: "Calculate crew, catering and gear costs and emit quote" },
+      },
+      {
+        label: { ar: "تخصيص الطاقم والمعدات", en: "Staff & gear dispatch" },
+        detail: { ar: "تأكيد تواجد الطاقم الميداني وتجهيز المستلزمات", en: "Confirm on-site staff roster and reserve equipment" },
+      },
+      {
+        label: { ar: "إغلاق المناسبة وحساب الربح", en: "Event wrap & profit" },
+        detail: { ar: "حساب التكلفة الفعلية ومطابقتها مع المقبوضات", en: "Review actual spend against payments for verified profit" },
+      },
+    ],
   },
   {
     id: "recycling",
@@ -268,6 +387,28 @@ export const BUSINESS_SYSTEMS: BusinessSystem[] = [
       en: ["Items by type and grade", "Suppliers and counterparties", "Purchases and sales", "Cash box", "Numbered receipts"],
     },
     operatingPrimitives: ["relationships", "money", "assets", "workflow", "documents", "insight", "integrity"],
+    trustHighlights: {
+      ar: ["يعمل بدون إنترنت بجوار الميزان", "تسجيل شراء وبيع في أقل من ٣٠ ثانية", "إيصالات واتساب مرقمة", "تقفيل خزنة يومي بالعدّ"],
+      en: ["Offline-first at the weighbridge", "Trade logged under 30 seconds", "Numbered WhatsApp receipts", "Counted daily cash close"],
+    },
+    workflowCycle: [
+      {
+        label: { ar: "وزن الصنف وتحديد السعر", en: "Weighing & grading" },
+        detail: { ar: "اختيار النوع والدرجة من الجوال وحساب الوزن الصافي", en: "Select material grade on phone and compute net weight" },
+      },
+      {
+        label: { ar: "تسجيل الشراء/البيع الفوري", en: "Instant transaction" },
+        detail: { ar: "حساب المبلغ فورًا في أقل من ٣٠ ثانية", en: "Calculate total payout/receipt in under 30 seconds" },
+      },
+      {
+        label: { ar: "إصدار الإيصال المرقم", en: "Numbered receipt" },
+        detail: { ar: "طباعة أو إرسال إيصال فوري للطرف عبر واتساب", en: "Print or dispatch verified WhatsApp voucher instantly" },
+      },
+      {
+        label: { ar: "عدّ الخزنة والإغلاق اليومي", en: "Cash count & daily close" },
+        detail: { ar: "مطابقة النقد الفعلي مع حركة اليوم دون حذف أو تعديل يدوي", en: "Reconcile physical cash box against trade ledger" },
+      },
+    ],
   },
 
   {

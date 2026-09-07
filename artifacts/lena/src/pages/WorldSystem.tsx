@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router";
 import SeoHead from "@/components/SeoHead";
 import type { OperatingPrimitiveId } from "@/content/systems";
@@ -135,6 +136,17 @@ export default function WorldSystem() {
                   );
                 })}
               </div>
+
+              {system.trustHighlights ? (
+                <div className="lena-chamber-trust-chips" aria-label={isArabic ? "ضمانات التشغيل" : "Operational guarantees"}>
+                  {system.trustHighlights[locale].map((point) => (
+                    <span key={point} className="lena-chamber-trust-chip">
+                      <ShieldCheck size={13} aria-hidden="true" />
+                      {point}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
             </div>
 
             <div className={`lena-inner-stage${innerFocus ? " is-focused" : ""}`}>
@@ -225,6 +237,26 @@ export default function WorldSystem() {
                 : "These roots repeat in other systems inside LENA World — the architectural beginning of what becomes LENA OS."}
             </p>
           </section>
+
+          {system.workflowCycle ? (
+            <section className="lena-chamber-workflow" aria-label={isArabic ? "دورة التشغيل اليومي" : "Daily operational workflow"}>
+              <header>
+                <small>{isArabic ? "دورة التشغيل اليومي" : "DAILY OPERATIONAL WORKFLOW"}</small>
+                <h2>{isArabic ? "كيف تتحرك دورة العمل من البداية حتى الإغلاق" : "How the cycle moves from intake to close"}</h2>
+              </header>
+              <div className="lena-workflow-steps">
+                {system.workflowCycle.map((step, index) => (
+                  <article key={step.label[locale]} className="lena-workflow-step">
+                    <div className="lena-workflow-step-num">
+                      <span>{String(index + 1).padStart(2, "0")}</span>
+                    </div>
+                    <h3>{step.label[locale]}</h3>
+                    <p>{step.detail[locale]}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           <OperatingSurfaces
             systemId={entity.systemId}
