@@ -1,0 +1,4491 @@
+diff --git a/artifacts/lena/public/lara-beauty/desktop-01-login.png b/artifacts/lena/public/lara-beauty/desktop-01-login.png
+new file mode 100644
+index 0000000..eea15e7
+Binary files /dev/null and b/artifacts/lena/public/lara-beauty/desktop-01-login.png differ
+diff --git a/artifacts/lena/public/lara-beauty/desktop-03-dashboard.png b/artifacts/lena/public/lara-beauty/desktop-03-dashboard.png
+new file mode 100644
+index 0000000..9823aaf
+Binary files /dev/null and b/artifacts/lena/public/lara-beauty/desktop-03-dashboard.png differ
+diff --git a/artifacts/lena/public/lara-beauty/desktop-04-appointments.png b/artifacts/lena/public/lara-beauty/desktop-04-appointments.png
+new file mode 100644
+index 0000000..a04436f
+Binary files /dev/null and b/artifacts/lena/public/lara-beauty/desktop-04-appointments.png differ
+diff --git a/artifacts/lena/public/lara-beauty/desktop-05-pos.png b/artifacts/lena/public/lara-beauty/desktop-05-pos.png
+new file mode 100644
+index 0000000..4efd10b
+Binary files /dev/null and b/artifacts/lena/public/lara-beauty/desktop-05-pos.png differ
+diff --git a/artifacts/lena/public/lara-beauty/desktop-06-customers.png b/artifacts/lena/public/lara-beauty/desktop-06-customers.png
+new file mode 100644
+index 0000000..187fdc7
+Binary files /dev/null and b/artifacts/lena/public/lara-beauty/desktop-06-customers.png differ
+diff --git a/artifacts/lena/public/lara-beauty/desktop-07-services.png b/artifacts/lena/public/lara-beauty/desktop-07-services.png
+new file mode 100644
+index 0000000..21c6e73
+Binary files /dev/null and b/artifacts/lena/public/lara-beauty/desktop-07-services.png differ
+diff --git a/artifacts/lena/public/lara-beauty/desktop-08-reports.png b/artifacts/lena/public/lara-beauty/desktop-08-reports.png
+new file mode 100644
+index 0000000..4c03b94
+Binary files /dev/null and b/artifacts/lena/public/lara-beauty/desktop-08-reports.png differ
+diff --git a/artifacts/lena/public/lara-beauty/mobile-03-dashboard.png b/artifacts/lena/public/lara-beauty/mobile-03-dashboard.png
+new file mode 100644
+index 0000000..76d5d7a
+Binary files /dev/null and b/artifacts/lena/public/lara-beauty/mobile-03-dashboard.png differ
+diff --git a/artifacts/lena/public/lara-beauty/mobile-04-appointments.png b/artifacts/lena/public/lara-beauty/mobile-04-appointments.png
+new file mode 100644
+index 0000000..a7e5538
+Binary files /dev/null and b/artifacts/lena/public/lara-beauty/mobile-04-appointments.png differ
+diff --git a/artifacts/lena/public/lara-beauty/mobile-05-pos.png b/artifacts/lena/public/lara-beauty/mobile-05-pos.png
+new file mode 100644
+index 0000000..26e440d
+Binary files /dev/null and b/artifacts/lena/public/lara-beauty/mobile-05-pos.png differ
+diff --git a/artifacts/lena/public/system-logos/lara-beauty-192.png b/artifacts/lena/public/system-logos/lara-beauty-192.png
+new file mode 100644
+index 0000000..d1a6668
+Binary files /dev/null and b/artifacts/lena/public/system-logos/lara-beauty-192.png differ
+diff --git a/artifacts/lena/public/system-logos/lara-beauty.svg b/artifacts/lena/public/system-logos/lara-beauty.svg
+new file mode 100644
+index 0000000..caa2cec
+--- /dev/null
++++ b/artifacts/lena/public/system-logos/lara-beauty.svg
+@@ -0,0 +1,15 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Lara Beauty">
++  <defs>
++    <radialGradient id="b" cx="34%" cy="22%" r="91%"><stop stop-color="#7D285D"/><stop offset=".56" stop-color="#57143E"/><stop offset="1" stop-color="#2A0A20"/></radialGradient>
++    <linearGradient id="g" x1="138" y1="104" x2="369" y2="425" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF2B8"/><stop offset=".43" stop-color="#F2CF77"/><stop offset="1" stop-color="#C68A36"/></linearGradient>
++    <path id="h" d="M173 412C138 385 119 346 117 301c-4-72 25-133 78-171 44-32 101-40 150-19 44 19 74 58 81 105 8 55-12 105-55 141-30 25-44 50-42 72"/>
++    <path id="p" d="M318 148c13 28 12 58-3 84-7 12-6 21 5 27l25 13c8 4 8 12 0 17l-19 10c12 4 15 12 7 19l-14 11c2 18-8 34-24 44-20 12-46 8-63-8-9-9-15-19-17-31m17 31c-2 29-20 48-54 59m117-51c-5 28 13 45 50 57"/>
++  </defs>
++  <rect width="512" height="512" rx="124" fill="url(#b)"/>
++  <rect x="13" y="13" width="486" height="486" rx="112" fill="none" stroke="#F7D98B" stroke-width="2" opacity=".13"/>
++  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
++    <g stroke="#17030F" opacity=".24"><use href="#h" stroke-width="19"/><use href="#p" stroke-width="19"/></g>
++    <g stroke="url(#g)"><use href="#h" stroke-width="10"/><use href="#p" stroke-width="10"/><path d="M206 178c27-31 74-45 113-29" stroke-width="7" opacity=".72"/><path d="M270 239c14-9 31-9 44 0" stroke-width="7"/><path d="M274 257c10 7 23 7 33 0" stroke-width="6" opacity=".88"/><path d="M176 412c43-17 82-11 118 17 30 23 58 25 88 8" stroke-width="9" opacity=".8"/></g>
++  </g>
++  <g fill="#F8D986"><path d="M171 166l4 11 11 4-11 4-4 11-4-11-11-4 11-4z"/><circle cx="195" cy="153" r="4" opacity=".72"/></g>
++</svg>
+diff --git a/artifacts/lena/public/system-logos/lara-mark.svg b/artifacts/lena/public/system-logos/lara-mark.svg
+new file mode 100644
+index 0000000..347b8bc
+--- /dev/null
++++ b/artifacts/lena/public/system-logos/lara-mark.svg
+@@ -0,0 +1,78 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
++  <title id="title">Lara Beauty</title>
++  <desc id="desc">A luminous rose-gold and lilac ankh inspired beauty emblem with a feminine profile.</desc>
++  <defs>
++    <linearGradient id="gold" x1="92" y1="54" x2="420" y2="464" gradientUnits="userSpaceOnUse">
++      <stop stop-color="#FFF3D7"/>
++      <stop offset=".2" stop-color="#E8BB78"/>
++      <stop offset=".48" stop-color="#B96E35"/>
++      <stop offset=".72" stop-color="#F0C98F"/>
++      <stop offset="1" stop-color="#8F512B"/>
++    </linearGradient>
++    <linearGradient id="lilac" x1="186" y1="82" x2="326" y2="430" gradientUnits="userSpaceOnUse">
++      <stop stop-color="#E7DDF5"/>
++      <stop offset=".48" stop-color="#B99BD7"/>
++      <stop offset="1" stop-color="#7550A4"/>
++    </linearGradient>
++    <radialGradient id="jewel" cx="45%" cy="35%" r="65%">
++      <stop stop-color="#FFFCEB"/>
++      <stop offset=".36" stop-color="#F5C56D"/>
++      <stop offset=".72" stop-color="#A85D30"/>
++      <stop offset="1" stop-color="#6B3B2C"/>
++    </radialGradient>
++    <filter id="glow" x="-35%" y="-35%" width="170%" height="170%">
++      <feGaussianBlur stdDeviation="3.4" result="blur"/>
++      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
++    </filter>
++    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
++      <feGaussianBlur stdDeviation="8"/>
++    </filter>
++  </defs>
++
++  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
++    <circle cx="256" cy="235" r="178" stroke="#C8915A" stroke-width="1.5" opacity=".2"/>
++    <circle cx="256" cy="235" r="150" stroke="#A67BC8" stroke-width="1" opacity=".16" stroke-dasharray="3 9"/>
++    <circle cx="256" cy="235" r="121" stroke="#D9AC73" stroke-width="1" opacity=".14"/>
++    <path d="M256 54V31M256 440v34M79 256H47M433 256h32" stroke="#D39A58" stroke-width="1.5" opacity=".55"/>
++    <path d="M256 35l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#D79B4D" stroke="none" opacity=".9"/>
++  </g>
++
++  <ellipse cx="256" cy="260" rx="145" ry="177" fill="#B68FD8" opacity=".08" filter="url(#soft)"/>
++
++  <g filter="url(#glow)">
++    <!-- Loop -->
++    <path d="M256 61C193 61 157 108 167 164c8 46 38 79 89 105 51-26 81-59 89-105 10-56-26-103-89-103Z" fill="url(#lilac)" fill-opacity=".16" stroke="url(#gold)" stroke-width="13"/>
++    <path d="M256 79c-48 0-75 36-68 79 6 35 28 62 68 85 40-23 62-50 68-85 7-43-20-79-68-79Z" stroke="#F7D7A4" stroke-width="2" opacity=".7"/>
++
++    <!-- Horizontal arms -->
++    <path d="M121 245c35 1 70-2 107-12 18-5 37-2 53 8 17-10 35-13 54-8 37 10 72 13 107 12l-22 36c-34-1-69-7-102-20-17-7-33-7-49 1-16-8-32-8-49-1-33 13-68 19-102 20Z" fill="url(#gold)" fill-opacity=".82" stroke="#8A4A2D" stroke-width="2.5"/>
++    <path d="M131 253c37 0 70-4 103-13M381 253c-37 0-70-4-103-13" stroke="#FFF0D0" stroke-width="2" opacity=".72"/>
++    <path d="M121 245l22 18-25 18M391 263l30-18 21 36" fill="url(#lilac)" fill-opacity=".58" stroke="#7B55A8" stroke-width="2"/>
++
++    <!-- Stem -->
++    <path d="M226 260h60l18 154-48 47-48-47Z" fill="url(#lilac)" fill-opacity=".28" stroke="url(#gold)" stroke-width="11"/>
++    <path d="M240 279h32l12 126-28 28-28-28Z" stroke="#F4D5A3" stroke-width="2" opacity=".6"/>
++    <path d="M256 287v132M241 389l15 22 15-22" stroke="#D7A05F" stroke-width="1.5" opacity=".75"/>
++
++    <!-- Center jewel -->
++    <circle cx="256" cy="256" r="34" fill="#2B1538" fill-opacity=".28" stroke="url(#gold)" stroke-width="7"/>
++    <circle cx="256" cy="256" r="22" fill="url(#jewel)" stroke="#FFE9B6" stroke-width="2"/>
++    <circle cx="250" cy="249" r="7" fill="#FFF7D9" opacity=".88"/>
++  </g>
++
++  <!-- Beauty profile inside the loop -->
++  <g fill="none" stroke="url(#gold)" stroke-linecap="round" stroke-linejoin="round">
++    <path d="M278 112c-20-18-53-10-64 12-8 17-5 36 6 49 5 6 5 12 0 18-5 7-4 14 5 17l17 5c-4 4-5 8-1 12l7 6c-1 13 6 23 17 27 13 5 27 0 34-11" stroke-width="5.5"/>
++    <path d="M216 128c17-18 43-23 65-11M261 157c10-5 21-4 29 2M265 174c7 4 14 4 20 0" stroke-width="3.2" opacity=".8"/>
++    <path d="M244 231c-8 13-19 23-34 29M294 247c6 12 17 21 31 27" stroke-width="4" opacity=".86"/>
++  </g>
++  <path d="M227 229c-12 7-22 18-28 32 14-4 27 0 39 10 3-16 0-30-11-42Zm58 18c11 6 20 15 27 28-13-3-25 1-35 10-3-15-1-28 8-38Z" fill="#B58BD3" fill-opacity=".6" stroke="#D9A765" stroke-width="2"/>
++
++  <!-- Fine celestial details -->
++  <g fill="#D59C55">
++    <path d="M155 179l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" opacity=".72"/>
++    <path d="M363 187l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" opacity=".72"/>
++    <circle cx="122" cy="319" r="3" opacity=".65"/>
++    <circle cx="390" cy="319" r="3" opacity=".65"/>
++  </g>
++</svg>
+diff --git a/artifacts/lena/public/system-logos/malek-icon-192.png b/artifacts/lena/public/system-logos/malek-icon-192.png
+new file mode 100644
+index 0000000..2158481
+Binary files /dev/null and b/artifacts/lena/public/system-logos/malek-icon-192.png differ
+diff --git a/artifacts/lena/public/system-logos/malek-lockup.svg b/artifacts/lena/public/system-logos/malek-lockup.svg
+new file mode 100644
+index 0000000..cfaa9b5
+--- /dev/null
++++ b/artifacts/lena/public/system-logos/malek-lockup.svg
+@@ -0,0 +1,8 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 192" fill="none" role="img" aria-labelledby="malek-mark-title">
++  <title id="malek-mark-title">MALEK</title>
++  <path fill="#071B3C" d="M28 160V54c0-8 9-13 16-9l84 53-24 31-44-28v59H28Z"/>
++  <path fill="#1688BC" d="M228 160V54c0-8-9-13-16-9l-84 53 24 31 44-28v59h32Z"/>
++  <path fill="#18B9E6" d="m128 98 84-53c7-4 16 1 16 9v18l-76 57-24-31Z"/>
++  <path fill="#102A54" d="M28 54c0-8 9-13 16-9l84 53-24 31-76-57V54Z" opacity=".72"/>
++  <path fill="#FFFFFF" d="m104 129 24-31 24 31v31h-48v-31Z"/>
++</svg>
+diff --git a/artifacts/lena/public/system-logos/malek-mark.svg b/artifacts/lena/public/system-logos/malek-mark.svg
+new file mode 100644
+index 0000000..cfaa9b5
+--- /dev/null
++++ b/artifacts/lena/public/system-logos/malek-mark.svg
+@@ -0,0 +1,8 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 192" fill="none" role="img" aria-labelledby="malek-mark-title">
++  <title id="malek-mark-title">MALEK</title>
++  <path fill="#071B3C" d="M28 160V54c0-8 9-13 16-9l84 53-24 31-44-28v59H28Z"/>
++  <path fill="#1688BC" d="M228 160V54c0-8-9-13-16-9l-84 53 24 31 44-28v59h32Z"/>
++  <path fill="#18B9E6" d="m128 98 84-53c7-4 16 1 16 9v18l-76 57-24-31Z"/>
++  <path fill="#102A54" d="M28 54c0-8 9-13 16-9l84 53-24 31-76-57V54Z" opacity=".72"/>
++  <path fill="#FFFFFF" d="m104 129 24-31 24 31v31h-48v-31Z"/>
++</svg>
+diff --git a/artifacts/lena/public/system-logos/malek-maskable.svg b/artifacts/lena/public/system-logos/malek-maskable.svg
+new file mode 100644
+index 0000000..f38e2a9
+--- /dev/null
++++ b/artifacts/lena/public/system-logos/malek-maskable.svg
+@@ -0,0 +1,11 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" role="img" aria-labelledby="malek-maskable-title">
++  <title id="malek-maskable-title">MALEK</title>
++  <rect width="512" height="512" fill="#FFFFFF"/>
++  <g transform="translate(128 160) scale(.98)">
++    <path fill="#071B3C" d="M28 160 78 32l50 76-24 26-24-38-25 64H28Z"/>
++    <path fill="#102A54" d="m78 32 50 76-24 26-43-65 17-37Z"/>
++    <path fill="#18B9E6" d="m128 108 50-76 50 128h-27l-25-64-24 38-24-26Z"/>
++    <path fill="#087BAE" d="m128 108 24 26 43-65-17-37-50 76Z"/>
++    <path fill="#FFFFFF" d="m104 134 24-26 24 26-24 38-24-38Z" opacity=".96"/>
++  </g>
++</svg>
+diff --git a/artifacts/lena/src/App.tsx b/artifacts/lena/src/App.tsx
+index 5cdf2be..75a90ec 100644
+--- a/artifacts/lena/src/App.tsx
++++ b/artifacts/lena/src/App.tsx
+@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router";
+ import RouteFallback from "./app/RouteFallback";
+ import ScrollToTop from "./app/ScrollToTop";
+ import SpatialCleanup from "./features/world/spatial/SpatialCleanup";
++
++// Public pages
+ const Home = lazy(() => import("./pages/Home"));
+ const World = lazy(() => import("./pages/World"));
+ const WorldCommand = lazy(() => import("./pages/WorldCommand"));
+@@ -13,13 +15,52 @@ const Services = lazy(() => import("./pages/Services"));
+ const ServiceDetails = lazy(() => import("./pages/ServiceDetails"));
+ const Portfolio = lazy(() => import("./pages/Portfolio"));
+ const ProjectDetails = lazy(() => import("./pages/ProjectDetails"));
+-const About = lazy(() => import("./pages/About"));
++// const About = lazy(() => import("./pages/About")); // Hidden temporarily
+ const AiSolutions = lazy(() => import("./pages/AiSolutions"));
+ const Contact = lazy(() => import("./pages/Contact"));
+-const Dashboard = lazy(() => import("./pages/Dashboard"));
+-const ProjectsCms = lazy(() => import("./pages/ProjectsCms"));
+-const Login = lazy(() => import("./pages/Login"));
++const LaraBeauty = lazy(() => import("./pages/LaraBeauty"));
+ const Help = lazy(() => import("./pages/Help"));
+ const Privacy = lazy(() => import("./pages/Privacy"));
+ const NotFound = lazy(() => import("./pages/NotFound"));
+-export default function App() { return <><ScrollToTop /><SpatialCleanup /><Suspense fallback={<RouteFallback />}><Routes><Route path="/" element={<Home />} /><Route path="/world" element={<World />} /><Route path="/world/command" element={<WorldCommand />} /><Route path="/world/atlas" element={<WorldAtlas />} /><Route path="/world/:systemId" element={<WorldSystem />} /><Route path="/services" element={<Services />} /><Route path="/services/:serviceId" element={<ServiceDetails />} /><Route path="/portfolio" element={<Portfolio />} /><Route path="/work/:projectId" element={<ProjectDetails />} /><Route path="/about" element={<About />} /><Route path="/ai-solutions" element={<AiSolutions />} /><Route path="/contact" element={<Contact />} /><Route path="/help" element={<Help />} /><Route path="/privacy" element={<Privacy />} /><Route path="/dashboard" element={<Dashboard />} /><Route path="/dashboard/projects-editor" element={<ProjectsCms />} /><Route path="/login" element={<Login />} /><Route path="*" element={<NotFound />} /></Routes></Suspense></>; }
++
++// Admin/Owner pages
++const Dashboard = lazy(() => import("./pages/Dashboard"));
++const ProjectsCms = lazy(() => import("./pages/ProjectsCms"));
++const Login = lazy(() => import("./pages/Login"));
++
++export default function App() {
++  return (
++    <>
++      <ScrollToTop />
++      <SpatialCleanup />
++      <Suspense fallback={<RouteFallback />}>
++        <Routes>
++          {/* Public routes */}
++          <Route path="/" element={<Home />} />
++          <Route path="/world" element={<World />} />
++          <Route path="/world/command" element={<WorldCommand />} />
++          <Route path="/world/atlas" element={<WorldAtlas />} />
++          <Route path="/world/:systemId" element={<WorldSystem />} />
++          <Route path="/services" element={<Services />} />
++          <Route path="/services/:serviceId" element={<ServiceDetails />} />
++          <Route path="/portfolio" element={<Portfolio />} />
++          <Route path="/work/:projectId" element={<ProjectDetails />} />
++          {/* <Route path="/about" element={<About />} /> Hidden temporarily */}
++          <Route path="/ai-solutions" element={<AiSolutions />} />
++          <Route path="/contact" element={<Contact />} />
++          <Route path="/lara-beauty" element={<LaraBeauty />} />
++          <Route path="/help" element={<Help />} />
++          <Route path="/privacy" element={<Privacy />} />
++
++          {/* Admin routes */}
++          <Route path="/dashboard" element={<Dashboard />} />
++          <Route path="/dashboard/projects-editor" element={<ProjectsCms />} />
++          <Route path="/login" element={<Login />} />
++
++          {/* Fallback */}
++          <Route path="*" element={<NotFound />} />
++        </Routes>
++      </Suspense>
++    </>
++  );
++}
+diff --git a/artifacts/lena/src/assets/founder.jpg b/artifacts/lena/src/assets/founder.jpg
+new file mode 100644
+index 0000000..23885e0
+Binary files /dev/null and b/artifacts/lena/src/assets/founder.jpg differ
+diff --git a/artifacts/lena/src/components/FounderCard.tsx b/artifacts/lena/src/components/FounderCard.tsx
+index 2b6f1aa..612b319 100644
+--- a/artifacts/lena/src/components/FounderCard.tsx
++++ b/artifacts/lena/src/components/FounderCard.tsx
+@@ -39,11 +39,17 @@ export default function FounderCard() {
+       </div>
+ 
+       <div className="lena-founder-body">
+-        <p className="lena-kicker">{locale === "ar" ? "من يقف خلف LENA" : "The person behind LENA"}</p>
++        <p className="lena-kicker">
++          {locale === "ar" ? "من يقف خلف LENA" : "The person behind LENA"}
++        </p>
++
+         <h2>{FOUNDER.name[locale]}</h2>
++
+         <p className="lena-founder-role">{FOUNDER.role[locale]}</p>
+ 
+-        {hasFounderBio(locale) && <p className="lena-founder-bio">{FOUNDER.bio[locale]}</p>}
++        {hasFounderBio(locale) && (
++          <p className="lena-founder-bio">{FOUNDER.bio[locale]}</p>
++        )}
+ 
+         <p className="lena-founder-note">
+           {locale === "ar"
+@@ -56,7 +62,12 @@ export default function FounderCard() {
+             {locale === "ar" ? "ابدأ محادثة" : "Start a conversation"}
+             <ArrowUpRight size={16} />
+           </Link>
+-          <a className="lena-secondary" href={SITE_CONFIG.whatsappUrl} target="_blank" rel="noreferrer">
++          <a
++            className="lena-secondary"
++            href={SITE_CONFIG.whatsappUrl}
++            target="_blank"
++            rel="noreferrer"
++          >
+             <MessageCircle size={15} />
+             WhatsApp
+           </a>
+diff --git a/artifacts/lena/src/components/LenaCta.tsx b/artifacts/lena/src/components/LenaCta.tsx
+index 550fa58..8811df7 100644
+--- a/artifacts/lena/src/components/LenaCta.tsx
++++ b/artifacts/lena/src/components/LenaCta.tsx
+@@ -1,8 +1,17 @@
++import { useEffect, useRef, useState } from "react";
+ import { ArrowUpRight, MessageCircle } from "lucide-react";
+ import { Link } from "react-router";
+ import { SITE_CONFIG } from "@/config/site";
+ import { usePreferences } from "@/providers/preferences";
+ 
++/**
++ * Call-to-action section.
++ *
++ * Adapts messaging based on context:
++ * - Default: general CTA for any visitor
++ * - `project`: tailored for project detail pages
++ * - `service` / `work`: passes context to the contact form via query params
++ */
+ export default function LenaCta({
+   project = false,
+   service,
+@@ -13,36 +22,62 @@ export default function LenaCta({
+   work?: string;
+ }) {
+   const { locale } = usePreferences();
++  const isAr = locale === "ar";
++  const sectionRef = useRef<HTMLElement | null>(null);
++  const [isVisible, setIsVisible] = useState(false);
++
+   const contactHref = service
+     ? `/contact?service=${encodeURIComponent(service)}`
+     : work
+       ? `/contact?work=${encodeURIComponent(work)}`
+       : "/contact";
+ 
++  useEffect(() => {
++    const element = sectionRef.current;
++    if (!element) return;
++
++    const observer = new IntersectionObserver(
++      ([entry]) => {
++        if (entry.isIntersecting) {
++          setIsVisible(true);
++          observer.unobserve(element);
++        }
++      },
++      { threshold: 0.2 }
++    );
++
++    observer.observe(element);
++    return () => observer.disconnect();
++  }, []);
++
+   return (
+-    <section className="lena-section">
++    <section
++      ref={sectionRef}
++      className={`lena-section scroll-animate ${isVisible ? "is-visible" : ""}`}
++    >
+       <div className="lena-container">
+         <article className="lena-glass lena-cta">
+           <div>
+             <p className="lena-kicker">LENA DIGITAL HOUSE</p>
+             <h2>
+               {project
+-                ? locale === "ar"
++                ? isAr
+                   ? "لديك مشروع يحتاج إلى نظام مشابه؟"
+                   : "Need a similar operating system for your business?"
+-                : locale === "ar"
++                : isAr
+                   ? "هل عملك يحتاج نظام تشغيل أوضح؟"
+                   : "Does your business need a clearer operating system?"}
+             </h2>
+             <p>
+-              {locale === "ar"
++              {isAr
+                 ? "صف لنا كيف يعمل يومك الآن. نحدد أين يتكرر العمل اليدوي، وما الذي يحتاج أن يصبح مسارًا واحدًا واضحًا."
+                 : "Show us how the work runs today. We identify where manual repetition lives and what should become one clear operating flow."}
+             </p>
+           </div>
++
+           <div className="lena-actions">
+             <Link className="lena-primary" to={contactHref}>
+-              {locale === "ar" ? "ابدأ من سير العمل" : "Start from the workflow"}
++              {isAr ? "ابدأ من سير العمل" : "Start from the workflow"}
+               <ArrowUpRight size={16} />
+             </Link>
+             <a
+diff --git a/artifacts/lena/src/components/SystemGrid.tsx b/artifacts/lena/src/components/SystemGrid.tsx
+index d6429ec..79011a6 100644
+--- a/artifacts/lena/src/components/SystemGrid.tsx
++++ b/artifacts/lena/src/components/SystemGrid.tsx
+@@ -1,29 +1,55 @@
++import { useEffect, useRef, useState } from "react";
+ import { ArrowUpRight } from "lucide-react";
+ import { Link } from "react-router";
+ import { publicSystems } from "@/content/systems";
+ import { usePreferences } from "@/providers/preferences";
+ 
+-/** Industry-first entry points, as decided in PRODUCT_DECISIONS.md D4. */
++/**
++ * Industry-first entry points.
++ * Each card animates in when scrolled into view with staggered timing.
++ */
+ export default function SystemGrid({
+   limit,
+   visitedSystemId,
+ }: {
+   limit?: number;
+-  /** The system the visitor was last in, when world memory says so.
+-   *  Renders a quiet "remembered" mark; no behavior change. */
+   visitedSystemId?: string | null;
+ }) {
+   const { locale } = usePreferences();
+   const systems = limit ? publicSystems().slice(0, limit) : publicSystems();
++  const gridRef = useRef<HTMLDivElement | null>(null);
++  const [isVisible, setIsVisible] = useState(false);
++
++  useEffect(() => {
++    const element = gridRef.current;
++    if (!element) return;
++
++    const observer = new IntersectionObserver(
++      ([entry]) => {
++        if (entry.isIntersecting) {
++          setIsVisible(true);
++          observer.unobserve(element);
++        }
++      },
++      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
++    );
++
++    observer.observe(element);
++    return () => observer.disconnect();
++  }, []);
+ 
+   return (
+-    <div className="lena-bento lena-showcase-grid">
++    <div
++      ref={gridRef}
++      className={`lena-bento lena-showcase-grid scroll-stagger ${isVisible ? "is-visible" : ""}`}
++    >
+       {systems.map((system, index) => (
+         <article
+-          className={`lena-glass lena-service-card${index === 0 || index === 3 ? " wide" : ""}${
+-            system.id === visitedSystemId ? " is-visited" : ""
+-          }`}
++          className={`lena-glass lena-service-card ${system.id}${
++            index === 0 || index === 3 ? " wide" : ""
++          }${system.id === visitedSystemId ? " is-visited" : ""}`}
+           key={system.id}
++          data-system={system.id}
+         >
+           <i className="lena-card-glow" />
+           <div className="lena-card-top">
+@@ -35,7 +61,9 @@ export default function SystemGrid({
+             </span>
+           ) : null}
+           <h3>{system.name[locale]}</h3>
+-          {system.tagline ? <p className="lena-system-tagline">{system.tagline[locale]}</p> : null}
++          {system.tagline ? (
++            <p className="lena-system-tagline">{system.tagline[locale]}</p>
++          ) : null}
+           <p className="lena-system-industry">{system.industry[locale]}</p>
+           <span className="lena-roots-chip">
+             {system.operatingPrimitives.length}{" "}
+diff --git a/artifacts/lena/src/const.ts b/artifacts/lena/src/const.ts
+index 1ca3f90..8c98ca1 100644
+--- a/artifacts/lena/src/const.ts
++++ b/artifacts/lena/src/const.ts
+@@ -1 +1,2 @@
++/** Application-wide constants */
+ export const LOGIN_PATH = "/login";
+diff --git a/artifacts/lena/src/content/navigation.ts b/artifacts/lena/src/content/navigation.ts
+index 1606cfb..48ec442 100644
+--- a/artifacts/lena/src/content/navigation.ts
++++ b/artifacts/lena/src/content/navigation.ts
+@@ -1,13 +1,12 @@
+ /**
+- * Public route inventory. Labels are owned by SITE_COPY.nav so header, footer
+- * and page copy cannot drift into a second slogan set.
++ * Public route inventory — simplified.
++ * Only pages the visitor actually needs.
+  */
+ export const PUBLIC_NAVIGATION = [
+   { to: "/", copyKey: "home" },
+   { to: "/services", copyKey: "services" },
+   { to: "/portfolio", copyKey: "portfolio" },
+-  { to: "/about", copyKey: "about" },
+-  { to: "/ai-solutions", copyKey: "ai" },
++  { to: "/lara-beauty", copyKey: "lara" },
+   { to: "/contact", copyKey: "contact" },
+ ] as const;
+ 
+diff --git a/artifacts/lena/src/content/site-copy.ts b/artifacts/lena/src/content/site-copy.ts
+index 295cea5..117b236 100644
+--- a/artifacts/lena/src/content/site-copy.ts
++++ b/artifacts/lena/src/content/site-copy.ts
+@@ -1,6 +1,6 @@
+ export const SITE_COPY = {
+   ar: {
+-    nav: { home: "البداية", services: "الأنظمة", portfolio: "الأعمال", about: "عالم LENA", ai: "الذكاء التشغيلي", contact: "ابدأ مشروعك", dashboard: "لوحة التحكم", start: "لنتحدث" },
++    nav: { home: "الرئيسية", services: "الأنظمة", portfolio: "الأعمال", about: "عالم LENA", ai: "الذكاء التشغيلي", contact: "تواصل", lara: "Lara Beauty", dashboard: "لوحة التحكم", start: "لنتحدث" },
+     common: { explore: "اكتشف عالم LENA", viewWork: "عرض الأنظمة", contact: "ابدأ مشروعك", empty: "لا توجد بيانات للعرض حاليًا.", theme: "تبديل المظهر", language: "English" },
+     home: { eyebrow: "LENA DIGITAL HOUSE — OPERATING SYSTEMS", title: "نبني أنظمة تشغيل", titleAccent: "للأعمال الحقيقية", intro: "نحوّل العمل اليومي المتفرق إلى نظام واضح يربط الأشخاص والأصول والمال والعمليات في مكان واحد.", capabilities: "عوالم تشغيل مبنية لقطاعات حقيقية", capabilitiesIntro: "كل نظام يبدأ من مشكلة تشغيلية فعلية، ويحافظ على خصوصية القطاع مع الاستفادة من جذور تشغيل تتكرر بين الأعمال.", work: "LENA OPERATING WORLDS", workIntro: "منتجات تشغيلية مستقلة، مرتبطة داخل بيت رقمي واحد بدل مجموعة تطبيقات متفرقة.", ctaTitle: "هل عملك يحتاج نظام تشغيل أوضح؟", ctaText: "صف لنا كيف يعمل يومك الآن، ونحدد أين يمكن للنظام أن يقلل التشتت والعمل اليدوي." },
+     services: { eyebrow: "أنظمة حسب القطاع", title: "ابدأ من طبيعة عملك، لا من قائمة خدمات تقنية", intro: "اختر القطاع الأقرب لعملك لترى المشكلة التشغيلية، من يستخدم النظام يوميًا، وما الذي يديره فعليًا." },
+@@ -28,7 +28,7 @@ export const SITE_COPY = {
+     dashboard: { title: "لوحة تحكم LENA", subtitle: "إدارة الاستفسارات والمحتوى", inquiries: "الاستفسارات", portfolio: "المشاريع والأعمال", content: "المحتوى", empty: "لا توجد بيانات للعرض حاليًا." },
+   },
+   en: {
+-    nav: { home: "Opening", services: "Systems", portfolio: "Work", about: "Inside LENA", ai: "Operating Intelligence", contact: "Start a Project", dashboard: "Dashboard", start: "Let's Talk" },
++    nav: { home: "Home", services: "Systems", portfolio: "Work", about: "Inside LENA", ai: "Operating Intelligence", contact: "Contact", lara: "Lara Beauty", dashboard: "Dashboard", start: "Let's Talk" },
+     common: { explore: "Enter LENA", viewWork: "View Systems", contact: "Start a Project", empty: "There is no data to display yet.", theme: "Toggle theme", language: "العربية" },
+     home: { eyebrow: "LENA DIGITAL HOUSE — OPERATING SYSTEMS", title: "We build operating systems", titleAccent: "for real businesses", intro: "We turn scattered daily work into a clear operating system connecting people, assets, money, and workflows in one place.", capabilities: "Operating worlds built for real industries", capabilitiesIntro: "Each system starts from a real operational problem, keeps the industry's own logic, and reveals the operating roots that repeat across businesses.", work: "LENA OPERATING WORLDS", workIntro: "Independent operating products connected inside one digital house instead of a collection of unrelated apps.", ctaTitle: "Does your business need a clearer operating system?", ctaText: "Describe how the work runs today and we will identify where a system can reduce fragmentation and manual effort." },
+     services: { eyebrow: "Systems by industry", title: "Start from how your business works, not from a list of technical services", intro: "Choose the industry closest to your work to see the operational problem, who uses the system daily, and what it actually runs." },
+diff --git a/artifacts/lena/src/design-system/brand/SystemLogo.tsx b/artifacts/lena/src/design-system/brand/SystemLogo.tsx
+new file mode 100644
+index 0000000..1276072
+--- /dev/null
++++ b/artifacts/lena/src/design-system/brand/SystemLogo.tsx
+@@ -0,0 +1,136 @@
++import type { SystemId } from "@/content/systems";
++
++/**
++ * System logos — real SVGs from each product's repo.
++ *
++ * Malek:       geometric M mark (navy/cyan)
++ * Lara Beauty: golden flower on deep purple
++ * Hospitality: coffee pot (cafe brown)
++ * Others:      domain-specific SVG marks
++ */
++export function SystemLogo({
++  systemId,
++  size = 40,
++}: {
++  systemId: SystemId;
++  size?: number;
++}) {
++  switch (systemId) {
++    case "property":
++      // Malek — real logo from repo (geometric M)
++      return (
++        <svg width={size} height={size} viewBox="0 0 512 512" fill="none" role="img" aria-label="Malek">
++          <rect width="512" height="512" rx="96" fill="#0B1D3A" />
++          <g transform="translate(128 160) scale(.98)">
++            <path fill="#071B3C" d="M28 160 78 32l50 76-24 26-24-38-25 64H28Z" />
++            <path fill="#1688BC" d="M228 160l-50-128-50 76 24 26 24-38 25 64h27Z" />
++            <path fill="#18B9E6" d="m128 98 84-53c7-4 16 1 16 9v18l-76 57-24-31Z" />
++          </g>
++        </svg>
++      );
++
++    case "wellness":
++      // Lara Beauty — real logo from repo (golden flower)
++      return (
++        <svg width={size} height={size} viewBox="0 0 512 512" role="img" aria-label="Lara Beauty">
++          <defs>
++            <radialGradient id="lb-bg" cx="34%" cy="22%" r="91%">
++              <stop stopColor="#7D285D" />
++              <stop offset=".56" stopColor="#57143E" />
++              <stop offset="1" stopColor="#2A0A20" />
++            </radialGradient>
++            <linearGradient id="lb-gold" x1="138" y1="104" x2="369" y2="425" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#FFF2B8" />
++              <stop offset=".43" stopColor="#F2CF77" />
++              <stop offset="1" stopColor="#C68A36" />
++            </linearGradient>
++          </defs>
++          <rect width="512" height="512" rx="96" fill="url(#lb-bg)" />
++          <path
++            d="M173 412C138 385 119 346 117 301c-4-72 25-133 78-171 44-32 101-40 150-19 44 19 74 58 81 105 8 55-12 105-55 141-30 25-44 50-42 72"
++            fill="none"
++            stroke="url(#lb-gold)"
++            strokeWidth="8"
++            strokeLinecap="round"
++          />
++          <circle cx="256" cy="256" r="40" fill="url(#lb-gold)" opacity="0.3" />
++          <circle cx="256" cy="256" r="16" fill="url(#lb-gold)" opacity="0.6" />
++        </svg>
++      );
++
++    case "hospitality":
++      // Hospitality — coffee pot icon (cafe brown)
++      return (
++        <svg width={size} height={size} viewBox="0 0 512 512" fill="none" role="img" aria-label="Hospitality">
++          <rect width="512" height="512" rx="96" fill="#2A1810" />
++          {/* Coffee pot body */}
++          <rect x="160" y="180" width="160" height="200" rx="20" fill="#8B5E3C" />
++          {/* Pot lid */}
++          <rect x="180" y="160" width="120" height="28" rx="14" fill="#A0714F" />
++          <circle cx="240" cy="155" r="10" fill="#C69C6D" />
++          {/* Handle */}
++          <path d="M320 220c30 0 50 20 50 50s-20 50-50 50" stroke="#8B5E3C" strokeWidth="16" strokeLinecap="round" />
++          {/* Spout */}
++          <path d="M160 240l-30-20v40l30-20Z" fill="#8B5E3C" />
++          {/* Steam */}
++          <path d="M220 130c0-20 10-30 10-50" stroke="#C69C6D" strokeWidth="6" strokeLinecap="round" opacity="0.6" />
++          <path d="M250 120c0-20 10-30 10-50" stroke="#C69C6D" strokeWidth="6" strokeLinecap="round" opacity="0.4" />
++          <path d="M280 130c0-20 10-30 10-50" stroke="#C69C6D" strokeWidth="6" strokeLinecap="round" opacity="0.3" />
++          {/* Base */}
++          <rect x="170" y="380" width="140" height="12" rx="6" fill="#6B4226" />
++        </svg>
++      );
++
++    case "rental":
++      // Rental — key icon (cyan)
++      return (
++        <svg width={size} height={size} viewBox="0 0 512 512" fill="none" role="img" aria-label="Rental">
++          <rect width="512" height="512" rx="96" fill="#0A2A3A" />
++          <circle cx="180" cy="200" r="70" stroke="#42dcff" strokeWidth="16" />
++          <circle cx="180" cy="200" r="30" fill="#42dcff" opacity="0.3" />
++          <path d="M240 250l140 140" stroke="#42dcff" strokeWidth="16" strokeLinecap="round" />
++          <path d="M330 340l40-40" stroke="#42dcff" strokeWidth="16" strokeLinecap="round" />
++          <path d="M290 300l30-30" stroke="#42dcff" strokeWidth="16" strokeLinecap="round" />
++        </svg>
++      );
++
++    case "investment":
++      // Investment — growth chart (orange)
++      return (
++        <svg width={size} height={size} viewBox="0 0 512 512" fill="none" role="img" aria-label="Investment">
++          <rect width="512" height="512" rx="96" fill="#1A1208" />
++          <path d="M100 380l80-120 70 60 120-180" stroke="#ff8c42" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
++          <path d="M340 140h70v70" stroke="#ff8c42" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
++          <rect x="100" y="400" width="310" height="6" rx="3" fill="#ff8c42" opacity="0.3" />
++          <circle cx="100" cy="380" r="8" fill="#ff8c42" />
++          <circle cx="180" cy="260" r="8" fill="#ff8c42" />
++          <circle cx="250" cy="320" r="8" fill="#ff8c42" />
++          <circle cx="370" cy="140" r="8" fill="#ff8c42" />
++        </svg>
++      );
++
++    case "recycling":
++      // Recycling — circular arrows (green)
++      return (
++        <svg width={size} height={size} viewBox="0 0 512 512" fill="none" role="img" aria-label="Recycling">
++          <rect width="512" height="512" rx="96" fill="#0A1A0A" />
++          <path d="M256 100a156 156 0 01135 78" stroke="#6bde4a" strokeWidth="14" strokeLinecap="round" />
++          <path d="M391 178l-26 50-50-26" stroke="#6bde4a" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
++          <path d="M391 334a156 156 0 01-135 78" stroke="#6bde4a" strokeWidth="14" strokeLinecap="round" />
++          <path d="M256 412l-26-50h52" stroke="#6bde4a" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
++          <path d="M121 334a156 156 0 010-156" stroke="#6bde4a" strokeWidth="14" strokeLinecap="round" />
++          <path d="M121 178l26 50-50 26" stroke="#6bde4a" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
++          <circle cx="256" cy="256" r="40" fill="#6bde4a" opacity="0.15" />
++        </svg>
++      );
++
++    default:
++      return (
++        <svg width={size} height={size} viewBox="0 0 512 512" fill="none">
++          <rect width="512" height="512" rx="96" fill="#1A1A2E" />
++          <circle cx="256" cy="256" r="100" stroke="#82a1ff" strokeWidth="12" />
++          <circle cx="256" cy="256" r="40" fill="#82a1ff" opacity="0.3" />
++        </svg>
++      );
++  }
++}
+diff --git a/artifacts/lena/src/features/home/DigitalHouseOrbit.tsx b/artifacts/lena/src/features/home/DigitalHouseOrbit.tsx
+index 62a7920..494ea5c 100644
+--- a/artifacts/lena/src/features/home/DigitalHouseOrbit.tsx
++++ b/artifacts/lena/src/features/home/DigitalHouseOrbit.tsx
+@@ -314,6 +314,11 @@ export default function DigitalHouseOrbit() {
+         </div>
+       ))}
+       <div className="lena-house">
++        <svg className="lena-house-logo" viewBox="0 0 48 48" aria-hidden="true">
++          <path d="M14 10.5v20.2c0 3.75 3.04 6.8 6.8 6.8H36" />
++          <path d="M14 17.5c7.15 0 12.95 5.8 12.95 12.95" />
++          <circle cx="14" cy="10.5" r="2.5" />
++        </svg>
+         <small>LENA</small>
+         <strong>
+           DIGITAL
+diff --git a/artifacts/lena/src/features/home/ProcessSection.tsx b/artifacts/lena/src/features/home/ProcessSection.tsx
+index d842cac..376c6c7 100644
+--- a/artifacts/lena/src/features/home/ProcessSection.tsx
++++ b/artifacts/lena/src/features/home/ProcessSection.tsx
+@@ -1,3 +1,4 @@
++import { useEffect, useRef, useState } from "react";
+ import { usePreferences } from "@/providers/preferences";
+ 
+ const STEPS = [
+@@ -9,8 +10,32 @@ const STEPS = [
+ 
+ export default function ProcessSection() {
+   const { locale } = usePreferences();
++  const sectionRef = useRef<HTMLElement | null>(null);
++  const [isVisible, setIsVisible] = useState(false);
++
++  useEffect(() => {
++    const element = sectionRef.current;
++    if (!element) return;
++
++    const observer = new IntersectionObserver(
++      ([entry]) => {
++        if (entry.isIntersecting) {
++          setIsVisible(true);
++          observer.unobserve(element);
++        }
++      },
++      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
++    );
++
++    observer.observe(element);
++    return () => observer.disconnect();
++  }, []);
++
+   return (
+-    <section className="lena-section">
++    <section
++      ref={sectionRef}
++      className={`lena-section scroll-animate ${isVisible ? "is-visible" : ""}`}
++    >
+       <div className="lena-container">
+         <p className="lena-kicker">
+           {locale === "ar" ? "من العمل الحقيقي إلى النظام" : "From real work to operating system"}
+@@ -20,7 +45,7 @@ export default function ProcessSection() {
+             ? "لا نبدأ بالشكل. نبدأ بكيف يعمل العمل فعلًا."
+             : "We do not start with the surface. We start with how the work actually runs."}
+         </h2>
+-        <div className="lena-process">
++        <div className="lena-process scroll-stagger">
+           {STEPS.map((step, index) => (
+             <article className="lena-glass" key={step.en}>
+               <small>{String(index + 1).padStart(2, "0")}</small>
+diff --git a/artifacts/lena/src/features/world/components/WorldScene.tsx b/artifacts/lena/src/features/world/components/WorldScene.tsx
+index a62388d..2766f5d 100644
+--- a/artifacts/lena/src/features/world/components/WorldScene.tsx
++++ b/artifacts/lena/src/features/world/components/WorldScene.tsx
+@@ -1,4 +1,6 @@
+ import { useLayoutEffect, type CSSProperties } from "react";
++import { SystemLogo } from "@/design-system/brand/SystemLogo";
++import type { SystemId } from "@/content/systems";
+ import { usePreferences } from "@/providers/preferences";
+ import { useSpatialScene } from "../spatial/useSpatialScene";
+ import { buildStars } from "../spatial/ambientField";
+@@ -128,6 +130,7 @@ export default function WorldScene({ entities, selectedId, onSelect }: WorldScen
+             aria-label={`${system.name[locale]} — ${system.industry[locale]}`}
+           >
+             <span className="lena-world-entity-figure" aria-hidden="true">
++              <SystemLogo systemId={entity.systemId as SystemId} size={40} />
+               <span className="lena-world-entity-marks" />
+             </span>
+             <span className="lena-world-entity-caption">
+diff --git a/artifacts/lena/src/hooks/useInView.ts b/artifacts/lena/src/hooks/useInView.ts
+new file mode 100644
+index 0000000..ccd6ff0
+--- /dev/null
++++ b/artifacts/lena/src/hooks/useInView.ts
+@@ -0,0 +1,59 @@
++import { useEffect, useRef, useState } from "react";
++
++/**
++ * Hook to detect when an element enters the viewport.
++ * Returns a ref to attach to the element and a boolean indicating visibility.
++ *
++ * @param options IntersectionObserver options
++ * @param once If true, stops observing after first intersection
++ */
++export function useInView(
++  options: IntersectionObserverInit = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
++  once: boolean = true
++): [React.RefObject<HTMLElement | null>, boolean] {
++  const ref = useRef<HTMLElement | null>(null);
++  const [isInView, setIsInView] = useState(false);
++
++  useEffect(() => {
++    const element = ref.current;
++    if (!element) return;
++
++    const observer = new IntersectionObserver(([entry]) => {
++      if (entry.isIntersecting) {
++        setIsInView(true);
++        if (once) observer.unobserve(element);
++      } else if (!once) {
++        setIsInView(false);
++      }
++    }, options);
++
++    observer.observe(element);
++    return () => observer.disconnect();
++  }, [options.threshold, options.rootMargin, once]);
++
++  return [ref, isInView];
++}
++
++/**
++ * Hook to animate elements when they enter the viewport.
++ * Adds a CSS class when visible.
++ */
++export function useScrollAnimation(
++  className: string = "is-visible",
++  options?: IntersectionObserverInit
++) {
++  const [ref, isInView] = useInView(options);
++
++  useEffect(() => {
++    const element = ref.current;
++    if (!element) return;
++
++    if (isInView) {
++      element.classList.add(className);
++    } else {
++      element.classList.remove(className);
++    }
++  }, [isInView, className, ref]);
++
++  return ref;
++}
+diff --git a/artifacts/lena/src/layouts/FloatingHeader.tsx b/artifacts/lena/src/layouts/FloatingHeader.tsx
+index ad568ea..f42334c 100644
+--- a/artifacts/lena/src/layouts/FloatingHeader.tsx
++++ b/artifacts/lena/src/layouts/FloatingHeader.tsx
+@@ -14,50 +14,122 @@ export default function FloatingHeader() {
+   const [open, setOpen] = useState(false);
+   const [scrolled, setScrolled] = useState(false);
+ 
++  // Close mobile menu on route change
+   useEffect(() => setOpen(false), [pathname]);
++
++  // Track scroll for header style
+   useEffect(() => {
+     let isScrolled = window.scrollY > 20;
+     setScrolled(isScrolled);
++
+     const update = () => {
+       const nextScrolled = window.scrollY > 20;
+       if (nextScrolled === isScrolled) return;
+       isScrolled = nextScrolled;
+       setScrolled(nextScrolled);
+     };
++
+     update();
+     window.addEventListener("scroll", update, { passive: true });
+     return () => window.removeEventListener("scroll", update);
+   }, []);
+ 
+-  const active = (to: string) => to === "/" ? pathname === "/" : pathname.startsWith(to);
++  const active = (to: string) =>
++    to === "/" ? pathname === "/" : pathname.startsWith(to);
+   const startLabel = copy.nav.start;
+ 
+   return (
+     <header className={`lena-header${scrolled ? " lena-header-scrolled" : ""}`}>
+-      <nav className="lena-glass lena-nav" aria-label={locale === "ar" ? "التنقل الرئيسي" : "Main navigation"}>
+-        <Link to="/" className="lena-brand-link"><LenaLogo /></Link>
++      <nav
++        className="lena-glass lena-nav"
++        aria-label={locale === "ar" ? "التنقل الرئيسي" : "Main navigation"}
++      >
++        <Link to="/" className="lena-brand-link">
++          <LenaLogo />
++        </Link>
++
+         <div className="lena-desktop-nav">
+           {PUBLIC_NAVIGATION.map((item) => (
+-            <Link key={item.to} className={`lena-nav-link${active(item.to) ? " active" : ""}`} to={item.to}>
++            <Link
++              key={item.to}
++              className={`lena-nav-link${active(item.to) ? " active" : ""}`}
++              to={item.to}
++            >
+               {copy.nav[item.copyKey]}
+             </Link>
+           ))}
+         </div>
++
+         <div className="lena-nav-actions">
+-          <button type="button" className="lena-icon-button" onClick={() => { track("language_switched", { locale, surface: "header" }); toggleLocale(); }} aria-label={locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}><Languages size={17} /></button>
+-          <button type="button" className="lena-icon-button" onClick={toggleTheme} aria-label={locale === "ar" ? "تبديل المظهر" : "Toggle theme"}>{theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}</button>
+-          <Link className="lena-primary lena-nav-cta" onClick={() => track("primary_action_clicked", { surface: "header", locale })} to="/contact">{startLabel}</Link>
+-          <button type="button" className="lena-icon-button lena-menu-toggle" aria-expanded={open} aria-label={locale === "ar" ? "فتح القائمة" : "Open menu"} onClick={() => setOpen((value) => !value)}>{open ? <X size={18} /> : <Menu size={18} />}</button>
++          <button
++            type="button"
++            className="lena-icon-button"
++            onClick={() => {
++              track("language_switched", { locale, surface: "header" });
++              toggleLocale();
++            }}
++            aria-label={
++              locale === "ar" ? "Switch to English" : "التبديل إلى العربية"
++            }
++          >
++            <Languages size={17} />
++          </button>
++
++          <button
++            type="button"
++            className="lena-icon-button"
++            onClick={toggleTheme}
++            aria-label={locale === "ar" ? "تبديل المظهر" : "Toggle theme"}
++          >
++            {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
++          </button>
++
++          <Link
++            className="lena-primary lena-nav-cta"
++            onClick={() =>
++              track("primary_action_clicked", { surface: "header", locale })
++            }
++            to="/contact"
++          >
++            {startLabel}
++          </Link>
++
++          <button
++            type="button"
++            className="lena-icon-button lena-menu-toggle"
++            aria-expanded={open}
++            aria-label={locale === "ar" ? "فتح القائمة" : "Open menu"}
++            onClick={() => setOpen((value) => !value)}
++          >
++            {open ? <X size={18} /> : <Menu size={18} />}
++          </button>
+         </div>
+       </nav>
++
+       {open && (
+         <div className="lena-glass lena-mobile-menu">
+           {PUBLIC_NAVIGATION.map((item) => (
+-            <Link key={item.to} className={`lena-mobile-link${active(item.to) ? " active" : ""}`} to={item.to}>
++            <Link
++              key={item.to}
++              className={`lena-mobile-link${active(item.to) ? " active" : ""}`}
++              to={item.to}
++            >
+               {copy.nav[item.copyKey]}
+             </Link>
+           ))}
+-          <Link className="lena-primary lena-mobile-cta" onClick={() => track("primary_action_clicked", { surface: "mobile_menu", locale })} to="/contact">{startLabel}</Link>
++
++          <Link
++            className="lena-primary lena-mobile-cta"
++            onClick={() =>
++              track("primary_action_clicked", {
++                surface: "mobile_menu",
++                locale,
++              })
++            }
++            to="/contact"
++          >
++            {startLabel}
++          </Link>
+         </div>
+       )}
+     </header>
+diff --git a/artifacts/lena/src/layouts/PublicFooter.tsx b/artifacts/lena/src/layouts/PublicFooter.tsx
+index 380ce08..b3c517c 100644
+--- a/artifacts/lena/src/layouts/PublicFooter.tsx
++++ b/artifacts/lena/src/layouts/PublicFooter.tsx
+@@ -25,12 +25,62 @@ export default function PublicFooter() {
+   return (
+     <footer className="lena-footer">
+       <div className="lena-footer-grid">
+-        <div><Link to="/" className="lena-brand-link"><LenaLogo /></Link><p>{copy.footer.description}</p></div>
+-        <div><h2>{copy.footer.links}</h2><div className="lena-footer-links">{PUBLIC_NAVIGATION.map((item) => <Link key={item.to} to={item.to}>{copy.nav[item.copyKey]}</Link>)}<Link to="/help">{locale === "ar" ? "المساعدة" : "Help"}</Link><Link to="/privacy">{locale === "ar" ? "بياناتك وخصوصيتك" : "Your data and privacy"}</Link></div></div>
+-        <div><h2>{copy.footer.contact}</h2><div className="lena-footer-links">{SITE_CONFIG.channels.map((channel) => <a key={channel.id} href={whatsappUrlFor(channel)} target="_blank" rel="noreferrer"><MessageCircle size={15} /><span dir="ltr">{channel.display}</span><small>{channel.region[locale]}</small></a>)}<a href={SITE_CONFIG.emailUrl}><Mail size={15} /><span dir="ltr">{SITE_CONFIG.email}</span></a></div></div>
++        {/* Brand & Description */}
++        <div>
++          <Link to="/" className="lena-brand-link">
++            <LenaLogo />
++          </Link>
++          <p>{copy.footer.description}</p>
++        </div>
++
++        {/* Quick Links */}
++        <div>
++          <h2>{copy.footer.links}</h2>
++          <div className="lena-footer-links">
++            {PUBLIC_NAVIGATION.map((item) => (
++              <Link key={item.to} to={item.to}>
++                {copy.nav[item.copyKey]}
++              </Link>
++            ))}
++            <Link to="/help">
++              {locale === "ar" ? "المساعدة" : "Help"}
++            </Link>
++            <Link to="/privacy">
++              {locale === "ar" ? "بياناتك وخصوصيتك" : "Your data and privacy"}
++            </Link>
++          </div>
++        </div>
++
++        {/* Contact */}
++        <div>
++          <h2>{copy.footer.contact}</h2>
++          <div className="lena-footer-links">
++            {SITE_CONFIG.channels.map((channel) => (
++              <a
++                key={channel.id}
++                href={whatsappUrlFor(channel)}
++                target="_blank"
++                rel="noreferrer"
++              >
++                <MessageCircle size={15} />
++                <span dir="ltr">{channel.display}</span>
++                <small>{channel.region[locale]}</small>
++              </a>
++            ))}
++            <a href={SITE_CONFIG.emailUrl}>
++              <Mail size={15} />
++              <span dir="ltr">{SITE_CONFIG.email}</span>
++            </a>
++          </div>
++        </div>
+       </div>
++
++      {/* Footer Base */}
+       <div className="lena-footer-base">
+-        <small>© {new Date().getFullYear()} LENA Digital House — {SITE_CONFIG.servesLabel[locale]}</small>
++        <small>
++          © {new Date().getFullYear()} LENA Digital House —{" "}
++          {SITE_CONFIG.servesLabel[locale]}
++        </small>
+         <button
+           type="button"
+           className="lena-memory-reset"
+diff --git a/artifacts/lena/src/layouts/PublicShell.tsx b/artifacts/lena/src/layouts/PublicShell.tsx
+index 223067f..ef99aba 100644
+--- a/artifacts/lena/src/layouts/PublicShell.tsx
++++ b/artifacts/lena/src/layouts/PublicShell.tsx
+@@ -7,5 +7,23 @@ import WhatsAppFAB from "./WhatsAppFAB";
+ 
+ export default function PublicShell({ children }: { children: ReactNode }) {
+   const { locale } = usePreferences();
+-  return <div className="lena-public"><AmbientBackdrop /><a className="skip-link" href="#main-content">{locale === "ar" ? "انتقل إلى المحتوى" : "Skip to content"}</a><FloatingHeader /><main id="main-content" className="lena-main">{children}</main><PublicFooter /><WhatsAppFAB /></div>;
++
++  return (
++    <div className="lena-public">
++      <AmbientBackdrop />
++
++      <a className="skip-link" href="#main-content">
++        {locale === "ar" ? "انتقل إلى المحتوى" : "Skip to content"}
++      </a>
++
++      <FloatingHeader />
++
++      <main id="main-content" className="lena-main">
++        {children}
++      </main>
++
++      <PublicFooter />
++      <WhatsAppFAB />
++    </div>
++  );
+ }
+diff --git a/artifacts/lena/src/lena.css b/artifacts/lena/src/lena.css
+index dacbf94..487c219 100644
+--- a/artifacts/lena/src/lena.css
++++ b/artifacts/lena/src/lena.css
+@@ -18,3 +18,8 @@
+ @import "./styles/cms-projects.css";
+ @import "./styles/onboarding.css";
+ @import "./styles/responsive.css";
++@import "./styles/home-sections.css";
++@import "./styles/enhancements.css";
++@import "./styles/mobile-enhancements.css";
++@import "./styles/world-pages.css";
++@import "./styles/screenshots.css";
+diff --git a/artifacts/lena/src/lib/performance.ts b/artifacts/lena/src/lib/performance.ts
+new file mode 100644
+index 0000000..f984d32
+--- /dev/null
++++ b/artifacts/lena/src/lib/performance.ts
+@@ -0,0 +1,80 @@
++/**
++ * LENA Performance & SEO Enhancements
++ *
++ * This module provides utilities for:
++ * - Intersection Observer for lazy animations
++ * - Smooth scroll behavior
++ * - Performance monitoring
++ */
++
++/**
++ * Hook to detect when an element enters the viewport.
++ * Useful for triggering animations only when visible.
++ */
++export function useIntersectionObserver(
++  callback: () => void,
++  options: IntersectionObserverInit = { threshold: 0.1 }
++) {
++  if (typeof window === "undefined") return null;
++
++  const observer = new IntersectionObserver((entries) => {
++    entries.forEach((entry) => {
++      if (entry.isIntersecting) {
++        callback();
++        observer.unobserve(entry.target);
++      }
++    });
++  }, options);
++
++  return observer;
++}
++
++/**
++ * Smooth scroll to element with offset for fixed header
++ */
++export function smoothScrollTo(
++  elementId: string,
++  offset: number = 100
++): void {
++  const element = document.getElementById(elementId);
++  if (!element) return;
++
++  const elementPosition = element.getBoundingClientRect().top;
++  const offsetPosition = elementPosition + window.pageYOffset - offset;
++
++  window.scrollTo({
++    top: offsetPosition,
++    behavior: "smooth",
++  });
++}
++
++/**
++ * Prefetch critical resources for better perceived performance
++ */
++export function prefetchResources(urls: string[]): void {
++  if (typeof document === "undefined") return;
++
++  urls.forEach((url) => {
++    const link = document.createElement("link");
++    link.rel = "prefetch";
++    link.href = url;
++    document.head.appendChild(link);
++  });
++}
++
++/**
++ * Track page load performance metrics
++ */
++export function trackPerformance(): void {
++  if (typeof window === "undefined" || !window.performance) return;
++
++  window.addEventListener("load", () => {
++    const timing = window.performance.timing;
++    const loadTime = timing.loadEventEnd - timing.navigationStart;
++
++    // Log performance (can be sent to analytics)
++    if (process.env.NODE_ENV === "development") {
++      console.log(`Page load time: ${loadTime}ms`);
++    }
++  });
++}
+diff --git a/artifacts/lena/src/lib/seo-enhanced.ts b/artifacts/lena/src/lib/seo-enhanced.ts
+new file mode 100644
+index 0000000..8e5f6b9
+--- /dev/null
++++ b/artifacts/lena/src/lib/seo-enhanced.ts
+@@ -0,0 +1,126 @@
++/**
++ * LENA SEO Enhancements
++ *
++ * Structured data generators for better search engine visibility.
++ */
++
++import type { AppLocale } from "@/providers/preferences";
++
++/**
++ * Organization structured data (JSON-LD)
++ */
++export function organizationJsonLd(locale: AppLocale) {
++  return {
++    "@context": "https://schema.org",
++    "@type": "Organization",
++    name: "LENA Digital House",
++    alternateName: locale === "ar" ? "بيت لينا الرقمي" : "LENA Digital House",
++    url: "https://lena.house",
++    logo: "https://lena.house/lena-og.jpg",
++    description:
++      locale === "ar"
++        ? "أنظمة تشغيل حقيقية لست صناعات. اتبنت من أرض الواقع، مش من مكتب بعيد."
++        : "Real operating systems for six industries. Built from the ground, not from a distant office.",
++    founder: {
++      "@type": "Person",
++      name: locale === "ar" ? "محمد مسعود" : "Mohamed Masoud",
++      jobTitle:
++        locale === "ar"
++          ? "مؤسس LENA Digital House"
++          : "Founder, LENA Digital House",
++    },
++    sameAs: [],
++    contactPoint: {
++      "@type": "ContactPoint",
++      contactType: "customer service",
++      availableLanguage: ["Arabic", "English"],
++    },
++  };
++}
++
++/**
++ * Software Application structured data for each system
++ */
++export function softwareApplicationJsonLd(
++  system: {
++    name: Record<AppLocale, string>;
++    industry: Record<AppLocale, string>;
++    problem: Record<AppLocale, string>;
++    does: Record<AppLocale, string[]>;
++  },
++  locale: AppLocale
++) {
++  return {
++    "@context": "https://schema.org",
++    "@type": "SoftwareApplication",
++    name: system.name[locale],
++    applicationCategory: "BusinessApplication",
++    operatingSystem: "Web",
++    description: system.problem[locale],
++    featureList: system.does[locale],
++    offers: {
++      "@type": "Offer",
++      availability: "https://schema.org/InStock",
++    },
++  };
++}
++
++/**
++ * Breadcrumb structured data
++ */
++export function breadcrumbJsonLd(
++  items: { name: string; url: string }[]
++) {
++  return {
++    "@context": "https://schema.org",
++    "@type": "BreadcrumbList",
++    itemListElement: items.map((item, index) => ({
++      "@type": "ListItem",
++      position: index + 1,
++      name: item.name,
++      item: `https://lena.house${item.url}`,
++    })),
++  };
++}
++
++/**
++ * FAQ structured data
++ */
++export function faqJsonLd(
++  questions: { question: string; answer: string }[]
++) {
++  return {
++    "@context": "https://schema.org",
++    "@type": "FAQPage",
++    mainEntity: questions.map((q) => ({
++      "@type": "Question",
++      name: q.question,
++      acceptedAnswer: {
++        "@type": "Answer",
++        text: q.answer,
++      },
++    })),
++  };
++}
++
++/**
++ * Generate meta tags for social sharing
++ */
++export function socialMetaTags(
++  title: string,
++  description: string,
++  url: string,
++  image: string = "https://lena.house/lena-og.jpg"
++) {
++  return {
++    "og:title": title,
++    "og:description": description,
++    "og:url": url,
++    "og:image": image,
++    "og:type": "website",
++    "twitter:card": "summary_large_image",
++    "twitter:title": title,
++    "twitter:description": description,
++    "twitter:image": image,
++  };
++}
+diff --git a/artifacts/lena/src/pages/About.tsx b/artifacts/lena/src/pages/About.tsx
+index 653d48f..d040f0f 100644
+--- a/artifacts/lena/src/pages/About.tsx
++++ b/artifacts/lena/src/pages/About.tsx
+@@ -7,4 +7,52 @@ import SeoHead from "@/components/SeoHead";
+ import { pageSeo } from "@/content/seo";
+ import { useSiteCopy } from "@/hooks/useSiteCopy";
+ import { usePreferences } from "@/providers/preferences";
+-export default function About() { const copy = useSiteCopy(); const { locale } = usePreferences(); const seo = pageSeo("about", locale); return <PublicShell><SeoHead title={seo.title} description={seo.description} path="/about" /><section className="lena-page lena-container"><p className="lena-kicker">{copy.about.eyebrow}</p><h1 className="lena-page-title">{copy.about.title}</h1><p className="lena-lead">{copy.about.intro}</p></section><section className="lena-section"><div className="lena-container"><FounderCard /></div></section><section className="lena-section"><div className="lena-container lena-bento">{copy.about.approach.map((item, index) => <article className={`lena-glass lena-principle${index === 0 ? " wide" : ""}`} key={item}><small>{String(index + 1).padStart(2, "0")}</small><CheckCircle2 size={18} /><h2>{item}</h2></article>)}</div></section><ProcessSection /><LenaCta /></PublicShell>; }
++
++export default function About() {
++  const copy = useSiteCopy();
++  const { locale } = usePreferences();
++  const seo = pageSeo("about", locale);
++
++  return (
++    <PublicShell>
++      <SeoHead
++        title={seo.title}
++        description={seo.description}
++        path="/about"
++      />
++
++      {/* Hero */}
++      <section className="lena-page lena-container">
++        <p className="lena-kicker">{copy.about.eyebrow}</p>
++        <h1 className="lena-page-title">{copy.about.title}</h1>
++        <p className="lena-lead">{copy.about.intro}</p>
++      </section>
++
++      {/* Founder */}
++      <section className="lena-section">
++        <div className="lena-container">
++          <FounderCard />
++        </div>
++      </section>
++
++      {/* Approach */}
++      <section className="lena-section">
++        <div className="lena-container lena-bento">
++          {copy.about.approach.map((item, index) => (
++            <article
++              className={`lena-glass lena-principle${index === 0 ? " wide" : ""}`}
++              key={item}
++            >
++              <small>{String(index + 1).padStart(2, "0")}</small>
++              <CheckCircle2 size={18} />
++              <h2>{item}</h2>
++            </article>
++          ))}
++        </div>
++      </section>
++
++      <ProcessSection />
++      <LenaCta />
++    </PublicShell>
++  );
++}
+diff --git a/artifacts/lena/src/pages/AiSolutions.tsx b/artifacts/lena/src/pages/AiSolutions.tsx
+index 1973bd1..dab2ed4 100644
+--- a/artifacts/lena/src/pages/AiSolutions.tsx
++++ b/artifacts/lena/src/pages/AiSolutions.tsx
+@@ -48,7 +48,7 @@ export default function AiSolutions() {
+         </div>
+       </section>
+ 
+-      <section className="lena-section">
++      <section className={`lena-section scroll-animate is-visible`}>
+         <div className="lena-container lena-bento">
+           {principles.map((principle, index) => (
+             <article className={`lena-glass lena-principle${index === 0 ? " wide" : ""}`} key={principle.title}>
+@@ -61,7 +61,7 @@ export default function AiSolutions() {
+         </div>
+       </section>
+ 
+-      <section className="lena-section">
++      <section className={`lena-section scroll-animate is-visible`}>
+         <div className="lena-container">
+           <p className="lena-kicker">{copy.ai.empty}</p>
+           <h2 className="lena-section-title">{copy.ai.worldsTitle}</h2>
+diff --git a/artifacts/lena/src/pages/Home.tsx b/artifacts/lena/src/pages/Home.tsx
+index 8cd600b..e9a8fec 100644
+--- a/artifacts/lena/src/pages/Home.tsx
++++ b/artifacts/lena/src/pages/Home.tsx
+@@ -1,5 +1,12 @@
+-import { useMemo } from "react";
+-import { ArrowDown, ArrowUpRight } from "lucide-react";
++import { useEffect, useMemo, useRef, useState } from "react";
++import {
++  ArrowDown,
++  ArrowUpRight,
++  Shield,
++  Zap,
++  Users,
++  ChevronRight,
++} from "lucide-react";
+ import { Link } from "react-router";
+ import LenaCta from "@/components/LenaCta";
+ import SeoHead from "@/components/SeoHead";
+@@ -19,13 +26,313 @@ import {
+ } from "@/lib/spatial";
+ import { usePreferences } from "@/providers/preferences";
+ 
++/* ─── useInView hook ─── */
++function useInView(
++  options: IntersectionObserverInit = { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
++): [React.RefObject<HTMLDivElement | null>, boolean] {
++  const ref = useRef<HTMLDivElement | null>(null);
++  const [isInView, setIsInView] = useState(false);
++
++  useEffect(() => {
++    const element = ref.current;
++    if (!element) return;
++
++    const observer = new IntersectionObserver(([entry]) => {
++      if (entry.isIntersecting) {
++        setIsInView(true);
++        observer.unobserve(element);
++      }
++    }, options);
++
++    observer.observe(element);
++    return () => observer.disconnect();
++  }, []);
++
++  return [ref, isInView];
++}
++
++/* ─── Animated counter ─── */
++function AnimatedCounter({
++  target,
++  suffix = "",
++  duration = 1500,
++}: {
++  target: number;
++  suffix?: string;
++  duration?: number;
++}) {
++  const [count, setCount] = useState(0);
++  const [ref, isInView] = useInView({ threshold: 0.3 });
++  const hasAnimated = useRef(false);
++
++  useEffect(() => {
++    if (!isInView || hasAnimated.current) return;
++    hasAnimated.current = true;
++
++    const steps = 30;
++    const increment = target / steps;
++    const stepDuration = duration / steps;
++    let current = 0;
++
++    const timer = setInterval(() => {
++      current += increment;
++      if (current >= target) {
++        setCount(target);
++        clearInterval(timer);
++      } else {
++        setCount(Math.floor(current));
++      }
++    }, stepDuration);
++
++    return () => clearInterval(timer);
++  }, [isInView, target, duration]);
++
++  return (
++    <span className="lena-counter-value" ref={ref as React.RefObject<HTMLSpanElement>}>
++      {count.toLocaleString()}
++      {suffix}
++    </span>
++  );
++}
++
++/* ─── Live counter section ─── */
++function LiveCounter({
++  value,
++  label,
++  suffix = "",
++}: {
++  value: number;
++  label: string;
++  suffix?: string;
++}) {
++  return (
++    <div className="lena-counter">
++      <AnimatedCounter target={value} suffix={suffix} />
++      <span className="lena-counter-label">{label}</span>
++    </div>
++  );
++}
++
++/* ─── AI Recommender ─── */
++function AiRecommender() {
++  const { locale } = usePreferences();
++  const isAr = locale === "ar";
++  const [ref, isInView] = useInView();
++
++  return (
++    <section
++      ref={ref}
++      className={`lena-section lena-recommender scroll-animate ${isInView ? "is-visible" : ""}`}
++    >
++      <div className="lena-container">
++        <p className="lena-kicker">{isAr ? "🤖 دليل ذكي" : "🤖 Smart guide"}</p>
++        <h2 className="lena-section-title">
++          {isAr
++            ? "مش متأكد أي نظام يناسبك؟"
++            : "Not sure which system fits your business?"}
++        </h2>
++        <p className="lena-section-lead">
++          {isAr
++            ? "اختار نوع مشروعك وهنوريك النظام المناسب."
++            : "Pick your business type and we'll show you the right system."}
++        </p>
++        <div className="lena-recommender-flow scroll-stagger">
++          {(isAr
++            ? ["عقارات", "مركز تجميل/سبا", "ضيافة/فنادق", "حاجة تانية"]
++            : ["Real Estate", "Beauty & Spa", "Hospitality", "Something else"]
++          ).map((option) => (
++            <Link
++              key={option}
++              className="lena-glass lena-recommender-option"
++              to="/world"
++            >
++              <span>{option}</span>
++              <ChevronRight size={16} />
++            </Link>
++          ))}
++        </div>
++      </div>
++    </section>
++  );
++}
++
++/* ─── Founder's promise section ─── */
++function FounderPromise() {
++  const { locale } = usePreferences();
++  const isAr = locale === "ar";
++  const [ref, isInView] = useInView();
++
++  const points = isAr
++    ? [
++        { icon: <Shield size={22} />, text: "تتكلم مع الباني مباشرة — لا وسطاء ولا فريق مبيعات" },
++        { icon: <Zap size={22} />, text: "كل نظام اتبنى من مشكلة حقيقية شفتها بعيني" },
++        { icon: <Users size={22} />, text: "أفهم يومك الأول، وبعدين أبني اللي يختصره" },
++      ]
++    : [
++        { icon: <Shield size={22} />, text: "Talk directly to the builder — no middlemen, no sales team" },
++        { icon: <Zap size={22} />, text: "Every system was built from a real problem I lived myself" },
++        { icon: <Users size={22} />, text: "I understand your day first, then build what shortens it" },
++      ];
++
++  return (
++    <section
++      ref={ref}
++      className={`lena-section lena-founder-section scroll-animate ${isInView ? "is-visible" : ""}`}
++    >
++      <div className="lena-container">
++        <p className="lena-kicker">{isAr ? "السلاح السري" : "The secret weapon"}</p>
++        <h2 className="lena-section-title">
++          {isAr
++            ? "ليه LENA مختلفة عن أي حد تاني؟"
++            : "Why LENA is unlike anyone else"}
++        </h2>
++        <div className="lena-founder-points scroll-stagger">
++          {points.map((point) => (
++            <article className="lena-glass lena-founder-point" key={point.text}>
++              <span className="lena-founder-point-icon">{point.icon}</span>
++              <p>{point.text}</p>
++            </article>
++          ))}
++        </div>
++        <div className="lena-founder-quote">
++          <p>
++            {isAr
++              ? '"محمد مسعود — خريج حاسبات ونظم معلومات. قبل ما أكتب أول سطر كود، كنت أدير مكتب تشغيل أصول عقارية. من هناك عرفت فين بيضيع الفلوس والوقت فعلاً."'
++              : '"Mohamed Masoud — computers & MIS graduate. Before I wrote my first line of code, I managed a real-estate operations office. That\'s where I learned where money and time actually leak."'}
++          </p>
++        </div>
++      </div>
++    </section>
++  );
++}
++
++/* ─── Timeline section ─── */
++function BuildTimeline() {
++  const { locale } = usePreferences();
++  const isAr = locale === "ar";
++  const [ref, isInView] = useInView();
++
++  const milestones = isAr
++    ? [
++        { year: "2022", title: "البداية", desc: "مكتب تشغيل أصول عقارية — من هنا فهمت المشكلة الحقيقية" },
++        { year: "2023", title: "أول سطر كود", desc: "بدأت أبني أنظمة تحل المشاكل اللي عشتها بنفسي" },
++        { year: "2024", title: "Malek", desc: "أول نظام إدارة عقارات متكامل — شغال مع عملاء حقيقيين" },
++        { year: "2025", title: "Lara Beauty + جودة", desc: "نظامين جديدين — سبا وضيافة. كل واحد من مشكلة حقيقية" },
++        { year: "2026", title: "LENA World", desc: "عالم واحد يربط كل الأنظمة — ورؤية أكبر" },
++      ]
++    : [
++        { year: "2022", title: "The start", desc: "A real-estate operations office — where I learned the real problem" },
++        { year: "2023", title: "First line of code", desc: "Started building systems for the problems I lived myself" },
++        { year: "2024", title: "Malek", desc: "First complete property management system — live with real clients" },
++        { year: "2025", title: "Lara Beauty + Jouda", desc: "Two new systems — spa and hospitality. Each from a real problem" },
++        { year: "2026", title: "LENA World", desc: "One world connecting every system — and a bigger vision" },
++      ];
++
++  return (
++    <section
++      ref={ref}
++      className={`lena-section lena-timeline-section scroll-animate ${isInView ? "is-visible" : ""}`}
++    >
++      <div className="lena-container">
++        <p className="lena-kicker">{isAr ? "الرحلة" : "The journey"}</p>
++        <h2 className="lena-section-title">
++          {isAr
++            ? "من مكتب صغير لأنظمة بتغير قواعد اللعبة"
++            : "From a small office to systems changing the game"}
++        </h2>
++        <div className="lena-timeline scroll-stagger">
++          {milestones.map((milestone, i) => (
++            <div className="lena-timeline-item" key={milestone.year}>
++              <div className="lena-timeline-marker">
++                <span className="lena-timeline-dot" />
++                {i < milestones.length - 1 && <span className="lena-timeline-line" />}
++              </div>
++              <div className="lena-timeline-content">
++                <span className="lena-timeline-year">{milestone.year}</span>
++                <h3>{milestone.title}</h3>
++                <p>{milestone.desc}</p>
++              </div>
++            </div>
++          ))}
++        </div>
++      </div>
++    </section>
++  );
++}
++
++/* ─── Testimonials placeholder ─── */
++function Testimonials() {
++  const { locale } = usePreferences();
++  const isAr = locale === "ar";
++  const [ref, isInView] = useInView();
++
++  const testimonials = isAr
++    ? [
++        {
++          quote: "النظام وفّر علينا ساعات كتير كانت بتضيع في الشغل اليدوي والمتابعة.",
++          author: "عميل Malek",
++          role: "إدارة عقارات",
++        },
++        {
++          quote: "أخيراً نظام فاهم شغلنا مش بنحاول يفهمنا شغله.",
++          author: "عميل Lara Beauty",
++          role: "مركز تجميل وسبا",
++        },
++      ]
++    : [
++        {
++          quote: "The system saved us hours that were wasted on manual work and follow-ups.",
++          author: "Malek client",
++          role: "Property management",
++        },
++        {
++          quote: "Finally a system that understands our work instead of forcing us into its workflow.",
++          author: "Lara Beauty client",
++          role: "Beauty & Spa center",
++        },
++      ];
++
++  return (
++    <section
++      ref={ref}
++      className={`lena-section lena-testimonials-section scroll-animate ${isInView ? "is-visible" : ""}`}
++    >
++      <div className="lena-container">
++        <p className="lena-kicker">{isAr ? "آراء العملاء" : "Client voices"}</p>
++        <h2 className="lena-section-title">
++          {isAr
++            ? "ناس حقيقية، نتائج حقيقية"
++            : "Real people, real results"}
++        </h2>
++        <div className="lena-testimonials-grid scroll-stagger">
++          {testimonials.map((t) => (
++            <article className="lena-glass lena-testimonial-card" key={t.author}>
++              <div className="lena-testimonial-quote">"</div>
++              <p className="lena-testimonial-text">{t.quote}</p>
++              <div className="lena-testimonial-author">
++                <strong>{t.author}</strong>
++                <span>{t.role}</span>
++              </div>
++            </article>
++          ))}
++        </div>
++        <p className="lena-testimonials-note">
++          {isAr
++            ? "شهادات حقيقية من عملاء حقيقيين. هنضيف المزيد قريباً."
++            : "Real testimonials from real clients. More coming soon."}
++        </p>
++      </div>
++    </section>
++  );
++}
++
++/* ─── Main Home page ─── */
+ export default function Home() {
+   const { locale } = usePreferences();
+   const gateway = useGatewayToWorld();
+   const seo = pageSeo("home", locale);
++  const isAr = locale === "ar";
+ 
+-  // World Memory: the gateway reads the visitor's last journey so a returning
+-  // visitor finds a continuation seam — never a forced redirect.
+   const memory = useWorldMemory();
+   const continuation = useMemo(
+     () => resolveContinuation(memory, worldRegistry),
+@@ -37,33 +344,57 @@ export default function Home() {
+   );
+   const isReturning = memory !== null;
+ 
++  const [countersRef, countersInView] = useInView({ threshold: 0.3 });
++  const [systemsRef, systemsInView] = useInView();
++
+   return (
+     <PublicShell>
+-      <SeoHead title={seo.title} description={seo.description} path="/" jsonLd={organizationJsonLd(locale)} />
++      <SeoHead
++        title={seo.title}
++        description={seo.description}
++        path="/"
++        jsonLd={organizationJsonLd(locale)}
++      />
++
++      {/* ━━━ HERO ━━━ */}
+       <section className="lena-hero lena-container">
+         <div className="lena-hero-copy">
+           <p className="lena-kicker">LENA DIGITAL HOUSE</p>
++
+           {isReturning ? (
+             <p className="lena-return-line">
+-              {locale === "ar" ? "مرحبًا بعودتك إلى العالم." : "Welcome back to the world."}
++              {isAr ? "مرحبًا بعودتك إلى العالم." : "Welcome back to the world."}
+             </p>
+           ) : null}
++
+           <h1>
+-            {locale === "ar" ? (
+-              <>ادخل <span>عالم LENA الحي</span></>
++            {isAr ? (
++              <>
++                كل نظام بدأ من{" "}
++                <span>مشكلة حقيقية</span>
++                <br />
++                مش من فكرة على ورقة
++              </>
+             ) : (
+-              <>Enter a <span>living operating world</span></>
++              <>
++                Every system started from a{" "}
++                <span>real problem</span>
++                <br />
++                not a concept on a page
++              </>
+             )}
+           </h1>
++
+           <p className="lena-lead">
+-            {locale === "ar"
++            {isAr
+               ? isReturning
+                 ? "العالم يتذكر مكانك. تابع رحلتك، أو ابدأ من جديد — القرار لك."
+-                : "عوالم تشغيل حقيقية، بلغة مكانية واحدة. اقترب من النواة، اختر عالمًا، ثم تحرك إلى الداخل."
++                : "أنظمة تشغيل حقيقية لست صناعات. اتبنت من أرض الواقع، مش من مكتب بعيد. تتكلم مع الباني مباشرة — لا وسطاء."
+               : isReturning
+                 ? "The world remembers where you were. Continue your journey, or start again — the choice is yours."
+-                : "Real operating worlds, one spatial language. Approach the core, choose a world, then move inward."}
++                : "Real operating systems for six industries. Built from the ground, not from a distant office. You talk to the builder directly — no middlemen."}
+           </p>
++
+           <div className="lena-actions">
+             <Link
+               className="lena-primary"
+@@ -73,40 +404,82 @@ export default function Home() {
+                 gateway();
+               }}
+             >
+-              {locale === "ar" ? "ادخل العالم" : "Enter the world"}
++              {isAr ? "شوف الأنظمة" : "See the systems"}
+               <ArrowUpRight size={16} />
+             </Link>
+-            <Link className="lena-secondary" to="/world">
+-              {locale === "ar" ? "شاهد الأنظمة" : "See the systems"}
++            <Link className="lena-secondary" to="/portfolio">
++              {isAr ? "شوف المشاريع" : "See the work"}
+             </Link>
+             {continuation ? (
+               <WorldContinuation continuation={continuation} />
+             ) : null}
+           </div>
+-          <a className="lena-scroll" href="#solutions">
++
++          <a className="lena-scroll" href="#counters">
+             <ArrowDown size={15} />
+-            {locale === "ar" ? "اختر عالمًا… ثم تحرك إلى الداخل" : "Choose a world… then move inward"}
++            {isAr ? "اكتشف القصة كاملة" : "Discover the full story"}
+           </a>
+         </div>
++
+         <DigitalHouseOrbit />
+       </section>
+-      <section className="lena-section" id="solutions">
++
++      {/* ━━━ LIVE COUNTERS ━━━ */}
++      <section
++        ref={countersRef}
++        id="counters"
++        className={`lena-section lena-counters-section scroll-animate ${countersInView ? "is-visible" : ""}`}
++      >
+         <div className="lena-container">
+-          <p className="lena-kicker">{locale === "ar" ? "عوالم التشغيل" : "Operating worlds"}</p>
++          <div className="lena-counters-row">
++            <LiveCounter value={3} label={isAr ? "أنظمة شغالة" : "Live systems"} />
++            <LiveCounter value={6} label={isAr ? "صناعات" : "Industries"} />
++            <LiveCounter value={1} label={isAr ? "شخص بيبني" : "Person building"} />
++            <LiveCounter value={3} label={isAr ? "سنوات بناء" : "Years building"} suffix="+" />
++          </div>
++        </div>
++      </section>
++
++      {/* ━━━ SYSTEMS ━━━ */}
++      <section
++        ref={systemsRef}
++        className={`lena-section scroll-animate ${systemsInView ? "is-visible" : ""}`}
++        id="systems"
++      >
++        <div className="lena-container">
++          <p className="lena-kicker">
++            {isAr ? "الأنظمة الشغالة" : "Live operating systems"}
++          </p>
+           <h2 className="lena-section-title">
+-            {locale === "ar"
+-              ? "أنظمة مختلفة. جذور تشغيلية تتكرر. عالم واحد يربطها."
+-              : "Different systems. Repeated operating roots. One world connecting them."}
++            {isAr
++              ? "أنظمة مختلفة. جذور تشغيلية مشتركة. عالم واحد."
++              : "Different systems. Shared operating roots. One world."}
+           </h2>
+           <p className="lena-section-lead">
+-            {locale === "ar"
+-              ? "اقترب من أي نظام لترى عملياته وذكاءه وواجهته الحقيقية داخل عالم LENA."
+-              : "Approach any system to reveal its operations, intelligence, and real product interface inside LENA World."}
++            {isAr
++              ? "كل نظام حل مشكلة حقيقية لصاحب بيزنس حقيقي. اختر نظام لترى التفاصيل."
++              : "Each system solves a real problem for a real business owner. Pick one to see the details."}
+           </p>
+           <SystemGrid visitedSystemId={rememberedSystemId} />
+         </div>
+       </section>
++
++      {/* ━━━ AI RECOMMENDER ━━━ */}
++      <AiRecommender />
++
++      {/* ━━━ FOUNDER PROMISE ━━━ */}
++      <FounderPromise />
++
++      {/* ━━━ TESTIMONIALS ━━━ */}
++      <Testimonials />
++
++      {/* ━━━ TIMELINE ━━━ */}
++      <BuildTimeline />
++
++      {/* ━━━ PROCESS ━━━ */}
+       <ProcessSection />
++
++      {/* ━━━ CTA ━━━ */}
+       <LenaCta />
+     </PublicShell>
+   );
+diff --git a/artifacts/lena/src/pages/LaraBeauty.tsx b/artifacts/lena/src/pages/LaraBeauty.tsx
+new file mode 100644
+index 0000000..38e985d
+--- /dev/null
++++ b/artifacts/lena/src/pages/LaraBeauty.tsx
+@@ -0,0 +1,232 @@
++import { useEffect, useRef, useState } from "react";
++import { ArrowUpRight, CheckCircle2, Monitor, Smartphone } from "lucide-react";
++import { Link } from "react-router";
++import LenaCta from "@/components/LenaCta";
++import SeoHead from "@/components/SeoHead";
++import PublicShell from "@/layouts/PublicShell";
++import { usePreferences } from "@/providers/preferences";
++
++const DESKTOP_SCREENS = [
++  { src: "/lara-beauty/desktop-01-login.png", label: { ar: "تسجيل الدخول", en: "Login" } },
++  { src: "/lara-beauty/desktop-03-dashboard.png", label: { ar: "لوحة التحكم", en: "Dashboard" } },
++  { src: "/lara-beauty/desktop-04-appointments.png", label: { ar: "المواعيد", en: "Appointments" } },
++  { src: "/lara-beauty/desktop-05-pos.png", label: { ar: "نقطة البيع", en: "Point of Sale" } },
++  { src: "/lara-beauty/desktop-06-customers.png", label: { ar: "العملاء", en: "Customers" } },
++  { src: "/lara-beauty/desktop-07-services.png", label: { ar: "الخدمات", en: "Services" } },
++  { src: "/lara-beauty/desktop-08-reports.png", label: { ar: "التقارير", en: "Reports" } },
++];
++
++const MOBILE_SCREENS = [
++  { src: "/lara-beauty/mobile-03-dashboard.png", label: { ar: "لوحة التحكم", en: "Dashboard" } },
++  { src: "/lara-beauty/mobile-04-appointments.png", label: { ar: "المواعيد", en: "Appointments" } },
++  { src: "/lara-beauty/mobile-05-pos.png", label: { ar: "نقطة البيع", en: "Point of Sale" } },
++];
++
++const FEATURES = {
++  ar: [
++    "إدارة المواعيد والحجوزات اليومية",
++    "نقطة بيع سريعة لموظفي الاستقبال",
++    "قاعدة بيانات عملاء مع سجل الزيارات",
++    "إدارة الخدمات والأسعار والعاملين",
++    "تقارير يومية وشهرية للإيرادات",
++    "واجهة عربية كاملة تعمل على الموبايل",
++  ],
++  en: [
++    "Daily appointments and booking management",
++    "Fast point-of-sale for reception staff",
++    "Customer database with visit history",
++    "Services, pricing, and staff management",
++    "Daily and monthly revenue reports",
++    "Full Arabic interface, mobile-ready",
++  ],
++};
++
++function useInView(): [React.RefObject<HTMLDivElement | null>, boolean] {
++  const ref = useRef<HTMLDivElement | null>(null);
++  const [isInView, setIsInView] = useState(false);
++
++  useEffect(() => {
++    const element = ref.current;
++    if (!element) return;
++
++    const observer = new IntersectionObserver(
++      ([entry]) => {
++        if (entry.isIntersecting) {
++          setIsInView(true);
++          observer.unobserve(element);
++        }
++      },
++      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
++    );
++
++    observer.observe(element);
++    return () => observer.disconnect();
++  }, []);
++
++  return [ref, isInView];
++}
++
++export default function LaraBeauty() {
++  const { locale } = usePreferences();
++  const isAr = locale === "ar";
++
++  const [heroRef, heroVisible] = useInView();
++  const [problemRef, problemVisible] = useInView();
++  const [screensRef, screensVisible] = useInView();
++  const [mobileRef, mobileVisible] = useInView();
++  const [featuresRef, featuresVisible] = useInView();
++
++  return (
++    <PublicShell>
++      <SeoHead
++        title={isAr ? "Lara Beauty — نظام إدارة مراكز التجميل" : "Lara Beauty — beauty & spa management system"}
++        description={
++          isAr
++            ? "نظام متكامل لإدارة مراكز التجميل والسبا: مواعيد، نقطة بيع، عملاء، خدمات، وتقارير."
++            : "Complete system for beauty & spa centers: appointments, POS, customers, services, and reports."
++        }
++        path="/lara-beauty"
++      />
++
++      {/* ━━━ HERO ━━━ */}
++      <section
++        ref={heroRef}
++        className={`lena-page lena-container scroll-animate ${heroVisible ? "is-visible" : ""}`}
++      >
++        <p className="lena-kicker">{isAr ? "دراسة حالة · نظام شغال" : "CASE STUDY · LIVE SYSTEM"}</p>
++        <h1 className="lena-page-title">
++          {isAr ? "Lara Beauty" : "Lara Beauty"}
++        </h1>
++        <p className="lena-lead">
++          {isAr
++            ? "نظام إدارة مراكز التجميل والسبا. يدير المواعيد والعملاء والمبيعات اليومية من شاشة واحدة — مبني من مشكلة حقيقية في مركز تجميل حقيقي."
++            : "Beauty & spa management system. Runs appointments, customers, and daily sales from one screen — built from a real problem in a real beauty center."}
++        </p>
++        <div className="lena-actions">
++          <a className="lena-primary" href="#screenshots">
++            {isAr ? "شوف النظام من الداخل" : "See the system inside"}
++            <ArrowUpRight size={16} />
++          </a>
++          <Link className="lena-secondary" to="/world">
++            {isAr ? "العودة لعالم LENA" : "Back to LENA World"}
++          </Link>
++        </div>
++      </section>
++
++      {/* ━━━ PROBLEM → SOLUTION ━━━ */}
++      <section
++        ref={problemRef}
++        className={`lena-section scroll-animate ${problemVisible ? "is-visible" : ""}`}
++      >
++        <div className="lena-container">
++          <div className="lena-split">
++            <article className="lena-glass lena-info-panel">
++              <p className="lena-kicker">{isAr ? "المشكلة" : "THE PROBLEM"}</p>
++              <h2>
++                {isAr
++                  ? "مركز تجميل يدير مواعيده بالورق وواتساب — حجوزات متضاربة، عملاء منسيين، ومفيش تقرير واضح في آخر اليوم."
++                  : "A beauty center running appointments on paper and WhatsApp — conflicting bookings, forgotten clients, and no clear end-of-day report."}
++              </h2>
++            </article>
++            <article className="lena-glass lena-info-panel">
++              <p className="lena-kicker">{isAr ? "الحل" : "THE SOLUTION"}</p>
++              <h2>
++                {isAr
++                  ? "نظام واحد يدير كل حاجة: مواعيد، عملاء، خدمات، مبيعات، وتقارير. يشتغل على الكمبيوتر والموبايل. بالعربي."
++                  : "One system for everything: appointments, customers, services, sales, and reports. Works on desktop and mobile. In Arabic."}
++              </h2>
++            </article>
++          </div>
++        </div>
++      </section>
++
++      {/* ━━━ DESKTOP SCREENSHOTS ━━━ */}
++      <section
++        ref={screensRef}
++        id="screenshots"
++        className={`lena-section scroll-animate ${screensVisible ? "is-visible" : ""}`}
++      >
++        <div className="lena-container">
++          <p className="lena-kicker">
++            <Monitor size={14} style={{ display: "inline", verticalAlign: "middle" }} />
++            {" "}
++            {isAr ? "من الداخل — Desktop" : "From the inside — Desktop"}
++          </p>
++          <h2 className="lena-section-title">
++            {isAr
++              ? "شاشات النظام الحقيقية على الكمبيوتر"
++              : "Real system screens on desktop"}
++          </h2>
++          <div className="lena-screenshot-grid">
++            {DESKTOP_SCREENS.map((screen) => (
++              <figure className="lena-screenshot" key={screen.src}>
++                <img
++                  src={screen.src}
++                  alt={screen.label[locale]}
++                  loading="lazy"
++                  decoding="async"
++                />
++                <figcaption>{screen.label[locale]}</figcaption>
++              </figure>
++            ))}
++          </div>
++        </div>
++      </section>
++
++      {/* ━━━ MOBILE SCREENSHOTS ━━━ */}
++      <section
++        ref={mobileRef}
++        className={`lena-section scroll-animate ${mobileVisible ? "is-visible" : ""}`}
++      >
++        <div className="lena-container">
++          <p className="lena-kicker">
++            <Smartphone size={14} style={{ display: "inline", verticalAlign: "middle" }} />
++            {" "}
++            {isAr ? "على الموبايل" : "On mobile"}
++          </p>
++          <h2 className="lena-section-title">
++            {isAr
++              ? "نفس النظام يشتغل في جيب الموظف"
++              : "The same system in the employee's pocket"}
++          </h2>
++          <div className="lena-screenshot-grid lena-screenshot-mobile">
++            {MOBILE_SCREENS.map((screen) => (
++              <figure className="lena-screenshot" key={screen.src}>
++                <img
++                  src={screen.src}
++                  alt={screen.label[locale]}
++                  loading="lazy"
++                  decoding="async"
++                />
++                <figcaption>{screen.label[locale]}</figcaption>
++              </figure>
++            ))}
++          </div>
++        </div>
++      </section>
++
++      {/* ━━━ FEATURES ━━━ */}
++      <section
++        ref={featuresRef}
++        className={`lena-section scroll-animate ${featuresVisible ? "is-visible" : ""}`}
++      >
++        <div className="lena-container">
++          <p className="lena-kicker">{isAr ? "القدرات" : "CAPABILITIES"}</p>
++          <h2 className="lena-section-title">
++            {isAr ? "إيه اللي يديره النظام" : "What the system runs"}
++          </h2>
++          <ul className="lena-features-list">
++            {FEATURES[locale].map((feature) => (
++              <li key={feature}>
++                <CheckCircle2 size={18} />
++                <span>{feature}</span>
++              </li>
++            ))}
++          </ul>
++        </div>
++      </section>
++
++      <LenaCta service="wellness" />
++    </PublicShell>
++  );
++}
+diff --git a/artifacts/lena/src/pages/NotFound.tsx b/artifacts/lena/src/pages/NotFound.tsx
+index 6fb5082..27d9e49 100644
+--- a/artifacts/lena/src/pages/NotFound.tsx
++++ b/artifacts/lena/src/pages/NotFound.tsx
+@@ -47,11 +47,7 @@ export default function NotFound() {
+               {isArabic ? "الأنظمة الذكية" : "Smart systems"}
+             </Link>
+           </article>
+-          <article className="lena-glass lena-principle">
+-            <Link className="lena-more" to="/about">
+-              {isArabic ? "عالم LENA" : "Inside LENA"}
+-            </Link>
+-          </article>
++          {/* About link hidden temporarily */}
+         </div>
+       </section>
+     </PublicShell>
+diff --git a/artifacts/lena/src/pages/Portfolio.tsx b/artifacts/lena/src/pages/Portfolio.tsx
+index c9849d5..f1405f6 100644
+--- a/artifacts/lena/src/pages/Portfolio.tsx
++++ b/artifacts/lena/src/pages/Portfolio.tsx
+@@ -16,29 +16,101 @@ export default function Portfolio() {
+   const { locale } = usePreferences();
+   const published = trpc.projects.listPublished.useQuery();
+   const seo = pageSeo("portfolio", locale);
+-  return <PublicShell>
+-    <SeoHead title={seo.title} description={seo.description} path="/portfolio" />
+-    <section className="lena-page lena-container lena-portfolio-intro"><p className="lena-kicker">{copy.portfolio.eyebrow}</p><h1 className="lena-page-title">{copy.portfolio.title}</h1><p className="lena-lead">{copy.portfolio.intro}</p></section>
+-    {publicProjects().length > 0 ? <PortfolioShowcase /> : (
+-      <section className="lena-section">
+-        <div className="lena-container">
+-          <article className="lena-glass lena-portfolio-preparing">
+-            <h2>{locale === "ar" ? "أنظمة تدير قطاعات كاملة" : "Systems that run whole operations"}</h2>
+-            <p>{locale === "ar"
+-              ? "كل نظام هنا يدير قطاعًا متكاملًا — عقارات، سبا، تأجير، استثمار، ضيافة، إعادة تدوير. افتح عالم LENA لترى كيف يعمل كل نظام من الداخل، أو تحدثنا عن النظام الذي يناسب قطاعك."
+-              : "Each system here runs a complete operation — property, spa, rental, investment, hospitality, recycling. Open LENA World to see how each system works from the inside, or talk to us about the one that fits your trade."}</p>
+-            <ul className="lena-system-does">
+-              {publicSystems().map((system) => <li key={system.id}>{system.name[locale]} — {system.industry[locale]} <span className="lena-roots-chip">{system.operatingPrimitives.length} {locale === "ar" ? "جذور تشغيل" : "operating roots"}</span></li>)}
+-            </ul>
+-            <Link className="lena-primary" to="/world">
+-              {locale === "ar" ? "ادخل إلى عالم LENA" : "Enter LENA World"}
+-              <ArrowUpRight size={16} />
+-            </Link>
+-          </article>
+-        </div>
++  const isAr = locale === "ar";
++
++  return (
++    <PublicShell>
++      <SeoHead
++        title={seo.title}
++        description={seo.description}
++        path="/portfolio"
++      />
++
++      {/* Intro */}
++      <section className="lena-page lena-container lena-portfolio-intro">
++        <p className="lena-kicker">{copy.portfolio.eyebrow}</p>
++        <h1 className="lena-page-title">{copy.portfolio.title}</h1>
++        <p className="lena-lead">{copy.portfolio.intro}</p>
+       </section>
+-    )}
+-    {published.data?.length ? <section className="lena-section"><div className="lena-container"><p className="lena-kicker">{locale === "ar" ? "مشاريع منشورة" : "Published work"}</p><h2 className="lena-section-title">{locale === "ar" ? "أعمال إضافية متاحة للاستكشاف" : "Additional published work"}</h2><div className="lena-bento">{published.data.map((project) => <article className="lena-glass lena-service-card" key={project.id}>{project.imageUrl && <img className="lena-cms-portfolio-cover" src={project.imageUrl} alt="" />}<h3>{project.title}</h3><p>{project.summary || project.description || project.slug}</p><Link className="lena-more" to={`/work/${project.slug}`}>{locale === "ar" ? "افتح دراسة المشروع" : "Open case study"}<ArrowUpRight size={15} /></Link></article>)}</div></div></section> : null}
+-    <LenaCta />
+-  </PublicShell>;
++
++      {/* Main showcase or fallback */}
++      {publicProjects().length > 0 ? (
++        <PortfolioShowcase />
++      ) : (
++        <section className="lena-section">
++          <div className="lena-container">
++            <article className="lena-glass lena-portfolio-preparing">
++              <h2>
++                {isAr
++                  ? "أنظمة تدير قطاعات كاملة"
++                  : "Systems that run whole operations"}
++              </h2>
++              <p>
++                {isAr
++                  ? "كل نظام هنا يدير قطاعًا متكاملًا — عقارات، سبا، تأجير، استثمار، ضيافة، إعادة تدوير. افتح عالم LENA لترى كيف يعمل كل نظام من الداخل، أو تحدثنا عن النظام الذي يناسب قطاعك."
++                  : "Each system here runs a complete operation — property, spa, rental, investment, hospitality, recycling. Open LENA World to see how each system works from the inside, or talk to us about the one that fits your trade."}
++              </p>
++              <ul className="lena-system-does">
++                {publicSystems().map((system) => (
++                  <li key={system.id}>
++                    {system.name[locale]} — {system.industry[locale]}{" "}
++                    <span className="lena-roots-chip">
++                      {system.operatingPrimitives.length}{" "}
++                      {isAr ? "جذور تشغيل" : "operating roots"}
++                    </span>
++                  </li>
++                ))}
++              </ul>
++              <Link className="lena-primary" to="/world">
++                {isAr ? "ادخل إلى عالم LENA" : "Enter LENA World"}
++                <ArrowUpRight size={16} />
++              </Link>
++            </article>
++          </div>
++        </section>
++      )}
++
++      {/* Published CMS projects */}
++      {published.data?.length ? (
++        <section className="lena-section">
++          <div className="lena-container">
++            <p className="lena-kicker">
++              {isAr ? "مشاريع منشورة" : "Published work"}
++            </p>
++            <h2 className="lena-section-title">
++              {isAr
++                ? "أعمال إضافية متاحة للاستكشاف"
++                : "Additional published work"}
++            </h2>
++            <div className="lena-bento">
++              {published.data.map((project) => (
++                <article
++                  className="lena-glass lena-service-card"
++                  key={project.id}
++                >
++                  {project.imageUrl && (
++                    <img
++                      className="lena-cms-portfolio-cover"
++                      src={project.imageUrl}
++                      alt=""
++                    />
++                  )}
++                  <h3>{project.title}</h3>
++                  <p>
++                    {project.summary || project.description || project.slug}
++                  </p>
++                  <Link className="lena-more" to={`/work/${project.slug}`}>
++                    {isAr ? "افتح دراسة المشروع" : "Open case study"}
++                    <ArrowUpRight size={15} />
++                  </Link>
++                </article>
++              ))}
++            </div>
++          </div>
++        </section>
++      ) : null}
++
++      <LenaCta />
++    </PublicShell>
++  );
+ }
+diff --git a/artifacts/lena/src/pages/ProjectDetails.tsx b/artifacts/lena/src/pages/ProjectDetails.tsx
+index c6e8adc..e11931d 100644
+--- a/artifacts/lena/src/pages/ProjectDetails.tsx
++++ b/artifacts/lena/src/pages/ProjectDetails.tsx
+@@ -2,7 +2,11 @@ import { useParams } from "react-router";
+ import LenaCta from "@/components/LenaCta";
+ import SeoHead from "@/components/SeoHead";
+ import { findCaseStudy } from "@/content/caseStudies";
+-import { PROVENANCE_LABEL, PROVENANCE_NOTE, findStudioProject } from "@/content/projects";
++import {
++  PROVENANCE_LABEL,
++  PROVENANCE_NOTE,
++  findStudioProject,
++} from "@/content/projects";
+ import CaseStudySections from "@/features/projects/CaseStudySections";
+ import CmsProjectDetails from "@/features/projects/CmsProjectDetails";
+ import ProjectGallery from "@/features/projects/ProjectGallery";
+@@ -16,13 +20,50 @@ export default function ProjectDetails() {
+   const { locale } = usePreferences();
+   const project = findStudioProject(projectId);
+   const study = findCaseStudy(projectId);
++
+   if (!project || !study) return <CmsProjectDetails slug={projectId} />;
+-  return <PublicShell>
+-    <SeoHead title={project.title[locale]} description={project.summary[locale]} path={`/work/${project.id}`} type="article" />
+-    <section className="lena-page lena-container lena-case-hero"><div><p className="lena-kicker">LENA CASE STUDY</p><p className="lena-provenance-banner"><strong>{PROVENANCE_LABEL[project.provenance][locale]}</strong> — {PROVENANCE_NOTE[project.provenance][locale]}</p><p className="lena-kicker">{project.category[locale]}</p><h1 className="lena-page-title">{project.title[locale]}</h1><p className="lena-lead">{project.summary[locale]}</p><div className="lena-tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div><ProjectVisual project={project} asset={study.gallery[0]} /></section>
+-    <CaseStudySections project={project} study={study} />
+-    <ProjectGallery project={project} study={study} />
+-    <RelatedServices project={project} />
+-    <LenaCta project work={project.id} />
+-  </PublicShell>;
++
++  return (
++    <PublicShell>
++      <SeoHead
++        title={project.title[locale]}
++        description={project.summary[locale]}
++        path={`/work/${project.id}`}
++        type="article"
++      />
++
++      {/* Hero */}
++      <section className="lena-page lena-container lena-case-hero">
++        <div>
++          <p className="lena-kicker">LENA CASE STUDY</p>
++          <p className="lena-provenance-banner">
++            <strong>{PROVENANCE_LABEL[project.provenance][locale]}</strong>
++            {" — "}
++            {PROVENANCE_NOTE[project.provenance][locale]}
++          </p>
++          <p className="lena-kicker">{project.category[locale]}</p>
++          <h1 className="lena-page-title">{project.title[locale]}</h1>
++          <p className="lena-lead">{project.summary[locale]}</p>
++          <div className="lena-tags">
++            {project.tags.map((tag) => (
++              <span key={tag}>{tag}</span>
++            ))}
++          </div>
++        </div>
++        <ProjectVisual project={project} asset={study.gallery[0]} />
++      </section>
++
++      {/* Case study sections */}
++      <CaseStudySections project={project} study={study} />
++
++      {/* Gallery */}
++      <ProjectGallery project={project} study={study} />
++
++      {/* Related */}
++      <RelatedServices project={project} />
++
++      {/* CTA */}
++      <LenaCta project work={project.id} />
++    </PublicShell>
++  );
+ }
+diff --git a/artifacts/lena/src/pages/Services.tsx b/artifacts/lena/src/pages/Services.tsx
+index 20eefdd..9a9a92e 100644
+--- a/artifacts/lena/src/pages/Services.tsx
++++ b/artifacts/lena/src/pages/Services.tsx
+@@ -15,47 +15,65 @@ export default function Services() {
+   const { locale } = usePreferences();
+   const seo = pageSeo("services", locale);
+   const systems = publicSystems();
+-  const isArabic = locale === "ar";
++  const isAr = locale === "ar";
+ 
+   return (
+     <PublicShell>
+-      <SeoHead title={seo.title} description={seo.description} path="/services" />
++      <SeoHead
++        title={seo.title}
++        description={seo.description}
++        path="/services"
++      />
+ 
++      {/* Hero */}
+       <section className="lena-page lena-container">
+-        <p className="lena-kicker">{isArabic ? "الأنظمة" : "The systems"}</p>
++        <p className="lena-kicker">{isAr ? "الأنظمة" : "The systems"}</p>
+         <h1 className="lena-page-title">{seo.title}</h1>
+         <p className="lena-lead">{seo.description}</p>
+       </section>
+ 
++      {/* Systems grid */}
+       <section className="lena-section">
+         <div className="lena-container lena-bento">
+           {systems.map((system, index) => (
+-            <article className="lena-glass lena-service-card lena-system-card" id={system.id} key={system.id}>
++            <article
++              className={`lena-glass lena-service-card lena-system-card ${system.id}`}
++              id={system.id}
++              key={system.id}
++              data-system={system.id}
++            >
+               <i className="lena-card-glow" />
++
+               <div className="lena-system-top">
+                 <small>{String(index + 1).padStart(2, "0")}</small>
+                 <span className="lena-roots-chip">
+                   {system.operatingPrimitives.length}{" "}
+-                  {isArabic ? "جذور تشغيل" : "operating roots"}
++                  {isAr ? "جذور تشغيل" : "operating roots"}
+                 </span>
+               </div>
++
+               <h2>{system.name[locale]}</h2>
++
++              {system.tagline && (
++                <p className="lena-system-tagline">{system.tagline[locale]}</p>
++              )}
++
+               <p className="lena-system-industry">{system.industry[locale]}</p>
+ 
+               <dl className="lena-system-rows">
+                 <div>
+-                  <dt>{isArabic ? "المشكلة" : "The problem"}</dt>
++                  <dt>{isAr ? "المشكلة" : "The problem"}</dt>
+                   <dd>{system.problem[locale]}</dd>
+                 </div>
+                 <div>
+-                  <dt>{isArabic ? "كيف يُستخدم" : "How it is used"}</dt>
++                  <dt>{isAr ? "كيف يُستخدم" : "How it is used"}</dt>
+                   <dd>{system.usage[locale]}</dd>
+                 </div>
+               </dl>
+ 
+               <div className="lena-system-lists">
+                 <div>
+-                  <h3>{isArabic ? "من المستفيد" : "Who benefits"}</h3>
++                  <h3>{isAr ? "من المستفيد" : "Who benefits"}</h3>
+                   <ul>
+                     {system.beneficiaries[locale].map((who) => (
+                       <li key={who}>
+@@ -66,7 +84,7 @@ export default function Services() {
+                   </ul>
+                 </div>
+                 <div>
+-                  <h3>{isArabic ? "ما الذي يديره" : "What it runs"}</h3>
++                  <h3>{isAr ? "ما الذي يديره" : "What it runs"}</h3>
+                   <ul>
+                     {system.does[locale].map((item) => (
+                       <li key={item}>
+@@ -78,8 +96,13 @@ export default function Services() {
+                 </div>
+               </div>
+ 
+-              <Link className="lena-more" to={`/contact?service=${system.id}`}>
+-                {isArabic ? "تحدث عن نظام لقطاعك" : "Talk about a system for your trade"}
++              <Link
++                className="lena-more"
++                to={`/contact?service=${system.id}`}
++              >
++                {isAr
++                  ? "تحدث عن نظام لقطاعك"
++                  : "Talk about a system for your trade"}
+                 <ArrowUpRight size={15} />
+               </Link>
+             </article>
+diff --git a/artifacts/lena/src/pages/WorldSystem.tsx b/artifacts/lena/src/pages/WorldSystem.tsx
+index 27fbb07..c4b0a21 100644
+--- a/artifacts/lena/src/pages/WorldSystem.tsx
++++ b/artifacts/lena/src/pages/WorldSystem.tsx
+@@ -248,6 +248,11 @@ export default function WorldSystem() {
+           ) : null}
+ 
+           <section className="lena-chamber-actions">
++            {system.id === "wellness" && (
++              <Link className="lena-primary" to="/lara-beauty">
++                {isArabic ? "شوف شاشات Lara Beauty الحقيقية" : "See real Lara Beauty screens"}
++              </Link>
++            )}
+             {productContract?.handoff ? (
+               <a
+                 className="lena-primary"
+diff --git a/artifacts/lena/src/styles/enhancements.css b/artifacts/lena/src/styles/enhancements.css
+new file mode 100644
+index 0000000..89ddff9
+--- /dev/null
++++ b/artifacts/lena/src/styles/enhancements.css
+@@ -0,0 +1,311 @@
++/* ==========================================================================
++   LENA Enhancements — Smooth transitions, hover effects, and polish
++============================================================================ */
++
++/* ─── Smooth page transitions ─── */
++.lena-page,
++.lena-section {
++  animation: lena-section-enter 0.6s ease backwards;
++}
++
++@keyframes lena-section-enter {
++  from {
++    opacity: 0;
++    transform: translateY(16px);
++  }
++  to {
++    opacity: 1;
++    transform: translateY(0);
++  }
++}
++
++/* ─── Service cards DNA colors ─── */
++.lena-system-card[data-system="property"] { --system-dna: blue; }
++.lena-system-card[data-system="wellness"] { --system-dna: pink; }
++.lena-system-card[data-system="rental"] { --system-dna: cyan; }
++.lena-system-card[data-system="investment"] { --system-dna: orange; }
++.lena-system-card[data-system="hospitality"] { --system-dna: violet; }
++.lena-system-card[data-system="recycling"] { --system-dna: lime; }
++
++/* ─── Card hover enhancements ─── */
++.lena-service-card {
++  transition:
++    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
++    border-color 0.3s ease,
++    box-shadow 0.3s ease;
++}
++
++.lena-service-card:hover {
++  transform: translateY(-6px);
++  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
++}
++
++.lena-service-card .lena-card-glow {
++  transition: opacity 0.4s ease, transform 0.4s ease;
++}
++
++.lena-service-card:hover .lena-card-glow {
++  opacity: 0.35;
++  transform: scale(1.1);
++}
++
++/* ─── Button polish ─── */
++.lena-primary {
++  position: relative;
++  overflow: hidden;
++  transition:
++    transform 0.2s ease,
++    box-shadow 0.3s ease,
++    background 0.3s ease;
++}
++
++.lena-primary::before {
++  content: "";
++  position: absolute;
++  inset: 0;
++  background: linear-gradient(
++    135deg,
++    rgba(255, 255, 255, 0.15),
++    transparent 60%
++  );
++  opacity: 0;
++  transition: opacity 0.3s ease;
++}
++
++.lena-primary:hover::before {
++  opacity: 1;
++}
++
++.lena-primary:hover {
++  transform: translateY(-3px);
++  box-shadow: 0 16px 36px rgba(66, 91, 255, 0.35);
++}
++
++/* ─── Navigation link polish ─── */
++.lena-nav-link {
++  position: relative;
++  transition: color 0.2s ease, background 0.2s ease;
++}
++
++.lena-nav-link::after {
++  content: "";
++  position: absolute;
++  bottom: 4px;
++  left: 50%;
++  width: 0;
++  height: 2px;
++  background: var(--lena-accent);
++  transform: translateX(-50%);
++  transition: width 0.25s ease;
++}
++
++.lena-nav-link:hover::after,
++.lena-nav-link.active::after {
++  width: 60%;
++}
++
++/* ─── System rows polish ─── */
++.lena-system-rows dt {
++  font-weight: 700;
++  color: var(--lena-accent);
++  font-size: 0.72rem;
++  letter-spacing: 0.06em;
++  text-transform: uppercase;
++  margin-bottom: 0.25rem;
++}
++
++.lena-system-rows dd {
++  color: var(--lena-muted);
++  font-size: 0.88rem;
++  line-height: 1.7;
++  margin: 0 0 1rem;
++}
++
++/* ─── Roots chip ─── */
++.lena-roots-chip {
++  display: inline-flex;
++  align-items: center;
++  gap: 0.35rem;
++  padding: 0.25rem 0.65rem;
++  border-radius: 99px;
++  font-size: 0.68rem;
++  font-weight: 700;
++  letter-spacing: 0.04em;
++  background: rgba(79, 108, 255, 0.1);
++  border: 1px solid rgba(79, 108, 255, 0.15);
++  color: var(--lena-accent);
++}
++
++/* ─── System tagline ─── */
++.lena-system-tagline {
++  font-size: 0.82rem;
++  font-weight: 600;
++  color: var(--lena-gold);
++  margin-top: 0.5rem;
++}
++
++.lena-system-industry {
++  font-size: 0.78rem;
++  font-weight: 700;
++  letter-spacing: 0.04em;
++  text-transform: uppercase;
++  color: var(--lena-muted);
++  margin-top: 0.5rem;
++}
++
++/* ─── Footer polish ─── */
++.lena-footer-base {
++  display: flex;
++  align-items: center;
++  justify-content: space-between;
++  flex-wrap: wrap;
++  gap: 1rem;
++  margin-top: 2rem;
++  padding-top: 1.5rem;
++  border-top: 1px solid var(--lena-line);
++}
++
++.lena-memory-reset {
++  display: inline-flex;
++  align-items: center;
++  gap: 0.5rem;
++  padding: 0.5rem 1rem;
++  border-radius: 12px;
++  border: 1px solid var(--lena-line);
++  background: transparent;
++  color: var(--lena-muted);
++  font-size: 0.72rem;
++  font-weight: 600;
++  cursor: pointer;
++  transition: border-color 0.2s ease, color 0.2s ease;
++}
++
++.lena-memory-reset:hover {
++  border-color: var(--lena-line-strong);
++  color: var(--lena-text);
++}
++
++/* ─── Glass card polish ─── */
++.lena-glass {
++  transition:
++    border-color 0.3s ease,
++    transform 0.3s ease,
++    box-shadow 0.3s ease;
++}
++
++/* ─── Scroll indicator animation ─── */
++.lena-scroll {
++  animation: lena-scroll-bounce 2s ease-in-out infinite;
++}
++
++@keyframes lena-scroll-bounce {
++  0%, 100% { transform: translateY(0); }
++  50% { transform: translateY(6px); }
++}
++
++/* ─── Page entrance ─── */
++.lena-page > * {
++  animation: lena-page-fade-up 0.7s ease backwards;
++}
++
++.lena-page > *:nth-child(1) { animation-delay: 0.1s; }
++.lena-page > *:nth-child(2) { animation-delay: 0.2s; }
++.lena-page > *:nth-child(3) { animation-delay: 0.35s; }
++
++@keyframes lena-page-fade-up {
++  from {
++    opacity: 0;
++    transform: translateY(20px);
++  }
++  to {
++    opacity: 1;
++    transform: translateY(0);
++  }
++}
++
++/* ─── Scroll-triggered animations ─── */
++.scroll-animate {
++  opacity: 0;
++  transform: translateY(30px);
++  transition:
++    opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
++    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
++}
++
++.scroll-animate.is-visible {
++  opacity: 1;
++  transform: translateY(0);
++}
++
++.scroll-animate-left {
++  opacity: 0;
++  transform: translateX(-40px);
++  transition:
++    opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
++    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
++}
++
++.scroll-animate-left.is-visible {
++  opacity: 1;
++  transform: translateX(0);
++}
++
++.scroll-animate-right {
++  opacity: 0;
++  transform: translateX(40px);
++  transition:
++    opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
++    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
++}
++
++.scroll-animate-right.is-visible {
++  opacity: 1;
++  transform: translateX(0);
++}
++
++.scroll-animate-scale {
++  opacity: 0;
++  transform: scale(0.92);
++  transition:
++    opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
++    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
++}
++
++.scroll-animate-scale.is-visible {
++  opacity: 1;
++  transform: scale(1);
++}
++
++/* Stagger children */
++.scroll-stagger > * {
++  opacity: 0;
++  transform: translateY(20px);
++  transition:
++    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
++    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
++}
++
++.scroll-stagger.is-visible > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: translateY(0); }
++.scroll-stagger.is-visible > *:nth-child(2) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
++.scroll-stagger.is-visible > *:nth-child(3) { transition-delay: 0.15s; opacity: 1; transform: translateY(0); }
++.scroll-stagger.is-visible > *:nth-child(4) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
++.scroll-stagger.is-visible > *:nth-child(5) { transition-delay: 0.25s; opacity: 1; transform: translateY(0); }
++.scroll-stagger.is-visible > *:nth-child(6) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
++
++/* ─── Reduced motion ─── */
++@media (prefers-reduced-motion: reduce) {
++  .lena-page,
++  .lena-section,
++  .lena-page > *,
++  .lena-scroll {
++    animation: none;
++  }
++
++  .lena-service-card:hover {
++    transform: none;
++  }
++
++  .lena-primary:hover {
++    transform: none;
++  }
++}
+diff --git a/artifacts/lena/src/styles/home-sections.css b/artifacts/lena/src/styles/home-sections.css
+new file mode 100644
+index 0000000..4b72fc7
+--- /dev/null
++++ b/artifacts/lena/src/styles/home-sections.css
+@@ -0,0 +1,387 @@
++/* ==========================================================================
++   LENA Home — New cinematic sections
++   Live counters · AI Recommender · Founder Promise · Timeline
++============================================================================ */
++
++/* ─── Hero Enhancement ─── */
++.lena-hero {
++  position: relative;
++}
++
++.lena-hero h1 {
++  line-height: 1.18;
++  letter-spacing: -0.03em;
++}
++
++.lena-hero h1 span {
++  background: var(--lena-gradient-hero);
++  -webkit-background-clip: text;
++  background-clip: text;
++  color: transparent;
++}
++
++.lena-hero-copy {
++  position: relative;
++  z-index: 2;
++}
++
++.lena-hero-copy .lena-kicker {
++  margin-bottom: 0.5rem;
++}
++
++.lena-hero-copy .lena-lead {
++  font-size: 1.05rem;
++  line-height: 1.85;
++}
++
++/* ─── Hero entrance animation ─── */
++.lena-hero-copy > * {
++  animation: lena-hero-fade-up 0.8s ease backwards;
++}
++
++.lena-hero-copy > *:nth-child(1) { animation-delay: 0.1s; }
++.lena-hero-copy > *:nth-child(2) { animation-delay: 0.2s; }
++.lena-hero-copy > *:nth-child(3) { animation-delay: 0.3s; }
++.lena-hero-copy > *:nth-child(4) { animation-delay: 0.45s; }
++.lena-hero-copy > *:nth-child(5) { animation-delay: 0.55s; }
++.lena-hero-copy > *:nth-child(6) { animation-delay: 0.65s; }
++
++@keyframes lena-hero-fade-up {
++  from {
++    opacity: 0;
++    transform: translateY(24px);
++  }
++  to {
++    opacity: 1;
++    transform: translateY(0);
++  }
++}
++
++@media (prefers-reduced-motion: reduce) {
++  .lena-hero-copy > * {
++    animation: none;
++  }
++}
++
++/* ─── Live Counters ─── */
++.lena-counters-section {
++  padding-block: 1.5rem;
++}
++
++.lena-counters-row {
++  display: grid;
++  grid-template-columns: repeat(4, 1fr);
++  gap: 1.25rem;
++  max-width: 800px;
++  margin: 0 auto;
++}
++
++.lena-counter {
++  display: flex;
++  flex-direction: column;
++  align-items: center;
++  gap: 0.35rem;
++  padding: 1.5rem 0.75rem;
++}
++
++.lena-counter-value {
++  font-size: 2.5rem;
++  font-weight: 800;
++  letter-spacing: -0.03em;
++  background: linear-gradient(135deg, var(--lena-accent, #7b9cff), var(--lena-gold, #ffc76a));
++  -webkit-background-clip: text;
++  -webkit-text-fill-color: transparent;
++  background-clip: text;
++  line-height: 1;
++}
++
++.lena-counter-label {
++  font-size: 0.78rem;
++  font-weight: 600;
++  letter-spacing: 0.04em;
++  text-transform: uppercase;
++  opacity: 0.6;
++}
++
++@media (max-width: 640px) {
++  .lena-counters-row {
++    grid-template-columns: repeat(2, 1fr);
++    gap: 0.75rem;
++  }
++
++  .lena-counter-value {
++    font-size: 2rem;
++  }
++}
++
++/* ─── AI Recommender ─── */
++.lena-recommender {
++  text-align: center;
++}
++
++.lena-recommender-flow {
++  display: flex;
++  flex-wrap: wrap;
++  justify-content: center;
++  gap: 0.65rem;
++  margin-top: 1.25rem;
++}
++
++.lena-recommender-option {
++  display: inline-flex;
++  align-items: center;
++  gap: 0.5rem;
++  padding: 0.85rem 1.5rem;
++  font-size: 0.9rem;
++  font-weight: 600;
++  cursor: pointer;
++  text-decoration: none;
++  color: inherit;
++  transition: border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
++}
++
++.lena-recommender-option:hover {
++  border-color: var(--lena-accent, #7b9cff);
++  transform: translateY(-2px);
++  box-shadow: 0 8px 24px rgba(79, 108, 255, 0.15);
++}
++
++.lena-recommender-option svg {
++  opacity: 0.4;
++  transition: opacity 0.2s ease, transform 0.2s ease;
++}
++
++.lena-recommender-option:hover svg {
++  opacity: 1;
++  transform: translateX(2px);
++}
++
++/* ─── Founder Promise ─── */
++.lena-founder-section {
++  text-align: center;
++}
++
++.lena-founder-points {
++  display: grid;
++  grid-template-columns: repeat(3, 1fr);
++  gap: 1rem;
++  margin-top: 1.25rem;
++}
++
++.lena-founder-point {
++  display: flex;
++  flex-direction: column;
++  align-items: center;
++  gap: 0.75rem;
++  padding: 1.5rem 1.25rem;
++  text-align: center;
++}
++
++.lena-founder-point-icon {
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  width: 52px;
++  height: 52px;
++  border-radius: 50%;
++  background: linear-gradient(135deg, rgba(79, 108, 255, 0.15), rgba(255, 199, 106, 0.1));
++  border: 1px solid rgba(79, 108, 255, 0.2);
++  color: var(--lena-accent, #7b9cff);
++}
++
++.lena-founder-point p {
++  font-size: 0.95rem;
++  line-height: 1.6;
++  opacity: 0.85;
++}
++
++.lena-founder-quote {
++  margin-top: 1.5rem;
++  max-width: 680px;
++  margin-inline: auto;
++  position: relative;
++  padding: 1.5rem 2rem;
++  border-radius: 16px;
++  border: 1px solid var(--lena-line);
++  background: linear-gradient(145deg, var(--lena-card), rgba(7, 14, 34, 0.4));
++}
++
++.lena-founder-quote::before {
++  content: "\201C";
++  position: absolute;
++  top: -0.5rem;
++  inset-inline-start: 1rem;
++  font-size: 5rem;
++  opacity: 0.12;
++  font-family: Georgia, serif;
++  line-height: 1;
++  background: var(--lena-gradient-gold);
++  -webkit-background-clip: text;
++  -webkit-text-fill-color: transparent;
++  background-clip: text;
++}
++
++.lena-founder-quote p {
++  font-size: 1.05rem;
++  line-height: 1.9;
++  font-style: italic;
++  opacity: 0.8;
++}
++
++@media (max-width: 768px) {
++  .lena-founder-points {
++    grid-template-columns: 1fr;
++    gap: 0.75rem;
++  }
++
++  .lena-founder-point {
++    flex-direction: row;
++    text-align: start;
++    padding: 1.25rem 1.5rem;
++  }
++}
++
++/* ─── Timeline ─── */
++.lena-timeline-section {
++  text-align: center;
++}
++
++.lena-timeline {
++  max-width: 640px;
++  margin: 1.5rem auto 0;
++  text-align: start;
++}
++
++.lena-timeline-item {
++  display: flex;
++  gap: 1.5rem;
++  position: relative;
++}
++
++.lena-timeline-marker {
++  display: flex;
++  flex-direction: column;
++  align-items: center;
++  flex-shrink: 0;
++  width: 20px;
++}
++
++.lena-timeline-dot {
++  width: 14px;
++  height: 14px;
++  border-radius: 50%;
++  background: linear-gradient(135deg, var(--lena-accent, #7b9cff), var(--lena-gold, #ffc76a));
++  box-shadow: 0 0 12px rgba(79, 108, 255, 0.3);
++  flex-shrink: 0;
++}
++
++.lena-timeline-line {
++  width: 2px;
++  flex: 1;
++  background: linear-gradient(to bottom, rgba(79, 108, 255, 0.2), rgba(79, 108, 255, 0.05));
++  min-height: 40px;
++}
++
++.lena-timeline-content {
++  padding-bottom: 1.5rem;
++}
++
++.lena-timeline-year {
++  display: inline-block;
++  font-size: 0.72rem;
++  font-weight: 800;
++  letter-spacing: 0.08em;
++  text-transform: uppercase;
++  color: var(--lena-accent, #7b9cff);
++  margin-bottom: 0.35rem;
++}
++
++.lena-timeline-content h3 {
++  font-size: 1.1rem;
++  font-weight: 700;
++  margin-bottom: 0.35rem;
++}
++
++.lena-timeline-content p {
++  font-size: 0.88rem;
++  line-height: 1.6;
++  opacity: 0.7;
++}
++
++/* RTL support for timeline */
++[dir="rtl"] .lena-timeline-item {
++  flex-direction: row-reverse;
++}
++
++[dir="rtl"] .lena-timeline-content {
++  text-align: right;
++}
++
++/* ─── Testimonials ─── */
++.lena-testimonials-section {
++  text-align: center;
++}
++
++.lena-testimonials-grid {
++  display: grid;
++  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
++  gap: 1rem;
++  margin-top: 1.5rem;
++}
++
++.lena-testimonial-card {
++  position: relative;
++  display: flex;
++  flex-direction: column;
++  align-items: flex-start;
++  gap: 0.75rem;
++  padding: 1.5rem;
++  text-align: start;
++}
++
++.lena-testimonial-quote {
++  font-size: 4rem;
++  line-height: 1;
++  font-family: Georgia, serif;
++  background: var(--lena-gradient-gold);
++  -webkit-background-clip: text;
++  -webkit-text-fill-color: transparent;
++  background-clip: text;
++  opacity: 0.6;
++  margin-bottom: -1rem;
++}
++
++.lena-testimonial-text {
++  font-size: 1.05rem;
++  line-height: 1.8;
++  color: var(--lena-text);
++  opacity: 0.9;
++}
++
++.lena-testimonial-author {
++  display: flex;
++  flex-direction: column;
++  gap: 0.25rem;
++  margin-top: auto;
++  padding-top: 1rem;
++  border-top: 1px solid var(--lena-line);
++  width: 100%;
++}
++
++.lena-testimonial-author strong {
++  font-size: 0.95rem;
++  font-weight: 700;
++  color: var(--lena-text);
++}
++
++.lena-testimonial-author span {
++  font-size: 0.82rem;
++  color: var(--lena-muted);
++}
++
++.lena-testimonials-note {
++  margin-top: 1rem;
++  font-size: 0.82rem;
++  color: var(--lena-muted);
++  font-style: italic;
++}
+diff --git a/artifacts/lena/src/styles/mobile-enhancements.css b/artifacts/lena/src/styles/mobile-enhancements.css
+new file mode 100644
+index 0000000..5db1041
+--- /dev/null
++++ b/artifacts/lena/src/styles/mobile-enhancements.css
+@@ -0,0 +1,257 @@
++/* ==========================================================================
++   LENA Mobile Enhancements — Touch-friendly interactions and polish
++============================================================================ */
++
++/* ─── Touch-friendly targets ─── */
++@media (pointer: coarse) {
++  .lena-nav-link,
++  .lena-mobile-link,
++  .lena-icon-button,
++  .lena-primary,
++  .lena-secondary,
++  .lena-more {
++    min-height: 48px;
++    min-width: 48px;
++  }
++
++  .lena-form input,
++  .lena-form textarea,
++  .lena-form select {
++    min-height: 48px;
++    font-size: 16px; /* Prevents zoom on iOS */
++  }
++}
++
++/* ─── Mobile menu enhancements ─── */
++.lena-mobile-menu {
++  animation: lena-mobile-menu-slide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
++}
++
++@keyframes lena-mobile-menu-slide {
++  from {
++    opacity: 0;
++    transform: translateY(-8px);
++  }
++  to {
++    opacity: 1;
++    transform: translateY(0);
++  }
++}
++
++.lena-mobile-link {
++  display: flex;
++  align-items: center;
++  gap: 0.75rem;
++  padding: 0.875rem 1rem;
++  font-size: 0.95rem;
++  font-weight: 600;
++  border-radius: 12px;
++  transition: background 0.2s ease, color 0.2s ease;
++}
++
++.lena-mobile-link:hover,
++.lena-mobile-link.active {
++  background: rgba(91, 124, 255, 0.12);
++  color: var(--lena-accent);
++}
++
++/* ─── Mobile hero adjustments ─── */
++@media (max-width: 720px) {
++  .lena-hero h1 {
++    font-size: clamp(2rem, 10vw, 2.8rem);
++    line-height: 1.15;
++    letter-spacing: -0.04em;
++  }
++
++  .lena-hero .lena-lead {
++    font-size: 0.95rem;
++    line-height: 1.7;
++  }
++
++  .lena-hero .lena-actions {
++    flex-direction: column;
++    width: 100%;
++  }
++
++  .lena-hero .lena-primary,
++  .lena-hero .lena-secondary {
++    width: 100%;
++    justify-content: center;
++  }
++
++  /* Counters mobile */
++  .lena-counters-row {
++    grid-template-columns: repeat(2, 1fr);
++    gap: 1rem;
++  }
++
++  .lena-counter-value {
++    font-size: 1.75rem;
++  }
++
++  .lena-counter-label {
++    font-size: 0.7rem;
++  }
++
++  /* Timeline mobile */
++  .lena-timeline-item {
++    gap: 1rem;
++  }
++
++  .lena-timeline-content h3 {
++    font-size: 1rem;
++  }
++
++  .lena-timeline-content p {
++    font-size: 0.82rem;
++  }
++
++  /* Founder section mobile */
++  .lena-founder-points {
++    grid-template-columns: 1fr;
++  }
++
++  .lena-founder-point {
++    flex-direction: row;
++    text-align: start;
++    padding: 1.25rem;
++  }
++
++  .lena-founder-quote {
++    padding: 1.5rem;
++  }
++
++  .lena-founder-quote p {
++    font-size: 0.95rem;
++  }
++
++  /* Recommender mobile */
++  .lena-recommender-flow {
++    flex-direction: column;
++  }
++
++  .lena-recommender-option {
++    width: 100%;
++    justify-content: center;
++  }
++
++  /* Service cards mobile */
++  .lena-system-card {
++    padding: 1.5rem;
++  }
++
++  .lena-system-rows {
++    grid-template-columns: 1fr;
++    gap: 1rem;
++  }
++
++  .lena-system-lists {
++    grid-template-columns: 1fr;
++    gap: 1.5rem;
++  }
++
++  /* Footer mobile */
++  .lena-footer-grid {
++    grid-template-columns: 1fr;
++    gap: 2rem;
++  }
++
++  .lena-footer-base {
++    flex-direction: column;
++    align-items: flex-start;
++  }
++}
++
++/* ─── Small mobile (320px-420px) ─── */
++@media (max-width: 420px) {
++  .lena-container {
++    width: calc(100% - 24px);
++  }
++
++  .lena-hero h1 {
++    font-size: clamp(1.8rem, 9vw, 2.4rem);
++  }
++
++  .lena-page-title,
++  .lena-section-title {
++    font-size: clamp(1.6rem, 7vw, 2.2rem);
++  }
++
++  .lena-counters-row {
++    grid-template-columns: 1fr 1fr;
++    gap: 0.75rem;
++  }
++
++  .lena-counter {
++    padding: 1rem 0.5rem;
++  }
++
++  .lena-counter-value {
++    font-size: 1.5rem;
++  }
++
++  .lena-recommender-option {
++    padding: 0.75rem 1rem;
++    font-size: 0.85rem;
++  }
++
++  .lena-founder-point-icon {
++    width: 44px;
++    height: 44px;
++  }
++
++  .lena-timeline-dot {
++    width: 12px;
++    height: 12px;
++  }
++}
++
++/* ─── Tablet (720px-1050px) ─── */
++@media (min-width: 721px) and (max-width: 1050px) {
++  .lena-counters-row {
++    grid-template-columns: repeat(4, 1fr);
++    gap: 1rem;
++  }
++
++  .lena-founder-points {
++    grid-template-columns: repeat(3, 1fr);
++  }
++
++  .lena-recommender-flow {
++    flex-wrap: wrap;
++    justify-content: center;
++  }
++}
++
++/* ─── Safe area insets (notch devices) ─── */
++@supports (padding-top: env(safe-area-inset-top)) {
++  .lena-header {
++    padding-top: max(12px, env(safe-area-inset-top));
++  }
++
++  .lena-footer {
++    padding-bottom: max(16px, env(safe-area-inset-bottom));
++  }
++
++  .lena-whatsapp-fab {
++    right: max(18px, env(safe-area-inset-right));
++    bottom: max(18px, env(safe-area-inset-bottom));
++  }
++
++  [dir="rtl"] .lena-whatsapp-fab {
++    right: auto;
++    left: max(18px, env(safe-area-inset-left));
++  }
++}
++
++/* ─── Landscape mode ─── */
++@media (max-height: 500px) and (orientation: landscape) {
++  .lena-hero {
++    min-height: auto;
++    padding: 2rem 0;
++  }
++
++  .lena-orbit {
++    min-height: 300px;
++  }
++}
+diff --git a/artifacts/lena/src/styles/public.css b/artifacts/lena/src/styles/public.css
+index b796572..c9a771e 100644
+--- a/artifacts/lena/src/styles/public.css
++++ b/artifacts/lena/src/styles/public.css
+@@ -1 +1,44 @@
+-.lena-public,.lena-admin{position:relative;min-height:100vh;overflow-x:clip;isolation:isolate;background:radial-gradient(circle at 50% -8%,rgba(79,108,255,.17),transparent 34rem),linear-gradient(180deg,rgba(3,6,18,.86),var(--lena-bg));color:var(--lena-text)}.light .lena-public,.light .lena-admin{background:radial-gradient(circle at 50% -8%,rgba(79,108,255,.14),transparent 34rem),linear-gradient(180deg,rgba(245,248,255,.92),var(--lena-bg))}.lena-public a,.lena-admin a{text-decoration:none}.lena-public button,.lena-admin button,.lena-public a,.lena-admin a,.lena-public select{cursor:pointer}.lena-public button:focus-visible,.lena-public a:focus-visible,.lena-public input:focus-visible,.lena-public textarea:focus-visible,.lena-public select:focus-visible,.lena-admin button:focus-visible,.lena-admin a:focus-visible{outline:3px solid var(--lena-focus);outline-offset:3px}.lena-glass{border:1px solid var(--lena-line);border-radius:20px;background:linear-gradient(145deg,var(--lena-card),rgba(7,14,34,.66));box-shadow:0 20px 56px rgba(0,0,0,.2);backdrop-filter:blur(20px) saturate(1.15)}.light .lena-glass{background:linear-gradient(145deg,var(--lena-card),rgba(237,243,255,.76));box-shadow:0 18px 48px rgba(42,67,130,.12)}.lena-header{position:fixed;inset:0 0 auto;z-index:70;padding:max(12px,env(safe-area-inset-top)) 12px 0;transition:padding .24s ease}.lena-header-scrolled{padding:max(7px,env(safe-area-inset-top)) 12px 0}.lena-nav{display:flex;width:min(1320px,100%);min-height:62px;margin:auto;align-items:center;justify-content:space-between;gap:14px;padding:7px 10px;background:var(--lena-glass);transition:min-height .24s ease,border-color .24s ease}.lena-header-scrolled .lena-nav{min-height:56px;border-color:var(--lena-line-strong);box-shadow:0 14px 40px rgba(0,0,0,.3)}.light .lena-header-scrolled .lena-nav{box-shadow:0 14px 40px rgba(42,67,130,.14)}.lena-brand-link,.lena-logo{display:inline-flex;min-height:44px;align-items:center}.lena-logo{gap:9px}.lena-logo-mark{width:44px;height:44px;overflow:visible;border:1px solid var(--lena-line-strong);border-radius:15px;background:linear-gradient(145deg,rgba(97,130,255,.25),rgba(160,86,255,.12));padding:7px}.lena-logo-mark path,.lena-logo-mark circle{fill:none;stroke:var(--lena-accent);stroke-linecap:round;stroke-linejoin:round;stroke-width:3}.lena-logo-copy strong,.lena-logo-copy small{display:block}.lena-logo-copy strong{color:var(--lena-text);font-size:13px;letter-spacing:.2em}.lena-logo-copy small{margin-top:3px;color:var(--lena-muted);font-size:8px;letter-spacing:.18em}.lena-desktop-nav,.lena-nav-actions{display:flex;align-items:center;gap:5px}.lena-nav-link,.lena-mobile-link{border-radius:12px;padding:10px 11px;color:var(--lena-muted);font-size:12px;font-weight:700;transition:background .18s ease,color .18s ease}.lena-nav-link:hover,.lena-nav-link.active,.lena-mobile-link:hover,.lena-mobile-link.active{background:rgba(91,124,255,.14);color:var(--lena-accent)}.lena-icon-button{display:grid;width:44px;height:44px;place-items:center;border:1px solid var(--lena-line);border-radius:13px;background:rgba(255,255,255,.04);color:var(--lena-muted);transition:border-color .18s ease,color .18s ease,transform .18s ease}.lena-icon-button:hover{border-color:var(--lena-line-strong);color:var(--lena-accent);transform:translateY(-1px)}.lena-menu-toggle,.lena-mobile-menu{display:none}.lena-main{padding-top:82px}.lena-container{width:min(1180px,calc(100% - 36px));margin-inline:auto}.lena-section{padding:64px 0}.lena-page{padding:64px 0 24px}.lena-kicker{margin:0;color:var(--lena-accent);font-size:11px;font-style:normal;font-weight:800;letter-spacing:.2em;text-transform:uppercase}.lena-page-title,.lena-section-title{max-width:980px;margin:12px 0 0;font-weight:600;line-height:1.24;letter-spacing:-.02em}.lena-page-title{font-size:clamp(2.1rem,4.2vw,3.9rem)}.lena-section-title{font-size:clamp(1.9rem,3.6vw,3.4rem)}.lena-lead,.lena-section-lead{max-width:760px;margin:14px 0 0;color:var(--lena-muted);font-size:16px;line-height:1.8}.lena-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:22px}.lena-primary,.lena-secondary,.lena-more{display:inline-flex;min-height:44px;align-items:center;justify-content:center;gap:7px;border-radius:13px;font-size:13px;font-weight:800;transition:transform .18s ease,border-color .18s ease,background .18s ease}.lena-primary{border:1px solid rgba(181,201,255,.25);background:linear-gradient(135deg,#416fff,#724dff);padding:10px 17px;color:#fff;box-shadow:0 12px 28px rgba(66,91,255,.24)}.lena-secondary{border:1px solid var(--lena-line);background:rgba(255,255,255,.035);padding:10px 17px;color:var(--lena-text)}.lena-primary:hover,.lena-secondary:hover{transform:translateY(-2px);border-color:var(--lena-line-strong)}.lena-primary:active,.lena-secondary:active,.lena-icon-button:active{transform:translateY(0) scale(.97)}.lena-more{width:fit-content;margin-top:auto;padding-top:16px;color:var(--lena-accent)}.lena-more svg{transition:transform .18s ease}.lena-more:hover svg{transform:translateX(3px)}[dir=rtl] .lena-more:hover svg{transform:translateX(-3px)}.lena-hero{display:grid;min-height:min(680px,calc(100vh - 94px));grid-template-columns:1.02fr .98fr;align-items:center;gap:28px;padding:46px 0 30px}.lena-hero h1{max-width:860px;margin:15px 0 0;font-size:clamp(2.9rem,6.2vw,5.9rem);font-weight:600;line-height:1.12;letter-spacing:-.03em}.lena-hero h1 span{background:linear-gradient(90deg,#72a5ff,#9d7cff 48%,#ff83c3);-webkit-background-clip:text;background-clip:text;color:transparent}.lena-scroll{display:inline-flex;min-height:44px;align-items:center;gap:7px;margin-top:28px;color:var(--lena-muted);font-size:13px}.lena-bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px;margin-top:26px}.lena-service-card{position:relative;display:flex;min-height:270px;grid-column:span 4;flex-direction:column;overflow:hidden;padding:22px;transition:transform .2s ease,border-color .2s ease}.lena-service-card:hover,.lena-project-card:hover{border-color:var(--lena-line-strong);transform:translateY(-4px)}.lena-showcase-grid .lena-service-card:nth-child(1),.lena-showcase-grid .lena-service-card:nth-child(4){grid-column:span 8}.lena-card-glow{position:absolute;top:-7rem;right:-7rem;width:15rem;height:15rem;border-radius:50%;filter:blur(48px);opacity:.25}.blue .lena-card-glow,.blue .lena-visual-orb{background:#3978ff}.cyan .lena-card-glow,.cyan .lena-visual-orb{background:#42dcff}.orange .lena-card-glow,.orange .lena-visual-orb{background:#ff815d}.pink .lena-card-glow,.pink .lena-visual-orb{background:#f368ff}.violet .lena-card-glow,.violet .lena-visual-orb{background:#9565ff}.lime .lena-card-glow,.lime .lena-visual-orb{background:#8edc68}.lena-card-top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between}.lena-card-top small,.lena-process small,.lena-principle small{color:var(--lena-muted);font-size:11px;font-weight:800;letter-spacing:.14em}.lena-service-icon{display:grid;width:44px;height:44px;place-items:center;border:1px solid rgba(132,164,255,.22);border-radius:14px;background:rgba(91,124,255,.14);color:var(--lena-accent)}.lena-service-card h3,.lena-project-card h3{position:relative;z-index:2;margin:16px 0 0;font-size:18px;font-weight:600;line-height:1.58}.lena-service-card p,.lena-project-card p,.lena-cta p,.lena-footer p,.lena-form p,.lena-contact-card p{position:relative;z-index:2;color:var(--lena-muted);font-size:13px;line-height:1.85}.lena-tags{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.lena-tags span{display:inline-flex;border:1px solid var(--lena-line);border-radius:99px;background:rgba(82,112,255,.1);padding:6px 9px;color:var(--lena-muted);font-size:10px;font-weight:800}.lena-process,.lena-contact-grid{display:grid;gap:13px;margin-top:25px}.lena-process{grid-template-columns:repeat(4,1fr)}.lena-process article{padding:18px}.lena-process h3{margin:13px 0 0;font-size:16px;font-weight:600;line-height:1.6}.lena-cta{display:flex;align-items:center;justify-content:space-between;gap:25px;padding:30px;background:linear-gradient(135deg,rgba(31,69,156,.58),rgba(76,47,149,.55) 58%,rgba(145,58,118,.3))}.lena-cta h2{max-width:800px;margin:12px 0 0;font-size:clamp(1.8rem,3.4vw,3rem);font-weight:600;line-height:1.28}.lena-project-grid .lena-project-card{grid-column:span 4}.lena-project-card{display:flex;min-height:410px;overflow:hidden;flex-direction:column;transition:transform .2s ease,border-color .2s ease}.lena-project-card.featured{grid-column:span 8}.lena-project-copy{display:flex;min-height:235px;flex:1;flex-direction:column;padding:20px}.lena-project-visual{position:relative;min-height:310px;overflow:hidden;border:1px solid var(--lena-line);border-radius:20px;background:radial-gradient(circle at 18% 20%,rgba(113,146,255,.3),transparent 35%),linear-gradient(135deg,rgba(25,49,112,.78),rgba(24,20,67,.54))}.lena-project-visual.dense{min-height:175px;border:0;border-bottom:1px solid var(--lena-line);border-radius:0}.lena-visual-window{position:absolute;top:22%;left:12%;width:60%;height:58%;border:1px solid rgba(214,226,255,.3);border-radius:13px;background:rgba(5,12,30,.54);box-shadow:0 20px 40px rgba(0,0,0,.18);animation:lena-art-float 6s ease-in-out infinite}.lena-visual-window i{display:block;height:7px;margin:13px 14px 0;border-radius:9px;background:rgba(190,209,255,.2)}.lena-visual-window i:first-child{width:44%;background:rgba(190,209,255,.48)}.lena-visual-window i:nth-child(2){width:72%}.lena-visual-window i:nth-child(3){width:57%}.lena-visual-stack{position:absolute;right:11%;bottom:13%;display:grid;width:32%;gap:7px}.lena-visual-stack span{height:30px;border:1px solid rgba(214,226,255,.24);border-radius:9px;background:rgba(16,28,66,.68)}.lena-visual-orb{position:absolute;top:-30px;right:-30px;width:150px;height:150px;border-radius:50%;filter:blur(43px);opacity:.5}@keyframes lena-art-float{50%{transform:translateY(-5px)}}.lena-service-hero,.lena-case-hero{display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:24px}.lena-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.lena-info-panel{padding:22px}.lena-info-panel h2{margin:14px 0 0;font-size:19px;font-weight:600;line-height:1.75}.lena-info-panel ul,.lena-info-panel ol{display:grid;gap:12px;margin:18px 0 0;padding:0;list-style:none}.lena-info-panel li{display:flex;align-items:flex-start;gap:9px;color:var(--lena-muted);font-size:14px;line-height:1.7}.lena-info-panel li svg{flex:0 0 auto;color:var(--lena-accent)}.lena-info-panel ol span{display:inline-grid;width:28px;height:28px;flex:0 0 auto;place-items:center;border:1px solid var(--lena-line);border-radius:50%;color:var(--lena-accent);font-size:10px;font-weight:800}.lena-principle{grid-column:span 4;padding:22px}.lena-principle.wide{grid-column:span 8}.lena-principle svg{margin-top:18px;color:var(--lena-accent)}.lena-principle h2{margin:14px 0 0;font-size:18px;line-height:1.7}.lena-contact-grid{grid-template-columns:repeat(3,1fr)}.lena-contact-card{display:flex;min-height:220px;flex-direction:column;padding:22px}.lena-contact-card svg{color:var(--lena-accent)}.lena-contact-card h2{margin:15px 0 0;font-size:18px;font-weight:600}.lena-contact-card .lena-primary,.lena-contact-card .lena-secondary{margin-top:auto}.lena-form{max-width:940px;margin:auto;padding:28px}.lena-form h2{margin:11px 0 0;font-size:24px;font-weight:600}.lena-form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:20px}.lena-form label{display:grid;gap:7px;color:var(--lena-muted);font-size:12px;font-weight:700}.lena-form label.wide{grid-column:1/-1}.lena-form input,.lena-form textarea,.lena-form select{width:100%;border:1px solid var(--lena-line);border-radius:12px;background:rgba(5,12,30,.58);padding:12px;color:var(--lena-text)}.light .lena-form input,.light .lena-form textarea,.light .lena-form select{background:rgba(255,255,255,.72)}.lena-form textarea{resize:vertical}.lena-form button{margin-top:16px}.lena-success,.lena-error{border-radius:10px;padding:10px 12px}.lena-success{background:rgba(22,163,74,.12);color:#66e68e!important}.lena-error{background:rgba(220,38,38,.12);color:#ff8c8c!important}.lena-footer{border-top:1px solid var(--lena-line);background:rgba(3,7,19,.62);padding:46px 18px max(15px,env(safe-area-inset-bottom))}.light .lena-footer{background:rgba(238,243,255,.74)}.lena-footer-grid{display:grid;width:min(1180px,100%);margin:auto;grid-template-columns:1.25fr .75fr .75fr;gap:34px}.lena-footer h2{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--lena-text)}.lena-footer-links{display:grid;gap:10px;color:var(--lena-muted);font-size:13px}.lena-footer-links a{display:flex;min-height:24px;align-items:center;gap:7px;transition:color .18s ease}.lena-footer-links a:hover{color:var(--lena-accent)}.lena-footer>small{display:block;margin-top:26px;border-top:1px solid var(--lena-line);padding-top:14px;color:var(--lena-muted);text-align:center}.lena-whatsapp-fab{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:50;display:grid;width:54px;height:54px;place-items:center;border-radius:50%;background:linear-gradient(135deg,#1cab5c,#0f8c48);color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.22)}[dir=rtl] .lena-whatsapp-fab{right:auto;left:max(18px,env(safe-area-inset-left))}.lena-public [id]{scroll-margin-top:108px}.lena-admin-header{display:flex;min-height:68px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--lena-line);padding:max(12px,env(safe-area-inset-top)) 18px 12px;background:var(--lena-glass);backdrop-filter:blur(18px)}.lena-admin-main{min-height:calc(100vh - 68px)}.lena-login{position:relative;isolation:isolate;display:grid;min-height:100vh;place-items:center;padding:24px max(16px,env(safe-area-inset-right)) 24px max(16px,env(safe-area-inset-left));background:var(--lena-bg)}.lena-login-card-wrap{width:min(420px,100%)}.lena-login-card{display:grid;gap:6px;padding:34px 30px 26px;text-align:start}.lena-login-card .lena-logo{margin-bottom:10px}.lena-login-card h1{margin:8px 0 0;font-size:clamp(1.5rem,4vw,1.8rem);font-weight:600;line-height:1.35}.lena-login-intro,.lena-login-note{margin:0;color:var(--lena-muted);font-size:13px;line-height:1.8}.lena-login-cta{width:100%;min-height:48px;margin-top:20px}.lena-login-status{margin-top:14px}.lena-login-back{display:inline-flex;min-height:44px;align-items:center;justify-content:center;gap:8px;margin-top:10px;border-radius:12px;color:var(--lena-muted);font-size:13px;font-weight:700;transition:color .18s ease,background .18s ease}.lena-login-back:hover{color:var(--lena-text);background:rgba(91,124,255,.1)}[dir=rtl] .lena-login-back svg{transform:rotate(180deg)}.lena-route-fallback{display:grid;min-height:100vh;align-content:center;justify-items:center;gap:16px;background:var(--lena-bg)}.lena-route-fallback-dots{display:flex;gap:8px}.lena-route-fallback-dots span{width:10px;height:10px;border-radius:50%;background:var(--lena-accent);animation:lena-loader 1s ease-in-out infinite alternate}.lena-route-fallback-dots span:nth-child(2){animation-delay:.2s}.lena-route-fallback-dots span:nth-child(3){animation-delay:.4s}@keyframes lena-loader{to{transform:translateY(-8px);opacity:.5}}
++.lena-public,.lena-admin{position:relative;min-height:100vh;overflow-x:clip;isolation:isolate;background:radial-gradient(circle at 50% -8%,rgba(79,108,255,.17),transparent 34rem),linear-gradient(180deg,rgba(3,6,18,.86),var(--lena-bg));color:var(--lena-text)}.light .lena-public,.light .lena-admin{background:radial-gradient(circle at 50% -8%,rgba(79,108,255,.14),transparent 34rem),linear-gradient(180deg,rgba(245,248,255,.92),var(--lena-bg))}.lena-public a,.lena-admin a{text-decoration:none}.lena-public button,.lena-admin button,.lena-public a,.lena-admin a,.lena-public select{cursor:pointer}.lena-public button:focus-visible,.lena-public a:focus-visible,.lena-public input:focus-visible,.lena-public textarea:focus-visible,.lena-public select:focus-visible,.lena-admin button:focus-visible,.lena-admin a:focus-visible{outline:3px solid var(--lena-focus);outline-offset:3px}.lena-glass{border:1px solid var(--lena-line);border-radius:20px;background:linear-gradient(145deg,var(--lena-card),rgba(7,14,34,.66));box-shadow:0 20px 56px rgba(0,0,0,.2);backdrop-filter:blur(20px) saturate(1.15)}.light .lena-glass{background:linear-gradient(145deg,var(--lena-card),rgba(237,243,255,.76));box-shadow:0 18px 48px rgba(42,67,130,.12)}.lena-header{position:fixed;inset:0 0 auto;z-index:70;padding:max(12px,env(safe-area-inset-top)) 12px 0;transition:padding .24s ease}.lena-header-scrolled{padding:max(7px,env(safe-area-inset-top)) 12px 0}.lena-nav{display:flex;width:min(1080px,100%);min-height:50px;margin:auto;align-items:center;justify-content:space-between;gap:10px;padding:5px 8px;background:var(--lena-glass);transition:min-height .24s ease,border-color .24s ease}.lena-header-scrolled .lena-nav{min-height:44px;border-color:var(--lena-line-strong);box-shadow:0 10px 30px rgba(0,0,0,.25)}.light .lena-header-scrolled .lena-nav{box-shadow:0 10px 30px rgba(42,67,130,.1)}.lena-brand-link,.lena-logo{display:inline-flex;min-height:44px;align-items:center}.lena-logo{gap:9px}.lena-logo-mark{width:44px;height:44px;overflow:visible;border:1px solid var(--lena-line-strong);border-radius:15px;background:linear-gradient(145deg,rgba(97,130,255,.25),rgba(160,86,255,.12));padding:7px}.lena-logo-mark path,.lena-logo-mark circle{fill:none;stroke:var(--lena-accent);stroke-linecap:round;stroke-linejoin:round;stroke-width:3}.lena-logo-copy strong,.lena-logo-copy small{display:block}.lena-logo-copy strong{color:var(--lena-text);font-size:13px;letter-spacing:.2em}.lena-logo-copy small{margin-top:3px;color:var(--lena-muted);font-size:8px;letter-spacing:.18em}.lena-desktop-nav,.lena-nav-actions{display:flex;align-items:center;gap:5px}.lena-nav-link,.lena-mobile-link{border-radius:12px;padding:10px 11px;color:var(--lena-muted);font-size:12px;font-weight:700;transition:background .18s ease,color .18s ease}.lena-nav-link:hover,.lena-nav-link.active,.lena-mobile-link:hover,.lena-mobile-link.active{background:rgba(91,124,255,.14);color:var(--lena-accent)}.lena-icon-button{display:grid;width:44px;height:44px;place-items:center;border:1px solid var(--lena-line);border-radius:13px;background:rgba(255,255,255,.04);color:var(--lena-muted);transition:border-color .18s ease,color .18s ease,transform .18s ease}.lena-icon-button:hover{border-color:var(--lena-line-strong);color:var(--lena-accent);transform:translateY(-1px)}.lena-menu-toggle,.lena-mobile-menu{display:none}.lena-main{padding-top:62px}.lena-container{width:min(1180px,calc(100% - 36px));margin-inline:auto}.lena-section{padding:40px 0}.lena-page{padding:40px 0 16px}.lena-kicker{margin:0;color:var(--lena-accent);font-size:11px;font-style:normal;font-weight:800;letter-spacing:.2em;text-transform:uppercase}.lena-page-title,.lena-section-title{max-width:980px;margin:8px 0 0;font-weight:600;line-height:1.24;letter-spacing:-.02em}.lena-page-title{font-size:clamp(2.1rem,4.2vw,3.9rem)}.lena-section-title{font-size:clamp(1.9rem,3.6vw,3.4rem)}.lena-lead,.lena-section-lead{max-width:760px;margin:10px 0 0;color:var(--lena-muted);font-size:15px;line-height:1.75}.lena-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.lena-primary,.lena-secondary,.lena-more{display:inline-flex;min-height:44px;align-items:center;justify-content:center;gap:7px;border-radius:13px;font-size:13px;font-weight:800;transition:transform .18s ease,border-color .18s ease,background .18s ease}.lena-primary{border:1px solid rgba(181,201,255,.25);background:linear-gradient(135deg,#416fff,#724dff);padding:10px 17px;color:#fff;box-shadow:0 12px 28px rgba(66,91,255,.24)}.lena-secondary{border:1px solid var(--lena-line);background:rgba(255,255,255,.035);padding:10px 17px;color:var(--lena-text)}.lena-primary:hover,.lena-secondary:hover{transform:translateY(-2px);border-color:var(--lena-line-strong)}.lena-primary:active,.lena-secondary:active,.lena-icon-button:active{transform:translateY(0) scale(.97)}.lena-more{width:fit-content;margin-top:auto;padding-top:16px;color:var(--lena-accent)}.lena-more svg{transition:transform .18s ease}.lena-more:hover svg{transform:translateX(3px)}[dir=rtl] .lena-more:hover svg{transform:translateX(-3px)}.lena-hero{display:grid;min-height:min(580px,calc(100vh - 80px));grid-template-columns:1.02fr .98fr;align-items:center;gap:20px;padding:24px 0 16px}.lena-hero h1{max-width:860px;margin:15px 0 0;font-size:clamp(2.9rem,6.2vw,5.9rem);font-weight:600;line-height:1.12;letter-spacing:-.03em}.lena-hero h1 span{background:linear-gradient(90deg,#72a5ff,#9d7cff 48%,#ff83c3);-webkit-background-clip:text;background-clip:text;color:transparent}.lena-scroll{display:inline-flex;min-height:36px;align-items:center;gap:6px;margin-top:14px;color:var(--lena-muted);font-size:12px}.lena-bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;margin-top:18px}.lena-service-card{position:relative;display:flex;min-height:270px;grid-column:span 4;flex-direction:column;overflow:hidden;padding:22px;transition:transform .2s ease,border-color .2s ease}.lena-service-card:hover,.lena-project-card:hover{border-color:var(--lena-line-strong);transform:translateY(-4px)}.lena-showcase-grid .lena-service-card:nth-child(1),.lena-showcase-grid .lena-service-card:nth-child(4){grid-column:span 8}.lena-card-glow{position:absolute;top:-7rem;right:-7rem;width:15rem;height:15rem;border-radius:50%;filter:blur(48px);opacity:.25}.blue .lena-card-glow,.blue .lena-visual-orb{background:#3978ff}.cyan .lena-card-glow,.cyan .lena-visual-orb{background:#42dcff}.orange .lena-card-glow,.orange .lena-visual-orb{background:#ff815d}.pink .lena-card-glow,.pink .lena-visual-orb{background:#f368ff}.violet .lena-card-glow,.violet .lena-visual-orb{background:#9565ff}.lime .lena-card-glow,.lime .lena-visual-orb{background:#8edc68}.lena-card-top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between}.lena-card-top small,.lena-process small,.lena-principle small{color:var(--lena-muted);font-size:11px;font-weight:800;letter-spacing:.14em}.lena-service-icon{display:grid;width:44px;height:44px;place-items:center;border:1px solid rgba(132,164,255,.22);border-radius:14px;background:rgba(91,124,255,.14);color:var(--lena-accent)}.lena-service-card h3,.lena-project-card h3{position:relative;z-index:2;margin:16px 0 0;font-size:18px;font-weight:600;line-height:1.58}.lena-service-card p,.lena-project-card p,.lena-cta p,.lena-footer p,.lena-form p,.lena-contact-card p{position:relative;z-index:2;color:var(--lena-muted);font-size:13px;line-height:1.85}.lena-tags{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.lena-tags span{display:inline-flex;border:1px solid var(--lena-line);border-radius:99px;background:rgba(82,112,255,.1);padding:6px 9px;color:var(--lena-muted);font-size:10px;font-weight:800}.lena-process,.lena-contact-grid{display:grid;gap:13px;margin-top:25px}.lena-process{grid-template-columns:repeat(4,1fr)}.lena-process article{padding:18px}.lena-process h3{margin:13px 0 0;font-size:16px;font-weight:600;line-height:1.6}.lena-cta{display:flex;align-items:center;justify-content:space-between;gap:25px;padding:30px;background:linear-gradient(135deg,rgba(31,69,156,.58),rgba(76,47,149,.55) 58%,rgba(145,58,118,.3))}.lena-cta h2{max-width:800px;margin:12px 0 0;font-size:clamp(1.8rem,3.4vw,3rem);font-weight:600;line-height:1.28}.lena-project-grid .lena-project-card{grid-column:span 4}.lena-project-card{display:flex;min-height:410px;overflow:hidden;flex-direction:column;transition:transform .2s ease,border-color .2s ease}.lena-project-card.featured{grid-column:span 8}.lena-project-copy{display:flex;min-height:235px;flex:1;flex-direction:column;padding:20px}.lena-project-visual{position:relative;min-height:310px;overflow:hidden;border:1px solid var(--lena-line);border-radius:20px;background:radial-gradient(circle at 18% 20%,rgba(113,146,255,.3),transparent 35%),linear-gradient(135deg,rgba(25,49,112,.78),rgba(24,20,67,.54))}.lena-project-visual.dense{min-height:175px;border:0;border-bottom:1px solid var(--lena-line);border-radius:0}.lena-visual-window{position:absolute;top:22%;left:12%;width:60%;height:58%;border:1px solid rgba(214,226,255,.3);border-radius:13px;background:rgba(5,12,30,.54);box-shadow:0 20px 40px rgba(0,0,0,.18);animation:lena-art-float 6s ease-in-out infinite}.lena-visual-window i{display:block;height:7px;margin:13px 14px 0;border-radius:9px;background:rgba(190,209,255,.2)}.lena-visual-window i:first-child{width:44%;background:rgba(190,209,255,.48)}.lena-visual-window i:nth-child(2){width:72%}.lena-visual-window i:nth-child(3){width:57%}.lena-visual-stack{position:absolute;right:11%;bottom:13%;display:grid;width:32%;gap:7px}.lena-visual-stack span{height:30px;border:1px solid rgba(214,226,255,.24);border-radius:9px;background:rgba(16,28,66,.68)}.lena-visual-orb{position:absolute;top:-30px;right:-30px;width:150px;height:150px;border-radius:50%;filter:blur(43px);opacity:.5}@keyframes lena-art-float{50%{transform:translateY(-5px)}}.lena-service-hero,.lena-case-hero{display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:24px}.lena-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.lena-info-panel{padding:22px}.lena-info-panel h2{margin:14px 0 0;font-size:19px;font-weight:600;line-height:1.75}.lena-info-panel ul,.lena-info-panel ol{display:grid;gap:12px;margin:18px 0 0;padding:0;list-style:none}.lena-info-panel li{display:flex;align-items:flex-start;gap:9px;color:var(--lena-muted);font-size:14px;line-height:1.7}.lena-info-panel li svg{flex:0 0 auto;color:var(--lena-accent)}.lena-info-panel ol span{display:inline-grid;width:28px;height:28px;flex:0 0 auto;place-items:center;border:1px solid var(--lena-line);border-radius:50%;color:var(--lena-accent);font-size:10px;font-weight:800}.lena-principle{grid-column:span 4;padding:22px}.lena-principle.wide{grid-column:span 8}.lena-principle svg{margin-top:18px;color:var(--lena-accent)}.lena-principle h2{margin:14px 0 0;font-size:18px;line-height:1.7}.lena-contact-grid{grid-template-columns:repeat(3,1fr)}.lena-contact-card{display:flex;min-height:220px;flex-direction:column;padding:22px}.lena-contact-card svg{color:var(--lena-accent)}.lena-contact-card h2{margin:15px 0 0;font-size:18px;font-weight:600}.lena-contact-card .lena-primary,.lena-contact-card .lena-secondary{margin-top:auto}.lena-form{max-width:940px;margin:auto;padding:28px}.lena-form h2{margin:11px 0 0;font-size:24px;font-weight:600}.lena-form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:20px}.lena-form label{display:grid;gap:7px;color:var(--lena-muted);font-size:12px;font-weight:700}.lena-form label.wide{grid-column:1/-1}.lena-form input,.lena-form textarea,.lena-form select{width:100%;border:1px solid var(--lena-line);border-radius:12px;background:rgba(5,12,30,.58);padding:12px;color:var(--lena-text)}.light .lena-form input,.light .lena-form textarea,.light .lena-form select{background:rgba(255,255,255,.72)}.lena-form textarea{resize:vertical}.lena-form button{margin-top:16px}.lena-success,.lena-error{border-radius:10px;padding:10px 12px}.lena-success{background:rgba(22,163,74,.12);color:#66e68e!important}.lena-error{background:rgba(220,38,38,.12);color:#ff8c8c!important}.lena-footer{border-top:1px solid var(--lena-line);background:rgba(3,7,19,.62);padding:46px 18px max(15px,env(safe-area-inset-bottom))}.light .lena-footer{background:rgba(238,243,255,.74)}.lena-footer-grid{display:grid;width:min(1180px,100%);margin:auto;grid-template-columns:1.25fr .75fr .75fr;gap:34px}.lena-footer h2{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--lena-text)}.lena-footer-links{display:grid;gap:10px;color:var(--lena-muted);font-size:13px}.lena-footer-links a{display:flex;min-height:24px;align-items:center;gap:7px;transition:color .18s ease}.lena-footer-links a:hover{color:var(--lena-accent)}.lena-footer>small{display:block;margin-top:26px;border-top:1px solid var(--lena-line);padding-top:14px;color:var(--lena-muted);text-align:center}.lena-whatsapp-fab{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:50;display:grid;width:54px;height:54px;place-items:center;border-radius:50%;background:linear-gradient(135deg,#1cab5c,#0f8c48);color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.22)}[dir=rtl] .lena-whatsapp-fab{right:auto;left:max(18px,env(safe-area-inset-left))}.lena-public [id]{scroll-margin-top:108px}.lena-admin-header{display:flex;min-height:68px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--lena-line);padding:max(12px,env(safe-area-inset-top)) 18px 12px;background:var(--lena-glass);backdrop-filter:blur(18px)}.lena-admin-main{min-height:calc(100vh - 68px)}.lena-login{position:relative;isolation:isolate;display:grid;min-height:100vh;place-items:center;padding:24px max(16px,env(safe-area-inset-right)) 24px max(16px,env(safe-area-inset-left));background:var(--lena-bg)}.lena-login-card-wrap{width:min(420px,100%)}.lena-login-card{display:grid;gap:6px;padding:34px 30px 26px;text-align:start}.lena-login-card .lena-logo{margin-bottom:10px}.lena-login-card h1{margin:8px 0 0;font-size:clamp(1.5rem,4vw,1.8rem);font-weight:600;line-height:1.35}.lena-login-intro,.lena-login-note{margin:0;color:var(--lena-muted);font-size:13px;line-height:1.8}.lena-login-cta{width:100%;min-height:48px;margin-top:20px}.lena-login-status{margin-top:14px}.lena-login-back{display:inline-flex;min-height:44px;align-items:center;justify-content:center;gap:8px;margin-top:10px;border-radius:12px;color:var(--lena-muted);font-size:13px;font-weight:700;transition:color .18s ease,background .18s ease}.lena-login-back:hover{color:var(--lena-text);background:rgba(91,124,255,.1)}[dir=rtl] .lena-login-back svg{transform:rotate(180deg)}.lena-route-fallback {
++  display: grid;
++  min-height: 100vh;
++  align-content: center;
++  justify-items: center;
++  gap: 24px;
++  background: var(--lena-bg);
++}
++
++.lena-route-fallback-dots {
++  display: flex;
++  gap: 10px;
++}
++
++.lena-route-fallback-dots span {
++  width: 10px;
++  height: 10px;
++  border-radius: 50%;
++  background: var(--lena-accent);
++  animation: lena-loader 1.2s ease-in-out infinite;
++}
++
++.lena-route-fallback-dots span:nth-child(1) {
++  animation-delay: 0s;
++}
++
++.lena-route-fallback-dots span:nth-child(2) {
++  animation-delay: 0.2s;
++}
++
++.lena-route-fallback-dots span:nth-child(3) {
++  animation-delay: 0.4s;
++}
++
++@keyframes lena-loader {
++  0%, 100% {
++    transform: translateY(0);
++    opacity: 0.4;
++  }
++  50% {
++    transform: translateY(-12px);
++    opacity: 1;
++  }
++}
+diff --git a/artifacts/lena/src/styles/responsive.css b/artifacts/lena/src/styles/responsive.css
+index 7812a51..5b9b52b 100644
+--- a/artifacts/lena/src/styles/responsive.css
++++ b/artifacts/lena/src/styles/responsive.css
+@@ -1,5 +1,5 @@
+-@media(max-width:1050px){.lena-desktop-nav{display:none}.lena-menu-toggle{display:grid}.lena-mobile-menu{position:absolute;top:calc(max(12px,env(safe-area-inset-top)) + 70px);right:12px;left:12px;display:grid;gap:4px;padding:8px;background:var(--lena-glass);backdrop-filter:blur(20px)}.lena-mobile-link{min-height:44px}.lena-mobile-menu{max-height:calc(100dvh - 128px);overflow-y:auto;transform-origin:top center;animation:lena-menu-in .16s ease both}@keyframes lena-menu-in{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}.lena-system-card{grid-column:1/-1}.lena-hero{grid-template-columns:1fr}.lena-orbit{min-height:470px}.lena-service-hero,.lena-case-hero{grid-template-columns:1fr}.lena-process{grid-template-columns:repeat(2,1fr)}}
+-@media(max-width:720px){.lena-glass{backdrop-filter:blur(13px) saturate(1.08)}.lena-smoke-b{display:none}.lena-header,.lena-header-scrolled{padding:max(7px,env(safe-area-inset-top)) 7px 0}.lena-nav{min-height:54px;padding:5px 6px}.lena-logo-mark{width:40px;height:40px}.lena-logo-copy{display:none}.lena-nav-actions{gap:4px}.lena-nav-cta{display:none}.lena-main{padding-top:66px}.lena-container{width:min(100% - 28px,1180px)}.lena-section{padding:54px 0}.lena-page{padding:44px 0 16px}.lena-hero{min-height:auto;gap:0;padding:18px 0 0}.lena-hero-copy{position:relative;z-index:6}.lena-hero .lena-kicker{font-size:9px;letter-spacing:.18em}.lena-hero h1{max-width:11.5ch;margin-top:10px;font-size:clamp(2.45rem,12vw,3.45rem);line-height:1.01;letter-spacing:-.055em}.lena-lead,.lena-section-lead{font-size:14px}.lena-hero .lena-lead{max-width:32rem;margin-top:12px;font-size:13px;line-height:1.65}.lena-hero .lena-actions{gap:10px;margin-top:15px}.lena-hero .lena-primary{min-height:46px;padding-inline:18px}.lena-hero .lena-secondary{min-height:46px;border-color:transparent;background:transparent;padding-inline:5px;color:var(--lena-muted)}.lena-hero .lena-scroll{display:none}.lena-orbit{height:320px;min-height:320px;margin:-2px 0 -8px;transform:scale(.88);transform-origin:center center;--lena-squash:.62;overflow:visible}.lena-orbit-ring-4{display:none}.lena-sat-inner{padding:6px 9px;font-size:9px}.lena-page-title,.lena-section-title{font-size:clamp(1.8rem,8.4vw,2.9rem)}#solutions{padding-top:34px}.lena-service-card,.lena-showcase-grid .lena-service-card:nth-child(1),.lena-showcase-grid .lena-service-card:nth-child(4),.lena-project-grid .lena-project-card,.lena-project-card.featured,.lena-principle,.lena-principle.wide{grid-column:1/-1}.lena-process,.lena-contact-grid,.lena-footer-grid,.lena-form-grid,.lena-split{grid-template-columns:1fr}.lena-system-rows,.lena-system-lists{grid-template-columns:1fr}.lena-cta{align-items:stretch;flex-direction:column}.lena-form label.wide{grid-column:auto}.lena-case-hero .lena-project-visual{min-height:265px}}
++@media(max-width:1050px){.lena-desktop-nav{display:none}.lena-menu-toggle{display:grid}.lena-mobile-menu{position:absolute;top:calc(max(7px,env(safe-area-inset-top)) + 56px);right:8px;left:8px;display:grid;gap:4px;padding:6px;background:var(--lena-glass);backdrop-filter:blur(20px)}.lena-mobile-link{min-height:44px}.lena-mobile-menu{max-height:calc(100dvh - 128px);overflow-y:auto;transform-origin:top center;animation:lena-menu-in .16s ease both}@keyframes lena-menu-in{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}.lena-system-card{grid-column:1/-1}.lena-hero{grid-template-columns:1fr}.lena-orbit{min-height:470px}.lena-service-hero,.lena-case-hero{grid-template-columns:1fr}.lena-process{grid-template-columns:repeat(2,1fr)}}
++@media(max-width:720px){.lena-glass{backdrop-filter:blur(13px) saturate(1.08)}.lena-smoke-b{display:none}.lena-header,.lena-header-scrolled{padding:max(5px,env(safe-area-inset-top)) 5px 0}.lena-nav{min-height:46px;padding:4px 5px}.lena-logo-mark{width:36px;height:36px}.lena-logo-copy{display:none}.lena-nav-actions{gap:3px}.lena-nav-cta{display:none}.lena-main{padding-top:56px}.lena-container{width:min(100% - 28px,1180px)}.lena-section{padding:54px 0}.lena-page{padding:44px 0 16px}.lena-hero{min-height:auto;gap:0;padding:18px 0 0}.lena-hero-copy{position:relative;z-index:6}.lena-hero .lena-kicker{font-size:9px;letter-spacing:.18em}.lena-hero h1{max-width:11.5ch;margin-top:10px;font-size:clamp(2.45rem,12vw,3.45rem);line-height:1.01;letter-spacing:-.055em}.lena-lead,.lena-section-lead{font-size:14px}.lena-hero .lena-lead{max-width:32rem;margin-top:12px;font-size:13px;line-height:1.65}.lena-hero .lena-actions{gap:10px;margin-top:15px}.lena-hero .lena-primary{min-height:46px;padding-inline:18px}.lena-hero .lena-secondary{min-height:46px;border-color:transparent;background:transparent;padding-inline:5px;color:var(--lena-muted)}.lena-hero .lena-scroll{display:none}.lena-orbit{height:320px;min-height:320px;margin:-2px 0 -8px;transform:scale(.88);transform-origin:center center;--lena-squash:.62;overflow:visible}.lena-orbit-ring-4{display:none}.lena-sat-inner{padding:6px 9px;font-size:9px}.lena-page-title,.lena-section-title{font-size:clamp(1.8rem,8.4vw,2.9rem)}#solutions{padding-top:34px}.lena-service-card,.lena-showcase-grid .lena-service-card:nth-child(1),.lena-showcase-grid .lena-service-card:nth-child(4),.lena-project-grid .lena-project-card,.lena-project-card.featured,.lena-principle,.lena-principle.wide{grid-column:1/-1}.lena-process,.lena-contact-grid,.lena-footer-grid,.lena-form-grid,.lena-split{grid-template-columns:1fr}.lena-system-rows,.lena-system-lists{grid-template-columns:1fr}.lena-cta{align-items:stretch;flex-direction:column}.lena-form label.wide{grid-column:auto}.lena-case-hero .lena-project-visual{min-height:265px}}
+ @media(max-width:420px){.lena-container{width:min(100% - 24px,1180px)}.lena-hero{padding-top:14px}.lena-hero h1{font-size:clamp(2.3rem,11.8vw,3.15rem)}.lena-hero .lena-actions{align-items:center}.lena-hero .lena-primary{flex:1}.lena-orbit{height:300px;min-height:300px;margin:-6px 0 -10px;transform:scale(.84)}}
+ @media(max-width:720px){.lena-public,.lena-admin{background:radial-gradient(circle at 15% 0,rgba(49,94,251,.2),transparent 18rem),radial-gradient(circle at 88% 16%,rgba(81,225,255,.1),transparent 16rem),linear-gradient(180deg,rgba(3,6,18,.96),var(--lena-bg))}.light .lena-public,.light .lena-admin{background:radial-gradient(circle at 15% 0,rgba(49,94,251,.16),transparent 18rem),radial-gradient(circle at 88% 16%,rgba(8,126,164,.09),transparent 16rem),linear-gradient(180deg,rgba(250,252,255,.98),var(--lena-bg))}.lena-ambient{background:linear-gradient(180deg,rgba(130,161,255,.06),transparent 22rem)}.lena-grid{opacity:.14;background-size:44px 44px}.lena-orb,.lena-smoke{display:none;animation:none!important;filter:none;will-change:auto}.lena-glass,.lena-mobile-menu{background:linear-gradient(145deg,var(--lena-card-strong),rgba(7,14,34,.94));backdrop-filter:none!important;-webkit-backdrop-filter:none!important}.light .lena-glass,.light .lena-mobile-menu{background:linear-gradient(145deg,var(--lena-card-strong),rgba(250,252,255,.96))}.lena-mobile-menu{box-shadow:0 18px 34px rgba(0,0,0,.24)}.light .lena-mobile-menu{box-shadow:0 18px 34px rgba(42,67,130,.12)}.lena-visual-window{animation:none!important}.lena-card-glow,.lena-visual-orb{filter:none;opacity:.12}.lena-visual-orb{width:72px;height:72px}.lena-card-glow{top:-2rem;right:-2rem;width:7rem;height:7rem}.lena-main>.lena-section{content-visibility:auto;contain-intrinsic-size:1px 760px;contain:layout paint style}.lena-bento,.lena-process,.lena-contact-grid,.lena-case-narrative,.lena-case-gallery,.lena-case-journey{content-visibility:auto;contain-intrinsic-size:1px 900px}}
+ @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+diff --git a/artifacts/lena/src/styles/sacred-core.css b/artifacts/lena/src/styles/sacred-core.css
+index f8d5192..7e87481 100644
+--- a/artifacts/lena/src/styles/sacred-core.css
++++ b/artifacts/lena/src/styles/sacred-core.css
+@@ -1,116 +1,189 @@
+-/* ========================================================================== 
+-   LENA Sacred Core v3 — approved living sigil
+-   The approved transparent WebP is the single canonical artwork used by the
+-   public runtime, World watermarks, and the Guardian integrity contract.
++/* ==========================================================================
++   LENA Core Identity — Home & World
++   Home: LENA logo badge · World: gradient orb · Entities: system logos
+ ============================================================================ */
+ 
+-.lena-house,
+-.lena-world-core {
+-  isolation: isolate;
+-  overflow: visible;
+-  background: transparent url("../assets/lena-sacred-core.webp") center / contain no-repeat !important;
+-  border-color: transparent !important;
+-  box-shadow: none !important;
+-  filter:
+-    drop-shadow(0 0 11px rgba(255, 207, 111, .26))
+-    drop-shadow(0 0 30px rgba(223, 137, 35, .18));
++/* ─── Home: LENA logo badge ─── */
++.lena-house {
++  position: relative;
++  display: flex !important;
++  flex-direction: column;
++  align-items: center;
++  justify-content: center;
++  gap: 0.25rem;
++  z-index: 3;
++  width: 244px !important;
++  height: 244px !important;
++  border-radius: 50% !important;
++  overflow: visible !important;
++  isolation: auto !important;
++  border: 2px solid var(--lena-line-strong, rgba(167, 188, 255, 0.34)) !important;
++  background: radial-gradient(
++    circle at 35% 35%,
++    rgba(130, 161, 255, 0.15),
++    rgba(79, 108, 255, 0.08) 50%,
++    rgba(10, 18, 42, 0.95) 90%
++  ) !important;
++  box-shadow:
++    0 0 40px rgba(79, 108, 255, 0.12),
++    inset 0 0 30px rgba(79, 108, 255, 0.05) !important;
++  text-align: center;
++  animation: lena-breathe 6.5s ease-in-out .85s infinite alternate !important;
+ }
+ 
+-/* Any quiet Sacred Core watermark inside deeper LENA spaces uses the same
+-   approved identity. This override intentionally loads after World styles. */
+-.lena-inner-origin,
+-.lena-chamber-origin {
+-  background-image: url("../assets/lena-sacred-core.webp") !important;
+-  background-position: center !important;
+-  background-size: contain !important;
+-  background-repeat: no-repeat !important;
++/* LENA logo SVG inside the badge */
++.lena-house-logo {
++  width: 56px;
++  height: 56px;
++  margin-bottom: 0.5rem;
+ }
+ 
+-.lena-house > small,
+-.lena-house > strong,
+-.lena-house > span,
+-.lena-world-core > strong,
+-.lena-world-core > small {
+-  opacity: 0 !important;
+-  pointer-events: none;
++.lena-house-logo path,
++.lena-house-logo circle {
++  fill: none;
++  stroke: var(--lena-accent, #82a1ff);
++  stroke-width: 2.5;
++  stroke-linecap: round;
++  stroke-linejoin: round;
+ }
+ 
+-/* Give the actual sigil enough optical mass to remain legible on phone screens. */
+-.lena-house {
+-  width: 244px !important;
+-  height: 244px !important;
++/* Text inside the badge */
++.lena-house small {
++  color: var(--lena-accent, #82a1ff) !important;
++  font-size: 10px !important;
++  font-weight: 800 !important;
++  letter-spacing: 0.4em !important;
++  opacity: 1 !important;
++  pointer-events: auto !important;
++}
++
++.lena-house strong {
++  color: var(--lena-text, #f5f8ff) !important;
++  font-size: 20px !important;
++  font-weight: 700 !important;
++  letter-spacing: 0.08em !important;
++  line-height: 1.15 !important;
++  margin-top: 0 !important;
++  opacity: 1 !important;
++  pointer-events: auto !important;
++}
++
++.lena-house span {
++  color: var(--lena-muted, #a8b5d0) !important;
++  font-size: 8px !important;
++  font-weight: 600 !important;
++  letter-spacing: 0.15em !important;
++  text-transform: uppercase !important;
++  margin-top: 0.35rem !important;
++  opacity: 1 !important;
++  pointer-events: auto !important;
++}
++
++/* No ::after or ::before effects */
++.lena-house::after,
++.lena-house::before {
++  display: none !important;
++}
++
++/* Focus state */
++.lena-orbit.is-focus .lena-house {
++  border-color: var(--lena-accent, #82a1ff) !important;
++  box-shadow:
++    0 0 50px rgba(79, 108, 255, 0.2),
++    inset 0 0 30px rgba(79, 108, 255, 0.08) !important;
+ }
+ 
++/* Gateway states */
++.lena-public.lena-gateway-quiet .lena-house {
++  border-color: var(--lena-accent, #82a1ff) !important;
++  box-shadow:
++    0 0 60px rgba(79, 108, 255, 0.25),
++    inset 0 0 40px rgba(79, 108, 255, 0.1) !important;
++}
++
++.lena-public.lena-gateway-resolve .lena-house {
++  animation: lena-sacred-gateway-core .42s cubic-bezier(.16,.84,.28,1) both !important;
++}
++
++/* ─── Light mode ─── */
++.light .lena-house {
++  border-color: rgba(38, 72, 152, 0.3) !important;
++  background: radial-gradient(
++    circle at 35% 35%,
++    rgba(49, 94, 251, 0.1),
++    rgba(49, 94, 251, 0.05) 50%,
++    rgba(226, 235, 255, 0.95) 90%
++  ) !important;
++  box-shadow:
++    0 0 40px rgba(49, 94, 251, 0.1),
++    inset 0 0 30px rgba(49, 94, 251, 0.04) !important;
++}
++
++.light .lena-house-logo path,
++.light .lena-house-logo circle {
++  stroke: #315efb;
++}
++
++.light .lena-house small { color: #315efb !important; }
++.light .lena-house strong { color: #172750 !important; }
++.light .lena-house span { color: #4661a5 !important; }
++
++/* ─── World: Gradient orb ─── */
+ .lena-world-core {
++  isolation: isolate;
++  overflow: hidden;
++  border-radius: 50%;
++  background: radial-gradient(
++    circle at 35% 35%,
++    rgba(130, 161, 255, 0.4),
++    rgba(79, 108, 255, 0.2) 40%,
++    rgba(10, 18, 42, 0.95) 80%
++  ) !important;
++  border: 2px solid rgba(130, 161, 255, 0.25) !important;
++  box-shadow:
++    0 0 30px rgba(79, 108, 255, 0.15),
++    inset 0 0 40px rgba(79, 108, 255, 0.1) !important;
++  filter: none !important;
+   width: 204px !important;
+   height: 204px !important;
+ }
+ 
+-/* The approved artwork's real eye is at the optical centre. Runtime light is
+-   attached to that eye only; it never creates a replacement core. */
+-.lena-house::after,
++.light .lena-world-core {
++  background: radial-gradient(
++    circle at 35% 35%,
++    rgba(49, 94, 251, 0.25),
++    rgba(49, 94, 251, 0.1) 40%,
++    rgba(226, 235, 255, 0.95) 80%
++  ) !important;
++  border-color: rgba(38, 72, 152, 0.2) !important;
++}
++
++.lena-world-core > strong,
++.lena-world-core > small {
++  opacity: 0 !important;
++  pointer-events: none;
++}
++
+ .lena-world-core::after {
+-  content: "";
+-  display: block !important;
+-  position: absolute;
++  content: "" !important;
++  position: absolute !important;
+   left: 50%;
+   top: 47.2%;
+-  inset: auto !important;
+   width: 16%;
+   height: 16%;
+   border-radius: 50%;
+   transform: translate(-50%, -50%);
+-  background: radial-gradient(
+-    circle,
+-    rgba(255,255,255,.96) 0 7%,
+-    rgba(255,239,188,.92) 15%,
+-    rgba(255,190,67,.68) 32%,
+-    rgba(255,146,24,.18) 56%,
+-    transparent 74%
+-  );
+-  box-shadow:
+-    0 0 7px rgba(255, 244, 213, .86),
+-    0 0 19px rgba(255, 183, 55, .48),
+-    0 0 42px rgba(255, 139, 18, .18);
++  background: radial-gradient(circle, rgba(255,255,255,.96) 0 7%, rgba(255,239,188,.92) 15%, rgba(255,190,67,.68) 32%, rgba(255,146,24,.18) 56%, transparent 74%);
++  box-shadow: 0 0 7px rgba(255, 244, 213, .86), 0 0 19px rgba(255, 183, 55, .48);
+   opacity: .48;
+   z-index: 3;
+   pointer-events: none;
+   animation: lena-sacred-eye-breathe 5.8s ease-in-out infinite alternate !important;
+ }
+ 
+-/* Blink crosses only the artwork's eye and is invisible outside the blink. */
+-.lena-house::before,
+-.lena-world-core::before {
+-  content: "";
+-  position: absolute;
+-  left: 50%;
+-  top: 47.2%;
+-  width: 27%;
+-  height: 9.5%;
+-  border-radius: 50%;
+-  background: radial-gradient(ellipse at center, rgba(13,8,3,.90) 0 52%, rgba(13,8,3,.65) 70%, transparent 100%);
+-  transform: translate(-50%, -50%) scaleY(0);
+-  transform-origin: center;
+-  opacity: 0;
+-  z-index: 4;
+-  pointer-events: none;
+-  animation: lena-sacred-blink 13.6s cubic-bezier(.4,0,.2,1) infinite;
+-}
+-
+-.lena-orbit.is-focus .lena-house {
+-  filter:
+-    drop-shadow(0 0 14px rgba(255, 220, 145, .34))
+-    drop-shadow(0 0 40px rgba(223, 137, 35, .24));
+-}
+-
+-.lena-orbit.is-focus .lena-house::after {
+-  opacity: .82;
+-  box-shadow:
+-    0 0 10px rgba(255,245,220,.94),
+-    0 0 27px rgba(255,191,67,.68),
+-    0 0 60px rgba(255,141,16,.26);
+-}
++.lena-world-core::before { display: none !important; }
+ 
++/* World core state animations */
+ .lena-world:has(.state-live.is-selected) .lena-world-core::after {
+   animation: lena-sacred-ack-live .78s cubic-bezier(.18,.72,.2,1), lena-sacred-eye-breathe 5.8s ease-in-out .78s infinite alternate !important;
+ }
+@@ -121,59 +194,48 @@
+   animation: lena-sacred-ack-forming 1.05s cubic-bezier(.18,.72,.2,1), lena-sacred-eye-breathe 5.8s ease-in-out 1.05s infinite alternate !important;
+ }
+ 
+-/* Core Intelligence changes the existing Sacred Core halo only. The approved
+-   artwork remains the identity; state adds a restrained, data-owned cue. */
+-.lena-world-core.core-aware {
+-  filter:
+-    drop-shadow(0 0 14px rgba(231, 176, 73, .34))
+-    drop-shadow(0 0 32px rgba(223, 137, 35, .18));
+-}
++/* Core Intelligence states */
++.lena-world-core.core-aware { filter: drop-shadow(0 0 14px rgba(231, 176, 73, .34)) !important; }
+ .lena-world-core.core-focused,
+-.lena-world-core.core-guiding {
+-  filter:
+-    drop-shadow(0 0 14px rgba(130, 161, 255, .42))
+-    drop-shadow(0 0 34px rgba(223, 137, 35, .18));
+-}
+-.lena-world-core.core-transitioning {
+-  filter:
+-    drop-shadow(0 0 16px rgba(81, 225, 255, .44))
+-    drop-shadow(0 0 36px rgba(223, 137, 35, .18));
+-}
+-.lena-world-core.core-attention {
+-  filter:
+-    drop-shadow(0 0 16px rgba(255, 168, 92, .5))
+-    drop-shadow(0 0 38px rgba(223, 137, 35, .2));
+-}
+-.lena-world-core.core-critical {
+-  filter:
+-    drop-shadow(0 0 18px rgba(255, 92, 110, .58))
+-    drop-shadow(0 0 42px rgba(223, 137, 35, .22));
+-}
++.lena-world-core.core-guiding { filter: drop-shadow(0 0 14px rgba(130, 161, 255, .42)) !important; }
++.lena-world-core.core-transitioning { filter: drop-shadow(0 0 16px rgba(81, 225, 255, .44)) !important; }
++.lena-world-core.core-attention { filter: drop-shadow(0 0 16px rgba(255, 168, 92, .5)) !important; }
++.lena-world-core.core-critical { filter: drop-shadow(0 0 18px rgba(255, 92, 110, .58)) !important; }
+ 
+-.lena-public.lena-gateway-quiet .lena-house {
+-  filter:
+-    drop-shadow(0 0 17px rgba(255, 220, 145, .38))
+-    drop-shadow(0 0 48px rgba(223, 137, 35, .27));
++/* ─── System entity logos ─── */
++.lena-world-entity-figure {
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  position: relative;
+ }
+ 
+-.lena-public.lena-gateway-resolve .lena-house {
+-  animation: lena-sacred-gateway-core .42s cubic-bezier(.16,.84,.28,1) both !important;
++.lena-world-entity-figure svg {
++  position: relative;
++  z-index: 2;
++  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+ }
+ 
+-.lena-public.lena-gateway-resolve .lena-house::after {
+-  animation: lena-sacred-awakening .42s cubic-bezier(.16,.84,.28,1) both !important;
++.lena-world-entity-logo {
++  width: 36px;
++  height: 36px;
++  border-radius: 50%;
++  object-fit: contain;
++  background: rgba(255, 255, 255, 0.08);
++  padding: 4px;
++  border: 1px solid var(--lena-line);
+ }
+ 
++/* No watermarks in deeper spaces */
++.lena-inner-origin,
++.lena-chamber-origin { background-image: none !important; }
++
++/* ─── Animations ─── */
+ @keyframes lena-sacred-eye-breathe {
+   from { opacity: .38; transform: translate(-50%, -50%) scale(.92); }
+   to { opacity: .66; transform: translate(-50%, -50%) scale(1.08); }
+ }
+ 
+-@keyframes lena-sacred-blink {
+-  0%, 91.7%, 95.5%, 100% { opacity: 0; transform: translate(-50%, -50%) scaleY(0); }
+-  93.05%, 94.05% { opacity: .94; transform: translate(-50%, -50%) scaleY(1); }
+-}
+-
+ @keyframes lena-sacred-ack-live {
+   0% { opacity: .48; transform: translate(-50%,-50%) scale(.94); }
+   38% { opacity: .94; transform: translate(-50%,-50%) scale(1.26); }
+@@ -194,58 +256,30 @@
+   100% { opacity: .58; transform: translate(-50%,-50%) scale(1); }
+ }
+ 
+-@keyframes lena-sacred-awakening {
+-  0% { opacity: .54; transform: translate(-50%,-50%) scale(1); }
+-  56% {
+-    opacity: .96;
+-    transform: translate(-50%,-50%) scale(1.56);
+-    box-shadow:
+-      0 0 12px rgba(255,245,220,.96),
+-      0 0 34px rgba(255,187,61,.82),
+-      0 0 76px rgba(255,143,16,.38);
+-  }
+-  100% { opacity: .76; transform: translate(-50%,-50%) scale(1.20); }
+-}
+-
+ @keyframes lena-sacred-gateway-core {
+   from { scale: 1; }
+   to { scale: 1.04; }
+ }
+ 
++/* ─── Responsive ─── */
+ @media (max-width: 900px) {
+-  .lena-house {
+-    width: 224px !important;
+-    height: 224px !important;
+-  }
+-  .lena-world-core {
+-    width: 184px !important;
+-    height: 184px !important;
+-  }
++  .lena-house { width: 224px !important; height: 224px !important; }
++  .lena-house-logo { width: 48px; height: 48px; }
++  .lena-house strong { font-size: 18px !important; }
++  .lena-world-core { width: 184px !important; height: 184px !important; }
+ }
+ 
+ @media (max-width: 640px) {
+-  .lena-house {
+-    width: 210px !important;
+-    height: 210px !important;
+-  }
++  .lena-house { width: 200px !important; height: 200px !important; }
++  .lena-house-logo { width: 42px; height: 42px; }
++  .lena-house strong { font-size: 16px !important; }
++  .lena-house small { font-size: 9px !important; }
+ }
+ 
++/* ─── Reduced motion ─── */
+ @media (prefers-reduced-motion: reduce) {
+-  .lena-house::before,
+-  .lena-world-core::before {
+-    animation: none !important;
+-    opacity: 0 !important;
+-    transform: translate(-50%, -50%) scaleY(0) !important;
+-  }
+-  .lena-house::after,
+-  .lena-world-core::after,
++  .lena-house,
++  .lena-world-core::after { animation: none !important; }
+   .lena-world:has(.is-selected) .lena-world-core::after,
+-  .lena-public.lena-gateway-resolve .lena-house::after {
+-    animation: none !important;
+-    opacity: .52 !important;
+-    transform: translate(-50%, -50%) !important;
+-  }
+-  .lena-public.lena-gateway-resolve .lena-house {
+-    animation: none !important;
+-  }
++  .lena-public.lena-gateway-resolve .lena-house { animation: none !important; }
+ }
+diff --git a/artifacts/lena/src/styles/screenshots.css b/artifacts/lena/src/styles/screenshots.css
+new file mode 100644
+index 0000000..793fe16
+--- /dev/null
++++ b/artifacts/lena/src/styles/screenshots.css
+@@ -0,0 +1,116 @@
++/* ==========================================================================
++   LENA Screenshots — Case study gallery styles
++============================================================================ */
++
++/* ─── Desktop screenshots grid ─── */
++.lena-screenshot-grid {
++  display: grid;
++  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
++  gap: 1.5rem;
++  margin-top: 2rem;
++}
++
++.lena-screenshot {
++  margin: 0;
++  border-radius: 16px;
++  overflow: hidden;
++  border: 1px solid var(--lena-line);
++  background: var(--lena-card);
++  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
++}
++
++.lena-screenshot:hover {
++  transform: translateY(-4px);
++  border-color: var(--lena-line-strong);
++  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
++}
++
++.lena-screenshot img {
++  display: block;
++  width: 100%;
++  height: auto;
++  aspect-ratio: 16 / 10;
++  object-fit: cover;
++  object-position: top left;
++}
++
++.lena-screenshot figcaption {
++  padding: 0.75rem 1rem;
++  font-size: 0.82rem;
++  font-weight: 600;
++  color: var(--lena-muted);
++  text-align: center;
++  border-top: 1px solid var(--lena-line);
++}
++
++/* ─── Mobile screenshots ─── */
++.lena-screenshot-mobile {
++  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
++  max-width: 800px;
++  margin-inline: auto;
++  margin-top: 2rem;
++}
++
++.lena-screenshot-mobile .lena-screenshot img {
++  aspect-ratio: 9 / 16;
++  object-fit: cover;
++  object-position: top center;
++}
++
++/* ─── Features list ─── */
++.lena-features-list {
++  display: grid;
++  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
++  gap: 1rem;
++  margin-top: 2rem;
++  padding: 0;
++  list-style: none;
++}
++
++.lena-features-list li {
++  display: flex;
++  align-items: flex-start;
++  gap: 0.75rem;
++  padding: 1.25rem;
++  border-radius: 14px;
++  border: 1px solid var(--lena-line);
++  background: var(--lena-card);
++  transition: border-color 0.2s ease;
++}
++
++.lena-features-list li:hover {
++  border-color: var(--lena-line-strong);
++}
++
++.lena-features-list li svg {
++  flex-shrink: 0;
++  color: var(--lena-accent);
++  margin-top: 2px;
++}
++
++.lena-features-list li span {
++  font-size: 0.95rem;
++  line-height: 1.6;
++  color: var(--lena-text);
++}
++
++/* ─── Responsive ─── */
++@media (max-width: 768px) {
++  .lena-screenshot-grid {
++    grid-template-columns: 1fr;
++  }
++
++  .lena-screenshot-mobile {
++    grid-template-columns: repeat(2, 1fr);
++  }
++
++  .lena-features-list {
++    grid-template-columns: 1fr;
++  }
++}
++
++@media (max-width: 480px) {
++  .lena-screenshot-mobile {
++    grid-template-columns: 1fr;
++  }
++}
+diff --git a/artifacts/lena/src/styles/tokens.css b/artifacts/lena/src/styles/tokens.css
+index 42a79cf..e2fc41e 100644
+--- a/artifacts/lena/src/styles/tokens.css
++++ b/artifacts/lena/src/styles/tokens.css
+@@ -1 +1,42 @@
+-:root,.dark{--lena-bg:#030612;--lena-card:rgba(10,18,42,.62);--lena-card-strong:rgba(10,18,42,.84);--lena-text:#f5f8ff;--lena-muted:#a8b5d0;--lena-line:rgba(167,188,255,.17);--lena-line-strong:rgba(167,188,255,.34);--lena-accent:#82a1ff;--lena-cyan:#51e1ff;--lena-glass:rgba(4,10,27,.72);--lena-focus:#9cb5ff;color-scheme:dark}.light{--lena-bg:#f4f7ff;--lena-card:rgba(255,255,255,.76);--lena-card-strong:rgba(255,255,255,.94);--lena-text:#0a1430;--lena-muted:#596987;--lena-line:rgba(38,72,152,.15);--lena-line-strong:rgba(38,72,152,.3);--lena-accent:#315efb;--lena-cyan:#087ea4;--lena-glass:rgba(250,252,255,.86);--lena-focus:#244ee9;color-scheme:light}
++:root,
++.dark {
++  --lena-bg: #030612;
++  --lena-card: rgba(10, 18, 42, 0.62);
++  --lena-card-strong: rgba(10, 18, 42, 0.84);
++  --lena-text: #f5f8ff;
++  --lena-muted: #a8b5d0;
++  --lena-line: rgba(167, 188, 255, 0.17);
++  --lena-line-strong: rgba(167, 188, 255, 0.34);
++  --lena-accent: #82a1ff;
++  --lena-accent-strong: #a8c0ff;
++  --lena-cyan: #51e1ff;
++  --lena-gold: #ffc76a;
++  --lena-gold-strong: #ffe0a0;
++  --lena-glass: rgba(4, 10, 27, 0.72);
++  --lena-focus: #9cb5ff;
++  --lena-gradient-hero: linear-gradient(90deg, #72a5ff, #9d7cff 48%, #ff83c3);
++  --lena-gradient-gold: linear-gradient(135deg, #ffc76a, #ff9d4a);
++  --lena-gradient-primary: linear-gradient(135deg, #416fff, #724dff);
++  color-scheme: dark;
++}
++
++.light {
++  --lena-bg: #f4f7ff;
++  --lena-card: rgba(255, 255, 255, 0.76);
++  --lena-card-strong: rgba(255, 255, 255, 0.94);
++  --lena-text: #0a1430;
++  --lena-muted: #596987;
++  --lena-line: rgba(38, 72, 152, 0.15);
++  --lena-line-strong: rgba(38, 72, 152, 0.3);
++  --lena-accent: #315efb;
++  --lena-accent-strong: #1e4cd6;
++  --lena-cyan: #087ea4;
++  --lena-gold: #d98a1a;
++  --lena-gold-strong: #b87312;
++  --lena-glass: rgba(250, 252, 255, 0.86);
++  --lena-focus: #244ee9;
++  --lena-gradient-hero: linear-gradient(90deg, #2452d8, #6b3cc7 48%, #c42f8a);
++  --lena-gradient-gold: linear-gradient(135deg, #d98a1a, #b87312);
++  --lena-gradient-primary: linear-gradient(135deg, #315efb, #6b3cc7);
++  color-scheme: light;
++}
+diff --git a/artifacts/lena/src/styles/world-chamber.css b/artifacts/lena/src/styles/world-chamber.css
+index a503845..719c0e9 100644
+--- a/artifacts/lena/src/styles/world-chamber.css
++++ b/artifacts/lena/src/styles/world-chamber.css
+@@ -150,7 +150,7 @@
+   width: 72%;
+   height: 72%;
+   border-radius: 50%;
+-  background: url("../assets/lena-sacred-core.webp") center / contain no-repeat;
++  background: none;
+   opacity: .09;
+   transform: translate(-50%, -50%);
+   filter: saturate(.8);
+diff --git a/artifacts/lena/src/styles/world-inner.css b/artifacts/lena/src/styles/world-inner.css
+index 49c9f14..d4f943d 100644
+--- a/artifacts/lena/src/styles/world-inner.css
++++ b/artifacts/lena/src/styles/world-inner.css
+@@ -57,7 +57,7 @@
+   width: 74%;
+   height: 74%;
+   border-radius: 50%;
+-  background: url("../assets/lena-sacred-core.webp") center / contain no-repeat;
++  background: none;
+   opacity: .052;
+   transform: translate(-50%, -50%);
+   filter: saturate(.78);
+diff --git a/artifacts/lena/src/styles/world-pages.css b/artifacts/lena/src/styles/world-pages.css
+new file mode 100644
+index 0000000..5549853
+--- /dev/null
++++ b/artifacts/lena/src/styles/world-pages.css
+@@ -0,0 +1,358 @@
++/* ==========================================================================
++   LENA World Pages — Enhanced styles
++   World · WorldSystem · Atlas · AiSolutions
++============================================================================ */
++
++/* ─── World page entrance links ─── */
++.lena-world-entries {
++  display: flex;
++  gap: 1rem;
++  margin-top: 2rem;
++  flex-wrap: wrap;
++}
++
++.lena-world-command-entry,
++.lena-world-atlas-entry {
++  display: inline-flex;
++  align-items: center;
++  gap: 0.5rem;
++  padding: 0.75rem 1.5rem;
++  border-radius: 13px;
++  font-size: 0.88rem;
++  font-weight: 700;
++  text-decoration: none;
++  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
++}
++
++.lena-world-command-entry {
++  border: 1px solid rgba(181, 201, 255, 0.25);
++  background: var(--lena-gradient-primary);
++  color: #fff;
++  box-shadow: 0 8px 24px rgba(66, 91, 255, 0.2);
++}
++
++.lena-world-atlas-entry {
++  border: 1px solid var(--lena-line);
++  background: rgba(255, 255, 255, 0.035);
++  color: var(--lena-text);
++}
++
++.lena-world-command-entry:hover,
++.lena-world-atlas-entry:hover {
++  transform: translateY(-2px);
++  border-color: var(--lena-line-strong);
++}
++
++/* ─── World entities list ─── */
++.lena-world-entities-list {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 0.5rem;
++  margin-top: 1.5rem;
++  padding: 0;
++  list-style: none;
++}
++
++.lena-world-list-link {
++  display: inline-flex;
++  align-items: center;
++  gap: 0.35rem;
++  padding: 0.5rem 1rem;
++  border-radius: 99px;
++  border: 1px solid var(--lena-line);
++  background: rgba(79, 108, 255, 0.06);
++  color: var(--lena-muted);
++  font-size: 0.82rem;
++  font-weight: 600;
++  text-decoration: none;
++  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
++}
++
++.lena-world-list-link:hover,
++.lena-world-list-link.is-remembered {
++  border-color: var(--lena-accent);
++  color: var(--lena-accent);
++  background: rgba(79, 108, 255, 0.12);
++}
++
++/* ─── World back button ─── */
++.lena-world-back {
++  display: inline-flex;
++  align-items: center;
++  gap: 0.5rem;
++  margin-top: 2rem;
++  padding: 0.5rem 1rem;
++  border-radius: 12px;
++  border: 1px solid var(--lena-line);
++  background: transparent;
++  color: var(--lena-muted);
++  font-size: 0.85rem;
++  font-weight: 600;
++  cursor: pointer;
++  transition: border-color 0.2s ease, color 0.2s ease;
++}
++
++.lena-world-back:hover {
++  border-color: var(--lena-line-strong);
++  color: var(--lena-text);
++}
++
++/* ─── System chamber polish ─── */
++.lena-chamber-hero {
++  display: grid;
++  grid-template-columns: 1fr 1fr;
++  gap: 2rem;
++  align-items: start;
++  margin-top: 2rem;
++}
++
++.lena-chamber-copy h1 {
++  font-size: clamp(1.8rem, 4vw, 2.8rem);
++  font-weight: 600;
++  line-height: 1.2;
++  letter-spacing: -0.02em;
++  margin-top: 0.75rem;
++}
++
++.lena-chamber-industry {
++  font-size: 0.85rem;
++  font-weight: 700;
++  letter-spacing: 0.04em;
++  text-transform: uppercase;
++  color: var(--lena-muted);
++  margin-top: 0.5rem;
++}
++
++.lena-chamber-tagline {
++  font-size: 1rem;
++  color: var(--lena-gold);
++  font-weight: 600;
++  margin-top: 0.75rem;
++}
++
++.lena-chamber-signals {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 0.5rem;
++  margin-top: 1.5rem;
++}
++
++.lena-chamber-signal {
++  display: inline-flex;
++  align-items: center;
++  gap: 0.35rem;
++  padding: 0.35rem 0.75rem;
++  border-radius: 99px;
++  border: 1px solid var(--lena-line);
++  font-size: 0.75rem;
++  font-weight: 600;
++  color: var(--lena-muted);
++}
++
++.lena-chamber-signal i {
++  width: 6px;
++  height: 6px;
++  border-radius: 50%;
++  background: var(--lena-accent);
++  box-shadow: 0 0 6px rgba(130, 161, 255, 0.5);
++}
++
++/* ─── Chamber truth panels ─── */
++.lena-chamber-truth {
++  display: grid;
++  grid-template-columns: repeat(2, 1fr);
++  gap: 1.25rem;
++  margin-top: 3rem;
++}
++
++.lena-chamber-panel {
++  padding: 1.5rem;
++  border-radius: 16px;
++  border: 1px solid var(--lena-line);
++  background: linear-gradient(145deg, var(--lena-card), rgba(7, 14, 34, 0.5));
++}
++
++.lena-chamber-panel small {
++  display: block;
++  font-size: 0.68rem;
++  font-weight: 800;
++  letter-spacing: 0.1em;
++  text-transform: uppercase;
++  color: var(--lena-accent);
++  margin-bottom: 0.75rem;
++}
++
++.lena-chamber-panel h2 {
++  font-size: 1.1rem;
++  font-weight: 600;
++  line-height: 1.6;
++}
++
++.lena-chamber-panel p {
++  font-size: 0.88rem;
++  line-height: 1.8;
++  color: var(--lena-muted);
++}
++
++.lena-chamber-panel ul {
++  list-style: none;
++  padding: 0;
++  margin: 0;
++  display: grid;
++  gap: 0.5rem;
++}
++
++.lena-chamber-panel li {
++  font-size: 0.88rem;
++  line-height: 1.6;
++  color: var(--lena-muted);
++  padding-left: 1rem;
++  position: relative;
++}
++
++.lena-chamber-panel li::before {
++  content: "";
++  position: absolute;
++  left: 0;
++  top: 0.5em;
++  width: 5px;
++  height: 5px;
++  border-radius: 50%;
++  background: var(--lena-accent);
++}
++
++/* RTL */
++[dir="rtl"] .lena-chamber-panel li {
++  padding-left: 0;
++  padding-right: 1rem;
++}
++
++[dir="rtl"] .lena-chamber-panel li::before {
++  left: auto;
++  right: 0;
++}
++
++/* ─── Chamber roots section ─── */
++.lena-chamber-roots {
++  margin-top: 3rem;
++  padding: 2rem;
++  border-radius: 20px;
++  border: 1px solid var(--lena-line);
++  background: linear-gradient(145deg, var(--lena-card), rgba(7, 14, 34, 0.4));
++}
++
++.lena-chamber-roots header small {
++  display: block;
++  font-size: 0.68rem;
++  font-weight: 800;
++  letter-spacing: 0.1em;
++  text-transform: uppercase;
++  color: var(--lena-accent);
++  margin-bottom: 0.5rem;
++}
++
++.lena-chamber-roots header h2 {
++  font-size: 1.3rem;
++  font-weight: 600;
++  line-height: 1.4;
++  margin-bottom: 1.5rem;
++}
++
++.lena-chamber-roots ul {
++  display: grid;
++  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
++  gap: 1.25rem;
++  list-style: none;
++  padding: 0;
++  margin: 0;
++}
++
++.lena-chamber-roots li strong {
++  display: block;
++  font-size: 0.95rem;
++  font-weight: 700;
++  margin-bottom: 0.35rem;
++}
++
++.lena-chamber-roots li p {
++  font-size: 0.82rem;
++  line-height: 1.7;
++  color: var(--lena-muted);
++}
++
++.lena-chamber-roots-note {
++  margin-top: 1.5rem;
++  font-size: 0.82rem;
++  color: var(--lena-muted);
++  font-style: italic;
++  opacity: 0.7;
++}
++
++/* ─── Chamber actions ─── */
++.lena-chamber-actions {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 1rem;
++  margin-top: 3rem;
++  padding-top: 2rem;
++  border-top: 1px solid var(--lena-line);
++}
++
++/* ─── Chamber boundary ─── */
++.lena-chamber-boundary {
++  margin-top: 2rem;
++  padding: 1.5rem;
++  border-radius: 16px;
++  border: 1px dashed var(--lena-line-strong);
++  background: rgba(79, 108, 255, 0.03);
++}
++
++.lena-chamber-boundary small {
++  display: block;
++  font-size: 0.68rem;
++  font-weight: 800;
++  letter-spacing: 0.1em;
++  text-transform: uppercase;
++  color: var(--lena-accent);
++  margin-bottom: 0.75rem;
++}
++
++.lena-chamber-boundary p {
++  font-size: 0.85rem;
++  line-height: 1.7;
++  color: var(--lena-muted);
++}
++
++.lena-chamber-boundary span {
++  display: block;
++  margin-top: 0.75rem;
++  font-size: 0.78rem;
++  color: var(--lena-muted);
++  opacity: 0.6;
++  font-style: italic;
++}
++
++/* ─── Responsive ─── */
++@media (max-width: 768px) {
++  .lena-chamber-hero {
++    grid-template-columns: 1fr;
++  }
++
++  .lena-chamber-truth {
++    grid-template-columns: 1fr;
++  }
++
++  .lena-chamber-roots ul {
++    grid-template-columns: 1fr;
++  }
++
++  .lena-world-entries {
++    flex-direction: column;
++  }
++
++  .lena-world-command-entry,
++  .lena-world-atlas-entry {
++    width: 100%;
++    justify-content: center;
++  }
++}
+diff --git a/artifacts/lena/src/types/router.ts b/artifacts/lena/src/types/router.ts
+index 9fc2440..3de361a 100644
+--- a/artifacts/lena/src/types/router.ts
++++ b/artifacts/lena/src/types/router.ts
+@@ -1 +1,5 @@
++/**
++ * Re-export the tRPC router type for client-side type safety.
++ * This enables end-to-end type checking between server and client.
++ */
+ export type { AppRouter } from "../../../api-server/src/trpc/router";
