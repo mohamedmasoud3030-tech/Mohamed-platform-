@@ -6,6 +6,7 @@ import { usePreferences } from "@/providers/preferences";
 import { track, trackOnce } from "@/lib/analytics";
 import { SITE_CONFIG } from "@/config/site";
 import { HELP_ARTICLES } from "@/content/help";
+import { greetingAudioUrl } from "./greeting-audio";
 
 /**
  * LENA Assistant — the visitor help bot.
@@ -73,6 +74,25 @@ function greetingTime(copy: (typeof COPY)["ar" | "en"]): string {
 const TEASER_DELAY_MS = 2_600;
 const TEASER_SESSION_KEY = "lena-digital-house.assistant-teaser";
 
+/** Spoken welcome: also once per session, at the same moment as the teaser. */
+const GREETING_SESSION_KEY = "lena-digital-house.assistant-greeting";
+
+function sessionFlagged(key: string): boolean {
+  try {
+    return sessionStorage.getItem(key) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function setSessionFlag(key: string) {
+  try {
+    sessionStorage.setItem(key, "1");
+  } catch {
+    /* storage unavailable — the greeting may replay on the next visit */
+  }
+}
+
 /** Curated starter questions — the ones the help page organises its answers around. */
 const SUGGESTED_IDS = ["how-to-start", "pricing", "response-time", "languages"] as const;
 
@@ -90,16 +110,76 @@ export default function LenaAssistant() {
   const [open, setOpen] = useState(false);
   const [teaserVisible, setTeaserVisible] = useState(false);
 
-  // Proactive welcome: a short, dismissible greeting a few seconds after
-  // arrival — once per browser session, never while the panel is open.
+  // Spoken welcome: the assistant greets the visitor out loud as soon as the
+  // browser allows. Autoplay policies block sound before the visitor's first
+  // interaction, so a refused attempt arms one-shot fallback listeners — the
+  // greeting then plays on the visitor's very first tap or key press. Either
+  // way it happens at most once per session.
   useEffect(() => {
-    let shown = false;
-    try {
-      shown = sessionStorage.getItem(TEASER_SESSION_KEY) === "1";
-    } catch {
-      shown = false;
-    }
-    if (shown) return;
+    if (typeof window.Audio !== "function") return;
+    if (sessionFlagged(GREETING_SESSION_KEY)) return;
+
+    let cancelled = false;
+    let audio: HTMLAudioElement | null = null;
+    let played = false;
+    let blocked = false;
+
+    const removeInteractionListeners = () => {
+      window.removeEventListener("pointerdown", onFirstInteraction);
+      window.removeEventListener("keydown", onFirstInteraction);
+    };
+
+    const play = () => {
+      if (cancelled || played || sessionFlagged(GREETING_SESSION_KEY)) return;
+      audio ??= new Audio(greetingAudioUrl(locale));
+      const attempt = audio.play();
+      if (!attempt) {
+        blocked = true;
+        return;
+      }
+      attempt.then(
+        () => {
+          if (cancelled) {
+            audio?.pause();
+            return;
+          }
+          played = true;
+          removeInteractionListeners();
+          setSessionFlag(GREETING_SESSION_KEY);
+          track("assistant_greeting_played", { locale, outcome: "success" });
+        },
+        () => {
+          blocked = true;
+        },
+      );
+    };
+
+    const onFirstInteraction = () => {
+      if (!blocked) return;
+      blocked = false;
+      play();
+    };
+
+    const timer = setTimeout(() => {
+      if (cancelled) return;
+      play();
+      window.addEventListener("pointerdown", onFirstInteraction);
+      window.addEventListener("keydown", onFirstInteraction);
+    }, TEASER_DELAY_MS);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+      removeInteractionListeners();
+      audio?.pause();
+    };
+  }, [locale]);
+
+  // Proactive welcome bubble: a short, dismissible greeting at the same
+  // moment as the spoken one — once per browser session, never while the
+  // panel is open.
+  useEffect(() => {
+    if (sessionFlagged(TEASER_SESSION_KEY)) return;
     const timer = setTimeout(() => {
       setTeaserVisible(true);
       trackOnce("assistant_teaser_shown", "assistant_teaser_shown", { locale });
@@ -109,11 +189,7 @@ export default function LenaAssistant() {
 
   function dismissTeaser() {
     setTeaserVisible(false);
-    try {
-      sessionStorage.setItem(TEASER_SESSION_KEY, "1");
-    } catch {
-      /* storage unavailable — the teaser simply may reappear next render */
-    }
+    setSessionFlag(TEASER_SESSION_KEY);
   }
 
   function openPanel() {

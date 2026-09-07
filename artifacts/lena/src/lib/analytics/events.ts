@@ -25,6 +25,7 @@ export const ANALYTICS_EVENTS = [
   "assistant_opened", // the help bot panel was opened
   "assistant_asked", // a question was sent to the help bot
   "assistant_teaser_shown", // the proactive welcome bubble reached the visitor
+  "assistant_greeting_played", // the spoken welcome actually reached the visitor's ears
   "app_error_shown", // crash boundary reached
 ] as const;
 
