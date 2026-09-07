@@ -28,9 +28,22 @@ const ALLOWED_HOSTS = [
   "www.sitemaps.org", // XML namespace, never requested
   "www.w3.org", // XML namespace, never requested
   "openapi.vercel.sh", // JSON schema reference in vercel.json
+  "generativelanguage.googleapis.com", // Gemini API — LENA Assistant grounding, server-side only (AI_FEATURE_SYSTEM.md §10)
 ];
 
-/** No AI provider is approved for use. Adoption requires owner approval — see AI_FEATURE_SYSTEM.md §3. */
+/**
+ * AI endpoints declared by an owner-approved decision in AI_FEATURE_SYSTEM.md.
+ * Detection still happens; a match on a declared endpoint passes, and the
+ * declaration must exist in the same change that introduces the call.
+ */
+const DECLARED_AI_ENDPOINTS = [
+  {
+    host: "generativelanguage.googleapis.com",
+    decision: "AI_FEATURE_SYSTEM.md §10 — LENA Assistant (owner-approved 2026-09-07, server-side, deterministic fallback)",
+  },
+];
+
+/** No AI provider SDK is approved. The declared endpoints above are called with plain fetch through one adapter. */
 const AI_PACKAGE_PATTERN =
   /^(openai|anthropic|@anthropic-ai\/|@google\/generative-ai|@google\/genai|@mistralai\/|cohere-ai|replicate|langchain|@langchain\/|llamaindex|ollama|groq-sdk|@huggingface\/|ai)$/;
 
@@ -87,7 +100,10 @@ for (const dir of SOURCE_DIRS) {
 
     const endpoint = AI_ENDPOINT_PATTERN.exec(source);
     if (endpoint) {
-      problems.push(`${relative}: calls the model endpoint "${endpoint[0]}" — undeclared AI usage.`);
+      const declared = DECLARED_AI_ENDPOINTS.find((entry) => endpoint[0].toLowerCase().includes(entry.host));
+      if (!declared) {
+        problems.push(`${relative}: calls the model endpoint "${endpoint[0]}" — undeclared AI usage.`);
+      }
     }
 
     for (const match of source.matchAll(/https?:\/\/([a-z0-9.-]+)/gi)) {

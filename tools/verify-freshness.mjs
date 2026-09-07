@@ -11,7 +11,8 @@ import assert from "node:assert/strict";
 const R = `${ROOT}`;
 const read = (p) => readFileSync(`${R}/${p}`, "utf8");
 
-const help = read("artifacts/lena/src/content/help.ts");
+// The canonical help authority is the shared content package; the lena file re-exports it.
+const help = read("lib/content/src/index.ts");
 const app = read("artifacts/lena/src/App.tsx");
 const storage = read("artifacts/api-server/src/lib/project-media-storage.ts");
 const inquiries = read("artifacts/api-server/src/trpc/routers/inquiries.ts");

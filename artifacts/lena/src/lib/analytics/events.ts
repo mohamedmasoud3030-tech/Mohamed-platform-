@@ -22,6 +22,8 @@ export const ANALYTICS_EVENTS = [
   "inquiry_draft_restored", // abandoned progress actually recovered
   "language_switched", // was the language we chose for them wrong?
   "help_searched", // what people cannot find
+  "assistant_opened", // the help bot panel was opened
+  "assistant_asked", // a question was sent to the help bot
   "app_error_shown", // crash boundary reached
 ] as const;
 

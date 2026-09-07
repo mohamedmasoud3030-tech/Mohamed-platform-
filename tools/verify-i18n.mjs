@@ -108,7 +108,8 @@ check("no physical left/right spacing in the stylesheets we own", () => {
 });
 
 console.log("\n== both languages expose the same set of help articles ==");
-const help = readFileSync(resolve(SRC, "content/help.ts"), "utf8");
+// The canonical help authority is the shared content package; the lena file re-exports it.
+const help = readFileSync(resolve(ROOT, "lib/content/src/index.ts"), "utf8");
 check("every article answers in both languages", () => {
   const questions = (help.match(/question:\s*\{/g) ?? []).length;
   const answers = (help.match(/answer:\s*\{/g) ?? []).length;

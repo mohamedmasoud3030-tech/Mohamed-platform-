@@ -168,6 +168,9 @@ importers:
       '@workspace/api-zod':
         specifier: workspace:*
         version: link:../../lib/api-zod
+      '@workspace/content':
+        specifier: workspace:*
+        version: link:../../lib/content
       '@workspace/db':
         specifier: workspace:*
         version: link:../../lib/db
@@ -235,6 +238,9 @@ importers:
       tsx:
         specifier: 'catalog:'
         version: 4.21.0
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.7(@types/node@25.3.5)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.31.1)(tsx@4.21.0)
 
   artifacts/lena:
     dependencies:
@@ -244,6 +250,9 @@ importers:
       '@trpc/react-query':
         specifier: ^11.17.0
         version: 11.17.0(@tanstack/react-query@5.90.21(react@19.1.0))(@trpc/client@11.17.0(@trpc/server@11.17.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.17.0(typescript@5.9.3))(react@19.1.0)(typescript@5.9.3)
+      '@workspace/content':
+        specifier: workspace:*
+        version: link:../../lib/content
       react-router:
         specifier: ^7.14.2
         version: 7.14.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -314,6 +323,8 @@ importers:
       zod:
         specifier: 'catalog:'
         version: 3.25.76
+
+  lib/content: {}
 
   lib/db:
     dependencies:

@@ -16,8 +16,11 @@ import { getBasePath, stripBase, withBase } from "@/lib/base-path";
 
 export { setBasePathForTests, getBasePath, withBase, stripBase } from "@/lib/base-path";
 
-export const SUPPORTED_LOCALES = ["ar", "en"] as const;
-export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
+// The locale vocabulary is shared content authority (@workspace/content) because
+// server-side consumers (LENA Assistant) need the same AR/EN union.
+import { SUPPORTED_LOCALES, type SupportedLocale } from "@workspace/content";
+
+export { SUPPORTED_LOCALES, type SupportedLocale } from "@workspace/content";
 
 export const DEFAULT_LOCALE: SupportedLocale = "ar";
 /** Shown to visitors whose device language is neither Arabic nor English. */
