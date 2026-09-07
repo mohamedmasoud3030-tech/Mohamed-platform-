@@ -5,6 +5,7 @@
  */
 
 import type { AppLocale } from "@/providers/preferences";
+import { absoluteUrl } from "@/lib/seo";
 
 /**
  * Organization structured data (JSON-LD)
@@ -15,8 +16,8 @@ export function organizationJsonLd(locale: AppLocale) {
     "@type": "Organization",
     name: "LENA Digital House",
     alternateName: locale === "ar" ? "بيت لينا الرقمي" : "LENA Digital House",
-    url: "https://lena.house",
-    logo: "https://lena.house/lena-og.jpg",
+    url: absoluteUrl("/"),
+    logo: absoluteUrl("/lena-og.jpg"),
     description:
       locale === "ar"
         ? "أنظمة تشغيل حقيقية لست صناعات. اتبنت من أرض الواقع، مش من مكتب بعيد."
@@ -78,7 +79,7 @@ export function breadcrumbJsonLd(
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `https://lena.house${item.url}`,
+      item: absoluteUrl(item.url),
     })),
   };
 }
@@ -110,7 +111,7 @@ export function socialMetaTags(
   title: string,
   description: string,
   url: string,
-  image: string = "https://lena.house/lena-og.jpg"
+  image: string = absoluteUrl("/lena-og.jpg")
 ) {
   return {
     "og:title": title,

@@ -314,11 +314,6 @@ export default function DigitalHouseOrbit() {
         </div>
       ))}
       <div className="lena-house">
-        <svg className="lena-house-logo" viewBox="0 0 48 48" aria-hidden="true">
-          <path d="M14 10.5v20.2c0 3.75 3.04 6.8 6.8 6.8H36" />
-          <path d="M14 17.5c7.15 0 12.95 5.8 12.95 12.95" />
-          <circle cx="14" cy="10.5" r="2.5" />
-        </svg>
         <small>LENA</small>
         <strong>
           DIGITAL

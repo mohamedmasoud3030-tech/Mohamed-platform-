@@ -389,10 +389,10 @@ export default function Home() {
             {isAr
               ? isReturning
                 ? "العالم يتذكر مكانك. تابع رحلتك، أو ابدأ من جديد — القرار لك."
-                : "أنظمة تشغيل حقيقية لست صناعات. اتبنت من أرض الواقع، مش من مكتب بعيد. تتكلم مع الباني مباشرة — لا وسطاء."
+                : "عوالم تشغيل حقيقية، بلغة مكانية واحدة. اقترب من النواة، اختر عالمًا، ثم تحرك إلى الداخل."
               : isReturning
                 ? "The world remembers where you were. Continue your journey, or start again — the choice is yours."
-                : "Real operating systems for six industries. Built from the ground, not from a distant office. You talk to the builder directly — no middlemen."}
+                : "Real operating worlds, one spatial language. Approach the core, choose a world, then move inward."}
           </p>
 
           <div className="lena-actions">

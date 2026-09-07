@@ -150,7 +150,7 @@
   width: 72%;
   height: 72%;
   border-radius: 50%;
-  background: none;
+  background: url("../assets/lena-sacred-core.webp") center / contain no-repeat;
   opacity: .09;
   transform: translate(-50%, -50%);
   filter: saturate(.8);
