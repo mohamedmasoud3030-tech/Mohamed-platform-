@@ -404,11 +404,11 @@ export default function Home() {
                 gateway();
               }}
             >
-              {isAr ? "شوف الأنظمة" : "See the systems"}
+              {isAr ? "ادخل العالم" : "Enter the world"}
               <ArrowUpRight size={16} />
             </Link>
-            <Link className="lena-secondary" to="/portfolio">
-              {isAr ? "شوف المشاريع" : "See the work"}
+            <Link className="lena-secondary" to="/world">
+              {isAr ? "شاهد الأنظمة" : "See the systems"}
             </Link>
             {continuation ? (
               <WorldContinuation continuation={continuation} />
